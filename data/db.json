@@ -1,0 +1,7 @@
+{
+  "careers": [
+    { "id": 1, "title": "Senior Software Engineer", "salary": 250000 },
+    { "id": 2, "title": "Staff Software Engineer", "salary": 150000 },
+    { "id": 3, "title": "Junior Software Engineer", "salary": 100000 }
+  ]
+}
