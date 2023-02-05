@@ -45,6 +45,9 @@ export const router = createBrowserRouter([
           {
             path: "",
             element: <Careers />,
+            loader: async () => {
+              return fetch(`http://localhost:4000/careers`);
+            },
           },
         ],
       },
