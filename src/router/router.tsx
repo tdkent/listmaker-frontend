@@ -10,6 +10,9 @@ import FAQ from "../pages/help/FAQ";
 import Contact from "../pages/help/Contact";
 import Home from "../pages/Home";
 import NotFound from "../pages/NotFound";
+import CareerDetails, {
+  careerDetailsLoader,
+} from "../pages/careers/CareerDetails";
 
 export const router = createBrowserRouter([
   {
@@ -48,6 +51,11 @@ export const router = createBrowserRouter([
             loader: async () => {
               return fetch(`http://localhost:4000/careers`);
             },
+          },
+          {
+            path: ":id",
+            element: <CareerDetails />,
+            loader: careerDetailsLoader,
           },
         ],
       },

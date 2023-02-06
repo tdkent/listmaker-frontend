@@ -1,4 +1,4 @@
-import { useLoaderData } from "react-router-dom";
+import { useLoaderData, Link } from "react-router-dom";
 
 interface Career {
   id: number;
@@ -11,14 +11,12 @@ const Careers = () => {
   const careersData: Career[] = data as Career[];
   return (
     <div>
-      {careersData.map((career: Career) => {
-        return (
-          <div>
-            <p>{career.title}</p>
-          </div>
-        );
-      })}
-      <h3>Career List</h3>
+      {careersData.map((career: Career) => (
+        <Link to={`/careers/${career.id}`} key={career.id}>
+          <p>{career.title}</p>
+          <p>Salary: ${career.salary}</p>
+        </Link>
+      ))}
     </div>
   );
 };
