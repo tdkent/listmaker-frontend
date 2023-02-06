@@ -1,4 +1,4 @@
-import { useLoaderData, Link } from "react-router-dom";
+import { useLoaderData, Link, json } from "react-router-dom";
 
 interface Career {
   id: number;

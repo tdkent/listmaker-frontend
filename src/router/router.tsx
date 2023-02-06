@@ -1,4 +1,4 @@
-import { createBrowserRouter } from "react-router-dom";
+import { createBrowserRouter, json } from "react-router-dom";
 
 import HelpLayout from "../layouts/HelpLayout";
 import RootLayout from "../layouts/RootLayout";
@@ -13,6 +13,7 @@ import NotFound from "../pages/NotFound";
 import CareerDetails, {
   careerDetailsLoader,
 } from "../pages/careers/CareerDetails";
+import CareersDetailsError from "../pages/careers/CareersDetailsError";
 
 export const router = createBrowserRouter([
   {
@@ -49,7 +50,17 @@ export const router = createBrowserRouter([
             path: "",
             element: <Careers />,
             loader: async () => {
-              return fetch(`http://localhost:4000/careers`);
+              const response = await fetch("http://localhost:4000/careers");
+              if (!response.ok) {
+                throw json(
+                  {
+                    message:
+                      "There was an error connecting to the remote server. It may be experiencing an outage, or there may be an error with the fetch request.",
+                  },
+                  { status: 404 }
+                );
+              }
+              return response;
             },
           },
           {
@@ -58,6 +69,7 @@ export const router = createBrowserRouter([
             loader: careerDetailsLoader,
           },
         ],
+        errorElement: <CareersDetailsError />,
       },
       {
         path: "*",
