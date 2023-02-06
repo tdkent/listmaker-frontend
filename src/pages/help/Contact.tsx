@@ -1,29 +1,52 @@
+import { Form, redirect, useActionData } from "react-router-dom";
+
+interface ActionData {
+  error?: string;
+}
+
 const Contact = () => {
+  const data = useActionData();
+  const actionData: ActionData = data as ActionData;
+  console.log("actionData: ", actionData);
   return (
     <div>
       <h2>Contact</h2>
-      <p>
-        Lorem ipsum dolor sit amet consectetur adipisicing elit. Mollitia rerum
-        itaque ab repellendus, quisquam, voluptates totam neque voluptas
-        aliquid, perferendis ullam facere odit inventore. Nemo voluptates
-        nesciunt neque mollitia quaerat nobis placeat doloribus? Et,
-        consectetur. Praesentium in dicta quibusdam maiores?
-      </p>
-      <p>
-        Lorem ipsum dolor sit amet consectetur adipisicing elit. Cum rem vel
-        natus aspernatur omnis dignissimos, reprehenderit culpa explicabo earum
-        ex id sint eveniet nulla cumque laborum eaque ducimus aut inventore?
-        Distinctio quas alias nam rerum labore dolorem porro? Ea, ducimus.
-      </p>
-      <p>
-        Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quos quisquam
-        voluptatibus, autem laborum quia necessitatibus iste fugit, maiores
-        eaque, ad totam quibusdam odio officiis nulla. Illum, eligendi vel ab, a
-        consequuntur iste doloremque aliquid omnis aspernatur sunt nobis fugiat
-        aut?
-      </p>
+      <Form method="post" action="/help/contact">
+        <div>
+          <label>
+            <span>Your email:</span>
+            <input type="email" name="email" required />
+          </label>
+        </div>
+        <div>
+          {actionData && actionData.error && <p>{actionData.error}</p>}
+          <label>
+            <span>Your message:</span>
+            <textarea name="message" required></textarea>
+          </label>
+        </div>
+        <button>Submit</button>
+      </Form>
     </div>
   );
 };
 
 export default Contact;
+
+export const contactAction = async ({ request }: any) => {
+  console.log("request: ", request);
+  const data = await request.formData();
+  const submission = {
+    email: data.get("email"),
+    message: data.get("message"),
+  };
+  console.log(submission);
+  // form validation using useActionData hook
+  if (submission.message.length <= 10) {
+    return { error: "Message must be 10 or more characters long." };
+  }
+  // send post request to actual API here, using the submission object data.
+
+  // redirect user
+  return redirect("/");
+};

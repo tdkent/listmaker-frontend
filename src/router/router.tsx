@@ -15,6 +15,8 @@ import CareerDetails, {
 } from "../pages/careers/CareerDetails";
 import CareersDetailsError from "../pages/careers/CareersDetailsError";
 
+import { contactAction } from "../pages/help/Contact";
+
 export const router = createBrowserRouter([
   {
     path: "/",
@@ -39,6 +41,7 @@ export const router = createBrowserRouter([
           {
             path: "contact",
             element: <Contact />,
+            action: contactAction,
           },
         ],
       },
