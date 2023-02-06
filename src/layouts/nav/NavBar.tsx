@@ -5,9 +5,10 @@ const NavBar = (): JSX.Element => {
     <nav>
       <h1>ListMaker</h1>
       <NavLink to="/">Home</NavLink>
+      <NavLink to="new-list">New List</NavLink>
+      <NavLink to="my-lists">My Lists</NavLink>
+      <NavLink to="auth">Auth</NavLink>
       <NavLink to="about">About</NavLink>
-      <NavLink to="help">Help</NavLink>
-      <NavLink to="careers">Careers</NavLink>
     </nav>
   );
 };
