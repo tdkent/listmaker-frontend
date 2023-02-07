@@ -1,5 +1,14 @@
 import { createBrowserRouter } from "react-router-dom";
+
+// layouts
 import RootLayout from "../layouts/RootLayout";
+
+// pages
+import Home from "../pages/Home";
+import Auth from "../pages/auth/Auth";
+
+// callbacks
+import { authUserAction } from "../components/auth/AuthenticateUser";
 
 export const router = createBrowserRouter([
   {
@@ -7,16 +16,13 @@ export const router = createBrowserRouter([
     element: <RootLayout />,
     children: [
       {
-        path: "",
-        element: <div>Home page content</div>,
+        path: "/",
+        element: <Home />,
+        action: authUserAction,
       },
       {
         path: "auth",
-        element: (
-          <div>
-            <p>Authentication form</p>
-          </div>
-        ),
+        element: <Auth />,
       },
       {
         path: "new-list",
