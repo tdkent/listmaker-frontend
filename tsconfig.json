@@ -1,11 +1,7 @@
 {
   "compilerOptions": {
     "target": "es5",
-    "lib": [
-      "dom",
-      "dom.iterable",
-      "esnext"
-    ],
+    "lib": ["dom", "dom.iterable", "esnext"],
     "allowJs": true,
     "skipLibCheck": true,
     "esModuleInterop": true,
@@ -21,6 +17,12 @@
     "jsx": "react-jsx"
   },
   "include": [
-    "src"
+    "src",
+    "practice-files/router_practice.tsx",
+    "practice-files/NotFound.tsx",
+    "practice-files/CareersLayout.tsx",
+    "practice-files/careers",
+    "practice-files/help",
+    "practice-files/About.tsx"
   ]
 }

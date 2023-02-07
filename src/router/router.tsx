@@ -4,8 +4,12 @@ import { createBrowserRouter } from "react-router-dom";
 import RootLayout from "../layouts/RootLayout";
 
 // pages
-import Home from "../pages/Home";
+import Home from "../pages/home/Home";
 import Auth from "../pages/auth/Auth";
+import UserProfile from "../pages/user/UserProfile";
+import UserLists from "../pages/user/UserLists";
+import About from "../pages/about/About";
+import RootError from "../pages/error/RootError";
 
 // callbacks
 import { authUserAction } from "../components/auth/AuthenticateUser";
@@ -14,6 +18,7 @@ export const router = createBrowserRouter([
   {
     path: "/",
     element: <RootLayout />,
+    errorElement: <RootError />,
     children: [
       {
         path: "/",
@@ -25,28 +30,16 @@ export const router = createBrowserRouter([
         element: <Auth />,
       },
       {
-        path: "new-list",
-        element: (
-          <div>
-            <p>New list form</p>
-          </div>
-        ),
+        path: "about",
+        element: <About />,
       },
       {
         path: "my-lists",
-        element: (
-          <div>
-            <p>List of lists</p>
-          </div>
-        ),
+        element: <UserLists />,
       },
       {
-        path: "about",
-        element: (
-          <div>
-            <p>About page</p>
-          </div>
-        ),
+        path: "profile",
+        element: <UserProfile />,
       },
     ],
   },

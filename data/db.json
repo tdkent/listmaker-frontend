@@ -3,5 +3,25 @@
     { "id": 1, "title": "Senior Software Engineer", "salary": 250000 },
     { "id": 2, "title": "Staff Software Engineer", "salary": 150000 },
     { "id": 3, "title": "Junior Software Engineer", "salary": 100000 }
+  ],
+  "users": [
+    {
+      "id": 1,
+      "userEmail": "jean@test.com",
+      "username": "jean",
+      "password": "password"
+    },
+    {
+      "id": 2,
+      "userEmail": "bela@test.com",
+      "username": "bela",
+      "password": "password"
+    },
+    {
+      "id": 3,
+      "userEmail": "samuel@test.com",
+      "username": "samuel",
+      "password": "password"
+    }
   ]
 }
