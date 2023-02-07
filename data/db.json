@@ -1,8 +1,20 @@
 {
   "careers": [
-    { "id": 1, "title": "Senior Software Engineer", "salary": 250000 },
-    { "id": 2, "title": "Staff Software Engineer", "salary": 150000 },
-    { "id": 3, "title": "Junior Software Engineer", "salary": 100000 }
+    {
+      "id": 1,
+      "title": "Senior Software Engineer",
+      "salary": 250000
+    },
+    {
+      "id": 2,
+      "title": "Staff Software Engineer",
+      "salary": 150000
+    },
+    {
+      "id": 3,
+      "title": "Junior Software Engineer",
+      "salary": 100000
+    }
   ],
   "users": [
     {
@@ -22,6 +34,24 @@
       "userEmail": "samuel@test.com",
       "username": "samuel",
       "password": "password"
+    }
+  ],
+  "lists": [
+    {
+      "id": 1,
+      "listName": "test list"
+    },
+    {
+      "creatorId": 1,
+      "listId": 2,
+      "listName": "test list 2",
+      "id": 2
+    },
+    {
+      "creatorId": 1,
+      "listId": 3,
+      "listName": "test list 3",
+      "id": 3
     }
   ]
 }
