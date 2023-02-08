@@ -5,7 +5,8 @@ import RootLayout from "../layouts/RootLayout";
 
 // pages
 import Home from "../pages/home/Home";
-import Auth from "../pages/auth/Auth";
+import Register from "../pages/auth/Register";
+import Login from "../pages/auth/Login";
 import UserProfile from "../pages/user/UserProfile";
 import UserLists, { userListsLoader } from "../pages/user/UserLists";
 import About from "../pages/about/About";
@@ -14,7 +15,8 @@ import RootError from "../pages/error/RootError";
 // callbacks
 // import { authUserAction } from "../components/auth/AuthenticateUser";
 import { createNewListAction } from "../utils/router-actions/createNewListAction";
-import { registerUserAction } from "../components/auth/RegisterUser";
+// import { registerUserAction } from "../components/auth/RegisterUser";
+import { registerUserAction } from "../components/auth/actions/register-user-act";
 
 export const router = createBrowserRouter([
   {
@@ -28,9 +30,13 @@ export const router = createBrowserRouter([
         action: createNewListAction,
       },
       {
-        path: "user-auth",
-        element: <Auth />,
+        path: "user-auth/register",
+        element: <Register />,
         action: registerUserAction,
+      },
+      {
+        path: "user-auth/login",
+        element: <Login />,
       },
       {
         path: "about",

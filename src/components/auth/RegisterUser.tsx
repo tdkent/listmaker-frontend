@@ -1,34 +1,48 @@
-import { Form } from "react-router-dom";
+import { Form, useActionData } from "react-router-dom";
+
+interface RegisterUserErrors {
+  password?: string;
+  email?: string;
+}
 
 const RegisterUser = () => {
+  const actionData = useActionData();
+  const errors: RegisterUserErrors = actionData as RegisterUserErrors;
+  console.log("errors: ", errors);
+
   return (
-    <Form method="post" action="/user-auth">
-      <label>
-        <span>Email Address:</span>
-        <input type="email" name="email" required />
-      </label>
-      <label>
-        <span>Username:</span>
-        <input type="text" name="username" />
-      </label>
-      <label>
-        <span>Password:</span>
-        <input type="password" name="password" required />
-      </label>
-      <button type="submit">Submit</button>
+    <Form method="post" action="/user-auth/register">
+      <div>
+        <label>
+          <span>Email Address:</span>
+          <input type="text" name="email" />
+        </label>
+        {errors?.email && <span>{errors.email}</span>}
+      </div>
+      <div>
+        <label>
+          <span>Username:</span>
+          <input type="text" name="username" />
+        </label>
+      </div>
+      <div>
+        <label>
+          <span>Password:</span>
+          <input type="text" name="password" />
+        </label>
+      </div>
+      <div>
+        <label>
+          <span>Verify Password:</span>
+          <input type="text" name="verify-password" />
+        </label>
+        {errors?.password && <span>{errors.password}</span>}
+      </div>
+      <div>
+        <button type="submit">Submit</button>
+      </div>
     </Form>
   );
 };
 
 export default RegisterUser;
-
-export const registerUserAction = async ({ request }: any) => {
-  const req = await request.formData();
-  const data = {
-    userEmail: req.get("email"),
-    username: req.get("username"),
-    password: req.get("password"),
-  };
-  console.log("auth data", data);
-  return null;
-};
