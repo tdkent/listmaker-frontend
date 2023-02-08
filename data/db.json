@@ -38,19 +38,21 @@
   ],
   "lists": [
     {
-      "id": 1,
-      "listName": "test list"
+      "creatorId": 63,
+      "listName": "first list",
+      "listType": "todo",
+      "id": 1
     },
     {
-      "creatorId": 1,
-      "listId": 2,
-      "listName": "test list 2",
+      "creatorId": 70662,
+      "listName": "second list",
+      "listType": "shopping",
       "id": 2
     },
     {
-      "creatorId": 1,
-      "listId": 3,
-      "listName": "test list 3",
+      "creatorId": 48569,
+      "listName": "second list",
+      "listType": "shopping",
       "id": 3
     }
   ]

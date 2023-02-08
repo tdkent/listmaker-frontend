@@ -1,7 +1,8 @@
 import { useState } from "react";
-import { Link, Form } from "react-router-dom";
+import { Link } from "react-router-dom";
 
 // import AuthenticateUser from "../../components/auth/AuthenticateUser";
+import CreateNewList from "../../components/new-list/CreateNewList";
 
 const Home = () => {
   const [modal, setModal] = useState(false);
@@ -20,13 +21,7 @@ const Home = () => {
       {modal && (
         <div>
           <h4>New List</h4>
-          <Form method="post" action="/">
-            <label>
-              <span>Name:</span>
-              <input type="text" name="name" />
-            </label>
-            <button>Create</button>
-          </Form>
+          <CreateNewList />
         </div>
       )}
     </div>
@@ -34,24 +29,3 @@ const Home = () => {
 };
 
 export default Home;
-
-export const newListAction = async ({ request }: any) => {
-  const data = await request.formData();
-  const formData = {
-    creatorId: 1,
-    listName: data.get("name"),
-  };
-  const response = await fetch("http://localhost:4000/lists", {
-    method: "POST",
-    headers: {
-      "Content-Type": "application/json",
-    },
-    body: JSON.stringify({
-      creatorId: formData.creatorId,
-      listId: 3,
-      listName: formData.listName,
-    }),
-  });
-  console.log("server response: ", response);
-  return null;
-};

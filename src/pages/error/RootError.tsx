@@ -20,7 +20,7 @@ const RootError = () => {
       <p>
         Status: {newError.status} - {newError.statusText}
       </p>
-      <p>Message: {newError.error.message}</p>
+      {/* <p>Message: {newError.error.message}</p> */}
       <Link to="/">Return to the homepage</Link>
     </div>
   );
