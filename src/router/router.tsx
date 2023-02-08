@@ -14,6 +14,7 @@ import RootError from "../pages/error/RootError";
 // callbacks
 // import { authUserAction } from "../components/auth/AuthenticateUser";
 import { createNewListAction } from "../utils/router-actions/createNewListAction";
+import { registerUserAction } from "../components/auth/RegisterUser";
 
 export const router = createBrowserRouter([
   {
@@ -27,8 +28,9 @@ export const router = createBrowserRouter([
         action: createNewListAction,
       },
       {
-        path: "auth",
+        path: "user-auth",
         element: <Auth />,
+        action: registerUserAction,
       },
       {
         path: "about",

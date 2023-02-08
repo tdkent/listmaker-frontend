@@ -54,6 +54,12 @@
       "listName": "second list",
       "listType": "shopping",
       "id": 3
+    },
+    {
+      "creatorId": 39884,
+      "listName": null,
+      "listType": null,
+      "id": 4
     }
   ]
 }

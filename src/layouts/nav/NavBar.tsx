@@ -7,7 +7,7 @@ const NavBar = (): JSX.Element => {
       <NavLink to="/">Home</NavLink>
       <NavLink to="my-lists">My Lists</NavLink>
       <NavLink to="my-profile">My Profile</NavLink>
-      <NavLink to="auth">Auth</NavLink>
+      <NavLink to="user-auth">Login</NavLink>
       <NavLink to="about">About</NavLink>
     </nav>
   );
