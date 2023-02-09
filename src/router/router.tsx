@@ -10,6 +10,8 @@ import Login from "../pages/auth/Login";
 import UserProfile from "../pages/user/UserProfile";
 import UserLists, { userListsLoader } from "../pages/user/UserLists";
 import About from "../pages/about/About";
+
+// error elements
 import RootError from "../pages/error/RootError";
 
 // callbacks

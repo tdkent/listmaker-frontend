@@ -1,4 +1,4 @@
-import { redirect } from "react-router-dom";
+import { redirect, json } from "react-router-dom";
 
 import { TEST_DB } from "../../../constants/global";
 
@@ -37,6 +37,18 @@ export const registerUserAction = async ({ request }: any) => {
       ...data,
     }),
   });
-  console.log("JSON-Server response: ", response);
-  return redirect("/");
+  if (!response.ok) {
+    throw json(
+      {
+        message:
+          "An unknown error occurred. The remote server may be experiencing a temporary outage. Please try again later.",
+      },
+      { status: 503 }
+    );
+  }
+  const fetchUsers = await fetch(`${TEST_DB}/users`);
+  const userData = await fetchUsers.json();
+  console.log("fetchUserData: ", userData);
+  // return redirect("/");
+  return null;
 };

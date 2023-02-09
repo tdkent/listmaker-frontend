@@ -1,27 +1,32 @@
-import { useRouteError, Link } from "react-router-dom";
+import { useRouteError, useNavigate, Link } from "react-router-dom";
 
-interface Error {
-  status: number;
-  statusText: string;
-  error: {
-    message: string;
-  };
-}
+import Error from "../../models/error";
 
 const RootError = () => {
-  const error = useRouteError();
-  const newError: Error = error as Error;
-  console.log("newError: ", newError, newError.error);
+  const errorData = useRouteError();
+  const error: Error = errorData as Error;
+  const navigate = useNavigate();
   return (
     <div>
-      <h2>Error!</h2>
-      <p>Sorry, an unexpected error has occurred.</p>
-      <p>More info about the error:</p>
-      <p>
-        Status: {newError.status} - {newError.statusText}
-      </p>
-      {/* <p>Message: {newError.error.message}</p> */}
-      <Link to="/">Return to the homepage</Link>
+      <h2>Oops!</h2>
+      <h3>
+        An {!error.statusText && "unknown"} error occurred. We're so sorry about
+        that!
+      </h3>
+      <div>
+        <p>As a token of our regard, please accept this picture of a cat:</p>
+        <p>His name is Justinian.</p>
+      </div>
+      <div>
+        <button onClick={() => navigate(-1)}>Return to previous page</button>
+      </div>
+      <div>
+        <h4>Error Info</h4>
+        <p>Code: {error.status}</p>
+        <p>
+          Message: {error.statusText ? error.statusText : error.data.message}
+        </p>
+      </div>
     </div>
   );
 };
