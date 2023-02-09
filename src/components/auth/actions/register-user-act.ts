@@ -1,13 +1,8 @@
 import { redirect, json } from "react-router-dom";
 
 import { TEST_DB } from "../../../constants/global";
-
-interface RegisterUser {
-  userEmail: string;
-  userName: string;
-  userPassword: string;
-  verifyPassword: string;
-}
+import RegisterUser from "../../../models/register-user";
+import User from "../../../models/user";
 
 export const registerUserAction = async ({ request }: any) => {
   const req = await request.formData();
@@ -28,16 +23,18 @@ export const registerUserAction = async ({ request }: any) => {
   if (data.userPassword !== data.verifyPassword) {
     return { password: "Passwords do not match. Please try again." };
   }
-  const response = await fetch(`${TEST_DB}/users`, {
+  const postRes = await fetch(`${TEST_DB}/users`, {
     method: "post",
     headers: {
       "Content-Type": "application/json",
     },
     body: JSON.stringify({
-      ...data,
+      userEmail: data.userEmail,
+      userName: data.userName,
+      userPassword: data.userPassword,
     }),
   });
-  if (!response.ok) {
+  if (!postRes.ok) {
     throw json(
       {
         message:
@@ -46,9 +43,9 @@ export const registerUserAction = async ({ request }: any) => {
       { status: 503 }
     );
   }
-  const fetchUsers = await fetch(`${TEST_DB}/users`);
-  const userData = await fetchUsers.json();
-  console.log("fetchUserData: ", userData);
-  // return redirect("/");
-  return null;
+  const getRes = await fetch(`${TEST_DB}/users`);
+  const userData: User[] = await getRes.json();
+  const userId = userData.filter((user) => user.userEmail === data.userEmail)[0]
+    .id;
+  return redirect(`/my-lists/${userId}`);
 };

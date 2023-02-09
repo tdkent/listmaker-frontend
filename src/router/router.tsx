@@ -7,18 +7,20 @@ import RootLayout from "../layouts/RootLayout";
 import Home from "../pages/home/Home";
 import Register from "../pages/auth/Register";
 import Login from "../pages/auth/Login";
-import UserProfile from "../pages/user/UserProfile";
-import UserLists, { userListsLoader } from "../pages/user/UserLists";
+import MyProfile from "../pages/user/MyProfile";
+import MyLists from "../pages/user/MyLists";
 import About from "../pages/about/About";
 
 // error elements
 import RootError from "../pages/error/RootError";
 
-// callbacks
-// import { authUserAction } from "../components/auth/AuthenticateUser";
+// actions
 import { createNewListAction } from "../utils/router-actions/createNewListAction";
-// import { registerUserAction } from "../components/auth/RegisterUser";
 import { registerUserAction } from "../components/auth/actions/register-user-act";
+import { loginUserAction } from "../components/auth/actions/login-user-act";
+
+// loaders
+import { myListsLoader } from "../components/user/loaders/my-lists-loader";
 
 export const router = createBrowserRouter([
   {
@@ -39,19 +41,20 @@ export const router = createBrowserRouter([
       {
         path: "user-auth/login",
         element: <Login />,
+        action: loginUserAction,
       },
       {
         path: "about",
         element: <About />,
       },
       {
-        path: "mylists/:userId",
-        element: <UserLists />,
-        loader: userListsLoader,
+        path: "my-lists/:userId",
+        element: <MyLists />,
+        action: myListsLoader,
       },
       {
         path: "profile",
-        element: <UserProfile />,
+        element: <MyProfile />,
       },
     ],
   },

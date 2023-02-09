@@ -5,7 +5,7 @@ const NavBar = (): JSX.Element => {
     <nav>
       <h1>ListMaker</h1>
       <NavLink to="/">Home</NavLink>
-      <NavLink to="my-lists">My Lists</NavLink>
+      <NavLink to="my-lists/1">My Lists</NavLink>
       <NavLink to="my-profile">My Profile</NavLink>
       <NavLink to="user-auth/login">Login</NavLink>
       <NavLink to="about">About</NavLink>
