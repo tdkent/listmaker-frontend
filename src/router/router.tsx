@@ -7,7 +7,7 @@ import RootLayout from "../layouts/RootLayout";
 import Home from "../pages/home/Home";
 import Register from "../pages/auth/Register";
 import Login from "../pages/auth/Login";
-import MyProfile from "../pages/user/MyProfile";
+import Profile from "../pages/user/Profile";
 import MyLists from "../pages/user/MyLists";
 import About from "../pages/about/About";
 
@@ -50,11 +50,11 @@ export const router = createBrowserRouter([
       {
         path: "my-lists/:userId",
         element: <MyLists />,
-        action: myListsLoader,
+        loader: myListsLoader,
       },
       {
         path: "profile",
-        element: <MyProfile />,
+        element: <Profile />,
       },
     ],
   },
