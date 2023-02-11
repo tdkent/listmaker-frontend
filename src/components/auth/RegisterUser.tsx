@@ -8,7 +8,7 @@ const RegisterUser = () => {
   console.log("errors: ", errors);
 
   return (
-    <Form method="post" action="/user-auth/register">
+    <Form method="post" action="/register">
       <div>
         <label>
           <span>Email Address:</span>
@@ -36,7 +36,7 @@ const RegisterUser = () => {
         {errors?.password && <span>{errors.password}</span>}
       </div>
       <div>
-        <button type="submit">Submit</button>
+        <button type="submit">Sign up</button>
       </div>
     </Form>
   );

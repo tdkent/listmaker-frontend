@@ -1,4 +1,4 @@
-import { createBrowserRouter } from "react-router-dom";
+import { createBrowserRouter, Outlet } from "react-router-dom";
 
 // layouts
 import RootLayout from "../layouts/RootLayout";
@@ -9,7 +9,7 @@ import Register from "../pages/auth/Register";
 import Login from "../pages/auth/Login";
 import Profile from "../pages/user/Profile";
 import MyLists from "../pages/user/MyLists";
-import About from "../pages/about/About";
+import NotFound from "../pages/NotFound";
 
 // error elements
 import RootError from "../pages/error/RootError";
@@ -24,37 +24,82 @@ import { myListsLoader } from "../components/user/loaders/my-lists-loader";
 
 export const router = createBrowserRouter([
   {
-    path: "/",
     element: <RootLayout />,
-    errorElement: <RootError />,
     children: [
       {
         path: "/",
-        element: <Home />,
-        action: createNewListAction,
-      },
-      {
-        path: "user-auth/register",
-        element: <Register />,
-        action: registerUserAction,
-      },
-      {
-        path: "user-auth/login",
-        element: <Login />,
-        action: loginUserAction,
-      },
-      {
-        path: "about",
-        element: <About />,
-      },
-      {
-        path: "my-lists/:userId",
-        element: <MyLists />,
-        loader: myListsLoader,
-      },
-      {
-        path: "profile",
-        element: <Profile />,
+        errorElement: <RootError />,
+        children: [
+          {
+            index: true,
+            element: <Home />,
+            action: createNewListAction,
+          },
+          {
+            path: "register",
+            element: <Register />,
+            action: registerUserAction,
+          },
+          {
+            path: "login",
+            element: <Login />,
+            action: loginUserAction,
+          },
+          {
+            path: "new-list",
+            element: <h1>Creating a new List</h1>,
+          },
+          {
+            path: "user",
+            children: [
+              {
+                index: true,
+                element: (
+                  <div>
+                    <NotFound />
+                    <Outlet />
+                  </div>
+                ),
+              },
+              {
+                path: ":username",
+                children: [
+                  {
+                    index: true,
+                    element: (
+                      <div>
+                        <h2>User's lists</h2>
+                        <Outlet />
+                      </div>
+                    ),
+                  },
+                  {
+                    path: "profile",
+                    children: [
+                      {
+                        index: true,
+                        element: (
+                          <div>
+                            <h2>User's profile page</h2>
+                            <Outlet />
+                          </div>
+                        ),
+                      },
+                      {
+                        path: "edit",
+                        element: <h2>User edits profile here</h2>,
+                      },
+                    ],
+                  },
+                ],
+              },
+            ],
+          },
+          {
+            path: "*",
+            element: <NotFound />,
+          },
+        ],
       },
     ],
   },

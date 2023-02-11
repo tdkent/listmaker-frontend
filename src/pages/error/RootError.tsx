@@ -5,6 +5,7 @@ import Error from "../../models/error";
 const RootError = () => {
   const errorData = useRouteError();
   const error: Error = errorData as Error;
+  console.log("error: ", error);
   const navigate = useNavigate();
   return (
     <div>

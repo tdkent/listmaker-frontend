@@ -23,7 +23,7 @@ export const registerUserAction = async ({ request }: any) => {
   if (data.userPassword !== data.verifyPassword) {
     return { password: "Passwords do not match. Please try again." };
   }
-  const postRes = await fetch(`${TEST_DB}/users`, {
+  const postRes = await fetch(`${TEST_DB}/userss`, {
     method: "post",
     headers: {
       "Content-Type": "application/json",

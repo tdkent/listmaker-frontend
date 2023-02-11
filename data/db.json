@@ -66,6 +66,30 @@
       "userName": "igor",
       "userPassword": "pass",
       "id": 4
+    },
+    {
+      "userEmail": "modest@test.com",
+      "userName": "modest",
+      "userPassword": "pass",
+      "id": 5
+    },
+    {
+      "userEmail": "maurice@test.com",
+      "userName": "maurice",
+      "userPassword": "pass",
+      "id": 6
+    },
+    {
+      "userEmail": "claude@test.com",
+      "userName": "claude",
+      "userPassword": "pass",
+      "id": 7
+    },
+    {
+      "userEmail": "test@test.test",
+      "userName": "test",
+      "userPassword": "pass",
+      "id": 8
     }
   ]
 }

@@ -6,7 +6,7 @@ const LoginUser = () => {
   const actionData = useActionData();
   const errors: AuthFormValidationError = actionData as AuthFormValidationError;
   return (
-    <Form method="post" action="/user-auth/login">
+    <Form method="post" action="/login">
       <div>
         <label>
           <span>Email:</span>
@@ -22,7 +22,7 @@ const LoginUser = () => {
         {errors?.password && <span>{errors.password}</span>}
       </div>
       <div>
-        <button type="submit">Submit</button>
+        <button type="submit">Log in</button>
       </div>
     </Form>
   );
