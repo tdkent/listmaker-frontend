@@ -1,8 +1,8 @@
 import { redirect, json } from "react-router-dom";
 
-import { TEST_DB } from "../../../constants/global";
-import RegisterUser from "../../../models/register-user";
-import User from "../../../models/user";
+import { TEST_DB } from "../constants/global";
+import RegisterUser from "../models/register-user";
+import User from "../models/user";
 
 export const registerUserAction = async ({ request }: any) => {
   const req = await request.formData();

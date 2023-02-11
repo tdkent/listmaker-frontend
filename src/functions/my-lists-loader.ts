@@ -1,6 +1,6 @@
 import { json } from "react-router-dom";
 
-import { TEST_DB } from "../../../constants/global";
+import { TEST_DB } from "../constants/global";
 
 export const myListsLoader = async ({ params }: any) => {
   const { userId }: { userId: number } = params;

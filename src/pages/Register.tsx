@@ -1,4 +1,4 @@
-import RegisterUser from "../../components/auth/RegisterUser";
+import RegisterUser from "../components/auth/RegisterUser";
 import { Link } from "react-router-dom";
 
 const Register = () => {

@@ -1,6 +1,6 @@
 import { useRouteError, useNavigate, Link } from "react-router-dom";
 
-import Error from "../../models/error";
+import Error from "../models/error";
 
 const RootError = () => {
   const errorData = useRouteError();

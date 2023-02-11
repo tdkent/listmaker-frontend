@@ -1,7 +1,7 @@
 import { useLoaderData } from "react-router-dom";
 
-import ShoppingList from "../../models/list-shopping";
-import DisplayLists from "../../components/user/DisplayLists";
+import ShoppingList from "../models/list-shopping";
+import DisplayLists from "../components/user/DisplayLists";
 
 const MyLists = () => {
   const loaderData = useLoaderData();

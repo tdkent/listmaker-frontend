@@ -4,23 +4,23 @@ import { createBrowserRouter, Outlet, Navigate } from "react-router-dom";
 import RootLayout from "../layouts/RootLayout";
 
 // pages
-import Home from "../pages/home/Home";
-import Register from "../pages/auth/Register";
-import Login from "../pages/auth/Login";
-import Profile from "../pages/user/Profile";
-import MyLists from "../pages/user/MyLists";
+import Home from "../pages/Home";
+import Register from "../pages/Register";
+import Login from "../pages/Login";
+import Profile from "../pages/Profile";
+import MyLists from "../pages/MyLists";
 import NotFound from "../pages/NotFound";
 
 // error elements
-import RootError from "../pages/error/RootError";
+import RootError from "../pages/RootError";
 
 // actions
-import { createNewListAction } from "../utils/router-actions/createNewListAction";
-import { registerUserAction } from "../components/auth/actions/register-user-act";
-import { loginUserAction } from "../components/auth/actions/login-user-act";
+import { createNewListAction } from "../functions/create-list-action";
+import { registerUserAction } from "../functions/register-action";
+import { loginUserAction } from "../functions/login-action";
 
 // loaders
-import { myListsLoader } from "../components/user/loaders/my-lists-loader";
+import { myListsLoader } from "../functions/my-lists-loader";
 
 export const router = createBrowserRouter([
   {

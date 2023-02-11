@@ -1,6 +1,6 @@
 import { Outlet } from "react-router-dom";
 
-import NavBar from "./nav/NavBar";
+import NavBar from "./NavBar";
 
 const RootLayout = (): JSX.Element => {
   return (
