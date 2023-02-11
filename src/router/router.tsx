@@ -1,4 +1,4 @@
-import { createBrowserRouter, Outlet } from "react-router-dom";
+import { createBrowserRouter, Outlet, Navigate } from "react-router-dom";
 
 // layouts
 import RootLayout from "../layouts/RootLayout";
@@ -46,52 +46,41 @@ export const router = createBrowserRouter([
             action: loginUserAction,
           },
           {
-            path: "new-list",
+            path: "new",
             element: <h1>Creating a new List</h1>,
           },
           {
-            path: "user",
+            path: "lists",
+            children: [
+              {
+                index: true,
+                element: <h2>Display user's lists</h2>,
+              },
+              {
+                path: ":listName",
+                element: <h2>User interacts with list</h2>,
+              },
+            ],
+          },
+          {
+            path: "profile",
             children: [
               {
                 index: true,
                 element: (
                   <div>
-                    <NotFound />
+                    <h2>User's profile page</h2>
                     <Outlet />
                   </div>
                 ),
               },
               {
-                path: ":username",
-                children: [
-                  {
-                    index: true,
-                    element: (
-                      <div>
-                        <h2>User's lists</h2>
-                        <Outlet />
-                      </div>
-                    ),
-                  },
-                  {
-                    path: "profile",
-                    children: [
-                      {
-                        index: true,
-                        element: (
-                          <div>
-                            <h2>User's profile page</h2>
-                            <Outlet />
-                          </div>
-                        ),
-                      },
-                      {
-                        path: "edit",
-                        element: <h2>User edits profile here</h2>,
-                      },
-                    ],
-                  },
-                ],
+                path: "edit",
+                element: <h2>User edits profile here</h2>,
+              },
+              {
+                path: "*",
+                element: <Navigate to="/profile" />,
               },
             ],
           },
