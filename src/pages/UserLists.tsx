@@ -1,9 +1,9 @@
 import { useLoaderData } from "react-router-dom";
 
 import ShoppingList from "../models/list-shopping";
-import DisplayLists from "../components/user/DisplayLists";
+import DisplayLists from "../components/lists/DisplayUserLists";
 
-const MyLists = () => {
+const UserLists = () => {
   const loaderData = useLoaderData();
   const lists: ShoppingList[] = loaderData as ShoppingList[];
   console.log("lists: ", lists);
@@ -20,4 +20,4 @@ const MyLists = () => {
   );
 };
 
-export default MyLists;
+export default UserLists;

@@ -21,6 +21,7 @@ const RegisterUser = () => {
           <span>Username:</span>
           <input type="text" name="username" />
         </label>
+        {errors?.username && <span>{errors.username}</span>}
       </div>
       <div>
         <label>

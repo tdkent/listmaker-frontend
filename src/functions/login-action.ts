@@ -20,6 +20,6 @@ export const loginUserAction = async ({ request }: any) => {
     };
   }
   // post request made to db to check user credentials
-  // if they pass, user's id and token sent. Id is used to redirect to user's list page
-  return redirect("/my-lists/1");
+  // if they pass, user's id and token sent and added to state.
+  return redirect("/lists");
 };

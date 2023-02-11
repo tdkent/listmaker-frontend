@@ -2,7 +2,6 @@ import { redirect, json } from "react-router-dom";
 
 import { TEST_DB } from "../constants/global";
 import RegisterUser from "../models/register-user";
-import User from "../models/user";
 
 export const registerUserAction = async ({ request }: any) => {
   const req = await request.formData();
@@ -15,6 +14,11 @@ export const registerUserAction = async ({ request }: any) => {
   if (!data.userEmail.match(/[@]/)) {
     return { email: "Please enter a valid email address." };
   }
+  if (!data.userName || data.userName.length < 4) {
+    return {
+      username: "Please enter a username that is 4 or more characters long.",
+    };
+  }
   if (data.userPassword.length < 4) {
     return {
       password: "Please enter a password that is 4 or more characters long.",
@@ -23,7 +27,7 @@ export const registerUserAction = async ({ request }: any) => {
   if (data.userPassword !== data.verifyPassword) {
     return { password: "Passwords do not match. Please try again." };
   }
-  const postRes = await fetch(`${TEST_DB}/userss`, {
+  const postRes = await fetch(`${TEST_DB}/users`, {
     method: "post",
     headers: {
       "Content-Type": "application/json",
@@ -43,9 +47,6 @@ export const registerUserAction = async ({ request }: any) => {
       { status: 503 }
     );
   }
-  const getRes = await fetch(`${TEST_DB}/users`);
-  const userData: User[] = await getRes.json();
-  const userId = userData.filter((user) => user.userEmail === data.userEmail)[0]
-    .id;
-  return redirect(`/my-lists/${userId}`);
+  // fetch new idea from db, add to state.
+  return redirect(`/lists`);
 };

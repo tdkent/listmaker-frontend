@@ -8,7 +8,7 @@ import Home from "../pages/Home";
 import Register from "../pages/Register";
 import Login from "../pages/Login";
 import Profile from "../pages/Profile";
-import MyLists from "../pages/MyLists";
+import UserLists from "../pages/UserLists";
 import NotFound from "../pages/NotFound";
 
 // error elements
@@ -20,7 +20,7 @@ import { registerUserAction } from "../functions/register-action";
 import { loginUserAction } from "../functions/login-action";
 
 // loaders
-import { myListsLoader } from "../functions/my-lists-loader";
+import { userListsLoader } from "../functions/user-lists-loader";
 
 export const router = createBrowserRouter([
   {
@@ -54,7 +54,8 @@ export const router = createBrowserRouter([
             children: [
               {
                 index: true,
-                element: <h2>Display user's lists</h2>,
+                element: <UserLists />,
+                loader: userListsLoader,
               },
               {
                 path: ":listName",

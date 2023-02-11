@@ -2,9 +2,9 @@ import { json } from "react-router-dom";
 
 import { TEST_DB } from "../constants/global";
 
-export const myListsLoader = async ({ params }: any) => {
-  const { userId }: { userId: number } = params;
-  const response = await fetch(`${TEST_DB}/lists?creatorId=${userId}`);
+export const userListsLoader = async () => {
+  // fetch userId from state
+  const response = await fetch(`${TEST_DB}/lists?creatorId=1`);
   if (!response.ok) {
     throw json(
       {
