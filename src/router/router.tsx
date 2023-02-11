@@ -8,7 +8,9 @@ import Home from "../pages/Home";
 import Register from "../pages/Register";
 import Login from "../pages/Login";
 import Profile from "../pages/Profile";
+import ProfileEdit from "../pages/ProfileEdit";
 import UserLists from "../pages/UserLists";
+import EditList from "../pages/EditList";
 import NotFound from "../pages/NotFound";
 
 // error elements
@@ -18,9 +20,12 @@ import RootError from "../pages/RootError";
 import { createNewListAction } from "../functions/create-list-action";
 import { registerUserAction } from "../functions/register-action";
 import { loginUserAction } from "../functions/login-action";
+import { profileEditAction } from "../functions/profile-edit-action";
 
 // loaders
 import { userListsLoader } from "../functions/user-lists-loader";
+import { editListLoader } from "../functions/edit-list.loader";
+import { profileLoader } from "../functions/profile-loader";
 
 export const router = createBrowserRouter([
   {
@@ -59,7 +64,8 @@ export const router = createBrowserRouter([
               },
               {
                 path: ":listName",
-                element: <h2>User interacts with list</h2>,
+                element: <EditList />,
+                loader: editListLoader,
               },
             ],
           },
@@ -68,16 +74,14 @@ export const router = createBrowserRouter([
             children: [
               {
                 index: true,
-                element: (
-                  <div>
-                    <h2>User's profile page</h2>
-                    <Outlet />
-                  </div>
-                ),
+                element: <Profile />,
+                loader: profileLoader,
               },
               {
                 path: "edit",
-                element: <h2>User edits profile here</h2>,
+                element: <ProfileEdit />,
+                loader: profileLoader,
+                action: profileEditAction,
               },
               {
                 path: "*",

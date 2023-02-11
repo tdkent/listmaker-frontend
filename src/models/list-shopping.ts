@@ -1,6 +1,6 @@
 enum ListCategory {
-  shop = "SHOP",
-  todo = "TODO",
+  shop = "Shopping",
+  todo = "To-Do",
 }
 
 export default interface ShoppingList {

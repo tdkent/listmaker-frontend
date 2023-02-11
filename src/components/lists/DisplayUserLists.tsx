@@ -15,7 +15,7 @@ const DisplayUserLists = ({ lists }: DisplayUserListsProps) => {
           <div key={list.id}>
             <p>{list.listName}</p>
             <p>Category: {list.listType}</p>
-            <Link to={`/lists/${slugify(list.listName.toLowerCase())}`}>
+            <Link to={`${slugify(list.listName.toLowerCase())}&id=${list.id}`}>
               Edit List
             </Link>
           </div>
