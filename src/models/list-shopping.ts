@@ -1,7 +1,4 @@
-enum ListCategory {
-  shop = "Shopping",
-  todo = "To-Do",
-}
+import ListCategory from "./list-category";
 
 export default interface ShoppingList {
   id: number;

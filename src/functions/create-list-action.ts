@@ -1,20 +1,17 @@
 import { redirect } from "react-router-dom";
 
-interface NewList {
-  creatorId: number;
-  listName: string;
-  listType: string;
-}
+import { TEST_DB } from "../constants/global";
+import NewList from "../models/list-new";
 
 export const createNewListAction = async ({ request }: any) => {
   const data = await request.formData();
-  let tempCreatorId: number = Math.ceil(Math.random() * 100000);
+  // userId provided from state
   const formData: NewList = {
-    creatorId: tempCreatorId,
+    creatorId: 1,
     listName: data.get("name"),
-    listType: data.get("type"),
+    listType: data.get("category"),
   };
-  const response = await fetch("http://localhost:4000/lists", {
+  const response = await fetch(`${TEST_DB}/lists`, {
     method: "post",
     headers: {
       "Content-Type": "application/json",
@@ -24,5 +21,6 @@ export const createNewListAction = async ({ request }: any) => {
     }),
   });
   console.log("server response", response);
-  return redirect("/about");
+  // redirect to edit list page after fetching the new list's id
+  return redirect("/lists");
 };

@@ -1,4 +1,4 @@
-import { createBrowserRouter, Outlet, Navigate } from "react-router-dom";
+import { createBrowserRouter, Navigate } from "react-router-dom";
 
 // layouts
 import RootLayout from "../layouts/RootLayout";
@@ -11,6 +11,7 @@ import Profile from "../pages/Profile";
 import ProfileEdit from "../pages/ProfileEdit";
 import UserLists from "../pages/UserLists";
 import EditList from "../pages/EditList";
+import NewList from "../pages/NewList";
 import NotFound from "../pages/NotFound";
 
 // error elements
@@ -52,7 +53,8 @@ export const router = createBrowserRouter([
           },
           {
             path: "new",
-            element: <h1>Creating a new List</h1>,
+            element: <NewList />,
+            action: createNewListAction,
           },
           {
             path: "lists",
