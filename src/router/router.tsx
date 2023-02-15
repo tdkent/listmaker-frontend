@@ -28,7 +28,45 @@ import { userListsLoader } from "../functions/user-lists-loader";
 import { editListLoader } from "../functions/edit-list.loader";
 import { profileLoader } from "../functions/profile-loader";
 
-export const router = createBrowserRouter([
+export const routerNoAuth = createBrowserRouter([
+  {
+    element: <RootLayout />,
+    children: [
+      {
+        path: "/",
+        errorElement: <RootError />,
+        children: [
+          {
+            index: true,
+            element: <Home />,
+            action: createNewListAction,
+          },
+          {
+            path: "register",
+            element: <Register />,
+            action: registerUserAction,
+          },
+          {
+            path: "login",
+            element: <Login />,
+            action: loginUserAction,
+          },
+          {
+            path: "new",
+            element: <Navigate to="/login" />,
+            action: createNewListAction,
+          },
+          {
+            path: "*",
+            element: <NotFound />,
+          },
+        ],
+      },
+    ],
+  },
+]);
+
+export const routerAuth = createBrowserRouter([
   {
     element: <RootLayout />,
     children: [

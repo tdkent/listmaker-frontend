@@ -1,9 +1,11 @@
-import { useLoaderData } from "react-router-dom";
+import { useActionData, useLoaderData } from "react-router-dom";
 
 import ShoppingList from "../models/list-shopping";
 import DisplayLists from "../components/lists/DisplayUserLists";
 
 const UserLists = () => {
+  const actionData = useActionData();
+  console.log("actionData: ", actionData);
   const loaderData = useLoaderData();
   const lists: ShoppingList[] = loaderData as ShoppingList[];
   console.log("lists: ", lists);

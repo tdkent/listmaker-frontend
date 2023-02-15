@@ -10,7 +10,7 @@ const NewList = () => {
       <h2>Create New List</h2>
       <div>
         <Form method="post" action="/new">
-          <FormInput labelText="Name:" inputType="text" inputName="name" />
+          {/* <FormInput labelText="Name:" inputType="text" inputName="name" /> */}
           <div>
             <label>
               <span>Category:</span>

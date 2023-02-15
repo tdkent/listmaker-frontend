@@ -68,10 +68,18 @@
       "id": 2
     },
     {
-      "userEmail": "edvard@test.com",
-      "userName": "edvard",
+      "userEmail": "test@test.com",
+      "userName": "testing",
       "userPassword": "pass",
+      "verifyPassword": "pass",
       "id": 3
+    },
+    {
+      "userEmail": "test@test.com",
+      "userName": "testing",
+      "userPassword": "pass",
+      "verifyPassword": "pas",
+      "id": 4
     }
   ]
 }
