@@ -5,31 +5,29 @@ import AuthFormValidationError from "../../models/user-auth";
 import AuthContext from "../../context/AuthContext";
 import FormInput from "../forms/FormInput";
 import Button from "../forms/Button";
-import {
-  LoginUserInputsEnum,
-  LoginUserStateInterface,
-} from "../../models/login-user";
+import { LoginInputsEnum, LoginDefStateInt } from "../../models/login-user";
 
 const LoginUser = () => {
   const actionData = useActionData();
   const errors: AuthFormValidationError = actionData as AuthFormValidationError;
 
-  const defaultLoginState: LoginUserStateInterface = {
+  const defaultLoginState: LoginDefStateInt = {
     userNameOrEmail: "",
     userPassword: "",
   };
 
-  const reducer = (state: LoginUserStateInterface, action: any) => {
-    if (action.type === LoginUserInputsEnum.user) {
+  const reducer = (state: typeof defaultLoginState, action: any) => {
+    if (action.type === LoginInputsEnum.user) {
       return { ...state, userNameOrEmail: action.payload.input };
     }
-    if (action.type === LoginUserInputsEnum.password) {
+    if (action.type === LoginInputsEnum.password) {
       return { ...state, userPassword: action.payload.input };
     }
-    throw new Error(`No matching "${action.type}" - action type`);
+    throw new Error("No matching action type!");
   };
 
   const [state, dispatch] = useReducer(reducer, defaultLoginState);
+  console.log("state: ", state);
 
   const handleChange = (e: React.FormEvent<HTMLInputElement>) => {
     dispatch({
@@ -54,14 +52,14 @@ const LoginUser = () => {
       <FormInput
         labelText="Username or Email"
         inputType="text"
-        inputName={LoginUserInputsEnum.user}
+        inputName={LoginInputsEnum.user}
         handleChange={handleChange}
       />
       {errors?.email && <span>{errors.email}</span>}
       <FormInput
         labelText="Password"
         inputType="text"
-        inputName={LoginUserInputsEnum.password}
+        inputName={LoginInputsEnum.password}
         handleChange={handleChange}
       />
       {errors?.password && <span>{errors.password}</span>}

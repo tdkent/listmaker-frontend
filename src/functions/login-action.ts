@@ -1,13 +1,10 @@
-import {
-  LoginUserInputsEnum,
-  LoginUserStateInterface,
-} from "../models/login-user";
+import { LoginInputsEnum, LoginDefStateInt } from "../models/login-user";
 
 export const loginUserAction = async ({ request }: any) => {
   const req = await request.formData();
-  const data: LoginUserStateInterface = {
-    userNameOrEmail: req.get(LoginUserInputsEnum.user),
-    userPassword: req.get(LoginUserInputsEnum.password),
+  const data: LoginDefStateInt = {
+    userNameOrEmail: req.get(LoginInputsEnum.user),
+    userPassword: req.get(LoginInputsEnum.password),
   };
   if (!data.userNameOrEmail.match(/[@]/)) {
     return { email: "Please enter a valid email address." };
