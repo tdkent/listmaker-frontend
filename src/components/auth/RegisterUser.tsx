@@ -24,16 +24,16 @@ const RegisterUser = () => {
 
   const reducer = (state: RegUserStateInterface, action: any) => {
     if (action.type === RegUserInputsEnum.email) {
-      return { ...state, userEmail: action.payload.value };
+      return { ...state, userEmail: action.payload.input };
     }
     if (action.type === RegUserInputsEnum.username) {
-      return { ...state, userName: action.payload.value };
+      return { ...state, userName: action.payload.input };
     }
     if (action.type === RegUserInputsEnum.password) {
-      return { ...state, userPassword: action.payload.value };
+      return { ...state, userPassword: action.payload.input };
     }
     if (action.type === RegUserInputsEnum.verify) {
-      return { ...state, verifyPassword: action.payload.value };
+      return { ...state, verifyPassword: action.payload.input };
     }
     throw new Error(`No matching "${action.type}" - action type`);
   };
@@ -46,12 +46,12 @@ const RegisterUser = () => {
     dispatch({
       type: e.currentTarget.name,
       payload: {
-        value: e.currentTarget.value,
+        input: e.currentTarget.value,
       },
     });
   };
   const handleSubmit = async (e: React.FormEvent) => {
-    //? e.preventDefault(); <-- is this necessary?
+    //? e.preventDefault();
     const response = await fetch(`${TEST_DB}/users`, {
       method: "post",
       headers: {
@@ -61,11 +61,12 @@ const RegisterUser = () => {
         ...state,
       }),
     });
+    // db responds with error or userId and token
     if (!response.ok) {
       //TODO: error handling
     }
-    // db will return userId and token
     auth.login("dummytoken", 777);
+    // TODO: initiate redirect to the user's lists page
   };
 
   return (

@@ -1,17 +1,15 @@
-import { redirect } from "react-router-dom";
-
-interface LoginUser {
-  userEmail: string;
-  userPassword: string;
-}
+import {
+  LoginUserInputsEnum,
+  LoginUserStateInterface,
+} from "../models/login-user";
 
 export const loginUserAction = async ({ request }: any) => {
   const req = await request.formData();
-  const data: LoginUser = {
-    userEmail: req.get("email"),
-    userPassword: req.get("password"),
+  const data: LoginUserStateInterface = {
+    userNameOrEmail: req.get(LoginUserInputsEnum.user),
+    userPassword: req.get(LoginUserInputsEnum.password),
   };
-  if (!data.userEmail.match(/[@]/)) {
+  if (!data.userNameOrEmail.match(/[@]/)) {
     return { email: "Please enter a valid email address." };
   }
   if (data.userPassword.length < 4) {
@@ -19,7 +17,5 @@ export const loginUserAction = async ({ request }: any) => {
       password: "Please enter a password that is 4 or more characters long.",
     };
   }
-  // post request made to db to check user credentials
-  // if they pass, user's id and token sent and added to state.
-  return redirect("/lists");
+  return null;
 };

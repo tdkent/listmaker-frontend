@@ -3,7 +3,7 @@ import { useContext } from "react";
 
 import AuthContext from "../context/AuthContext";
 
-const NavBar = (): JSX.Element => {
+const NavBar = () => {
   const auth = useContext(AuthContext);
   return (
     <nav>
