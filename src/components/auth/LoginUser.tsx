@@ -27,7 +27,6 @@ const LoginUser = () => {
   };
 
   const [state, dispatch] = useReducer(reducer, defaultLoginState);
-  console.log("state: ", state);
 
   const handleChange = (e: React.FormEvent<HTMLInputElement>) => {
     dispatch({
@@ -41,7 +40,7 @@ const LoginUser = () => {
     try {
       // credentials {...state} sent to db. db responds with nomatch error or token, userId
       //TODO: error handling
-      auth.login("dummytokenstring", 777);
+      auth.login("dummytokenstring", "fakeuserid");
       //TODO: initiate redirect to user's list page
     } catch (error) {
       console.error(error);

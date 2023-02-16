@@ -40,18 +40,6 @@
       "creatorId": 2,
       "listType": "shop",
       "listName": "Music recording apparatus"
-    },
-    {
-      "creatorId": 1,
-      "listName": "my new list",
-      "listType": "To-Do",
-      "id": 5
-    },
-    {
-      "creatorId": 1,
-      "listName": "Jean's To-Do List",
-      "listType": "To-Do",
-      "id": 6
     }
   ],
   "users": [
@@ -66,20 +54,6 @@
       "userName": "bela",
       "userPassword": "pass",
       "id": 2
-    },
-    {
-      "userEmail": "test@test.com",
-      "userName": "testing",
-      "userPassword": "pass",
-      "verifyPassword": "pass",
-      "id": 3
-    },
-    {
-      "userEmail": "test@test.com",
-      "userName": "testing",
-      "userPassword": "pass",
-      "verifyPassword": "pas",
-      "id": 4
     }
   ]
 }

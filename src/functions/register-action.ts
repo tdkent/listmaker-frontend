@@ -1,15 +1,15 @@
 import {
-  RegUserStateInterface,
-  RegUserInputsEnum,
+  RegisterDefStateInt,
+  RegisterInputsEnum,
 } from "../models/register-user";
 
 export const registerUserAction = async ({ request }: any) => {
   const req = await request.formData();
-  const data: RegUserStateInterface = {
-    userEmail: req.get(RegUserInputsEnum.email),
-    userName: req.get(RegUserInputsEnum.username),
-    userPassword: req.get(RegUserInputsEnum.password),
-    verifyPassword: req.get(RegUserInputsEnum.verify),
+  const data: RegisterDefStateInt = {
+    userEmail: req.get(RegisterInputsEnum.email),
+    userName: req.get(RegisterInputsEnum.username),
+    userPassword: req.get(RegisterInputsEnum.password),
+    verifyPassword: req.get(RegisterInputsEnum.verify),
   };
   if (!data.userEmail.match(/[@]/)) {
     return { email: "Please enter a valid email address." };

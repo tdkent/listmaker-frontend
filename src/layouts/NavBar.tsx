@@ -14,7 +14,9 @@ const NavBar = () => {
         <>
           <NavLink to="lists">Lists</NavLink>
           <NavLink to="profile">Profile</NavLink>
-          <NavLink to="profile">Log Out</NavLink>
+          <li>
+            <button onClick={auth.logout}>Log Out</button>
+          </li>
         </>
       )}
       {!auth.isLoggedIn && <NavLink to="login">Login</NavLink>}

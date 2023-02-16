@@ -39,7 +39,6 @@ export const routerNoAuth = createBrowserRouter([
           {
             index: true,
             element: <Home />,
-            action: createNewListAction,
           },
           {
             path: "register",
@@ -54,7 +53,36 @@ export const routerNoAuth = createBrowserRouter([
           {
             path: "new",
             element: <Navigate to="/login" />,
-            action: createNewListAction,
+          },
+          {
+            path: "lists",
+            children: [
+              {
+                index: true,
+                element: <Navigate to="/login" />,
+              },
+              {
+                path: ":listName",
+                element: <Navigate to="/login" />,
+              },
+            ],
+          },
+          {
+            path: "profile",
+            children: [
+              {
+                index: true,
+                element: <Navigate to="/login" />,
+              },
+              {
+                path: "edit",
+                element: <Navigate to="/login" />,
+              },
+              {
+                path: "*",
+                element: <Navigate to="/login" />,
+              },
+            ],
           },
           {
             path: "*",
@@ -81,13 +109,11 @@ export const routerAuth = createBrowserRouter([
           },
           {
             path: "register",
-            element: <Register />,
-            action: registerUserAction,
+            element: <Navigate to="/" />,
           },
           {
             path: "login",
-            element: <Login />,
-            action: loginUserAction,
+            element: <Navigate to="/" />,
           },
           {
             path: "new",
