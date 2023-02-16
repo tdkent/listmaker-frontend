@@ -3,7 +3,7 @@ import { Form, useActionData } from "react-router-dom";
 
 import AuthContext from "../../context/AuthContext";
 import { TEST_DB } from "../../constants/global";
-import AuthFormValidationError from "../../models/user-auth";
+import { AuthFormErrorInt } from "../../models/errors";
 import Button from "../forms/Button";
 import FormInput from "../forms/FormInput";
 import {
@@ -13,7 +13,7 @@ import {
 
 const RegisterUser = () => {
   const actionData = useActionData();
-  const errors: AuthFormValidationError = actionData as AuthFormValidationError;
+  const errors: AuthFormErrorInt = actionData as AuthFormErrorInt;
 
   const defaultRegisterState: RegisterDefStateInt = {
     userEmail: "",

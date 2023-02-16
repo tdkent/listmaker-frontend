@@ -1,7 +1,7 @@
 import { Form, useActionData } from "react-router-dom";
 import { useContext, useReducer } from "react";
 
-import AuthFormValidationError from "../../models/user-auth";
+import { AuthFormErrorInt } from "../../models/errors";
 import AuthContext from "../../context/AuthContext";
 import FormInput from "../forms/FormInput";
 import Button from "../forms/Button";
@@ -9,7 +9,7 @@ import { LoginInputsEnum, LoginDefStateInt } from "../../models/login-user";
 
 const LoginUser = () => {
   const actionData = useActionData();
-  const errors: AuthFormValidationError = actionData as AuthFormValidationError;
+  const errors: AuthFormErrorInt = actionData as AuthFormErrorInt;
 
   const defaultLoginState: LoginDefStateInt = {
     userNameOrEmail: "",

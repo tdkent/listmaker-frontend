@@ -19,27 +19,9 @@
   "lists": [
     {
       "id": 1,
-      "creatorId": 1,
+      "creatorId": "fakeuserid",
       "listType": "shop",
-      "listName": "Jean's Wish List"
-    },
-    {
-      "id": 2,
-      "creatorId": 1,
-      "listType": "shop",
-      "listName": "Grocery List"
-    },
-    {
-      "id": 3,
-      "creatorId": 1,
-      "listType": "shop",
-      "listName": "Computer parts to buy"
-    },
-    {
-      "id": 4,
-      "creatorId": 2,
-      "listType": "shop",
-      "listName": "Music recording apparatus"
+      "listName": "Test Grocery List"
     }
   ],
   "users": [

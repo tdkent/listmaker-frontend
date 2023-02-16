@@ -1,10 +1,10 @@
 import { Link } from "react-router-dom";
 import slugify from "slugify";
 
-import ShoppingList from "../../models/list-shopping";
+import { ShoppingListInt } from "../../models/new-list";
 
 interface DisplayUserListsProps {
-  lists: ShoppingList[];
+  lists: ShoppingListInt[];
 }
 
 const DisplayUserLists = ({ lists }: DisplayUserListsProps) => {
@@ -14,7 +14,7 @@ const DisplayUserLists = ({ lists }: DisplayUserListsProps) => {
         return (
           <div key={list.id}>
             <p>{list.listName}</p>
-            <p>Category: {list.listType}</p>
+            <p>Category: {list.listCategory}</p>
             <Link to={`${slugify(list.listName.toLowerCase())}&id=${list.id}`}>
               Edit List
             </Link>
