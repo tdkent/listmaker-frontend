@@ -64,7 +64,7 @@ const RegisterUser = () => {
     if (!response.ok) {
       //TODO: error handling
     }
-    auth.login("dummytoken", "fakeuserid");
+    auth.login("dummytoken", "testid");
     // TODO: initiate redirect to the user's lists page
   };
 

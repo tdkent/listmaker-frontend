@@ -1,6 +1,7 @@
 interface ButtonProps {
   buttonText: string;
   buttonType: "submit" | "button" | "reset" | undefined;
+  onClick?: () => void;
 }
 
 const Button = ({ buttonType, buttonText }: ButtonProps) => {

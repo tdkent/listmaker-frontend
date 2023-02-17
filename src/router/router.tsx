@@ -25,7 +25,7 @@ import { profileEditAction } from "../functions/profile-edit-action";
 
 // loaders
 import { userListsLoader } from "../functions/user-lists-loader";
-import { editListLoader } from "../functions/edit-list.loader";
+// import { editListLoader } from "../functions/edit-list-loader";
 import { profileLoader } from "../functions/profile-loader";
 
 export const routerNoAuth = createBrowserRouter([
@@ -54,36 +54,36 @@ export const routerNoAuth = createBrowserRouter([
             path: "new",
             element: <Navigate to="/login" />,
           },
-          {
-            path: "lists",
-            children: [
-              {
-                index: true,
-                element: <Navigate to="/login" />,
-              },
-              {
-                path: ":listName",
-                element: <Navigate to="/login" />,
-              },
-            ],
-          },
-          {
-            path: "profile",
-            children: [
-              {
-                index: true,
-                element: <Navigate to="/login" />,
-              },
-              {
-                path: "edit",
-                element: <Navigate to="/login" />,
-              },
-              {
-                path: "*",
-                element: <Navigate to="/login" />,
-              },
-            ],
-          },
+          // {
+          //   path: "lists",
+          //   children: [
+          //     {
+          //       index: true,
+          //       element: <Navigate to="/login" />,
+          //     },
+          //     {
+          //       path: ":listName",
+          //       element: <Navigate to="/login" />,
+          //     },
+          //   ],
+          // },
+          // {
+          //   path: "profile",
+          //   children: [
+          //     {
+          //       index: true,
+          //       element: <Navigate to="/login" />,
+          //     },
+          //     {
+          //       path: "edit",
+          //       element: <Navigate to="/login" />,
+          //     },
+          //     {
+          //       path: "*",
+          //       element: <Navigate to="/login" />,
+          //     },
+          //   ],
+          // },
           {
             path: "*",
             element: <NotFound />,
@@ -129,9 +129,9 @@ export const routerAuth = createBrowserRouter([
                 loader: userListsLoader,
               },
               {
-                path: ":listName",
+                path: ":slug",
                 element: <EditList />,
-                loader: editListLoader,
+                // loader: editListLoader,
               },
             ],
           },

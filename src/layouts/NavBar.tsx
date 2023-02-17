@@ -7,19 +7,32 @@ const NavBar = () => {
   const auth = useContext(AuthContext);
   return (
     <nav>
-      <h1>ListMaker</h1>
-      <NavLink to="/">Home</NavLink>
-      <NavLink to="/new">New</NavLink>
-      {auth.isLoggedIn && (
-        <>
-          <NavLink to="lists">Lists</NavLink>
-          <NavLink to="profile">Profile</NavLink>
+      <ul>
+        <li>
+          <NavLink to="/">Home</NavLink>
+        </li>
+        <li>
+          <NavLink to="/new">New List</NavLink>
+        </li>
+        {auth.isLoggedIn && (
+          <>
+            <li>
+              <NavLink to="lists">My Lists</NavLink>
+            </li>
+            <li>
+              <NavLink to="profile">Profile</NavLink>
+            </li>
+            <li>
+              <button onClick={auth.logout}>Log Out</button>
+            </li>
+          </>
+        )}
+        {!auth.isLoggedIn && (
           <li>
-            <button onClick={auth.logout}>Log Out</button>
+            <NavLink to="login">Login</NavLink>
           </li>
-        </>
-      )}
-      {!auth.isLoggedIn && <NavLink to="login">Login</NavLink>}
+        )}
+      </ul>
     </nav>
   );
 };

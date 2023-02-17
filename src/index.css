@@ -16,3 +16,8 @@ header nav a.active {
   background: darkgray;
   color: white;
 }
+
+nav ul {
+  display: flex;
+  list-style: none;
+}

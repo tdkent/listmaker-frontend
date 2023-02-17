@@ -1,5 +1,6 @@
 import { useState, useContext } from "react";
 import { Form, useActionData } from "react-router-dom";
+import slugify from "slugify";
 
 import AuthContext from "../context/AuthContext";
 import FormInput from "../components/forms/FormInput";
@@ -25,6 +26,9 @@ const NewList = () => {
   const auth = useContext(AuthContext);
 
   const handleSubmit = async () => {
+    //? Create list structure here?
+    //TODO: Create list structure?
+
     const response = await fetch(`${TEST_DB}/lists`, {
       method: "post",
       headers: {
@@ -34,7 +38,12 @@ const NewList = () => {
       body: JSON.stringify({
         userId: auth.userId,
         listName,
+        slug: slugify(listName.toLowerCase()),
         listCategory,
+        listStructure: {
+          currentItems: [],
+          previousItems: [],
+        },
       }),
     });
     if (!response.ok) {

@@ -40,7 +40,7 @@ const LoginUser = () => {
     try {
       // credentials {...state} sent to db. db responds with nomatch error or token, userId
       //TODO: error handling
-      auth.login("dummytokenstring", "fakeuserid");
+      auth.login("dummytokenstring", "testid");
       //TODO: initiate redirect to user's list page
     } catch (error) {
       console.error(error);

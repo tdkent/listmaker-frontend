@@ -18,10 +18,15 @@
   ],
   "lists": [
     {
-      "id": 1,
-      "creatorId": "fakeuserid",
-      "listType": "shop",
-      "listName": "Test Grocery List"
+      "userId": "testid",
+      "listName": "test list 2",
+      "slug": "test-list-2",
+      "listCategory": "shopping",
+      "listStructure": {
+        "currentItems": [],
+        "previousItems": []
+      },
+      "id": 3
     }
   ],
   "users": [

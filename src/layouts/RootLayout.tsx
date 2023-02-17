@@ -6,6 +6,7 @@ const RootLayout = (): JSX.Element => {
   return (
     <div>
       <header>
+        <h1>ListMaker</h1>
         <NavBar />
       </header>
       <main>

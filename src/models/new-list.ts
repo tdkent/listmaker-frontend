@@ -8,7 +8,13 @@ export interface NewListActionInt {
   listCategory: NewListCategoryEnum.shop | NewListCategoryEnum.todo;
 }
 
-export interface ShoppingListInt extends NewListActionInt {
+export interface ListInt extends NewListActionInt {
   id: number;
   creatorId: number;
+  slug: string;
+}
+
+export interface ShoppingListInt extends ListInt {
+  currentItems: string[];
+  previousItems: string[];
 }
