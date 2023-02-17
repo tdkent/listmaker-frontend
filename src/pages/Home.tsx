@@ -1,4 +1,4 @@
-import RegisterUser from "../components/auth/RegisterUser";
+import AuthRegister from "../components/AuthRegister";
 
 const Home = () => {
   return (
@@ -9,7 +9,7 @@ const Home = () => {
         to-do and shopping tasks, and keep up with your assignments!
       </p>
       <p>Create a list of any type: To-Do, Shopping, ...</p>
-      <RegisterUser />
+      <AuthRegister />
     </div>
   );
 };

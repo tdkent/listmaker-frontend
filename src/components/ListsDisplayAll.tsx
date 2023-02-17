@@ -1,12 +1,12 @@
 import { Link } from "react-router-dom";
 
-import { ListInt } from "../../models/new-list";
+import { ListInt } from "../models/new-list";
 
 interface DisplayUserListsProps {
   lists: ListInt[];
 }
 
-const DisplayUserLists = ({ lists }: DisplayUserListsProps) => {
+const ListsDisplayAll = ({ lists }: DisplayUserListsProps) => {
   return (
     <div>
       {lists.map((list) => {
@@ -22,4 +22,4 @@ const DisplayUserLists = ({ lists }: DisplayUserListsProps) => {
   );
 };
 
-export default DisplayUserLists;
+export default ListsDisplayAll;

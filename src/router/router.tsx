@@ -28,7 +28,7 @@ import { userListsLoader } from "../functions/user-lists-loader";
 // import { editListLoader } from "../functions/edit-list-loader";
 import { profileLoader } from "../functions/profile-loader";
 
-export const routerNoAuth = createBrowserRouter([
+const router = createBrowserRouter([
   {
     element: <RootLayout />,
     children: [
@@ -49,71 +49,6 @@ export const routerNoAuth = createBrowserRouter([
             path: "login",
             element: <Login />,
             action: loginUserAction,
-          },
-          {
-            path: "new",
-            element: <Navigate to="/login" />,
-          },
-          // {
-          //   path: "lists",
-          //   children: [
-          //     {
-          //       index: true,
-          //       element: <Navigate to="/login" />,
-          //     },
-          //     {
-          //       path: ":listName",
-          //       element: <Navigate to="/login" />,
-          //     },
-          //   ],
-          // },
-          // {
-          //   path: "profile",
-          //   children: [
-          //     {
-          //       index: true,
-          //       element: <Navigate to="/login" />,
-          //     },
-          //     {
-          //       path: "edit",
-          //       element: <Navigate to="/login" />,
-          //     },
-          //     {
-          //       path: "*",
-          //       element: <Navigate to="/login" />,
-          //     },
-          //   ],
-          // },
-          {
-            path: "*",
-            element: <NotFound />,
-          },
-        ],
-      },
-    ],
-  },
-]);
-
-export const routerAuth = createBrowserRouter([
-  {
-    element: <RootLayout />,
-    children: [
-      {
-        path: "/",
-        errorElement: <RootError />,
-        children: [
-          {
-            index: true,
-            element: <Home />,
-            action: createNewListAction,
-          },
-          {
-            path: "register",
-            element: <Navigate to="/" />,
-          },
-          {
-            path: "login",
-            element: <Navigate to="/" />,
           },
           {
             path: "new",
@@ -164,3 +99,5 @@ export const routerAuth = createBrowserRouter([
     ],
   },
 ]);
+
+export default router;

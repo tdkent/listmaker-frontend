@@ -2,7 +2,7 @@ import { RouterProvider } from "react-router-dom";
 import { useState, useEffect } from "react";
 
 import AuthContext, { AuthContexType } from "./context/AuthContext";
-import { routerAuth, routerNoAuth } from "./router/router";
+import router from "./router/router";
 
 function App() {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
@@ -45,7 +45,7 @@ function App() {
   }, []);
   return (
     <AuthContext.Provider value={user}>
-      <RouterProvider router={user.isLoggedIn ? routerAuth : routerNoAuth} />
+      <RouterProvider router={router} />
     </AuthContext.Provider>
   );
 }

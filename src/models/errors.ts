@@ -1,7 +1,8 @@
 export interface RootErrorInt {
-  status: number;
-  statusText: string;
-  data: {
+  status?: number;
+  statusText?: string;
+  message?: string;
+  data?: {
     message: string;
   };
 }

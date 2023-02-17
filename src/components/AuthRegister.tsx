@@ -1,17 +1,17 @@
 import React, { useContext, useReducer } from "react";
 import { Form, useActionData } from "react-router-dom";
 
-import AuthContext from "../../context/AuthContext";
-import { TEST_DB } from "../../constants/global";
-import { AuthFormErrorInt } from "../../models/errors";
-import Button from "../forms/Button";
-import FormInput from "../forms/FormInput";
+import AuthContext from "../context/AuthContext";
+import { TEST_DB } from "../constants/global";
+import { AuthFormErrorInt } from "../models/errors";
+import FormButton from "./FormButton";
+import FormInput from "./FormInput";
 import {
   RegisterDefStateInt,
   RegisterInputsEnum,
-} from "../../models/register-user";
+} from "../models/register-user";
 
-const RegisterUser = () => {
+const AuthRegister = () => {
   const actionData = useActionData();
   const errors: AuthFormErrorInt = actionData as AuthFormErrorInt;
 
@@ -97,9 +97,9 @@ const RegisterUser = () => {
         handleChange={handleChange}
       />
       {errors?.password && <span>{errors.password}</span>}
-      <Button buttonText="Sign up" buttonType="submit" />
+      <FormButton buttonText="Sign up" buttonType="submit" />
     </Form>
   );
 };
 
-export default RegisterUser;
+export default AuthRegister;

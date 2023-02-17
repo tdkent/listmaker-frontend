@@ -1,13 +1,13 @@
 import { Form, useActionData } from "react-router-dom";
 import { useContext, useReducer } from "react";
 
-import { AuthFormErrorInt } from "../../models/errors";
-import AuthContext from "../../context/AuthContext";
-import FormInput from "../forms/FormInput";
-import Button from "../forms/Button";
-import { LoginInputsEnum, LoginDefStateInt } from "../../models/login-user";
+import { AuthFormErrorInt } from "../models/errors";
+import AuthContext from "../context/AuthContext";
+import FormInput from "./FormInput";
+import Button from "./FormButton";
+import { LoginInputsEnum, LoginDefStateInt } from "../models/login-user";
 
-const LoginUser = () => {
+const AuthLogin = () => {
   const actionData = useActionData();
   const errors: AuthFormErrorInt = actionData as AuthFormErrorInt;
 
@@ -67,4 +67,4 @@ const LoginUser = () => {
   );
 };
 
-export default LoginUser;
+export default AuthLogin;

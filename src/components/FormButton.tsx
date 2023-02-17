@@ -4,7 +4,7 @@ interface ButtonProps {
   onClick?: () => void;
 }
 
-const Button = ({ buttonType, buttonText }: ButtonProps) => {
+const FormButton = ({ buttonType, buttonText }: ButtonProps) => {
   return (
     <div>
       <button type={buttonType}>{buttonText}</button>
@@ -12,4 +12,4 @@ const Button = ({ buttonType, buttonText }: ButtonProps) => {
   );
 };
 
-export default Button;
+export default FormButton;

@@ -1,10 +1,10 @@
-import { useState, useContext } from "react";
-import { Form, useActionData } from "react-router-dom";
+import { useState, useContext, useEffect } from "react";
+import { Form, useActionData, useNavigate } from "react-router-dom";
 import slugify from "slugify";
 
 import AuthContext from "../context/AuthContext";
-import FormInput from "../components/forms/FormInput";
-import Button from "../components/forms/Button";
+import FormInput from "../components/FormInput";
+import Button from "../components/FormButton";
 import { NewListFormErrorInt } from "../models/errors";
 import { NewListCategoryEnum } from "../models/new-list";
 import { TEST_DB } from "../constants/global";
@@ -12,6 +12,15 @@ import { TEST_DB } from "../constants/global";
 const NewList = () => {
   const actionData = useActionData();
   const errors: NewListFormErrorInt = actionData as NewListFormErrorInt;
+
+  const auth = useContext(AuthContext);
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    if (!auth.isLoggedIn) {
+      navigate("/login");
+    }
+  }, [auth.isLoggedIn]);
 
   const [listName, setListName] = useState("");
   const [listCategory, setListCategory] = useState<string | null>(null);
@@ -22,8 +31,6 @@ const NewList = () => {
   const handleSelect = (e: React.FormEvent<HTMLSelectElement>) => {
     setListCategory(e.currentTarget.value.toLowerCase());
   };
-
-  const auth = useContext(AuthContext);
 
   const handleSubmit = async () => {
     //? Create list structure here?

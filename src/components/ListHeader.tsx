@@ -1,4 +1,4 @@
-import { ListInt } from "../../models/new-list";
+import { ListInt } from "../models/new-list";
 
 interface ListHeaderProps {
   listData: ListInt;

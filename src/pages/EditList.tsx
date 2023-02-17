@@ -1,16 +1,25 @@
-import { useState, useEffect } from "react";
-import { Form, useParams } from "react-router-dom";
+import { useState, useEffect, useContext } from "react";
+import { Form, useNavigate, useParams } from "react-router-dom";
 import axios from "axios";
 
+import AuthContext from "../context/AuthContext";
 import { TEST_DB } from "../constants/global";
-import Button from "../components/forms/Button";
-import FormInput from "../components/forms/FormInput";
-import ListHeader from "../components/lists/ListHeader";
+import Button from "../components/FormButton";
+import FormInput from "../components/FormInput";
+import ListHeader from "../components/ListHeader";
 
 import { ListInt } from "../models/new-list";
 
 const EditList = () => {
-  // const { slug } = useParams();
+  const auth = useContext(AuthContext);
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    if (!auth.isLoggedIn) {
+      navigate("/login");
+    }
+  }, [auth.isLoggedIn]);
+
   const params: { slug: string } = useParams() as { slug: string };
   const { slug } = params;
   const listId = params.slug.split("=")[1];
@@ -20,15 +29,10 @@ const EditList = () => {
 
   useEffect(() => {
     try {
-      // (async function () {
-      //   const { data } = await axios.get(`${TEST_DB}/lists?id=${listId}`);
-      //   setListData(data);
-      // })();
-      const getListData = async () => {
+      (async function () {
         const { data } = await axios.get(`${TEST_DB}/lists?id=${listId}`);
         setListData(data);
-      };
-      getListData();
+      })();
     } catch (error) {
       console.log(error);
     }
@@ -40,13 +44,13 @@ const EditList = () => {
     setItemName(e.currentTarget.value);
   };
   const clickHandler = () => {};
-  if (!listData.length) return <div>Loading...</div>;
+  // if (!listData.length) return <div>Loading...</div>;
   return (
     <div>
       {/* Header */}
       {/* <ListHeader listData={listData[0]} /> */}
-      <h2>{listData[0].listName}</h2>
-      <h2>{listData[0].listCategory}</h2>
+      {/* <h2>{listData[0].listName}</h2>
+      <h2>{listData[0].listCategory}</h2> */}
       {/* Add New Item Form */}
       <div>
         <Form method="post" action={`/lists/${slug}`}>
