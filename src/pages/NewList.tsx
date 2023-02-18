@@ -33,8 +33,13 @@ const NewList = () => {
   };
 
   const handleSubmit = async () => {
-    //? Create list structure here?
-    //TODO: Create list structure?
+    let listStructure;
+    if (listCategory === NewListCategoryEnum.shop.toLowerCase()) {
+      listStructure = {
+        currentItems: [],
+        previousItems: [],
+      };
+    }
 
     const response = await fetch(`${TEST_DB}/lists`, {
       method: "post",
@@ -47,10 +52,7 @@ const NewList = () => {
         listName,
         slug: slugify(listName.toLowerCase()),
         listCategory,
-        listStructure: {
-          currentItems: [],
-          previousItems: [],
-        },
+        listStructure,
       }),
     });
     if (!response.ok) {

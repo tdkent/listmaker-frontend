@@ -27,6 +27,24 @@
         "previousItems": []
       },
       "id": 3
+    },
+    {
+      "userId": "testid",
+      "listName": "new list",
+      "slug": "new-list",
+      "listCategory": "shopping",
+      "id": 4
+    },
+    {
+      "userId": "testid",
+      "listName": "new list",
+      "slug": "new-list",
+      "listCategory": "shopping",
+      "listStructure": {
+        "currentItems": [],
+        "previousItems": []
+      },
+      "id": 5
     }
   ],
   "users": [
