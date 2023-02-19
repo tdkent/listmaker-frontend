@@ -26,25 +26,7 @@
         "currentItems": [],
         "previousItems": []
       },
-      "id": 3
-    },
-    {
-      "userId": "testid",
-      "listName": "new list",
-      "slug": "new-list",
-      "listCategory": "shopping",
-      "id": 4
-    },
-    {
-      "userId": "testid",
-      "listName": "new list",
-      "slug": "new-list",
-      "listCategory": "shopping",
-      "listStructure": {
-        "currentItems": [],
-        "previousItems": []
-      },
-      "id": 5
+      "id": 1
     }
   ],
   "users": [
@@ -59,6 +41,27 @@
       "userName": "bela",
       "userPassword": "pass",
       "id": 2
+    },
+    {
+      "userEmail": "test@test",
+      "userName": "test",
+      "userPassword": "pass",
+      "verifyPassword": "pass",
+      "id": 3
+    },
+    {
+      "userEmail": "edvard@test.com",
+      "userName": "edvard",
+      "userPassword": "pass",
+      "verifyPassword": "pass",
+      "id": 4
+    },
+    {
+      "userEmail": "samuel@test.com",
+      "userName": "samuel",
+      "userPassword": "pass",
+      "verifyPassword": "pass",
+      "id": 5
     }
   ]
 }

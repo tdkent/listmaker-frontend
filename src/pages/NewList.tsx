@@ -8,22 +8,23 @@ import Button from "../components/FormButton";
 import { NewListFormErrorInt } from "../models/errors";
 import { NewListCategoryEnum } from "../models/new-list";
 import { TEST_DB } from "../constants/global";
+import checkLocalStorage from "../functions/check-local-storage";
 
 const NewList = () => {
   const actionData = useActionData();
   const errors: NewListFormErrorInt = actionData as NewListFormErrorInt;
 
+  const [listName, setListName] = useState("");
+  const [listCategory, setListCategory] = useState<string | null>(null);
+
   const auth = useContext(AuthContext);
   const navigate = useNavigate();
 
   useEffect(() => {
-    if (!auth.isLoggedIn) {
-      navigate("/login");
-    }
+    const check = checkLocalStorage();
+    if (check) return;
+    else navigate("/login");
   }, [auth.isLoggedIn]);
-
-  const [listName, setListName] = useState("");
-  const [listCategory, setListCategory] = useState<string | null>(null);
 
   const handleChange = (e: React.FormEvent<HTMLInputElement>) => {
     setListName(e.currentTarget.value);
@@ -66,12 +67,7 @@ const NewList = () => {
       <h2>Create New List</h2>
       <div>
         <Form method="post" action="/new" onSubmit={handleSubmit}>
-          <FormInput
-            labelText="Name"
-            inputName="name"
-            inputType="text"
-            handleChange={handleChange}
-          />
+          <FormInput labelText="Name" inputName="name" inputType="text" handleChange={handleChange} />
           {errors?.name && <span>{errors.name}</span>}
           <div>
             <label>
@@ -80,12 +76,8 @@ const NewList = () => {
                 <option disabled value="">
                   {""}
                 </option>
-                <option value={NewListCategoryEnum.shop}>
-                  {NewListCategoryEnum.shop}
-                </option>
-                <option value={NewListCategoryEnum.todo}>
-                  {NewListCategoryEnum.todo}
-                </option>
+                <option value={NewListCategoryEnum.shop}>{NewListCategoryEnum.shop}</option>
+                <option value={NewListCategoryEnum.todo}>{NewListCategoryEnum.todo}</option>
               </select>
             </label>
           </div>

@@ -3,15 +3,16 @@ import { Outlet, useLoaderData, Link, useNavigate } from "react-router-dom";
 
 import AuthContext from "../context/AuthContext";
 import User from "../models/user";
+import checkLocalStorage from "../functions/check-local-storage";
 
 const Profile = () => {
   const auth = useContext(AuthContext);
   const navigate = useNavigate();
 
   useEffect(() => {
-    if (!auth.isLoggedIn) {
-      navigate("/login");
-    }
+    const check = checkLocalStorage();
+    if (check) return;
+    else navigate("/login");
   }, [auth.isLoggedIn]);
 
   const data = useLoaderData();

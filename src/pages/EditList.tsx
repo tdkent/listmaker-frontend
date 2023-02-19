@@ -1,71 +1,73 @@
 import { useState, useEffect, useContext } from "react";
 import { Form, useNavigate, useParams } from "react-router-dom";
+import useSWR from "swr";
 import axios from "axios";
 
 import AuthContext from "../context/AuthContext";
 import { TEST_DB } from "../constants/global";
 import Button from "../components/FormButton";
 import FormInput from "../components/FormInput";
-import ListHeader from "../components/ListHeader";
-
-import { ListInt } from "../models/new-list";
+import checkLocalStorage from "../functions/check-local-storage";
 
 const EditList = () => {
   const auth = useContext(AuthContext);
   const navigate = useNavigate();
 
   useEffect(() => {
-    if (!auth.isLoggedIn) {
-      navigate("/login");
-    }
+    const check = checkLocalStorage();
+    if (check) return;
+    else navigate("/login");
   }, [auth.isLoggedIn]);
 
-  const params: { slug: string } = useParams() as { slug: string };
-  const { slug } = params;
-  const listId = params.slug.split("=")[1];
+  const { slug }: { slug: string } = useParams() as { slug: string };
+  const listId = Number(slug.split("=")[1]);
 
-  // break incoming data into sections: header, current items, previous items
-  const [listData, setListData] = useState<ListInt[]>([]);
-
-  useEffect(() => {
-    try {
-      (async function () {
-        const { data } = await axios.get(`${TEST_DB}/lists?id=${listId}`);
-        setListData(data);
-      })();
-    } catch (error) {
-      console.log(error);
-    }
-  }, []);
-  // TODO: adding items pushes locally and re-renders the page (another useEffect with itemsData as depedency)
-  // TODO: the list changes are not added to the server until the user clicks a "SUBMIT CHANGES" button.
-  const [itemName, setItemName] = useState("");
-  const handleChange = (e: React.FormEvent<HTMLInputElement>) => {
-    setItemName(e.currentTarget.value);
+  //TODO: type the returned data
+  const fetcher = async (url: string) => {
+    const { data } = await axios.get(url);
+    return data[0];
   };
-  const clickHandler = () => {};
-  // if (!listData.length) return <div>Loading...</div>;
+  const { data, error, isLoading } = useSWR(`${TEST_DB}/lists?id=${listId}`, fetcher);
+  // console.log(data);
+
+  const [newItem, setNewItem] = useState("");
+
+  const handleChange = (e: React.FormEvent<HTMLInputElement>) => {
+    setNewItem(e.currentTarget.value);
+  };
+
+  const submitHandler = async (e: React.FormEvent) => {
+    e.preventDefault();
+    const response = await fetch(`${TEST_DB}/lists`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        ...data,
+        newItem,
+      }),
+    });
+    console.log(response);
+  };
+
+  // TODO: test throw error
+  if (error) return <div>failed to load</div>;
+  // TODO: loading spinner
+  if (isLoading) {
+    return <div>Loading...</div>;
+  }
   return (
     <div>
-      {/* Header */}
-      {/* <ListHeader listData={listData[0]} /> */}
-      {/* <h2>{listData[0].listName}</h2>
-      <h2>{listData[0].listCategory}</h2> */}
-      {/* Add New Item Form */}
       <div>
-        <Form method="post" action={`/lists/${slug}`}>
-          <FormInput
-            labelText="New Item"
-            inputName="name"
-            inputType="text"
-            handleChange={handleChange}
-          />
+        <h2>{data.listName}</h2>
+        <h4>{`${data.listCategory[0].toUpperCase()}${data.listCategory.slice(1)} List`}</h4>
+      </div>
+      <div>
+        <Form method="post" action={`/lists/${slug}`} onSubmit={submitHandler}>
+          <FormInput labelText="New Item" inputName="name" inputType="text" handleChange={handleChange} />
         </Form>
-        <Button
-          buttonText="Add"
-          buttonType={undefined}
-          onClick={clickHandler}
-        />
+        <Button buttonText="Add" buttonType="submit" />
       </div>
       {/* Current Items List */}
       <div>
@@ -73,6 +75,10 @@ const EditList = () => {
         <div></div>
       </div>
       {/* Previous Items List */}
+      <div>
+        <h4>Previous Items:</h4>
+        <div></div>
+      </div>
     </div>
   );
 };

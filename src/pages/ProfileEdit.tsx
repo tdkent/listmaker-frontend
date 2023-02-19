@@ -3,15 +3,18 @@ import { useLoaderData, Form, useNavigate } from "react-router-dom";
 
 import AuthContext from "../context/AuthContext";
 import User from "../models/user";
+import checkLocalStorage from "../functions/check-local-storage";
 
 const ProfileEdit = () => {
   const auth = useContext(AuthContext);
   const navigate = useNavigate();
+
   useEffect(() => {
-    if (!auth.isLoggedIn) {
-      navigate("/login");
-    }
+    const check = checkLocalStorage();
+    if (check) return;
+    else navigate("/login");
   }, [auth.isLoggedIn]);
+
   // data will probably just be grabbed from state instead.
   const data = useLoaderData();
   const userData: User = (data as User[])[0];

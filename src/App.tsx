@@ -3,6 +3,7 @@ import { useState, useEffect } from "react";
 
 import AuthContext, { AuthContexType } from "./context/AuthContext";
 import router from "./router/router";
+import { StorageDataInt } from "./functions/check-local-storage";
 
 function App() {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
@@ -12,13 +13,7 @@ function App() {
     setToken(token);
     setUserId(userId);
     setIsLoggedIn(true);
-    localStorage.setItem(
-      "userData",
-      JSON.stringify({
-        userId,
-        token,
-      })
-    );
+    localStorage.setItem("userData", JSON.stringify({ userId, token }));
   };
   const logout = () => {
     setToken(null);
@@ -35,14 +30,12 @@ function App() {
   };
 
   useEffect(() => {
-    const storageData: {
-      userId: string;
-      token: string;
-    } = JSON.parse(localStorage.getItem("userData") || "{}");
+    const storageData: StorageDataInt = JSON.parse(localStorage.getItem("userData") || "{}");
     if (storageData && storageData.userId && storageData.token) {
       login(storageData.token, storageData.userId);
     }
   }, []);
+
   return (
     <AuthContext.Provider value={user}>
       <RouterProvider router={router} />
