@@ -1,4 +1,4 @@
-// import { TEST_DB } from "../constants/global";
+import { TEST_DB } from "../constants/global";
 
 export const editListLoader = async ({ params }: any) => {
   // const { slug }: { slug: string } = params;

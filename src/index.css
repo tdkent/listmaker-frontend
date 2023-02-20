@@ -17,7 +17,10 @@ header nav a.active {
   color: white;
 }
 
+ul {
+  list-style: none;
+}
+
 nav ul {
   display: flex;
-  list-style: none;
 }

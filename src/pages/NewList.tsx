@@ -34,9 +34,9 @@ const NewList = () => {
   };
 
   const handleSubmit = async () => {
-    let listStructure;
+    let data;
     if (listCategory === NewListCategoryEnum.shop.toLowerCase()) {
-      listStructure = {
+      data = {
         currentItems: [],
         previousItems: [],
       };
@@ -53,7 +53,7 @@ const NewList = () => {
         listName,
         slug: slugify(listName.toLowerCase()),
         listCategory,
-        listStructure,
+        data,
       }),
     });
     if (!response.ok) {

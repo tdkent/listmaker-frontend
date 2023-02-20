@@ -13,8 +13,3 @@ export interface ListInt extends NewListActionInt {
   creatorId: number;
   slug: string;
 }
-
-export interface ShoppingListInt extends ListInt {
-  currentItems: string[];
-  previousItems: string[];
-}

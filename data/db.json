@@ -19,11 +19,11 @@
   "lists": [
     {
       "userId": "testid",
-      "listName": "test list 2",
-      "slug": "test-list-2",
+      "listName": "Shopping List 1",
+      "slug": "shopping-list-1",
       "listCategory": "shopping",
-      "listStructure": {
-        "currentItems": [],
+      "data": {
+        "currentItems": ["apples", "pears", "cherries"],
         "previousItems": []
       },
       "id": 1
