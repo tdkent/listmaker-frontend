@@ -3,13 +3,13 @@ import { NewListActionInt } from "../models/new-list";
 export const createNewListAction = async ({ request }: any) => {
   const data = await request.formData();
   const formData: NewListActionInt = {
-    listName: data.get("name"),
-    listCategory: data.get("category"),
+    name: data.get("name"),
+    category: data.get("category"),
   };
-  if (!formData.listName) {
+  if (!formData.name) {
     return { name: "Please enter a list name." };
   }
-  if (!formData.listCategory) {
+  if (!formData.category) {
     return { category: "Please select a category." };
   }
   return null;

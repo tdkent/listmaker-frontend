@@ -6,12 +6,12 @@ interface FormInputProps {
   handleChange: (e: React.FormEvent<HTMLInputElement>) => void;
 }
 
-const FormInput = ({ labelText, inputType, inputName, handleChange }: FormInputProps) => {
+const FormInput = ({ labelText, inputType, inputName, handleChange, value }: FormInputProps) => {
   return (
     <div>
       <label>
         <span>{labelText + ":"}</span>
-        <input type={inputType} name={inputName} onChange={handleChange} />
+        <input type={inputType} name={inputName} onChange={handleChange} value={value} />
       </label>
     </div>
   );

@@ -1,10 +1,11 @@
 import { ListInt } from "./new-list";
 
-interface ShoppingListInt extends ListInt {
-  data: {
-    currentItems: string[];
-    previousItems: string[];
-  };
+export interface ShoppingListItemInt {
+  id: number;
+  name: string;
+  isDone: boolean;
 }
 
-export default ShoppingListInt;
+export interface ShoppingListInt extends ListInt {
+  items: ShoppingListItemInt[];
+}

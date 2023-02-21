@@ -1,6 +1,5 @@
 import { useState, useEffect, useContext } from "react";
-import { Form, useNavigate, useParams, json } from "react-router-dom";
-// import useSWR from "swr";
+import { useNavigate, useParams } from "react-router-dom";
 import axios, { AxiosError } from "axios";
 
 import AuthContext from "../context/AuthContext";
@@ -8,7 +7,7 @@ import { TEST_DB } from "../constants/global";
 import Button from "../components/FormButton";
 import FormInput from "../components/FormInput";
 import checkLocalStorage from "../functions/check-local-storage";
-import ShoppingListInt from "../models/shopping-list";
+import { ShoppingListInt, ShoppingListItemInt } from "../models/shopping-list";
 
 const EditList = () => {
   const auth = useContext(AuthContext);
@@ -25,26 +24,22 @@ const EditList = () => {
 
   const [isPending, setIsPending] = useState(false);
   const [error, setError] = useState("");
-  const [listName, setListName] = useState("");
-  const [listCategory, setListCategory] = useState("");
-  const [currentItems, setCurrentItems] = useState<string[]>([]);
-  const [previousItems, setPreviousItems] = useState<string[]>([]);
+  const [listData, setListData] = useState<ShoppingListInt[]>([]);
   const [newItem, setNewItem] = useState("");
+  const [isEditing, setIsEditing] = useState(false);
+  const [editedName, setEditedName] = useState<string>("");
 
   useEffect(() => {
     setIsPending(true);
     axios
       .get(`${TEST_DB}/lists?id=${listId}`)
       .then((res) => {
-        console.log(res.data[0]);
-        const listData: ShoppingListInt = res.data[0];
-        if (!listData) {
+        const data: ShoppingListInt[] = res.data;
+        if (!data.length) {
           throw new Error("Oops! No data exists for that list.");
         }
-        setListName(listData.listName);
-        setListCategory(listData.listCategory);
-        setCurrentItems(listData.data.currentItems);
-        setPreviousItems(listData.data.previousItems);
+        setListData(data);
+        setEditedName(data[0].name);
       })
       .catch((err: AxiosError | { message: string }) => {
         if (axios.isAxiosError(err)) {
@@ -71,67 +66,99 @@ const EditList = () => {
   return (
     <div>
       <div>
-        <h2>{listName}</h2>
-        <h4>{listCategory} list</h4>
+        {!isEditing ? (
+          <span onClick={() => setIsEditing(true)}>{listData[0]?.name}</span>
+        ) : (
+          <form
+            onSubmit={async (e: React.FormEvent) => {
+              e.preventDefault();
+              setIsPending(true);
+              const body: ShoppingListInt = { ...listData[0], name: editedName };
+              await axios.put(`${TEST_DB}/lists/${listId}`, body);
+              await axios.get(`${TEST_DB}/lists/${listId}`).then((res) => {
+                const data: ShoppingListInt = res.data;
+                console.log("data: ", data);
+                setListData([data]);
+                // setEditedName(data[0].name);
+              });
+              setIsEditing(false);
+              setIsPending(false);
+            }}>
+            <label>
+              <input
+                type="text"
+                autoFocus={true}
+                value={editedName}
+                onChange={(e: React.FormEvent<HTMLInputElement>) => {
+                  setEditedName(e.currentTarget.value);
+                }}
+              />
+              <button type="submit">Update</button>
+            </label>
+          </form>
+        )}
+        {listData.length ? <p>{listData[0].category[0].toUpperCase() + listData[0].category.slice(1)}</p> : <p>...</p>}
       </div>
       <div>
         <form
           onSubmit={async (e: React.FormEvent) => {
             e.preventDefault();
             if (!newItem) return;
-            setCurrentItems((prev) => [...prev, newItem]);
-            setNewItem("");
+            setIsPending(true);
+            const item: ShoppingListItemInt = {
+              id: listData[0].items.length + 1,
+              name: newItem,
+              isDone: false,
+            };
+            const items: ShoppingListItemInt[] = [...listData[0].items, item];
+            const body: ShoppingListInt = { ...listData[0], items };
+            await axios.put(`${TEST_DB}/lists/${listId}`, body);
+            await axios.get(`${TEST_DB}/lists/${listId}`).then((res) => {
+              const data: ShoppingListInt = res.data;
+              setListData([data]);
+              setNewItem("");
+            });
+            setIsPending(false);
           }}>
-          <FormInput
-            labelText="Add new"
-            inputType="text"
-            inputName="name"
-            value={newItem}
-            handleChange={(e: React.FormEvent<HTMLInputElement>) => {
-              console.log("e: ", e.currentTarget.value);
-              setNewItem(e.currentTarget.value);
-            }}
-          />
-          <Button buttonText="+" buttonType="submit" />
+          <label>
+            <input
+              type="text"
+              autoFocus={true}
+              placeholder="Add Item"
+              onChange={(e: React.FormEvent<HTMLInputElement>) => {
+                setNewItem(e.currentTarget.value);
+              }}
+            />
+            <button type="submit">Add</button>
+          </label>
         </form>
       </div>
       <div>
-        <h3>Current Items</h3>
+        <h3>Items:</h3>
         <div>
           <ul>
-            {currentItems.map((item) => {
+            {listData[0]?.items.map((item) => {
               return (
-                <li key={currentItems.indexOf(item)}>
+                <li key={item.id}>
                   <input
                     type="checkbox"
-                    onClick={(e: React.FormEvent<HTMLInputElement>) => {
-                      setCurrentItems((prev) => [...prev.filter((curr) => curr !== item)]);
-                      setPreviousItems((prev) => [...prev, item]);
+                    checked={item.isDone}
+                    onChange={async (e: React.FormEvent) => {
+                      e.preventDefault();
+                      setIsPending(true);
+                      const updateItem: ShoppingListItemInt = { ...item, isDone: !item.isDone };
+                      const filterItems: ShoppingListItemInt[] = listData[0].items.filter((el) => el.id !== item.id);
+                      const updateItems: ShoppingListItemInt[] = [...filterItems, updateItem];
+                      const body: ShoppingListInt = { ...listData[0], items: updateItems };
+                      await axios.put(`${TEST_DB}/lists/${listId}`, body);
+                      await axios.get(`${TEST_DB}/lists/${listId}`).then((res) => {
+                        const data: ShoppingListInt = res.data;
+                        setListData([data]);
+                      });
+                      setIsPending(false);
                     }}
                   />
-                  {item}
-                </li>
-              );
-            })}
-          </ul>
-        </div>
-        <div>
-          <h4>Previous Items</h4>
-          <ul>
-            {previousItems.map((item) => {
-              return (
-                <li key={previousItems.indexOf(item)}>
-                  <input
-                    type="checkbox"
-                    onClick={(e: React.FormEvent<HTMLInputElement>) => {
-                      setPreviousItems((prev) => [...prev.filter((curr) => curr !== item)]);
-                      setCurrentItems((prev) => [...prev, item]);
-                    }}
-                  />
-                  {item}
-                  <button onClick={() => setPreviousItems((prev) => [...prev.filter((curr) => curr !== item)])}>
-                    -
-                  </button>
+                  {item.name}
                 </li>
               );
             })}

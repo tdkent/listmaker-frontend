@@ -12,8 +12,8 @@ const ListsDisplayAll = ({ lists }: DisplayUserListsProps) => {
       {lists.map((list) => {
         return (
           <div key={list.id}>
-            <p>{list.listName}</p>
-            <p>Category: {list.listCategory}</p>
+            <p>{list.name}</p>
+            <p>Category: {list.category}</p>
             <Link to={`${list.slug}&id=${list.id}`}>Edit List</Link>
           </div>
         );

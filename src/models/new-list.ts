@@ -4,12 +4,12 @@ export enum NewListCategoryEnum {
 }
 
 export interface NewListActionInt {
-  listName: string;
-  listCategory: NewListCategoryEnum.shop | NewListCategoryEnum.todo;
+  name: string;
+  category: NewListCategoryEnum.shop | NewListCategoryEnum.todo;
 }
 
 export interface ListInt extends NewListActionInt {
   id: number;
-  creatorId: number;
+  userId: number;
   slug: string;
 }
