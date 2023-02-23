@@ -1,12 +1,23 @@
 import { RouterProvider } from "react-router-dom";
 import { useState, useEffect } from "react";
 
-import AuthContext, { AuthContexType } from "./context/AuthContext";
+import AuthContext, { AuthContextType } from "./context/AuthContext";
+import ModalContext, { ModalContextInt } from "./context/ModalContext";
 import router from "./router/router";
 import { StorageDataInt } from "./functions/check-local-storage";
 
 function App() {
-  const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const [pending, setPending] = useState<boolean>(false);
+  const [modalActive, setModalActive] = useState<boolean>(false);
+  const toggleModal = (value: boolean) => setModalActive(value);
+  const togglePending = (value: boolean) => setPending(value);
+  const modal: ModalContextInt = {
+    active: modalActive,
+    pending,
+    toggleModal,
+    togglePending,
+  };
+  const [isLoggedIn, setIsLoggedIn] = useState<boolean>(false);
   const [token, setToken] = useState<string | null>(null);
   const [userId, setUserId] = useState<string | null>(null);
   const login = (token: string, userId: string) => {
@@ -21,7 +32,7 @@ function App() {
     setIsLoggedIn(false);
     localStorage.removeItem("userData");
   };
-  const user: AuthContexType = {
+  const user: AuthContextType = {
     isLoggedIn,
     userId,
     token,
@@ -37,9 +48,11 @@ function App() {
   }, []);
 
   return (
-    <AuthContext.Provider value={user}>
-      <RouterProvider router={router} />
-    </AuthContext.Provider>
+    <ModalContext.Provider value={modal}>
+      <AuthContext.Provider value={user}>
+        <RouterProvider router={router} />
+      </AuthContext.Provider>
+    </ModalContext.Provider>
   );
 }
 

@@ -1,6 +1,6 @@
 import { createContext } from "react";
 
-export interface AuthContexType {
+export interface AuthContextType {
   isLoggedIn: boolean;
   userId: string | null;
   token: string | null;
@@ -8,7 +8,7 @@ export interface AuthContexType {
   logout: () => void;
 }
 
-const AuthContext = createContext<AuthContexType>({
+const AuthContext = createContext<AuthContextType>({
   isLoggedIn: false,
   userId: null,
   token: null,

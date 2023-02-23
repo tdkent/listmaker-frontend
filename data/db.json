@@ -19,54 +19,14 @@
   "lists": [
     {
       "id": 1,
-      "name": "Jean's Shopping List",
+      "name": "Samuel's Groceries",
       "category": "shopping",
       "userId": 1,
       "slug": "shopping-list",
       "items": [
         {
-          "id": 3,
-          "name": "Pears",
-          "isDone": false
-        },
-        {
-          "id": 1,
-          "name": "Apples",
-          "isDone": false
-        },
-        {
           "id": 2,
-          "name": "Cherries",
-          "isDone": false
-        },
-        {
-          "id": 6,
-          "name": "Avocados",
-          "isDone": false
-        },
-        {
-          "id": 7,
-          "name": "Watermelon",
-          "isDone": false
-        },
-        {
-          "id": 4,
           "name": "Bananas",
-          "isDone": false
-        },
-        {
-          "id": 8,
-          "name": "Cantaloupe",
-          "isDone": false
-        },
-        {
-          "id": 5,
-          "name": "Strawberries",
-          "isDone": true
-        },
-        {
-          "id": 9,
-          "name": "Mangos",
           "isDone": false
         }
       ]
@@ -79,34 +39,16 @@
       "slug": "shopping-list",
       "items": [
         {
-          "id": 4,
-          "name": "Bananas",
-          "isDone": false
-        },
-        {
-          "id": 5,
-          "name": "Strawberries",
-          "isDone": false
-        },
-        {
-          "id": 3,
-          "name": "Pears",
-          "isDone": false
-        },
-        {
           "id": 1,
-          "name": "Apples",
-          "isDone": false
+          "name": "Bananas",
+          "isDone": false,
+          "isActive": false
         },
         {
           "id": 2,
-          "name": "Cherries",
-          "isDone": false
-        },
-        {
-          "id": 6,
-          "name": "Avocados",
-          "isDone": false
+          "name": "Strawberries",
+          "isDone": false,
+          "isActive": false
         }
       ]
     }
