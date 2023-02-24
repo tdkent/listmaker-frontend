@@ -2,7 +2,7 @@ import { useContext } from "react";
 
 import ModalContext from "../context/ModalContext";
 import { ShoppingListInt } from "../models/shopping-list";
-import { editListName } from "../api/edit-list";
+import { editListName } from "../api/mutate-lists";
 
 interface ModalPropsInt {
   name: "list" | "item";

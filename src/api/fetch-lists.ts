@@ -1,8 +1,7 @@
-import axios from "axios";
+import axios, { AxiosError } from "axios";
 
 import { TEST_DB } from "../constants/global";
 import { ShoppingListInt } from "../models/lists";
-import { AxiosError } from "axios";
 
 export async function fetchList(listId: number): Promise<ShoppingListInt> {
   const response = await axios
@@ -12,9 +11,8 @@ export async function fetchList(listId: number): Promise<ShoppingListInt> {
       return response.data;
     })
     .catch((error: Error | AxiosError) => {
-      if (axios.isAxiosError(error)) {
-        throw new Error(error.message);
-      } else throw new Error("An unknown error occurred. Please try again.");
+      if (axios.isAxiosError(error)) throw new Error(error.message);
+      else throw new Error("An unknown error occurred. Please try again later.");
     });
   return response;
 }

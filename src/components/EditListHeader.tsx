@@ -1,20 +1,32 @@
-import { useState, useRef, useContext } from "react";
+import { useState, useContext } from "react";
+import { useMutation, QueryClient } from "@tanstack/react-query";
 
 import ModalContext from "../context/ModalContext";
 import { ShoppingListInt } from "../models/lists";
-import { editListName } from "../api/edit-list";
+import { editListName } from "../api/mutate-lists";
 import { EditListReducerActionInt } from "../models/edit-list";
 
+const queryClient = new QueryClient();
+
 interface EditListHeaderProps {
+  listId: number;
   list: ShoppingListInt;
 }
 
-const EditListHeader = ({ list }: EditListHeaderProps) => {
+const EditListHeader = ({ listId, list }: EditListHeaderProps) => {
   const [name, setName] = useState(list.name);
   const modal = useContext(ModalContext);
 
+  const body = { ...list, name };
+
+  const listNameMutation = useMutation({
+    mutationFn: () => editListName(list.id, body),
+    onSuccess: () => queryClient.invalidateQueries(),
+  });
+
   const submitHandler = async (e: React.FormEvent) => {
     e.preventDefault();
+    listNameMutation.mutate();
     modal.toggleModal(false);
   };
 

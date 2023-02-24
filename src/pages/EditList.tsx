@@ -18,21 +18,23 @@ const EditList = () => {
     if (check) return;
     else navigate("/login");
   }, [auth.isLoggedIn, navigate]);
+
   // params
   const { slug }: { slug: string } = useParams() as { slug: string };
   const listId = Number(slug.split("=")[1]);
+
   // query
   const { isLoading, isError, data, error } = useQuery({
     queryKey: ["list", listId],
     queryFn: () => fetchList(listId),
   });
 
+  // conditional rendering
   if (isLoading) {
     return <div>Loading...</div>;
   }
 
   if (isError) {
-    console.log(error);
     if (error instanceof Error)
       return (
         <div>
@@ -41,9 +43,11 @@ const EditList = () => {
         </div>
       );
   }
+
+  // main render
   return (
     <div>
-      <EditListHeader list={data!} />
+      <EditListHeader listId={listId} list={data!} />
     </div>
   );
 };
