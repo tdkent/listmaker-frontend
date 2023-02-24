@@ -1,37 +1,16 @@
-import { useEffect, useContext, useReducer } from "react";
+import { useEffect, useContext } from "react";
 import { useNavigate, useParams } from "react-router-dom";
-import axios from "axios";
+import { useQuery } from "@tanstack/react-query";
 
 import AuthContext from "../context/AuthContext";
-import ModalContext from "../context/ModalContext";
-import { TEST_DB } from "../constants/global";
 import checkLocalStorage from "../functions/check-local-storage";
-import { ShoppingListInt } from "../models/lists";
-import EditListHeader from "../components/EditListHeader";
-import { initialState, EditListReducerActionInt, EditListActionTypesEnum } from "../models/edit-list";
+import { fetchList } from "../api/fetch-lists";
 
-const reducer = (state: typeof initialState, action: EditListReducerActionInt) => {
-  if (action.type === EditListActionTypesEnum.fetchSuccess) {
-    return {
-      loading: false,
-      error: "",
-      list: action.payload,
-    };
-  }
-  if (action.type === EditListActionTypesEnum.notFoundError) {
-    return { loading: false, error: "That list does not exist.", list: {} };
-  }
-  if (action.type === EditListActionTypesEnum.fetchError) {
-    return { loading: false, error: action.error as string, list: {} };
-  }
-  if (action.type === EditListActionTypesEnum.editListName) {
-    return { loading: false, error: action.error as string, list: {} as };
-  }
-  return state;
-};
+import EditListHeader from "../components/EditListHeader";
+import { ShoppingListInt } from "../models/lists";
 
 const EditList = () => {
-  // user auth check
+  // auth check & redirect
   const auth = useContext(AuthContext);
   const navigate = useNavigate();
   useEffect(() => {
@@ -39,50 +18,32 @@ const EditList = () => {
     if (check) return;
     else navigate("/login");
   }, [auth.isLoggedIn, navigate]);
-
-  // constants
-  // const modal = useContext(ModalContext);
+  // params
   const { slug }: { slug: string } = useParams() as { slug: string };
   const listId = Number(slug.split("=")[1]);
+  // query
+  const { isLoading, isError, data, error } = useQuery({
+    queryKey: ["list", listId],
+    queryFn: () => fetchList(listId),
+  });
 
-  const [state, dispatch] = useReducer(reducer, initialState);
-
-  useEffect(() => {
-    axios
-      .get(`${TEST_DB}/lists?id=${listId}`)
-      .then((res) => {
-        if (!res.data.length) {
-          return dispatch({
-            type: EditListActionTypesEnum.notFoundError,
-          });
-        }
-        dispatch({
-          type: EditListActionTypesEnum.fetchSuccess,
-          payload: res.data[0],
-        });
-      })
-      .catch((err) => {
-        dispatch({ type: EditListActionTypesEnum.fetchError, error: err.message });
-      });
-  }, []);
-
-  if (state.loading) {
+  if (isLoading) {
     return <div>Loading...</div>;
   }
 
-  if (state.error) {
-    return (
-      <div>
-        <h2>Oh no!</h2>
-        <h4>Sorry, an error occurred.</h4>
-        <p>{state.error}</p>
-      </div>
-    );
+  if (isError) {
+    console.log(error);
+    if (error instanceof Error)
+      return (
+        <div>
+          <h2>Error</h2>
+          <p>{error.message}</p>
+        </div>
+      );
   }
-
   return (
     <div>
-      <EditListHeader list={state.list} dispatch={dispatch} />
+      <EditListHeader list={data!} />
     </div>
   );
 };

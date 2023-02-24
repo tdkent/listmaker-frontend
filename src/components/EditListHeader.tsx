@@ -7,22 +7,14 @@ import { EditListReducerActionInt } from "../models/edit-list";
 
 interface EditListHeaderProps {
   list: ShoppingListInt;
-  dispatch: React.Dispatch<any>;
 }
 
-const EditListHeader = ({ list, dispatch }: EditListHeaderProps) => {
+const EditListHeader = ({ list }: EditListHeaderProps) => {
   const [name, setName] = useState(list.name);
   const modal = useContext(ModalContext);
 
   const submitHandler = async (e: React.FormEvent) => {
     e.preventDefault();
-    const body: ShoppingListInt = { ...list, name };
-    const payload = await editListName(list.id, body);
-    console.log("payload: ", payload);
-    // dispatch({
-    //   type: "EDIT_LIST_NAME",
-    //   payload,
-    // });
     modal.toggleModal(false);
   };
 
