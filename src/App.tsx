@@ -1,12 +1,16 @@
 import { RouterProvider } from "react-router-dom";
 import { useState, useEffect } from "react";
+import { useQuery } from "@tanstack/react-query";
 
-import AuthContext, { AuthContextType } from "./context/AuthContext";
+import AuthContext, { AuthContextInt } from "./context/AuthContext";
+import ActiveListContext, { ActiveListContextInt } from "./context/ActiveListContext";
 import ModalContext, { ModalContextInt } from "./context/ModalContext";
 import router from "./router/router";
 import { StorageDataInt } from "./functions/check-local-storage";
+import { ListInt } from "./models/lists";
 
 function App() {
+  // modal context
   const [pending, setPending] = useState<boolean>(false);
   const [modalActive, setModalActive] = useState<boolean>(false);
   const toggleModal = (value: boolean) => setModalActive(value);
@@ -17,6 +21,8 @@ function App() {
     toggleModal,
     togglePending,
   };
+
+  // auth context
   const [isLoggedIn, setIsLoggedIn] = useState<boolean>(false);
   const [token, setToken] = useState<string | null>(null);
   const [userId, setUserId] = useState<string | null>(null);
@@ -32,7 +38,7 @@ function App() {
     setIsLoggedIn(false);
     localStorage.removeItem("userData");
   };
-  const user: AuthContextType = {
+  const user: AuthContextInt = {
     isLoggedIn,
     userId,
     token,
@@ -40,6 +46,17 @@ function App() {
     logout,
   };
 
+  // list context
+  const [list, setList] = useState<ListInt>({} as ListInt);
+  const addListToContext = (list: ListInt) => {
+    setList(list);
+  };
+  const activeList: ActiveListContextInt = {
+    list,
+    addListToContext,
+  };
+
+  // login on refresh
   useEffect(() => {
     const storageData: StorageDataInt = JSON.parse(localStorage.getItem("userData") || "{}");
     if (storageData && storageData.userId && storageData.token) {
@@ -50,7 +67,9 @@ function App() {
   return (
     <ModalContext.Provider value={modal}>
       <AuthContext.Provider value={user}>
-        <RouterProvider router={router} />
+        <ActiveListContext.Provider value={activeList}>
+          <RouterProvider router={router} />
+        </ActiveListContext.Provider>
       </AuthContext.Provider>
     </ModalContext.Provider>
   );

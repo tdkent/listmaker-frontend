@@ -1,31 +1,29 @@
 import { useState, useContext } from "react";
-import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
 
 import ModalContext from "../context/ModalContext";
 import { ShoppingListInt } from "../models/lists";
 import { editListName } from "../api/mutate-lists";
 import { EditListReducerActionInt } from "../models/edit-list";
 
-interface EditListHeaderProps {
+interface HeaderProps {
   listId: number;
   list: ShoppingListInt;
 }
 
-const EditListHeader = ({ listId, list }: EditListHeaderProps) => {
-  const [name, setName] = useState(list.name);
+const EditListHeader = ({ listId, list }: HeaderProps) => {
+  const [listName, setListName] = useState(list.name);
   const modal = useContext(ModalContext);
   const queryClient = useQueryClient();
 
-  const body = { ...list, name };
-
   const listNameMutation = useMutation({
-    mutationFn: () => editListName(list.id, body),
+    mutationFn: () => editListName(listId, list, listName),
     onSuccess: () => queryClient.invalidateQueries(["list", listId]),
   });
 
   const submitHandler = async (e: React.FormEvent) => {
     e.preventDefault();
-    if (name !== list.name) listNameMutation.mutate();
+    if (listName !== list.name) listNameMutation.mutate();
     modal.toggleModal(false);
   };
 
@@ -44,8 +42,10 @@ const EditListHeader = ({ listId, list }: EditListHeaderProps) => {
                 type="text"
                 name="edit-list-name"
                 autoFocus={true}
-                value={name}
-                onChange={(e: React.FormEvent<HTMLInputElement>) => setName(e.currentTarget.value)}
+                value={listName}
+                onChange={(e: React.FormEvent<HTMLInputElement>) =>
+                  setListName(e.currentTarget.value)
+                }
               />
             </label>
             <button type="submit">Submit</button>

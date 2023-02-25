@@ -7,6 +7,8 @@ import checkLocalStorage from "../functions/check-local-storage";
 import { fetchList } from "../api/fetch-lists";
 
 import EditListHeader from "../components/EditListHeader";
+import EditListAddItem from "../components/EditListAddItem";
+import EditListDisplayItems from "../components/EditListDisplayItems";
 import { ShoppingListInt } from "../models/lists";
 
 const EditList = () => {
@@ -45,9 +47,12 @@ const EditList = () => {
   }
 
   // main render
+
   return (
     <div>
       <EditListHeader listId={listId} list={data!} />
+      <EditListAddItem listId={listId} list={data!} />
+      <EditListDisplayItems list={data!} />
     </div>
   );
 };

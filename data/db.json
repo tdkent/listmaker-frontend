@@ -19,17 +19,40 @@
   "lists": [
     {
       "id": 1,
-      "name": "Aaron's Vernacular",
+      "name": "Franz's Grocery List",
       "category": "shopping",
       "userId": 1,
       "slug": "shopping-list",
       "items": [
         {
-          "id": 2,
+          "id": 1,
           "name": "Bananas",
+          "isDone": false,
+          "isActive": false
+        },
+        {
+          "id": 2,
+          "name": "Strawberries",
+          "isDone": false,
+          "isActive": false
+        },
+        {
+          "id": 132,
+          "name": "Cherries",
+          "isDone": false
+        },
+        {
+          "id": 246,
+          "name": "Apples",
+          "isDone": false
+        },
+        {
+          "id": 44,
+          "name": "Pears",
           "isDone": false
         }
-      ]
+      ],
+      "listName": "Testing Grocery List"
     },
     {
       "id": 2,
