@@ -52,7 +52,7 @@ const EditList = () => {
     <div>
       <EditListHeader listId={listId} list={data!} />
       <EditListAddItem listId={listId} list={data!} />
-      <EditListDisplayItems list={data!} />
+      <EditListDisplayItems listId={listId} list={data!} />
       <EditListDeleteList listId={listId} />
     </div>
   );

@@ -1,39 +1,26 @@
-import { useState, useRef } from "react";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 
-import { editListName } from "../api/mutate-lists";
+import { selectCheckbox } from "../api/mutate-lists";
 import { ShoppingListInt } from "../models/lists";
 
 interface DisplayItemsProps {
+  listId: number;
   list: ShoppingListInt;
 }
 
-const EditListDisplayItems = ({ list }: DisplayItemsProps) => {
-  const [formBody, setFormBody] = useState(list);
+const EditListDisplayItems = ({ listId, list }: DisplayItemsProps) => {
   const queryClient = useQueryClient();
-  const listId = list.id;
-  // const listMutation = useMutation({
-  //   mutationFn: () => editListName(list.id, formBody),
-  //   onSuccess: () => queryClient.invalidateQueries(["list", listId]),
-  // });
+  const mutate = useMutation({
+    mutationFn: (itemId: number) => selectCheckbox(itemId, listId, list),
+    onSuccess: () => queryClient.invalidateQueries(["list", listId]),
+  });
 
-  const items = list.items;
   return (
     <div style={{ border: "1px dashed pink", padding: "1rem", margin: "1rem 0" }}>
       <ul>
-        {items.map((item) => (
+        {list.items.map((item) => (
           <li key={item.id}>
-            <input
-              type="checkbox"
-              checked={item.isDone}
-              onChange={(e: React.FormEvent) => {
-                e.preventDefault();
-
-                // const body = { ...list, items: { ...items, updateItem } };
-                // setFormBody(body);
-                // listMutation.mutate();
-              }}
-            />
+            <input type="checkbox" checked={item.isDone} onChange={() => mutate.mutate(item.id)} />
             {item.name}
           </li>
         ))}

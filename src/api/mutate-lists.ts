@@ -33,3 +33,18 @@ export const addItemToList = async (listId: number, list: ShoppingListInt, itemN
     else throw new Error("An unknown error occurred. Please try again later.");
   });
 };
+
+export const selectCheckbox = async (itemId: number, listId: number, list: ShoppingListInt) => {
+  const item = list.items.find((item) => item.id === itemId) as ShoppingListItemInt;
+  const updateItem: ShoppingListItemInt[] = [{ ...item, isDone: !item.isDone }];
+  const updateItems = list.items
+    .filter((item) => item.id !== itemId)
+    .concat(updateItem)
+    .sort((a, b) => a.id - b.id);
+  const body = { ...list, items: [...updateItems] };
+  await axios.put(`${TEST_DB}/lists/${listId}`, body).catch((error: Error | AxiosError) => {
+    console.log(error);
+    if (axios.isAxiosError(error)) throw new Error(error.message);
+    else throw new Error("An unknown error occurred. Please try again later.");
+  });
+};
