@@ -9,7 +9,7 @@ import { fetchList } from "../api/fetch-lists";
 import EditListHeader from "../components/EditListHeader";
 import EditListAddItem from "../components/EditListAddItem";
 import EditListDisplayItems from "../components/EditListDisplayItems";
-import { ShoppingListInt } from "../models/lists";
+import EditListDeleteList from "../components/EditListDeleteList";
 
 const EditList = () => {
   // auth check & redirect
@@ -53,6 +53,7 @@ const EditList = () => {
       <EditListHeader listId={listId} list={data!} />
       <EditListAddItem listId={listId} list={data!} />
       <EditListDisplayItems list={data!} />
+      <EditListDeleteList listId={listId} />
     </div>
   );
 };

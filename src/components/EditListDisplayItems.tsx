@@ -19,7 +19,7 @@ const EditListDisplayItems = ({ list }: DisplayItemsProps) => {
 
   const items = list.items;
   return (
-    <div>
+    <div style={{ border: "1px dashed pink", padding: "1rem", margin: "1rem 0" }}>
       <ul>
         {items.map((item) => (
           <li key={item.id}>

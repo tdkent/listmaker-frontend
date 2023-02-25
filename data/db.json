@@ -19,7 +19,7 @@
   "lists": [
     {
       "id": 1,
-      "name": "Franz's Grocery List",
+      "name": "Jean's Grocery List",
       "category": "shopping",
       "userId": 1,
       "slug": "shopping-list",
@@ -37,22 +37,21 @@
           "isActive": false
         },
         {
-          "id": 132,
-          "name": "Cherries",
-          "isDone": false
-        },
-        {
-          "id": 246,
+          "id": 66,
           "name": "Apples",
           "isDone": false
         },
         {
-          "id": 44,
+          "id": 99,
           "name": "Pears",
           "isDone": false
+        },
+        {
+          "id": 120,
+          "name": "Cherries",
+          "isDone": false
         }
-      ],
-      "listName": "Testing Grocery List"
+      ]
     },
     {
       "id": 2,
