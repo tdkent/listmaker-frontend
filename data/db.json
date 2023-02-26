@@ -19,22 +19,20 @@
   "lists": [
     {
       "id": 1,
-      "name": "TEsting",
+      "name": "Jean's Shopping List",
       "category": "shopping",
       "userId": 1,
       "slug": "shopping-list",
       "items": [
         {
-          "id": 1,
-          "name": "Bananas",
-          "isDone": false,
-          "isActive": false
+          "id": 8,
+          "name": "Apples",
+          "isDone": false
         },
         {
-          "id": 2,
-          "name": "Strawberries",
-          "isDone": false,
-          "isActive": false
+          "id": 150,
+          "name": "Pears",
+          "isDone": false
         }
       ]
     },
@@ -48,14 +46,22 @@
         {
           "id": 1,
           "name": "Bananas",
-          "isDone": false,
-          "isActive": false
+          "isDone": false
         },
         {
           "id": 2,
           "name": "Strawberries",
-          "isDone": false,
-          "isActive": false
+          "isDone": false
+        },
+        {
+          "id": 3,
+          "name": "Apples",
+          "isDone": false
+        },
+        {
+          "id": 4,
+          "name": "Pears",
+          "isDone": false
         }
       ]
     }

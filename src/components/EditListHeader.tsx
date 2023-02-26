@@ -54,22 +54,23 @@ const EditListHeader = ({ listId, list }: HeaderProps) => {
   );
 
   return (
-    <div style={{ border: "1px dashed blue", padding: "1rem" }}>
-      <div>
-        <h2>{list.name}</h2>
-        <button
-          onClick={() => {
-            modal.provideId(ModalContentIdEnum.editList);
-            modal.toggleModal(true);
-          }}>
-          Edit
-        </button>
-      </div>
-
+    <>
       {modal.active && modal.contentId === ModalContentIdEnum.editList && (
         <Modal modalContent={modalContent} />
       )}
-    </div>
+      <div style={{ border: "1px dashed blue", padding: "1rem" }}>
+        <div>
+          <h2>{list.name}</h2>
+          <button
+            onClick={() => {
+              modal.provideId(ModalContentIdEnum.editList);
+              modal.toggleModal(true);
+            }}>
+            Edit
+          </button>
+        </div>
+      </div>
+    </>
   );
 };
 

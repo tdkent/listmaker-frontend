@@ -3,6 +3,7 @@ import { createContext } from "react";
 export enum ModalContentIdEnum {
   editList = "EDIT_LIST",
   deleteList = "DELETE_LIST",
+  editItem = "EDIT_ITEM",
 }
 
 export interface ModalContextInt {
