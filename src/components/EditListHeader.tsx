@@ -1,7 +1,7 @@
 import { useState, useContext } from "react";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 
-import ModalContext from "../context/ModalContext";
+import ModalContext, { ModalContentIdEnum } from "../context/ModalContext";
 import { ShoppingListInt } from "../models/lists";
 import { editListName } from "../api/mutate-lists";
 import { EditListReducerActionInt } from "../models/edit-list";
@@ -34,7 +34,7 @@ const EditListHeader = ({ listId, list }: HeaderProps) => {
         <button onClick={() => modal.toggleModal(true)}>Edit</button>
       </div>
 
-      {modal.active && (
+      {modal.active && modal.contentId === ModalContentIdEnum.editList && (
         <div>
           <form onSubmit={submitHandler}>
             <label htmlFor="edit-list-name">

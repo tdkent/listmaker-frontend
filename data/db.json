@@ -27,34 +27,14 @@
         {
           "id": 1,
           "name": "Bananas",
-          "isDone": true,
+          "isDone": false,
           "isActive": false
         },
         {
           "id": 2,
           "name": "Strawberries",
-          "isDone": true,
+          "isDone": false,
           "isActive": false
-        },
-        {
-          "id": 25,
-          "name": "Avocados",
-          "isDone": true
-        },
-        {
-          "id": 66,
-          "name": "Apples",
-          "isDone": true
-        },
-        {
-          "id": 99,
-          "name": "Pears",
-          "isDone": true
-        },
-        {
-          "id": 120,
-          "name": "Cherries",
-          "isDone": true
         }
       ]
     },

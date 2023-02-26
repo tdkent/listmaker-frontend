@@ -4,7 +4,7 @@ import { useQuery } from "@tanstack/react-query";
 
 import AuthContext, { AuthContextInt } from "./context/AuthContext";
 import ActiveListContext, { ActiveListContextInt } from "./context/ActiveListContext";
-import ModalContext, { ModalContextInt } from "./context/ModalContext";
+import ModalContext, { ModalContextInt, ModalContentIdEnum } from "./context/ModalContext";
 import router from "./router/router";
 import { StorageDataInt } from "./functions/check-local-storage";
 import { ListInt } from "./models/lists";
@@ -13,13 +13,17 @@ function App() {
   // modal context
   const [pending, setPending] = useState<boolean>(false);
   const [modalActive, setModalActive] = useState<boolean>(false);
+  const [contentId, setContentId] = useState<ModalContextInt["contentId"]>("");
   const toggleModal = (value: boolean) => setModalActive(value);
   const togglePending = (value: boolean) => setPending(value);
+  const provideId = (value: ModalContextInt["contentId"]) => setContentId(value);
   const modal: ModalContextInt = {
     active: modalActive,
     pending,
     toggleModal,
     togglePending,
+    contentId,
+    provideId,
   };
 
   // auth context
