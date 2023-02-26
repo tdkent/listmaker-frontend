@@ -20,35 +20,30 @@ const EditListDeleteList = ({ listId }: DeleteListProps) => {
       queryClient.invalidateQueries(["list", listId]);
     },
   });
-  const handleDelete = () => {
-    mutate.mutate();
-    navigate("/lists");
-  };
 
   const modalContent = (
-    <div
-      style={{
-        zIndex: 100,
-        position: "fixed",
-        top: "22vh",
-        left: "25%",
-        width: "50%",
-        background: "white",
-        boxShadow: "0 2px 8px rgba(0, 0, 0, 0.26)",
-        borderRadius: "8px",
-        padding: "2rem",
-      }}>
-      <header>Are you sure want to delete this list?</header>
-      <button type="submit" onClick={handleDelete}>
-        Delete
-      </button>
-      <button
-        onClick={() => {
-          modal.provideId("");
-          modal.toggleModal(false);
-        }}>
-        Cancel
-      </button>
+    <div>
+      <p>Are you sure want to delete this list?</p>
+      <form>
+        <button
+          type="button"
+          onClick={() => {
+            mutate.mutate();
+            modal.provideId("");
+            modal.toggleModal(false);
+            navigate("/lists");
+          }}>
+          Delete
+        </button>
+        <button
+          type="button"
+          onClick={() => {
+            modal.provideId("");
+            modal.toggleModal(false);
+          }}>
+          Cancel
+        </button>
+      </form>
     </div>
   );
 

@@ -2,9 +2,9 @@ import { useState, useContext } from "react";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 
 import ModalContext, { ModalContentIdEnum } from "../context/ModalContext";
+import Modal from "./Modal";
 import { ShoppingListInt } from "../models/lists";
 import { editListName } from "../api/mutate-lists";
-import { EditListReducerActionInt } from "../models/edit-list";
 
 interface HeaderProps {
   listId: number;
@@ -18,40 +18,56 @@ const EditListHeader = ({ listId, list }: HeaderProps) => {
 
   const listNameMutation = useMutation({
     mutationFn: () => editListName(listId, list, listName),
-    onSuccess: () => queryClient.invalidateQueries(["list", listId]),
+    onSuccess: () => {
+      queryClient.invalidateQueries(["list", listId]);
+    },
   });
 
-  const submitHandler = async (e: React.FormEvent) => {
-    e.preventDefault();
-    if (listName !== list.name) listNameMutation.mutate();
-    modal.toggleModal(false);
-  };
+  const modalContent = (
+    <div>
+      <form>
+        <input
+          type="text"
+          autoFocus={true}
+          value={listName}
+          onChange={(e: React.FormEvent<HTMLInputElement>) => setListName(e.currentTarget.value)}
+        />
+        <button
+          type="button"
+          onClick={() => {
+            if (listName !== list.name) listNameMutation.mutate();
+            modal.provideId("");
+            modal.toggleModal(false);
+          }}>
+          Submit
+        </button>
+        <button
+          type="button"
+          onClick={() => {
+            modal.provideId("");
+            modal.toggleModal(false);
+          }}>
+          Cancel
+        </button>
+      </form>
+    </div>
+  );
 
   return (
     <div style={{ border: "1px dashed blue", padding: "1rem" }}>
       <div>
         <h2>{list.name}</h2>
-        <button onClick={() => modal.toggleModal(true)}>Edit</button>
+        <button
+          onClick={() => {
+            modal.provideId(ModalContentIdEnum.editList);
+            modal.toggleModal(true);
+          }}>
+          Edit
+        </button>
       </div>
 
       {modal.active && modal.contentId === ModalContentIdEnum.editList && (
-        <div>
-          <form onSubmit={submitHandler}>
-            <label htmlFor="edit-list-name">
-              <input
-                type="text"
-                name="edit-list-name"
-                autoFocus={true}
-                value={listName}
-                onChange={(e: React.FormEvent<HTMLInputElement>) =>
-                  setListName(e.currentTarget.value)
-                }
-              />
-            </label>
-            <button type="submit">Submit</button>
-            <button onClick={() => modal.toggleModal(false)}>Cancel</button>
-          </form>
-        </div>
+        <Modal modalContent={modalContent} />
       )}
     </div>
   );

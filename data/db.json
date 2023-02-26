@@ -19,7 +19,7 @@
   "lists": [
     {
       "id": 1,
-      "name": "Jean's Grocery List",
+      "name": "TEsting",
       "category": "shopping",
       "userId": 1,
       "slug": "shopping-list",
