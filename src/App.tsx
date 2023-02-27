@@ -28,8 +28,8 @@ function App() {
   // auth context
   const [isLoggedIn, setIsLoggedIn] = useState<boolean>(false);
   const [token, setToken] = useState<string | null>(null);
-  const [userId, setUserId] = useState<string | null>(null);
-  const login = (token: string, userId: string) => {
+  const [userId, setUserId] = useState<number | null>(null);
+  const login = (token: string, userId: number) => {
     setToken(token);
     setUserId(userId);
     setIsLoggedIn(true);
@@ -62,8 +62,9 @@ function App() {
   // login on refresh
   useEffect(() => {
     const storageData: StorageDataInt = JSON.parse(localStorage.getItem("userData") || "{}");
+    const userId = Number(storageData.userId);
     if (storageData && storageData.userId && storageData.token) {
-      login(storageData.token, storageData.userId);
+      login(storageData.token, userId);
     }
   }, []);
 

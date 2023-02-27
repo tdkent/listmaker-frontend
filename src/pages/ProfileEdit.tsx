@@ -2,7 +2,7 @@ import { useContext, useEffect } from "react";
 import { useLoaderData, Form, useNavigate } from "react-router-dom";
 
 import AuthContext from "../context/AuthContext";
-import User from "../models/user";
+import { UserInfoInt } from "../models/user";
 import checkLocalStorage from "../functions/check-local-storage";
 
 const ProfileEdit = () => {
@@ -16,8 +16,8 @@ const ProfileEdit = () => {
   }, [auth.isLoggedIn]);
 
   // data will probably just be grabbed from state instead.
-  const data = useLoaderData();
-  const userData: User = (data as User[])[0];
+  // const data = useLoaderData();
+  // const userData: UserInfoInt = (data as UserInfoInt[])[0];
   return (
     <div>
       <h2>Edit Your Profile</h2>

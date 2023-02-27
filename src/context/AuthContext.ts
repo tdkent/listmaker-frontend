@@ -2,9 +2,9 @@ import { createContext } from "react";
 
 export interface AuthContextInt {
   isLoggedIn: boolean;
-  userId: string | null;
+  userId: number | null;
   token: string | null;
-  login: (a: string, b: string) => void;
+  login: (token: string, userId: number) => void;
   logout: () => void;
 }
 

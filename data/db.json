@@ -64,6 +64,35 @@
           "isDone": false
         }
       ]
+    },
+    {
+      "id": 3,
+      "name": "Bela's Favorite Foods",
+      "category": "shopping",
+      "userId": 2,
+      "slug": "shopping-list",
+      "items": [
+        {
+          "id": 1,
+          "name": "Pepperoni Pizza",
+          "isDone": false
+        },
+        {
+          "id": 2,
+          "name": "Vanilla Milkshake",
+          "isDone": false
+        },
+        {
+          "id": 3,
+          "name": "Pumpkin Pie",
+          "isDone": false
+        },
+        {
+          "id": 4,
+          "name": "Pasta Bolognese",
+          "isDone": false
+        }
+      ]
     }
   ],
   "users": [
@@ -80,25 +109,34 @@
       "id": 2
     },
     {
-      "userEmail": "test@test",
-      "userName": "test",
-      "userPassword": "pass",
-      "verifyPassword": "pass",
+      "userEmail": "samuel@test.com",
+      "userName": "samuel",
+      "userPassword": "password",
       "id": 3
+    },
+    {
+      "userEmail": "test@test.test",
+      "userName": "test",
+      "userPassword": "password",
+      "id": 4
     },
     {
       "userEmail": "edvard@test.com",
       "userName": "edvard",
-      "userPassword": "pass",
-      "verifyPassword": "pass",
-      "id": 4
+      "userPassword": "password",
+      "id": 5
     },
     {
-      "userEmail": "samuel@test.com",
-      "userName": "samuel",
-      "userPassword": "pass",
-      "verifyPassword": "pass",
-      "id": 5
+      "userEmail": "maurice@test.com",
+      "userName": "maurice",
+      "userPassword": "password",
+      "id": 6
+    },
+    {
+      "userEmail": "igor@test.com",
+      "userName": "igor",
+      "userPassword": "password",
+      "id": 7
     }
   ]
 }

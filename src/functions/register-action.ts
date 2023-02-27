@@ -1,11 +1,15 @@
-import {
-  RegisterDefStateInt,
-  RegisterInputsEnum,
-} from "../models/register-user";
+import { RegisterInputsEnum } from "../models/auth";
+
+interface FormDataInt {
+  userEmail: string;
+  userName: string;
+  userPassword: string;
+  verifyPassword: string;
+}
 
 export const registerUserAction = async ({ request }: any) => {
   const req = await request.formData();
-  const data: RegisterDefStateInt = {
+  const data: FormDataInt = {
     userEmail: req.get(RegisterInputsEnum.email),
     userName: req.get(RegisterInputsEnum.username),
     userPassword: req.get(RegisterInputsEnum.password),

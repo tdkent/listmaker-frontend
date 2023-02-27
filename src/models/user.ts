@@ -1,5 +1,6 @@
-export default interface User {
+export interface UserInfoInt {
   id: number;
   userEmail: string;
   userName: string;
+  userPassword: string;
 }

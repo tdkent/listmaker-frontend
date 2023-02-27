@@ -5,42 +5,41 @@ import { AuthFormErrorInt } from "../models/errors";
 import AuthContext from "../context/AuthContext";
 import FormInput from "./FormInput";
 import Button from "./FormButton";
-import { LoginInputsEnum, LoginDefStateInt } from "../models/login-user";
+import { AuthReducerActionInt, LoginInputsEnum } from "../models/auth";
 
 const AuthLogin = () => {
   const actionData = useActionData();
   const errors: AuthFormErrorInt = actionData as AuthFormErrorInt;
 
-  const defaultLoginState: LoginDefStateInt = {
+  const defaultState = {
     userNameOrEmail: "",
     userPassword: "",
   };
 
-  const reducer = (state: typeof defaultLoginState, action: any) => {
+  const reducer = (state: typeof defaultState, action: AuthReducerActionInt) => {
     if (action.type === LoginInputsEnum.user) {
-      return { ...state, userNameOrEmail: action.payload.input };
+      return { ...state, userNameOrEmail: action.payload };
     }
     if (action.type === LoginInputsEnum.password) {
-      return { ...state, userPassword: action.payload.input };
+      return { ...state, userPassword: action.payload };
     }
     throw new Error("No matching action type!");
   };
 
-  const [state, dispatch] = useReducer(reducer, defaultLoginState);
+  const [state, dispatch] = useReducer(reducer, defaultState);
 
   const handleChange = (e: React.FormEvent<HTMLInputElement>) => {
     dispatch({
       type: e.currentTarget.name,
-      payload: { input: e.currentTarget.value },
+      payload: e.currentTarget.value,
     });
   };
   const auth = useContext(AuthContext);
-  const handleSubmit = async (e: React.FormEvent) => {
-    //? e.preventDefault()
+  console.log("auth: ", auth);
+  const handleSubmit = async () => {
     try {
-      // credentials {...state} sent to db. db responds with nomatch error or token, userId
       //TODO: error handling
-      auth.login("dummytokenstring", "testid");
+      auth.login("dummytokenstring", 1);
       //TODO: initiate redirect to user's list page
     } catch (error) {
       console.error(error);

@@ -2,70 +2,60 @@ import React, { useContext, useReducer } from "react";
 import { Form, useActionData } from "react-router-dom";
 
 import AuthContext from "../context/AuthContext";
-import { TEST_DB } from "../constants/global";
 import { AuthFormErrorInt } from "../models/errors";
 import FormButton from "./FormButton";
 import FormInput from "./FormInput";
-import {
-  RegisterDefStateInt,
-  RegisterInputsEnum,
-} from "../models/register-user";
+import { RegisterInputsEnum, AuthReducerActionInt } from "../models/auth";
+import { register } from "../api/auth";
 
 const AuthRegister = () => {
+  // form validation
   const actionData = useActionData();
   const errors: AuthFormErrorInt = actionData as AuthFormErrorInt;
 
-  const defaultRegisterState: RegisterDefStateInt = {
+  // form reducer
+  const defaultState = {
     userEmail: "",
     userName: "",
     userPassword: "",
     verifyPassword: "",
   };
 
-  const reducer = (state: RegisterDefStateInt, action: any) => {
+  const reducer = (state: typeof defaultState, action: AuthReducerActionInt) => {
     if (action.type === RegisterInputsEnum.email) {
-      return { ...state, userEmail: action.payload.input };
+      return { ...state, userEmail: action.payload };
     }
     if (action.type === RegisterInputsEnum.username) {
-      return { ...state, userName: action.payload.input };
+      return { ...state, userName: action.payload };
     }
     if (action.type === RegisterInputsEnum.password) {
-      return { ...state, userPassword: action.payload.input };
+      return { ...state, userPassword: action.payload };
     }
     if (action.type === RegisterInputsEnum.verify) {
-      return { ...state, verifyPassword: action.payload.input };
+      return { ...state, verifyPassword: action.payload };
     }
     throw new Error(`No matching "${action.type}" - action type`);
   };
 
-  const [state, dispatch] = useReducer(reducer, defaultRegisterState);
+  const [state, dispatch] = useReducer(reducer, defaultState);
 
+  // form submission
   const auth = useContext(AuthContext);
   const handleChange = (e: React.FormEvent<HTMLInputElement>) => {
     dispatch({
       type: e.currentTarget.name,
-      payload: {
-        input: e.currentTarget.value,
-      },
+      payload: e.currentTarget.value,
     });
   };
-  const handleSubmit = async (e: React.FormEvent) => {
-    //? e.preventDefault();
-    const response = await fetch(`${TEST_DB}/users`, {
-      method: "post",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({
-        ...state,
-      }),
-    });
-    // db responds with error or userId and token
-    if (!response.ok) {
-      //TODO: error handling
-    }
-    auth.login("dummytoken", "testid");
-    // TODO: initiate redirect to the user's lists page
+
+  const handleSubmit = async () => {
+    const body = {
+      userEmail: state.userEmail,
+      userName: state.userName,
+      userPassword: state.userPassword,
+    };
+    const response = await register(body);
+    auth.login("dummytoken", response.id);
   };
 
   return (
