@@ -1,20 +1,31 @@
-import axios, { AxiosError } from "axios";
+import { AxiosError } from "axios";
 
-const handleCatch = (error: Error | AxiosError) => {
-  if (axios.isAxiosError(error)) {
-    if (error.response) {
-      if (error.response.status === 404) {
-        throw new Error("404, Resource Not Found.");
-        // TODO: Custom server errors
-      } else throw new Error("Custom error response from the server.");
-    } else if (error.request) {
-      throw new Error(
-        "Response not received. The server may be temporarily offline. Please try again later."
-      );
-    } else {
-      throw new Error("An unknown error occurred.");
-    }
-  } else throw new Error(error.message || "An unknown error occurred.");
+const handleCatch = (
+  error: AxiosError
+): {
+  status: number;
+  statusText: string;
+} => {
+  if (error.response) {
+    // Request made and server responded
+    return {
+      status: error.response.status,
+      statusText: error.response.statusText,
+    };
+  } else if (error.request) {
+    // The request was made but no response was received
+    return {
+      status: 503,
+      statusText: "No Response",
+    };
+  } else {
+    // Something happened in setting up the request that triggered an Error
+    return {
+      status: 500,
+      statusText: error.message,
+      // data: {} as UserInfoInt,
+    };
+  }
 };
 
 export default handleCatch;

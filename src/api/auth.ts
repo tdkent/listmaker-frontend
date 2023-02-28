@@ -8,7 +8,7 @@ import handleCatch from "../utils/error-handling";
 interface AuthResponseInt {
   status: number;
   statusText: string;
-  data: UserInfoInt;
+  data?: UserInfoInt;
 }
 
 const emptyResBody: UserInfoInt = {
@@ -20,7 +20,7 @@ const emptyResBody: UserInfoInt = {
 
 export const register = async (body: RegisterBodyInt): Promise<UserInfoInt> => {
   await axios.post(`${TEST_DB}/users`, body).catch((error: Error | AxiosError) => {
-    handleCatch(error);
+    // handleCatch(error);
   });
   const response = await axios
     .get(`${TEST_DB}/users?userName=${body.userName}`)
@@ -49,28 +49,7 @@ export const login = async (body: LoginBodyInt): Promise<AuthResponseInt> => {
       };
     })
     .catch((error: AxiosError) => {
-      if (error.response) {
-        // Request made and server responded
-        return {
-          status: error.response.status,
-          statusText: error.response.statusText,
-          data: emptyResBody,
-        };
-      } else if (error.request) {
-        // The request was made but no response was received
-        return {
-          status: 503,
-          statusText: "No Response",
-          data: emptyResBody,
-        };
-      } else {
-        // Something happened in setting up the request that triggered an Error
-        return {
-          status: 500,
-          statusText: error.message,
-          data: emptyResBody,
-        };
-      }
+      return handleCatch(error);
     });
 
   return response;

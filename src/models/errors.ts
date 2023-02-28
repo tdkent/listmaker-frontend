@@ -17,3 +17,8 @@ export interface NewListFormErrorInt {
   name?: string;
   category?: string;
 }
+
+export interface ErrorDisplayInt {
+  status: number;
+  statusText: string;
+}

@@ -7,6 +7,8 @@ import { AuthFormErrorInt } from "../models/errors";
 import AuthContext from "../context/AuthContext";
 import FormInput from "./FormInput";
 import Button from "./FormButton";
+import ErrorDisplay from "./ErrorDisplay";
+import { ErrorDisplayInt } from "../models/errors";
 import { AuthReducerActionInt, LoginInputsEnum } from "../models/auth";
 import { login } from "../api/auth";
 
@@ -16,19 +18,10 @@ const AuthLogin = () => {
   const errors: AuthFormErrorInt = actionData as AuthFormErrorInt;
 
   // fetch error
-  const [error, setError] = useState<string>("");
+  const [error, setError] = useState<ErrorDisplayInt | null>(null);
   useEffect(() => {
     if (error) {
-      toast.error(error, {
-        position: "bottom-center",
-        autoClose: 5000,
-        hideProgressBar: false,
-        closeOnClick: true,
-        pauseOnHover: true,
-        draggable: true,
-        progress: undefined,
-        theme: "colored",
-      });
+      toast.error(<ErrorDisplay error={error} />);
     }
   }, [error]);
 
@@ -59,10 +52,15 @@ const AuthLogin = () => {
   };
   const auth = useContext(AuthContext);
   const handleSubmit = async () => {
-    const response = await login(state);
-    console.log("response: ", response);
-    if (response.statusText !== "OK") {
-      setError(response.statusText);
+    console.log("Errors", errors);
+    if (errors === null) {
+      const response = await login(state);
+      if (response.statusText !== "OK") {
+        setError(response);
+      } else {
+        // login here
+        // redirect to lists
+      }
     }
   };
   return (
@@ -84,18 +82,7 @@ const AuthLogin = () => {
         {errors?.password && <span>{errors.password}</span>}
         <Button buttonText="Log in" buttonType="submit" />
       </Form>
-      <ToastContainer
-        position="bottom-center"
-        autoClose={5000}
-        hideProgressBar={false}
-        newestOnTop={false}
-        closeOnClick
-        rtl={false}
-        pauseOnFocusLoss
-        draggable
-        pauseOnHover
-        theme="colored"
-      />
+      <ToastContainer />
     </>
   );
 };
