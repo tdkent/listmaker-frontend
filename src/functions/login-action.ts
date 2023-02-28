@@ -1,17 +1,17 @@
-import { LoginInputsEnum, LoginDefStateInt } from "../models/login-user";
+import { LoginInputsEnum, LoginBodyInt } from "../models/auth";
 
 export const loginUserAction = async ({ request }: any) => {
   const req = await request.formData();
-  const data: LoginDefStateInt = {
+  const data: LoginBodyInt = {
     userNameOrEmail: req.get(LoginInputsEnum.user),
     userPassword: req.get(LoginInputsEnum.password),
   };
-  if (!data.userNameOrEmail.match(/[@]/)) {
-    return { email: "Please enter a valid email address." };
+  if (!data.userNameOrEmail.length) {
+    return { email: "Please enter your username or email." };
   }
   if (data.userPassword.length < 4) {
     return {
-      password: "Please enter a password that is 4 or more characters long.",
+      password: "Your password should be at least 4 characters long!",
     };
   }
   return null;
