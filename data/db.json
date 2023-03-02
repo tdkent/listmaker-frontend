@@ -111,32 +111,56 @@
     {
       "userEmail": "samuel@test.com",
       "userName": "samuel",
-      "userPassword": "password",
+      "userPassword": "pass",
       "id": 3
-    },
-    {
-      "userEmail": "test@test.test",
-      "userName": "test",
-      "userPassword": "password",
-      "id": 4
     },
     {
       "userEmail": "edvard@test.com",
       "userName": "edvard",
       "userPassword": "password",
+      "id": 4
+    },
+    {
+      "userEmail": "",
+      "userName": "",
+      "userPassword": "",
       "id": 5
     },
     {
-      "userEmail": "maurice@test.com",
-      "userName": "maurice",
-      "userPassword": "password",
+      "userEmail": "",
+      "userName": "",
+      "userPassword": "",
       "id": 6
     },
     {
-      "userEmail": "igor@test.com",
-      "userName": "igor",
-      "userPassword": "password",
+      "userEmail": "",
+      "userName": "",
+      "userPassword": "",
       "id": 7
+    },
+    {
+      "userEmail": "",
+      "userName": "",
+      "userPassword": "",
+      "id": 8
+    },
+    {
+      "userEmail": "samuel@test.com",
+      "userName": "edvard",
+      "userPassword": "password",
+      "id": 9
+    },
+    {
+      "userEmail": "",
+      "userName": "",
+      "userPassword": "",
+      "id": 10
+    },
+    {
+      "userEmail": "samuel@test.com",
+      "userName": "samuel",
+      "userPassword": "password",
+      "id": 11
     }
   ]
 }

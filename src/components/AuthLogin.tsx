@@ -3,19 +3,19 @@ import { useContext, useReducer, useState, useEffect } from "react";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
-import { AuthFormErrorInt } from "../models/errors";
+import { AuthFormErrorInt, ErrorDisplayInt } from "../models/errors";
 import AuthContext from "../context/AuthContext";
 import FormInput from "./FormInput";
 import Button from "./FormButton";
 import ErrorDisplay from "./ErrorDisplay";
-import { ErrorDisplayInt } from "../models/errors";
 import { AuthReducerActionInt, LoginInputsEnum } from "../models/auth";
 import { login } from "../api/auth";
 
 const AuthLogin = () => {
   // form validation
   const actionData = useActionData();
-  const errors: AuthFormErrorInt = actionData as AuthFormErrorInt;
+  const errors = actionData as AuthFormErrorInt;
+  console.log("errors: ", errors);
 
   // fetch error
   const [error, setError] = useState<ErrorDisplayInt | null>(null);
@@ -52,15 +52,10 @@ const AuthLogin = () => {
   };
   const auth = useContext(AuthContext);
   const handleSubmit = async () => {
-    console.log("Errors", errors);
-    if (errors === null) {
+    if (errors === undefined || errors?.isError === false) {
       const response = await login(state);
-      if (response.statusText !== "OK") {
-        setError(response);
-      } else {
-        // login here
-        // redirect to lists
-      }
+      if (response.statusText !== "OK") setError(response);
+      else auth.login("dummytokenstring", response.data!.id);
     }
   };
   return (
@@ -72,14 +67,14 @@ const AuthLogin = () => {
           inputName={LoginInputsEnum.user}
           handleChange={handleChange}
         />
-        {errors?.email && <span>{errors.email}</span>}
+        {errors?.errorType === LoginInputsEnum.user && <span>{errors.errorMessage}</span>}
         <FormInput
           labelText="Password"
           inputType="text"
           inputName={LoginInputsEnum.password}
           handleChange={handleChange}
         />
-        {errors?.password && <span>{errors.password}</span>}
+        {errors?.errorType === LoginInputsEnum.password && <span>{errors.errorMessage}</span>}
         <Button buttonText="Log in" buttonType="submit" />
       </Form>
       <ToastContainer />

@@ -8,9 +8,9 @@ export interface RootErrorInt {
 }
 
 export interface AuthFormErrorInt {
-  email?: string;
-  username?: string;
-  password?: string;
+  isError: boolean;
+  errorType: string;
+  errorMessage: string;
 }
 
 export interface NewListFormErrorInt {

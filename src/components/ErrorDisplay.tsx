@@ -3,6 +3,8 @@ import "react-toastify/dist/ReactToastify.css";
 
 import { ErrorDisplayInt } from "../models/errors";
 
+// TODO: toast css
+
 const ErrorDisplay = ({ error }: { error: ErrorDisplayInt }) => {
   return (
     <div>

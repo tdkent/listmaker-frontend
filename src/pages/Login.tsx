@@ -5,14 +5,14 @@ import AuthContext from "../context/AuthContext";
 import LoginUser from "../components/AuthLogin";
 
 const Login = () => {
+  // auth check
   const auth = useContext(AuthContext);
   const navigate = useNavigate();
-
   useEffect(() => {
     if (auth.isLoggedIn) {
       navigate("/lists");
     }
-  }, [auth.isLoggedIn]);
+  }, [auth.isLoggedIn, navigate]);
 
   return (
     <div>
