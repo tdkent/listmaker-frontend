@@ -2,11 +2,9 @@ import { RouterProvider } from "react-router-dom";
 import { useState, useEffect } from "react";
 
 import AuthContext, { AuthContextInt } from "./context/AuthContext";
-// import ActiveListContext, { ActiveListContextInt } from "./context/ActiveListContext";
 import ModalContext, { ModalContextInt } from "./context/ModalContext";
 import router from "./router/router";
 import { StorageDataInt } from "./functions/check-local-storage";
-// import { ListInt } from "./models/lists";
 
 function App() {
   // modal context
@@ -49,16 +47,6 @@ function App() {
     logout,
   };
 
-  // // list context
-  // const [list, setList] = useState<ListInt>({} as ListInt);
-  // const addListToContext = (list: ListInt) => {
-  //   setList(list);
-  // };
-  // const activeList: ActiveListContextInt = {
-  //   list,
-  //   addListToContext,
-  // };
-
   // login on refresh
   useEffect(() => {
     const storageData: StorageDataInt = JSON.parse(localStorage.getItem("userData") || "{}");
@@ -71,9 +59,7 @@ function App() {
   return (
     <ModalContext.Provider value={modal}>
       <AuthContext.Provider value={user}>
-        {/* <ActiveListContext.Provider value={activeList}> */}
         <RouterProvider router={router} />
-        {/* </ActiveListContext.Provider> */}
       </AuthContext.Provider>
     </ModalContext.Provider>
   );
