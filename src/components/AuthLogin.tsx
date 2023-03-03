@@ -3,7 +3,8 @@ import { useContext, useReducer, useState, useEffect } from "react";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
-import { AuthFormErrorInt, ErrorDisplayInt } from "../models/errors";
+import { AxiosErrorInfoInt } from "../models/errors";
+import { AuthActionInt } from "../models/auth";
 import AuthContext from "../context/AuthContext";
 import FormInput from "./FormInput";
 import Button from "./FormButton";
@@ -14,11 +15,11 @@ import { login } from "../api/auth";
 const AuthLogin = () => {
   // form validation
   const actionData = useActionData();
-  const errors = actionData as AuthFormErrorInt;
+  const errors = actionData as AuthActionInt;
   console.log("errors: ", errors);
 
   // fetch error
-  const [error, setError] = useState<ErrorDisplayInt | null>(null);
+  const [error, setError] = useState<AxiosErrorInfoInt | null>(null);
   useEffect(() => {
     if (error) {
       toast.error(<ErrorDisplay error={error} />);
@@ -67,14 +68,14 @@ const AuthLogin = () => {
           inputName={LoginInputsEnum.user}
           handleChange={handleChange}
         />
-        {errors?.errorType === LoginInputsEnum.user && <span>{errors.errorMessage}</span>}
+        {/* {errors?.errorType === LoginInputsEnum.user && <span>{errors.errorMessage}</span>} */}
         <FormInput
           labelText="Password"
           inputType="text"
           inputName={LoginInputsEnum.password}
           handleChange={handleChange}
         />
-        {errors?.errorType === LoginInputsEnum.password && <span>{errors.errorMessage}</span>}
+        {/* {errors?.errorType === LoginInputsEnum.password && <span>{errors.errorMessage}</span>} */}
         <Button buttonText="Log in" buttonType="submit" />
       </Form>
       <ToastContainer />

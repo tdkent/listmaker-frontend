@@ -19,7 +19,6 @@ import RootError from "../pages/RootError";
 
 // actions
 import { createNewListAction } from "../functions/create-list-action";
-import { registerUserAction } from "../functions/register-action";
 import { loginUserAction } from "../functions/login-action";
 import { profileEditAction } from "../functions/profile-edit-action";
 
@@ -43,7 +42,6 @@ const router = createBrowserRouter([
           {
             path: "register",
             element: <Register />,
-            action: registerUserAction,
           },
           {
             path: "login",

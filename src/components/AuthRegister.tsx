@@ -3,27 +3,24 @@ import { Form, useActionData } from "react-router-dom";
 import { ToastContainer, toast } from "react-toastify";
 
 import AuthContext from "../context/AuthContext";
-import { AuthFormErrorInt } from "../models/errors";
+import { AuthActionInt } from "../models/auth";
 import FormButton from "./FormButton";
 import FormInput from "./FormInput";
 import ErrorDisplay from "./ErrorDisplay";
-import { ErrorDisplayInt } from "../models/errors";
 import { RegisterInputsEnum, AuthReducerActionInt, AuthResponseInt } from "../models/auth";
+import { AuthFormValidationInt, AxiosErrorInfoInt } from "../models/errors";
 import { register } from "../api/auth";
 
 const AuthRegister = () => {
-  // form validation
-  const actionData = useActionData();
-  const errors: AuthFormErrorInt = actionData as AuthFormErrorInt;
-  // console.log("errors: ", errors);
+  // errors
+  const [formError, setFormError] = useState<AuthFormValidationInt | null>(null);
+  const [resError, setResError] = useState<AxiosErrorInfoInt | null>(null);
 
-  // fetch error
-  const [error, setError] = useState<ErrorDisplayInt | null>(null);
   useEffect(() => {
-    if (error) {
-      toast.error(<ErrorDisplay error={error} />);
+    if (resError) {
+      toast.error(<ErrorDisplay error={resError} />);
     }
-  }, [error]);
+  }, [resError]);
 
   // form reducer
   const defaultState = {
@@ -59,36 +56,66 @@ const AuthRegister = () => {
     });
   };
   const auth = useContext(AuthContext);
-  const handleSubmit = async () => {
-    if (errors.isError === false) {
-      const response = await register(state);
-      console.log("response: ", response);
-      if (response.statusText !== "OK") setError(response);
-      else {
-        const userId = response.data!.id;
-        console.log("userId: ", userId);
-        // auth.login("dummytokenstring", userId);
-      }
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+
+    // check for form validation errors
+    // TODO: componentize form validation errors
+    if (!state.userEmail.match(/[@]/)) {
+      return setFormError({
+        type: RegisterInputsEnum.email,
+        message: "Please enter a valid email address.",
+      });
+    }
+    if (!state.userName || state.userName.length < 4) {
+      return setFormError({
+        type: RegisterInputsEnum.username,
+        message: "Please enter a username that is 4 or more characters long.",
+      });
+    }
+    if (state.userPassword.length < 4) {
+      return setFormError({
+        type: RegisterInputsEnum.password,
+        message: "Please enter a password that is 4 or more characters long.",
+      });
+    }
+    if (state.userPassword !== state.verifyPassword) {
+      return setFormError({
+        type: RegisterInputsEnum.password,
+        message: "Passwords do not match. Please try again.",
+      });
+    }
+
+    // fetch request if no form errors
+    const response = await register(state);
+    if (response.statusText !== "OK") setResError(response);
+    else {
+      const userId = response.data!.id;
+      auth.login("dummytokenstring", userId);
     }
   };
 
   return (
     <>
-      <Form method="post" action="/register" onSubmit={handleSubmit}>
+      <form onSubmit={handleSubmit}>
         <FormInput
           labelText="Email"
           inputType="text"
           inputName={RegisterInputsEnum.email}
           handleChange={handleChange}
         />
-        {errors?.errorType === RegisterInputsEnum.email && <span>{errors.errorMessage}</span>}
+        {formError && formError.type === RegisterInputsEnum.email && (
+          <span>{formError.message}</span>
+        )}
         <FormInput
           labelText="Username"
           inputType="text"
           inputName={RegisterInputsEnum.username}
           handleChange={handleChange}
         />
-        {errors?.errorType === RegisterInputsEnum.username && <span>{errors.errorMessage}</span>}
+        {formError && formError.type === RegisterInputsEnum.username && (
+          <span>{formError.message}</span>
+        )}
         <FormInput
           labelText="Password"
           inputType="text"
@@ -101,9 +128,11 @@ const AuthRegister = () => {
           inputName={RegisterInputsEnum.verify}
           handleChange={handleChange}
         />
-        {errors?.errorType === RegisterInputsEnum.password && <span>{errors.errorMessage}</span>}
+        {formError && formError.type === RegisterInputsEnum.password && (
+          <span>{formError.message}</span>
+        )}
         <FormButton buttonText="Sign up" buttonType="submit" />
-      </Form>
+      </form>
       <ToastContainer />
     </>
   );

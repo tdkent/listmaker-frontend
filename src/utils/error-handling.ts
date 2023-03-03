@@ -1,15 +1,12 @@
 import { AxiosError } from "axios";
+import { AxiosErrorInfoInt } from "../models/errors";
 
-const handleCatch = (
-  error: AxiosError
-): {
-  status: number;
-  statusText: string;
-} => {
+const handleCatch = (error: AxiosError): AxiosErrorInfoInt => {
   if (error.response) {
+    console.log("Response error here", error.response);
     // Request made and server responded
     return {
-      status: error.response.status,
+      status: 404,
       statusText: error.response.statusText,
     };
   } else if (error.request) {
@@ -23,9 +20,7 @@ const handleCatch = (
     return {
       status: 500,
       statusText: error.message,
-      // data: {} as UserInfoInt,
     };
   }
 };
-
 export default handleCatch;

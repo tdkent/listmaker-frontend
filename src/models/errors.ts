@@ -1,3 +1,5 @@
+import { RegisterInputsEnum } from "./auth";
+
 export interface RootErrorInt {
   status?: number;
   statusText?: string;
@@ -7,18 +9,17 @@ export interface RootErrorInt {
   };
 }
 
-export interface AuthFormErrorInt {
-  isError: boolean;
-  errorType: string;
-  errorMessage: string;
-}
-
 export interface NewListFormErrorInt {
   name?: string;
   category?: string;
 }
 
-export interface ErrorDisplayInt {
+export interface AxiosErrorInfoInt {
   status: number;
   statusText: string;
+}
+
+export interface AuthFormValidationInt {
+  type: RegisterInputsEnum;
+  message: string;
 }

@@ -1,11 +1,11 @@
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
-import { ErrorDisplayInt } from "../models/errors";
+import { AxiosErrorInfoInt } from "../models/errors";
 
 // TODO: toast css
 
-const ErrorDisplay = ({ error }: { error: ErrorDisplayInt }) => {
+const ErrorDisplay = ({ error }: { error: AxiosErrorInfoInt }) => {
   return (
     <div>
       <h4>Oops! An error occurred.</h4>
