@@ -3,11 +3,10 @@ import { Form, useActionData } from "react-router-dom";
 import { ToastContainer, toast } from "react-toastify";
 
 import AuthContext from "../context/AuthContext";
-import { AuthActionInt } from "../models/auth";
 import FormButton from "./FormButton";
 import FormInput from "./FormInput";
 import ErrorDisplay from "./ErrorDisplay";
-import { RegisterInputsEnum, AuthReducerActionInt, AuthResponseInt } from "../models/auth";
+import { RegisterInputsEnum, AuthReducerActionInt } from "../models/auth";
 import { AuthFormValidationInt, AxiosErrorInfoInt } from "../models/errors";
 import { register } from "../api/auth";
 
@@ -15,7 +14,6 @@ const AuthRegister = () => {
   // errors
   const [formError, setFormError] = useState<AuthFormValidationInt | null>(null);
   const [resError, setResError] = useState<AxiosErrorInfoInt | null>(null);
-
   useEffect(() => {
     if (resError) {
       toast.error(<ErrorDisplay error={resError} />);

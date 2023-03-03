@@ -1,4 +1,4 @@
-import { RegisterInputsEnum } from "./auth";
+import { RegisterInputsEnum, LoginInputsEnum } from "./auth";
 
 export interface RootErrorInt {
   status?: number;
@@ -20,6 +20,6 @@ export interface AxiosErrorInfoInt {
 }
 
 export interface AuthFormValidationInt {
-  type: RegisterInputsEnum;
+  type: RegisterInputsEnum | LoginInputsEnum;
   message: string;
 }

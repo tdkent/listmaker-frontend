@@ -19,7 +19,6 @@ import RootError from "../pages/RootError";
 
 // actions
 import { createNewListAction } from "../functions/create-list-action";
-import { loginUserAction } from "../functions/login-action";
 import { profileEditAction } from "../functions/profile-edit-action";
 
 // loaders
@@ -46,7 +45,6 @@ const router = createBrowserRouter([
           {
             path: "login",
             element: <Login />,
-            action: loginUserAction,
           },
           {
             path: "new",

@@ -34,12 +34,3 @@ export interface AuthResponseInt {
   statusText: string;
   data?: UserInfoInt;
 }
-
-export interface AuthActionInt {
-  isError: boolean;
-  error: {
-    type: string;
-    message: string;
-  };
-  data: AuthResponseInt;
-}
