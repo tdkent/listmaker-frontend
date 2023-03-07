@@ -4,7 +4,7 @@ import { useState, useEffect } from "react";
 import AuthContext, { AuthContextInt } from "./context/AuthContext";
 import ModalContext, { ModalContextInt } from "./context/ModalContext";
 import router from "./router/router";
-import { StorageDataInt } from "./functions/check-local-storage";
+import { StorageDataInt } from "./utils/check-local-storage";
 
 function App() {
   // modal context
@@ -51,6 +51,7 @@ function App() {
   useEffect(() => {
     const storageData: StorageDataInt = JSON.parse(localStorage.getItem("userData") || "{}");
     const userId = Number(storageData.userId);
+    console.log("userId: ", userId);
     if (storageData && storageData.userId && storageData.token) {
       login(storageData.token, userId);
     }

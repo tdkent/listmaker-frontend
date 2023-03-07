@@ -1,21 +1,4 @@
 {
-  "careers": [
-    {
-      "id": 1,
-      "title": "Senior Software Engineer",
-      "salary": 250000
-    },
-    {
-      "id": 2,
-      "title": "Staff Software Engineer",
-      "salary": 150000
-    },
-    {
-      "id": 3,
-      "title": "Junior Software Engineer",
-      "salary": 100000
-    }
-  ],
   "lists": [
     {
       "id": 1,
@@ -25,8 +8,8 @@
       "slug": "shopping-list",
       "items": [
         {
-          "id": 8,
-          "name": "Apples",
+          "id": 146,
+          "name": "Strawberries",
           "isDone": false
         },
         {
@@ -107,6 +90,12 @@
       "userName": "bela",
       "userPassword": "pass",
       "id": 2
+    },
+    {
+      "userEmail": "samuel@test.com",
+      "userName": "samuel",
+      "userPassword": "password",
+      "id": 3
     }
   ]
 }

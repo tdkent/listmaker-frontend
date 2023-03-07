@@ -12,37 +12,42 @@ import handleCatch from "../utils/error-handling";
 //   userPassword: "",
 // };
 
-export const register = async (body: RegisterBodyInt): Promise<AuthResponseInt> => {
+export const register = async (body: RegisterBodyInt): Promise<UserInfoInt> => {
   const { userEmail, userName, userPassword } = body;
   const postBody = { userEmail, userName, userPassword };
 
   // stop execution and return error from post request
   //! This step can be removed when working with real backend
-  const postResponse: { status: number; statusText: string } = await axios
-    .post(`${TEST_DB}/users`, postBody)
-    .catch((error: AxiosError) => handleCatch(error));
-  if (postResponse.status >= 300 || postResponse.status < 200) {
-    return {
-      status: postResponse.status,
-      statusText: postResponse.statusText,
-      data: {} as UserInfoInt,
-    };
-  }
-  // Database returns user info
-  const response = await axios
+  // const postResponse: { status: number; statusText: string } = await axios
+  //   .post(`${TEST_DB}/users`, postBody)
+  //   .catch((error: AxiosError) => handleCatch(error));
+  // if (postResponse.status >= 300 || postResponse.status < 200) {
+  //   return {
+  //     status: postResponse.status,
+  //     statusText: postResponse.statusText,
+  //     data: {} as UserInfoInt,
+  //   };
+  // }
+  // // Database returns user info
+  // const response = await axios
+  //   .get(`${TEST_DB}/users?userName=${body.userName}`)
+  //   .then((response) => {
+  //     return {
+  //       status: response.status,
+  //       statusText: response.statusText,
+  //       data: response.data[0] as UserInfoInt,
+  //     };
+  //   })
+  //   .catch((error: AxiosError) => {
+  //     console.log("error: ", error);
+  //     return handleCatch(error);
+  //   });
+  // return response;
+  await axios.post(`${TEST_DB}/users`, postBody).catch((error) => Promise.reject(error));
+  return axios
     .get(`${TEST_DB}/users?userName=${body.userName}`)
-    .then((response) => {
-      return {
-        status: response.status,
-        statusText: response.statusText,
-        data: response.data[0] as UserInfoInt,
-      };
-    })
-    .catch((error: AxiosError) => {
-      console.log("error: ", error);
-      return handleCatch(error);
-    });
-  return response;
+    .then((response) => response.data[0])
+    .catch((error) => Promise.reject(error));
 };
 
 export const login = async (body: LoginBodyInt): Promise<AuthResponseInt> => {

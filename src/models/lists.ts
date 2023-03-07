@@ -24,3 +24,9 @@ export interface ShoppingListItemInt {
 export interface ShoppingListInt extends ListInt {
   items: ShoppingListItemInt[];
 }
+
+export interface ListsResponseInt {
+  status: number;
+  statusText: string;
+  data?: ListInt[];
+}

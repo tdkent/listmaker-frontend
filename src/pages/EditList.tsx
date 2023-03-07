@@ -3,7 +3,7 @@ import { useNavigate, useParams } from "react-router-dom";
 import { useQuery } from "@tanstack/react-query";
 
 import AuthContext from "../context/AuthContext";
-import checkLocalStorage from "../functions/check-local-storage";
+import checkLocalStorage from "../utils/check-local-storage";
 import { fetchList } from "../api/fetch-lists";
 
 import EditListHeader from "../components/EditListHeader";

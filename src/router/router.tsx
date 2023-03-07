@@ -9,7 +9,7 @@ import Register from "../pages/Register";
 import Login from "../pages/Login";
 import Profile from "../pages/Profile";
 import ProfileEdit from "../pages/ProfileEdit";
-import UserLists from "../pages/UserLists";
+import Lists from "../pages/Lists";
 import EditList from "../pages/EditList";
 import NewList from "../pages/NewList";
 import NotFound from "../pages/NotFound";
@@ -22,8 +22,6 @@ import { createNewListAction } from "../functions/create-list-action";
 import { profileEditAction } from "../functions/profile-edit-action";
 
 // loaders
-import { userListsLoader } from "../functions/user-lists-loader";
-// import { editListLoader } from "../functions/edit-list-loader";
 import { profileLoader } from "../functions/profile-loader";
 
 const router = createBrowserRouter([
@@ -56,13 +54,11 @@ const router = createBrowserRouter([
             children: [
               {
                 index: true,
-                element: <UserLists />,
-                loader: userListsLoader,
+                element: <Lists />,
               },
               {
                 path: ":slug",
                 element: <EditList />,
-                // loader: editListLoader,
               },
             ],
           },

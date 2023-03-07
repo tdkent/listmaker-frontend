@@ -8,7 +8,7 @@ import Button from "../components/FormButton";
 import { NewListFormErrorInt } from "../models/errors";
 import { NewListCategoryEnum } from "../models/new-list";
 import { TEST_DB } from "../constants/global";
-import checkLocalStorage from "../functions/check-local-storage";
+import checkLocalStorage from "../utils/check-local-storage";
 
 const NewList = () => {
   const actionData = useActionData();
@@ -67,7 +67,12 @@ const NewList = () => {
       <h2>Create New List</h2>
       <div>
         <Form method="post" action="/new" onSubmit={handleSubmit}>
-          <FormInput labelText="Name" inputName="name" inputType="text" handleChange={handleChange} />
+          <FormInput
+            labelText="Name"
+            inputName="name"
+            inputType="text"
+            handleChange={handleChange}
+          />
           {errors?.name && <span>{errors.name}</span>}
           <div>
             <label>

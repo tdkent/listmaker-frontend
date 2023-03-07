@@ -1,6 +1,7 @@
 import React, { useContext, useReducer, useState, useEffect } from "react";
 import { Form, useActionData } from "react-router-dom";
 import { ToastContainer, toast } from "react-toastify";
+import { useMutation } from "@tanstack/react-query";
 
 import AuthContext from "../context/AuthContext";
 import FormButton from "./FormButton";
@@ -13,12 +14,12 @@ import { register } from "../api/auth";
 const AuthRegister = () => {
   // errors
   const [formError, setFormError] = useState<AuthFormValidationInt | null>(null);
-  const [resError, setResError] = useState<AxiosErrorInfoInt | null>(null);
-  useEffect(() => {
-    if (resError) {
-      toast.error(<ErrorDisplay error={resError} />);
-    }
-  }, [resError]);
+  // const [resError, setResError] = useState<AxiosErrorInfoInt | null>(null);
+  // useEffect(() => {
+  //   if (resError) {
+  //     toast.error(<ErrorDisplay error={resError} />);
+  //   }
+  // }, [resError]);
 
   // form reducer
   const defaultState = {
@@ -86,11 +87,13 @@ const AuthRegister = () => {
 
     // fetch request if no form errors
     const response = await register(state);
-    if (response.statusText !== "OK") setResError(response);
-    else {
-      const userId = response.data!.id;
-      auth.login("dummytokenstring", userId);
-    }
+    console.log("register result response: ", response);
+
+    // if (response.statusText !== "OK") setResError(response);
+    // else {
+    //   const userId = response.data!.id;
+    //   auth.login("dummytokenstring", userId);
+    // }
   };
 
   return (

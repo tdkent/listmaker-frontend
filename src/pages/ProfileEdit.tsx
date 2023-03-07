@@ -3,7 +3,7 @@ import { useLoaderData, Form, useNavigate } from "react-router-dom";
 
 import AuthContext from "../context/AuthContext";
 import { UserInfoInt } from "../models/user";
-import checkLocalStorage from "../functions/check-local-storage";
+import checkLocalStorage from "../utils/check-local-storage";
 
 const ProfileEdit = () => {
   const auth = useContext(AuthContext);

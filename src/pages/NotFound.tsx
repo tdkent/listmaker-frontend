@@ -2,7 +2,7 @@ import { useContext, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 
 import AuthContext from "../context/AuthContext";
-import checkLocalStorage from "../functions/check-local-storage";
+import checkLocalStorage from "../utils/check-local-storage";
 
 const NotFound = () => {
   const auth = useContext(AuthContext);
