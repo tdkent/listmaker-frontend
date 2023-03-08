@@ -6,7 +6,6 @@ import { AxiosErrorInfoInt, AuthFormValidationInt } from "../models/errors";
 import AuthContext from "../context/AuthContext";
 import FormInput from "./FormInput";
 import Button from "./FormButton";
-import ErrorDisplay from "./ErrorDisplay";
 import { AuthReducerActionInt, LoginInputsEnum } from "../models/auth";
 import { login } from "../api/auth";
 
@@ -14,11 +13,11 @@ const AuthLogin = () => {
   // errors
   const [formError, setFormError] = useState<AuthFormValidationInt | null>(null);
   const [resError, setResError] = useState<AxiosErrorInfoInt | null>(null);
-  useEffect(() => {
-    if (resError) {
-      toast.error(<ErrorDisplay error={resError} />);
-    }
-  }, [resError]);
+  // useEffect(() => {
+  //   if (resError) {
+  //     toast.error(<ErrorDisplay error={resError} />);
+  //   }
+  // }, [resError]);
 
   // form reducer
   const defaultState = {

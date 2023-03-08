@@ -1,25 +1,36 @@
 import React, { useContext, useReducer, useState, useEffect } from "react";
-import { Form, useActionData } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { ToastContainer, toast } from "react-toastify";
 import { useMutation } from "@tanstack/react-query";
+import { AxiosError } from "axios";
 
 import AuthContext from "../context/AuthContext";
 import FormButton from "./FormButton";
 import FormInput from "./FormInput";
-import ErrorDisplay from "./ErrorDisplay";
 import { RegisterInputsEnum, AuthReducerActionInt } from "../models/auth";
-import { AuthFormValidationInt, AxiosErrorInfoInt } from "../models/errors";
+import { AuthFormValidationInt } from "../models/errors";
 import { register } from "../api/auth";
+import ToastError from "./ToastError";
 
 const AuthRegister = () => {
-  // errors
+  // error handling
   const [formError, setFormError] = useState<AuthFormValidationInt | null>(null);
-  // const [resError, setResError] = useState<AxiosErrorInfoInt | null>(null);
-  // useEffect(() => {
-  //   if (resError) {
-  //     toast.error(<ErrorDisplay error={resError} />);
-  //   }
-  // }, [resError]);
+  const [responseError, setResponseError] = useState<AxiosError>();
+
+  useEffect(() => {
+    if (responseError) {
+      toast.error(<ToastError error={responseError} />, {
+        position: "top-center",
+        autoClose: 5000,
+        hideProgressBar: true,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "colored",
+      });
+    }
+  }, [responseError]);
 
   // form reducer
   const defaultState = {
@@ -54,6 +65,20 @@ const AuthRegister = () => {
       payload: e.currentTarget.value,
     });
   };
+  const navigate = useNavigate();
+  const mutation = useMutation({
+    mutationFn: () => register(state),
+    onError: (error: AxiosError) => {
+      console.log("mutation error", error);
+      setResponseError(error);
+    },
+    onSuccess: (data) => {
+      //TODO: backend will return jwt token
+      auth.login("samuelbarberstoken", data.id);
+      navigate("/lists");
+    },
+  });
+
   const auth = useContext(AuthContext);
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -85,15 +110,8 @@ const AuthRegister = () => {
       });
     }
 
-    // fetch request if no form errors
-    const response = await register(state);
-    console.log("register result response: ", response);
-
-    // if (response.statusText !== "OK") setResError(response);
-    // else {
-    //   const userId = response.data!.id;
-    //   auth.login("dummytokenstring", userId);
-    // }
+    // request if no form errors
+    mutation.mutate();
   };
 
   return (

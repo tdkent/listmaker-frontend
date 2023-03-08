@@ -8,7 +8,6 @@ import AuthContext from "../context/AuthContext";
 import checkLocalStorage from "../utils/check-local-storage";
 import { fetchAllLists } from "../api/fetch-lists";
 import { AxiosErrorInfoInt } from "../models/errors";
-import ErrorDisplay from "../components/ErrorDisplay";
 
 const useLists = (userId: number, token: string) => {
   const { isLoading, isError, data, error } = useQuery({

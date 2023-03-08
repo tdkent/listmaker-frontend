@@ -45,7 +45,7 @@ export const register = async (body: RegisterBodyInt): Promise<UserInfoInt> => {
   // return response;
   await axios.post(`${TEST_DB}/users`, postBody).catch((error) => Promise.reject(error));
   return axios
-    .get(`${TEST_DB}/users?userName=${body.userName}`)
+    .get(`${TEST_DB}/userss?userName=${body.userName}`)
     .then((response) => response.data[0])
     .catch((error) => Promise.reject(error));
 };

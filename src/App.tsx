@@ -8,6 +8,7 @@ import { StorageDataInt } from "./utils/check-local-storage";
 
 function App() {
   // modal context
+  // TODO: remove pending from modal context
   const [pending, setPending] = useState<boolean>(false);
   const [modalActive, setModalActive] = useState<boolean>(false);
   const [contentId, setContentId] = useState<ModalContextInt["contentId"]>("");
@@ -51,7 +52,6 @@ function App() {
   useEffect(() => {
     const storageData: StorageDataInt = JSON.parse(localStorage.getItem("userData") || "{}");
     const userId = Number(storageData.userId);
-    console.log("userId: ", userId);
     if (storageData && storageData.userId && storageData.token) {
       login(storageData.token, userId);
     }
