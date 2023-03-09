@@ -1,5 +1,6 @@
 import { RouterProvider } from "react-router-dom";
 import { useState, useEffect } from "react";
+import "react-toastify/dist/ReactToastify.css";
 
 import AuthContext, { AuthContextInt } from "./context/AuthContext";
 import ModalContext, { ModalContextInt } from "./context/ModalContext";

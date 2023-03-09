@@ -5,18 +5,17 @@ import { useMutation } from "@tanstack/react-query";
 import { AxiosError } from "axios";
 
 import AuthContext from "../context/AuthContext";
-import FormButton from "./FormButton";
-import FormInput from "./FormInput";
 import { RegisterInputsEnum, AuthReducerActionInt } from "../models/auth";
 import { AuthFormValidationInt } from "../models/errors";
 import { register } from "../api/auth";
 import ToastError from "./ToastError";
+import Input from "./forms/Input";
+import Button from "./forms/Button";
 
 const AuthRegister = () => {
   // error handling
   const [formError, setFormError] = useState<AuthFormValidationInt | null>(null);
   const [responseError, setResponseError] = useState<AxiosError>();
-
   useEffect(() => {
     if (responseError) {
       toast.error(<ToastError error={responseError} />, {
@@ -39,7 +38,6 @@ const AuthRegister = () => {
     userPassword: "",
     verifyPassword: "",
   };
-
   const reducer = (state: typeof defaultState, action: AuthReducerActionInt) => {
     if (action.type === RegisterInputsEnum.email) {
       return { ...state, userEmail: action.payload };
@@ -53,9 +51,8 @@ const AuthRegister = () => {
     if (action.type === RegisterInputsEnum.verify) {
       return { ...state, verifyPassword: action.payload };
     }
-    throw new Error(`No matching "${action.type}" - action type`);
+    throw new Error(`No matching "${action.type}" action type`);
   };
-
   const [state, dispatch] = useReducer(reducer, defaultState);
 
   // form submission
@@ -68,23 +65,19 @@ const AuthRegister = () => {
   const navigate = useNavigate();
   const mutation = useMutation({
     mutationFn: () => register(state),
-    onError: (error: AxiosError) => {
-      console.log("mutation error", error);
-      setResponseError(error);
-    },
+    onError: (error: AxiosError) => setResponseError(error),
     onSuccess: (data) => {
       //TODO: backend will return jwt token
       auth.login("samuelbarberstoken", data.id);
       navigate("/lists");
     },
   });
-
   const auth = useContext(AuthContext);
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
 
     // check for form validation errors
-    // TODO: componentize form validation errors
+    // TODO: validation error component
     if (!state.userEmail.match(/[@]/)) {
       return setFormError({
         type: RegisterInputsEnum.email,
@@ -117,40 +110,46 @@ const AuthRegister = () => {
   return (
     <>
       <form onSubmit={handleSubmit}>
-        <FormInput
-          labelText="Email"
-          inputType="text"
-          inputName={RegisterInputsEnum.email}
+        <Input
+          label="Email"
+          name={RegisterInputsEnum.email}
+          type="email"
+          id={RegisterInputsEnum.email}
           handleChange={handleChange}
         />
+        {/* //TODO: Error message component */}
         {formError && formError.type === RegisterInputsEnum.email && (
           <span>{formError.message}</span>
         )}
-        <FormInput
-          labelText="Username"
-          inputType="text"
-          inputName={RegisterInputsEnum.username}
+        <Input
+          label="Username"
+          name={RegisterInputsEnum.username}
+          type="text"
+          id={RegisterInputsEnum.username}
           handleChange={handleChange}
         />
         {formError && formError.type === RegisterInputsEnum.username && (
           <span>{formError.message}</span>
         )}
-        <FormInput
-          labelText="Password"
-          inputType="text"
-          inputName={RegisterInputsEnum.password}
+        {/* // TODO: change type to password */}
+        <Input
+          label="Password"
+          name={RegisterInputsEnum.password}
+          type="text"
+          id={RegisterInputsEnum.password}
           handleChange={handleChange}
         />
-        <FormInput
-          labelText="Verify Password"
-          inputType="text"
-          inputName={RegisterInputsEnum.verify}
+        <Input
+          label="Verify Password"
+          name={RegisterInputsEnum.verify}
+          type="text"
+          id={RegisterInputsEnum.verify}
           handleChange={handleChange}
         />
         {formError && formError.type === RegisterInputsEnum.password && (
           <span>{formError.message}</span>
         )}
-        <FormButton buttonText="Sign up" buttonType="submit" />
+        <Button type="submit" text="Sign up" />
       </form>
       <ToastContainer />
     </>

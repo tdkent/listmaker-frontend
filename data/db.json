@@ -90,18 +90,6 @@
       "userName": "bela",
       "userPassword": "pass",
       "id": 2
-    },
-    {
-      "userEmail": "samuel@test.com",
-      "userName": "samuel",
-      "userPassword": "password",
-      "id": 3
-    },
-    {
-      "userEmail": "samuel@test.com",
-      "userName": "samuel",
-      "userPassword": "password",
-      "id": 4
     }
   ]
 }

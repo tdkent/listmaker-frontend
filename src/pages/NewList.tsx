@@ -24,7 +24,7 @@ const NewList = () => {
     const check = checkLocalStorage();
     if (check) return;
     else navigate("/login");
-  }, [auth.isLoggedIn]);
+  }, [auth.isLoggedIn, navigate]);
 
   const handleChange = (e: React.FormEvent<HTMLInputElement>) => {
     setListName(e.currentTarget.value);
