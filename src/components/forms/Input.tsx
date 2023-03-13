@@ -3,17 +3,18 @@ interface InputProps {
   name: string;
   type: "email" | "text" | "password";
   id: string;
+  value?: string;
   handleChange: (e: React.FormEvent<HTMLInputElement>) => void;
 }
 
-const Input = ({ label, name, type, id, handleChange }: InputProps) => {
+const Input = ({ label, name, type, id, value, handleChange }: InputProps) => {
   return (
     <div>
       <div>
         <label htmlFor={name}>{label}</label>
       </div>
       <div>
-        <input name={name} type={type} id={id} onChange={handleChange} />
+        <input name={name} type={type} id={id} value={value} onChange={handleChange} />
       </div>
     </div>
   );

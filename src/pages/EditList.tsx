@@ -47,7 +47,6 @@ const EditList = () => {
   }
 
   // main render
-
   return (
     <div>
       <EditListHeader listId={listId} list={data!} />

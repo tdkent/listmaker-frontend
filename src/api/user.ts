@@ -10,3 +10,5 @@ export const fetchUserProfile = async (userId: number, token: string): Promise<U
     .then((response) => response.data)
     .catch((error) => Promise.reject(error));
 };
+
+export const editUserProfile = async (body) => {};
