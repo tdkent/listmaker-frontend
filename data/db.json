@@ -80,10 +80,10 @@
   ],
   "users": [
     {
+      "id": 1,
       "userEmail": "jean@test.com",
       "userName": "jean",
-      "userPassword": "pass",
-      "id": 1
+      "userPassword": "pass"
     },
     {
       "userEmail": "bela@test.com",

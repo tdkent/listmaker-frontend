@@ -11,4 +11,10 @@ export const fetchUserProfile = async (userId: number, token: string): Promise<U
     .catch((error) => Promise.reject(error));
 };
 
-export const editUserProfile = async (body) => {};
+export const editUserProfile = async (state: UserInfoInt, token: string): Promise<UserInfoInt> => {
+  axios.put(`${TEST_DB}/users/${state.id}`, state).catch((error) => console.log(error));
+  return axios
+    .get(`${TEST_DB}/users/${state.id}`)
+    .then((response) => response.data)
+    .catch((error) => Promise.reject(error));
+};
