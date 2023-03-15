@@ -3,7 +3,7 @@
     {
       "id": 1,
       "name": "Jean's Shopping List",
-      "category": "shopping",
+      "type": "shopping",
       "userId": 1,
       "slug": "shopping-list",
       "items": [
@@ -22,7 +22,7 @@
     {
       "id": 2,
       "name": "Jean's Grocery List",
-      "category": "shopping",
+      "type": "shopping",
       "userId": 1,
       "slug": "shopping-list",
       "items": [
@@ -51,7 +51,7 @@
     {
       "id": 3,
       "name": "Bela's Favorite Foods",
-      "category": "shopping",
+      "type": "shopping",
       "userId": 2,
       "slug": "shopping-list",
       "items": [
@@ -76,6 +76,14 @@
           "isDone": false
         }
       ]
+    },
+    {
+      "userId": 1,
+      "name": "Test List",
+      "type": "shopping",
+      "slug": "test-list",
+      "items": [],
+      "id": 4
     }
   ],
   "users": [

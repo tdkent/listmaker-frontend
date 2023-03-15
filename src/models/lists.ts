@@ -1,21 +1,30 @@
-// Generic List
+// Create New List
 export enum NewListTypeEnum {
   shop = "Shopping",
   todo = "To-Do",
 }
 
+export enum NewListInputsEnum {
+  name = "name",
+  type = "type",
+}
+
 export const newListTypes = [NewListTypeEnum.shop, NewListTypeEnum.todo];
 
-export interface ListInt {
-  id: number;
+export interface NewListInt {
   userId: number;
   name: string;
   slug: string;
-  category: NewListTypeEnum.shop | NewListTypeEnum.todo | "";
+  type: string;
   items: ShoppingListItemInt[] | [];
-  isLoaded: boolean;
 }
 
+// Created List with Database Id
+export interface ListInt extends NewListInt {
+  id: number;
+}
+
+// List Items
 // Shopping List
 export interface ShoppingListItemInt {
   id: number;
@@ -25,10 +34,4 @@ export interface ShoppingListItemInt {
 
 export interface ShoppingListInt extends ListInt {
   items: ShoppingListItemInt[];
-}
-
-export interface ListsResponseInt {
-  status: number;
-  statusText: string;
-  data?: ListInt[];
 }

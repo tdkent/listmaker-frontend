@@ -13,11 +13,7 @@ export const editListName = async (listId: number, list: ShoppingListInt, listNa
 };
 
 export const deleteList = async (listId: number) => {
-  await axios.delete(`${TEST_DB}/lists/${listId}`).catch((error: Error | AxiosError) => {
-    console.log(error);
-    if (axios.isAxiosError(error)) throw new Error(error.message);
-    else throw new Error("An unknown error occurred. Please try again later.");
-  });
+  await axios.delete(`${TEST_DB}/lists/${listId}`).catch((error) => Promise.reject(error));
 };
 
 export const addItemToList = async (listId: number, list: ShoppingListInt, itemName: string) => {

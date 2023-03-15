@@ -79,7 +79,7 @@ const Lists = () => {
                 key={list.id}
                 style={{ border: "1px dashed aquamarine", margin: "1rem 0", padding: "1rem" }}>
                 <h3>{list.name}</h3>
-                <span>{list.category}</span>
+                <span>{list.type}</span>
                 <div>
                   <div style={{ marginTop: "1rem" }}>
                     <Link to={`/lists/${list.slug}&id=${list.id}`}>Edit</Link>

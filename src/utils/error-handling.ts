@@ -1,6 +1,7 @@
 import { AxiosError } from "axios";
 import { AxiosErrorInfoInt } from "../models/errors";
 
+// TODO: Update fetch single list and delete this function
 const handleCatch = (error: AxiosError): AxiosErrorInfoInt => {
   if (error.response) {
     console.log("Response error here", error.response);

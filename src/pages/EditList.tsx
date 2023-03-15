@@ -1,18 +1,18 @@
 import { useEffect, useContext } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import { useQuery } from "@tanstack/react-query";
+import { ToastContainer } from "react-toastify";
 
 import AuthContext from "../context/AuthContext";
 import checkLocalStorage from "../utils/check-local-storage";
 import { fetchList } from "../api/fetch-lists";
-
 import EditListHeader from "../components/EditListHeader";
 import EditListAddItem from "../components/EditListAddItem";
 import EditListDisplayItems from "../components/EditListDisplayItems";
 import EditListDeleteList from "../components/EditListDeleteList";
 
 const EditList = () => {
-  // auth check & redirect
+  // auth check
   const auth = useContext(AuthContext);
   const navigate = useNavigate();
   useEffect(() => {
@@ -46,14 +46,21 @@ const EditList = () => {
       );
   }
 
+  if (!data) {
+    return <div>Could not find list data.</div>;
+  }
+
   // main render
   return (
-    <div>
-      <EditListHeader listId={listId} list={data!} />
-      <EditListAddItem listId={listId} list={data!} />
-      <EditListDisplayItems listId={listId} list={data!} />
-      <EditListDeleteList listId={listId} />
-    </div>
+    <>
+      <div>
+        <EditListHeader listId={listId} list={data} />
+        <EditListAddItem listId={listId} list={data} />
+        <EditListDisplayItems listId={listId} list={data} />
+        <EditListDeleteList listId={listId} />
+      </div>
+      <ToastContainer />
+    </>
   );
 };
 

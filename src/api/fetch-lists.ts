@@ -1,7 +1,7 @@
 import axios, { AxiosError } from "axios";
 
 import { TEST_DB } from "../constants/global";
-import { ListInt, ListsResponseInt } from "../models/lists";
+import { ListInt } from "../models/lists";
 import handleCatch from "../utils/error-handling";
 
 export const fetchAllLists = async (userId: number, token: string): Promise<ListInt[]> => {
@@ -11,6 +11,7 @@ export const fetchAllLists = async (userId: number, token: string): Promise<List
     .catch((error) => Promise.reject(error));
 };
 
+// TODO: update this fetch call
 export async function fetchList(listId: number): Promise<ListInt> {
   const response = await axios
     .get(`${TEST_DB}/lists/${listId}`)

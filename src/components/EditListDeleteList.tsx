@@ -1,9 +1,12 @@
 import { useContext } from "react";
-import { useMutation, useQueryClient } from "@tanstack/react-query";
+import { useMutation } from "@tanstack/react-query";
 import { useNavigate } from "react-router-dom";
+import { AxiosError } from "axios";
 
+import useError from "../hooks/useError";
 import ModalContext, { ModalContentIdEnum } from "../context/ModalContext";
 import Modal from "./Modal";
+import Button from "./forms/Button";
 import { deleteList } from "../api/mutate-lists";
 
 interface DeleteListProps {
@@ -11,38 +14,37 @@ interface DeleteListProps {
 }
 
 const EditListDeleteList = ({ listId }: DeleteListProps) => {
-  const queryClient = useQueryClient();
+  const { setFetchError } = useError();
   const modal = useContext(ModalContext);
   const navigate = useNavigate();
   const mutate = useMutation({
     mutationFn: () => deleteList(listId),
-    onSuccess: () => {
-      queryClient.invalidateQueries(["list", listId]);
-    },
+    onSuccess: () => navigate("/lists"),
+    onError: (error: AxiosError) => setFetchError(error),
   });
+
+  const handleInit = () => {
+    modal.provideId(ModalContentIdEnum.deleteList);
+    modal.toggleModal(true);
+  };
+
+  const handleDelete = () => {
+    mutate.mutate();
+    modal.provideId("");
+    modal.toggleModal(false);
+  };
+
+  const handleCancel = () => {
+    modal.provideId("");
+    modal.toggleModal(false);
+  };
 
   const modalContent = (
     <div>
       <p>Are you sure want to delete this list?</p>
       <form>
-        <button
-          type="button"
-          onClick={() => {
-            mutate.mutate();
-            modal.provideId("");
-            modal.toggleModal(false);
-            navigate("/lists");
-          }}>
-          Delete
-        </button>
-        <button
-          type="button"
-          onClick={() => {
-            modal.provideId("");
-            modal.toggleModal(false);
-          }}>
-          Cancel
-        </button>
+        <Button type="button" text="Delete" handleClick={handleDelete} />
+        <Button type="button" text="Cancel" handleClick={handleCancel} />
       </form>
     </div>
   );
@@ -54,13 +56,7 @@ const EditListDeleteList = ({ listId }: DeleteListProps) => {
       )}
       <div style={{ border: "1px dashed orange", padding: "1rem" }}>
         <div>
-          <button
-            onClick={() => {
-              modal.provideId(ModalContentIdEnum.deleteList);
-              modal.toggleModal(true);
-            }}>
-            Delete List
-          </button>
+          <Button type="button" text="Delete List" handleClick={handleInit} />
         </div>
       </div>
     </>

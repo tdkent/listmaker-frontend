@@ -1,15 +1,9 @@
-import { UserInfoInt } from "./user";
-
+// Register
 export enum RegisterInputsEnum {
   email = "userEmail",
   username = "userName",
   password = "userPassword",
   verify = "verifyPassword",
-}
-
-export enum LoginInputsEnum {
-  user = "userNameOrEmail",
-  password = "userPassword",
 }
 
 export interface RegisterBodyInt {
@@ -19,13 +13,13 @@ export interface RegisterBodyInt {
   verifyPassword: string;
 }
 
+// Login
+export enum LoginInputsEnum {
+  user = "userNameOrEmail",
+  password = "userPassword",
+}
+
 export interface LoginBodyInt {
   userNameOrEmail: string;
   userPassword: string;
-}
-
-export interface AuthResponseInt {
-  status: number;
-  statusText: string;
-  data?: UserInfoInt;
 }
