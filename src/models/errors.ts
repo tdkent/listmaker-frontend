@@ -1,5 +1,13 @@
+// Form validation errors
 import { RegisterInputsEnum, LoginInputsEnum } from "./auth";
+import { NewListInputsEnum } from "./new-list";
 
+export interface FormValidationInt {
+  type: RegisterInputsEnum | LoginInputsEnum | NewListInputsEnum;
+  message: string;
+}
+
+// Router fallback error page
 export interface RootErrorInt {
   status?: number;
   statusText?: string;
@@ -9,17 +17,8 @@ export interface RootErrorInt {
   };
 }
 
-export interface NewListFormErrorInt {
-  name?: string;
-  category?: string;
-}
-
+// Axios errors
 export interface AxiosErrorInfoInt {
   status: number;
   statusText: string;
-}
-
-export interface AuthFormValidationInt {
-  type: RegisterInputsEnum | LoginInputsEnum;
-  message: string;
 }

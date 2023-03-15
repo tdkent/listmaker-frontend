@@ -1,15 +1,17 @@
 // Generic List
-export enum NewListCategoryEnum {
+export enum NewListTypeEnum {
   shop = "Shopping",
   todo = "To-Do",
 }
+
+export const newListTypes = [NewListTypeEnum.shop, NewListTypeEnum.todo];
 
 export interface ListInt {
   id: number;
   userId: number;
   name: string;
   slug: string;
-  category: NewListCategoryEnum.shop | NewListCategoryEnum.todo | "";
+  category: NewListTypeEnum.shop | NewListTypeEnum.todo | "";
   items: ShoppingListItemInt[] | [];
   isLoaded: boolean;
 }

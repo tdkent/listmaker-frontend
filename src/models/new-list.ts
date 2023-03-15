@@ -3,13 +3,7 @@ export enum NewListCategoryEnum {
   todo = "To-Do",
 }
 
-export interface NewListActionInt {
-  name: string;
-  category: NewListCategoryEnum.shop | NewListCategoryEnum.todo;
-}
-
-export interface ListInt extends NewListActionInt {
-  id: number;
-  userId: number;
-  slug: string;
+export enum NewListInputsEnum {
+  name = "listName",
+  type = "listType",
 }

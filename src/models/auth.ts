@@ -12,12 +12,6 @@ export enum LoginInputsEnum {
   password = "userPassword",
 }
 
-//? Turn this into a general interface model?
-export interface AuthReducerActionInt {
-  type: string;
-  payload: string;
-}
-
 export interface RegisterBodyInt {
   userEmail: string;
   userName: string;

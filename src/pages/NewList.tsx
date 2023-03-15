@@ -1,94 +1,120 @@
-import { useState, useContext, useEffect } from "react";
-import { Form, useActionData, useNavigate } from "react-router-dom";
+import { useState, useContext, useEffect, useReducer } from "react";
+import { useNavigate } from "react-router-dom";
+import { useMutation } from "@tanstack/react-query";
 import slugify from "slugify";
 
 import AuthContext from "../context/AuthContext";
-import FormInput from "../components/FormInput";
-import Button from "../components/FormButton";
-import { NewListFormErrorInt } from "../models/errors";
-import { NewListCategoryEnum } from "../models/new-list";
-import { TEST_DB } from "../constants/global";
+import Input from "../components/forms/Input";
+import Select from "../components/forms/Select";
+import Button from "../components/forms/Button";
+import { FormValidationInt } from "../models/errors";
+import { newListTypes } from "../models/lists";
 import checkLocalStorage from "../utils/check-local-storage";
+import { ReducerActionInt } from "../models/reducers";
+import { NewListInputsEnum } from "../models/new-list";
 
 const NewList = () => {
-  const actionData = useActionData();
-  const errors: NewListFormErrorInt = actionData as NewListFormErrorInt;
-
-  const [listName, setListName] = useState("");
-  const [listCategory, setListCategory] = useState<string | null>(null);
-
+  // auth check
   const auth = useContext(AuthContext);
   const navigate = useNavigate();
-
   useEffect(() => {
     const check = checkLocalStorage();
     if (check) return;
     else navigate("/login");
   }, [auth.isLoggedIn, navigate]);
 
+  // errors
+  const [formError, setFormError] = useState<FormValidationInt | null>(null);
+
+  // reducer
+  const defaultState = {
+    listName: "",
+    listType: "",
+  };
+  const reducer = (state: typeof defaultState, action: ReducerActionInt) => {
+    if (action.type === NewListInputsEnum.name) {
+      setFormError(null);
+      return { ...state, listName: action.payload };
+    }
+    if (action.type === NewListInputsEnum.type) {
+      setFormError(null);
+      return { ...state, listType: action.payload };
+    }
+    throw new Error(`No matching "${action.type}" action type`);
+  };
+  const [state, dispatch] = useReducer(reducer, defaultState);
+
+  // form submission
   const handleChange = (e: React.FormEvent<HTMLInputElement>) => {
-    setListName(e.currentTarget.value);
+    dispatch({ type: e.currentTarget.name, payload: e.currentTarget.value });
   };
   const handleSelect = (e: React.FormEvent<HTMLSelectElement>) => {
-    setListCategory(e.currentTarget.value.toLowerCase());
+    const selection = e.currentTarget.value.toLowerCase().match(/[a-z]/g);
+    // check for null selection
+    if (selection) {
+      dispatch({ type: e.currentTarget.name, payload: selection.join("") });
+    }
   };
+  // const mutation = useMutation({
+  //   mutationFn: () =>
+  // })
+  const handleSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
 
-  const handleSubmit = async () => {
-    let data;
-    if (listCategory === NewListCategoryEnum.shop.toLowerCase()) {
-      data = {
-        currentItems: [],
-        previousItems: [],
-      };
+    // form validation
+    // TODO: add form validation component
+    if (!state.listName) {
+      return setFormError({
+        type: NewListInputsEnum.name,
+        message: "Please enter a name for your new list!",
+      });
+    }
+    if (!state.listType) {
+      return setFormError({
+        type: NewListInputsEnum.type,
+        message: "Please select a type for your new list!",
+      });
     }
 
-    const response = await fetch(`${TEST_DB}/lists`, {
-      method: "post",
-      headers: {
-        "Content-Type": "application/json",
-        // TODO: Authorization: token
-      },
-      body: JSON.stringify({
-        userId: auth.userId,
-        listName,
-        slug: slugify(listName.toLowerCase()),
-        listCategory,
-        data,
-      }),
-    });
-    if (!response.ok) {
-      // TODO: error handling
-    }
-    console.log("Success: ", response);
-    // TODO: db returns new list id. Initiate redirect to lists/:listId
+    // form submission
+    // TODO: finish new list form submission
+    const list = {
+      userId: auth.userId,
+      listName: state.listName,
+      listType: state.listType,
+      slug: slugify(state.listName),
+      items: [],
+    };
   };
+
   return (
     <div>
       <h2>Create New List</h2>
       <div>
-        <Form method="post" action="/new" onSubmit={handleSubmit}>
-          <FormInput
-            labelText="Name"
-            inputName="name"
-            inputType="text"
+        <form onSubmit={handleSubmit}>
+          <Input
+            label="Name"
+            name={NewListInputsEnum.name}
+            id={NewListInputsEnum.name}
+            type="text"
             handleChange={handleChange}
           />
-          {errors?.name && <span>{errors.name}</span>}
-          <div>
-            <label>
-              <span>Category:</span>
-              <select name="category" defaultValue="" onChange={handleSelect}>
-                <option disabled value="">
-                  {""}
-                </option>
-                <option value={NewListCategoryEnum.shop}>{NewListCategoryEnum.shop}</option>
-                <option value={NewListCategoryEnum.todo}>{NewListCategoryEnum.todo}</option>
-              </select>
-            </label>
-          </div>
-          {errors?.category && <span>{errors.category}</span>}
-          <Button buttonText="Create" buttonType="submit" />
-        </Form>
+          {formError && formError.type === NewListInputsEnum.name && (
+            <span>{formError.message}</span>
+          )}
+          <Select
+            label="Type"
+            name={NewListInputsEnum.type}
+            id={NewListInputsEnum.type}
+            defaultValue=""
+            options={newListTypes}
+            handleSelect={handleSelect}
+          />
+          {formError && formError.type === NewListInputsEnum.type && (
+            <span>{formError.message}</span>
+          )}
+          <Button type="submit" text="Create" />
+        </form>
       </div>
     </div>
   );

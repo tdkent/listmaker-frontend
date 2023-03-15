@@ -10,7 +10,7 @@ import Input from "./forms/Input";
 import Button from "./forms/Button";
 import { UserProfileEnum } from "../models/user";
 import { editUserProfile } from "../api/user";
-import { AuthReducerActionInt } from "../models/auth";
+import { ReducerActionInt } from "../models/reducers";
 import ToastError from "./ToastError";
 
 interface EditUserNameProps {
@@ -46,7 +46,7 @@ const EditUserName = ({ data }: EditUserNameProps) => {
     userPassword: data.userPassword,
   };
   // TODO: add additional fields to be edited
-  const reducer = (state: UserInfoInt, action: AuthReducerActionInt) => {
+  const reducer = (state: UserInfoInt, action: ReducerActionInt) => {
     if (action.type === UserProfileEnum.username) {
       return { ...state, userName: action.payload };
     }

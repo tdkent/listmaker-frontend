@@ -5,8 +5,9 @@ import { useMutation } from "@tanstack/react-query";
 import { AxiosError } from "axios";
 
 import AuthContext from "../context/AuthContext";
-import { RegisterInputsEnum, AuthReducerActionInt } from "../models/auth";
-import { AuthFormValidationInt } from "../models/errors";
+import { RegisterInputsEnum } from "../models/auth";
+import { FormValidationInt } from "../models/errors";
+import { ReducerActionInt } from "../models/reducers";
 import { register } from "../api/auth";
 import ToastError from "./ToastError";
 import Input from "./forms/Input";
@@ -14,7 +15,7 @@ import Button from "./forms/Button";
 
 const AuthRegister = () => {
   // error handling
-  const [formError, setFormError] = useState<AuthFormValidationInt | null>(null);
+  const [formError, setFormError] = useState<FormValidationInt | null>(null);
   const [responseError, setResponseError] = useState<AxiosError>();
   useEffect(() => {
     if (responseError) {
@@ -38,7 +39,7 @@ const AuthRegister = () => {
     userPassword: "",
     verifyPassword: "",
   };
-  const reducer = (state: typeof defaultState, action: AuthReducerActionInt) => {
+  const reducer = (state: typeof defaultState, action: ReducerActionInt) => {
     if (action.type === RegisterInputsEnum.email) {
       return { ...state, userEmail: action.payload };
     }

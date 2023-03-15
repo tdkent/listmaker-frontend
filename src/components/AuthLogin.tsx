@@ -4,17 +4,18 @@ import { AxiosError } from "axios";
 import { useMutation } from "@tanstack/react-query";
 import { useNavigate } from "react-router-dom";
 
-import { AuthFormValidationInt } from "../models/errors";
+import { FormValidationInt } from "../models/errors";
 import AuthContext from "../context/AuthContext";
 import Input from "./forms/Input";
 import Button from "./forms/Button";
-import { AuthReducerActionInt, LoginInputsEnum } from "../models/auth";
+import { LoginInputsEnum } from "../models/auth";
+import { ReducerActionInt } from "../models/reducers";
 import { login } from "../api/auth";
 import ToastError from "./ToastError";
 
 const AuthLogin = () => {
   // errors
-  const [formError, setFormError] = useState<AuthFormValidationInt | null>(null);
+  const [formError, setFormError] = useState<FormValidationInt | null>(null);
   const [responseError, setResponseError] = useState<AxiosError>();
   useEffect(() => {
     if (responseError) {
@@ -27,7 +28,7 @@ const AuthLogin = () => {
     userNameOrEmail: "",
     userPassword: "",
   };
-  const reducer = (state: typeof defaultState, action: AuthReducerActionInt) => {
+  const reducer = (state: typeof defaultState, action: ReducerActionInt) => {
     if (action.type === LoginInputsEnum.user) {
       return { ...state, userNameOrEmail: action.payload };
     }

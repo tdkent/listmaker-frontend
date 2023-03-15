@@ -17,13 +17,6 @@ import NotFound from "../pages/NotFound";
 // error elements
 import RootError from "../pages/RootError";
 
-// actions
-import { createNewListAction } from "../functions/create-list-action";
-import { profileEditAction } from "../functions/profile-edit-action";
-
-// loaders
-import { profileLoader } from "../functions/profile-loader";
-
 const router = createBrowserRouter([
   {
     element: <RootLayout />,
@@ -47,7 +40,6 @@ const router = createBrowserRouter([
           {
             path: "new",
             element: <NewList />,
-            action: createNewListAction,
           },
           {
             path: "lists",
@@ -68,13 +60,10 @@ const router = createBrowserRouter([
               {
                 index: true,
                 element: <Profile />,
-                loader: profileLoader,
               },
               {
                 path: "edit",
                 element: <ProfileEdit />,
-                loader: profileLoader,
-                action: profileEditAction,
               },
               {
                 path: "*",
