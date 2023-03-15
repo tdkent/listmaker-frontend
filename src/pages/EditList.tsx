@@ -54,7 +54,7 @@ const EditList = () => {
   return (
     <>
       <div>
-        <EditListHeader listId={listId} list={data} />
+        <EditListHeader list={data} />
         <EditListAddItem listId={listId} list={data} />
         <EditListDisplayItems listId={listId} list={data} />
         <EditListDeleteList listId={listId} />

@@ -28,6 +28,7 @@ const NewList = () => {
 
   // errors
   const [formError, setFormError] = useState<FormValidationInt | null>(null);
+  // TODO: update with useError hook
   const [responseError, setResponseError] = useState<AxiosError>();
   useEffect(() => {
     if (responseError) {

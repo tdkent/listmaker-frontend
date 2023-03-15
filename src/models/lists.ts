@@ -35,3 +35,8 @@ export interface ShoppingListItemInt {
 export interface ShoppingListInt extends ListInt {
   items: ShoppingListItemInt[];
 }
+
+// Edit List
+export enum EditListInputsEnum {
+  editName = "edit-list-name",
+}

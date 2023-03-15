@@ -15,6 +15,7 @@ import Button from "./forms/Button";
 
 const AuthRegister = () => {
   // error handling
+  // TODO: update with useError hook
   const [formError, setFormError] = useState<FormValidationInt | null>(null);
   const [responseError, setResponseError] = useState<AxiosError>();
   useEffect(() => {

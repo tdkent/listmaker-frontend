@@ -79,7 +79,7 @@
     },
     {
       "userId": 1,
-      "name": "Test List",
+      "name": "New List Name",
       "type": "shopping",
       "slug": "test-list",
       "items": [],
