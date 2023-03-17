@@ -82,7 +82,28 @@
       "name": "New List Name",
       "type": "shopping",
       "slug": "test-list",
-      "items": [],
+      "items": [
+        {
+          "id": 0,
+          "name": "Apples",
+          "isDone": false
+        },
+        {
+          "id": 3,
+          "name": "Bananas",
+          "isDone": true
+        },
+        {
+          "id": 216,
+          "name": "Pears",
+          "isDone": false
+        },
+        {
+          "id": 255,
+          "name": "Cherries",
+          "isDone": false
+        }
+      ],
       "id": 4
     }
   ],

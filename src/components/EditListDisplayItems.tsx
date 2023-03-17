@@ -1,78 +1,90 @@
 import { useMutation, useQueryClient } from "@tanstack/react-query";
-import { useContext, useState } from "react";
+import { useContext, useState, useReducer } from "react";
+import { AxiosError } from "axios";
 
-import { ShoppingListInt } from "../models/lists";
+import { EditListPropsInt, ShoppingListInt, ShoppingListItemInt } from "../models/lists";
 import ModalContext, { ModalContentIdEnum } from "../context/ModalContext";
 import Modal from "./Modal";
-import { selectCheckbox, editItemName, deleteItem } from "../api/mutate-lists";
+import Input from "./forms/Input";
+import Button from "./forms/Button";
+import { selectCheckbox, editItemName, deleteItem, editItem } from "../api/mutate-lists";
+import { EditListInputsEnum } from "../models/lists";
+import { ReducerActionInt } from "../models/reducers";
+import updateAllItems from "../utils/update-item";
 
-interface DisplayItemsProps {
-  listId: number;
-  list: ShoppingListInt;
-}
-
-const EditListDisplayItems = ({ listId, list }: DisplayItemsProps) => {
+const EditListDisplayItems = ({ token, list }: EditListPropsInt) => {
   const modal = useContext(ModalContext);
+
+  // errors
+  // TODO: add useError hook to mutations
+
+  // reducer
+  const defaultState = list;
+
+  const reducer = (state: ShoppingListInt, action: ReducerActionInt) => {
+    throw new Error(`No matching "${action.type}" action type`);
+  };
+
   const [itemId, setItemId] = useState<number>(0);
   const [itemName, setItemName] = useState<string>("");
   const queryClient = useQueryClient();
-  const mutateCheckbox = useMutation({
-    mutationFn: (itemId: number) => selectCheckbox(itemId, listId, list),
-    onSuccess: () => queryClient.invalidateQueries(["list", listId]),
+  // const mutateCheckbox = useMutation({
+  //   mutationFn: (itemId: number) => selectCheckbox(itemId, list.id, list),
+  //   onSuccess: () => queryClient.invalidateQueries(["list", list.id]),
+  // });
+  const mutation = useMutation({
+    mutationFn: (body: ShoppingListInt) => editItem(token, body),
+    onSuccess: () => queryClient.invalidateQueries(["list", list.id]),
+    onError: (error: AxiosError) => console.log(error),
   });
   const mutateItemName = useMutation({
     mutationFn: () => editItemName(list, itemId, itemName),
-    onSuccess: () => queryClient.invalidateQueries(["list", listId]),
+    onSuccess: () => queryClient.invalidateQueries(["list", list.id]),
   });
   const mutateDeleteItem = useMutation({
     mutationFn: () => deleteItem(list, itemId),
-    onSuccess: () => queryClient.invalidateQueries(["list", listId]),
+    onSuccess: () => queryClient.invalidateQueries(["list", list.id]),
   });
+
+  const handleSave = () => {
+    mutateItemName.mutate();
+    modal.provideId("");
+    modal.toggleModal(false);
+    setItemId(0);
+    setItemName("");
+  };
+  const handleDelete = () => {
+    mutateDeleteItem.mutate();
+    modal.provideId("");
+    modal.toggleModal(false);
+    setItemId(0);
+    setItemName("");
+  };
+  const handleCancel = () => {
+    setItemId(0);
+    setItemName("");
+    modal.provideId("");
+    modal.toggleModal(false);
+  };
+
   const modalContent = (
     <div>
-      <header>
-        <h3>Edit {list.name} item</h3>
-        <form>
-          <input
-            type="text"
-            autoFocus={true}
-            value={itemName}
-            onChange={(e: React.FormEvent<HTMLInputElement>) => setItemName(e.currentTarget.value)}
-          />
-          <button
-            type="button"
-            onClick={() => {
-              mutateItemName.mutate();
-              modal.provideId("");
-              modal.toggleModal(false);
-              setItemId(0);
-              setItemName("");
-            }}>
-            Save
-          </button>
-          <button
-            type="button"
-            onClick={() => {
-              mutateDeleteItem.mutate();
-              modal.provideId("");
-              modal.toggleModal(false);
-              setItemId(0);
-              setItemName("");
-            }}>
-            Delete Item
-          </button>
-          <button
-            type="button"
-            onClick={() => {
-              setItemId(0);
-              setItemName("");
-              modal.provideId("");
-              modal.toggleModal(false);
-            }}>
-            Cancel
-          </button>
-        </form>
-      </header>
+      <form>
+        {/* // TODO: Add autofocus prop to Input component */}
+        <Input
+          label="Edit item"
+          type="text"
+          name={EditListInputsEnum.editItem}
+          id={EditListInputsEnum.editItem}
+          value={itemName}
+          handleChange={(e: React.FormEvent<HTMLInputElement>) =>
+            setItemName(e.currentTarget.value)
+          }
+        />
+        <Button type="button" text="Save" handleClick={handleSave} />
+        <Button type="button" text="Delete" handleClick={handleDelete} />
+        <Button type="button" text="Cancel" handleClick={handleCancel} />
+      </form>
     </div>
   );
 
@@ -87,19 +99,26 @@ const EditListDisplayItems = ({ listId, list }: DisplayItemsProps) => {
             <li key={item.id}>
               <input
                 type="checkbox"
+                id={EditListInputsEnum.checkItem}
+                name={EditListInputsEnum.checkItem}
                 checked={item.isDone}
-                onChange={() => mutateCheckbox.mutate(item.id)}
+                onChange={() => {
+                  const checkItem = { ...item, isDone: !item.isDone };
+                  const body = updateAllItems(checkItem, list);
+                  mutation.mutate(body);
+                }}
               />
               {item.name}
-              <button
-                onClick={() => {
+              <Button
+                type="button"
+                text="Edit"
+                handleClick={() => {
                   setItemId(item.id);
                   setItemName(item.name);
                   modal.provideId(ModalContentIdEnum.editItem);
                   modal.toggleModal(true);
-                }}>
-                Edit
-              </button>
+                }}
+              />
             </li>
           ))}
         </ul>

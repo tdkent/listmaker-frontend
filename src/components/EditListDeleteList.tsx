@@ -8,17 +8,15 @@ import ModalContext, { ModalContentIdEnum } from "../context/ModalContext";
 import Modal from "./Modal";
 import Button from "./forms/Button";
 import { deleteList } from "../api/mutate-lists";
+import { EditListPropsInt } from "../models/lists";
 
-interface DeleteListProps {
-  listId: number;
-}
-
-const EditListDeleteList = ({ listId }: DeleteListProps) => {
+const EditListDeleteList = ({ token, list }: EditListPropsInt) => {
   const { setFetchError } = useError();
   const modal = useContext(ModalContext);
   const navigate = useNavigate();
+
   const mutate = useMutation({
-    mutationFn: () => deleteList(listId),
+    mutationFn: () => deleteList(token, list.id),
     onSuccess: () => navigate("/lists"),
     onError: (error: AxiosError) => setFetchError(error),
   });

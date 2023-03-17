@@ -54,10 +54,10 @@ const EditList = () => {
   return (
     <>
       <div>
-        <EditListHeader list={data} />
-        <EditListAddItem listId={listId} list={data} />
-        <EditListDisplayItems listId={listId} list={data} />
-        <EditListDeleteList listId={listId} />
+        <EditListHeader token={auth.token!} list={data} />
+        <EditListAddItem token={auth.token!} list={data} />
+        <EditListDisplayItems token={auth.token!} list={data} />
+        <EditListDeleteList token={auth.token!} list={data} />
       </div>
       <ToastContainer />
     </>

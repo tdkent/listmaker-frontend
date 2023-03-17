@@ -2,23 +2,16 @@ import { useState, useContext } from "react";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { AxiosError } from "axios";
 
-import AuthContext from "../context/AuthContext";
 import useError from "../hooks/useError";
 import ModalContext, { ModalContentIdEnum } from "../context/ModalContext";
 import Modal from "./Modal";
 import Input from "./forms/Input";
 import Button from "./forms/Button";
-import { ShoppingListInt, EditListInputsEnum } from "../models/lists";
+import { ShoppingListInt, EditListInputsEnum, EditListPropsInt } from "../models/lists";
 import { editListName } from "../api/mutate-lists";
 import { FormValidationInt } from "../models/errors";
 
-// TODO: Props need to accept different types of lists
-interface HeaderProps {
-  list: ShoppingListInt;
-}
-
-const EditListHeader = ({ list }: HeaderProps) => {
-  const auth = useContext(AuthContext);
+const EditListHeader = ({ list, token }: EditListPropsInt) => {
   const { setFetchError } = useError();
   const [listName, setListName] = useState(list.name);
   const modal = useContext(ModalContext);
@@ -30,7 +23,7 @@ const EditListHeader = ({ list }: HeaderProps) => {
   // form submission
   const mutation = useMutation({
     //! body type will depend on list type
-    mutationFn: (body: ShoppingListInt) => editListName(auth.token as string, body),
+    mutationFn: (body: ShoppingListInt) => editListName(token, body),
     onError: (error: AxiosError) => setFetchError(error),
     onSuccess: () => queryClient.invalidateQueries(["list", list.id]),
   });

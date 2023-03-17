@@ -37,6 +37,15 @@ export interface ShoppingListInt extends ListInt {
 }
 
 // Edit List
+export interface EditListPropsInt {
+  token: string;
+  // TODO: needs to handle any list type
+  list: ShoppingListInt;
+}
+
 export enum EditListInputsEnum {
   editName = "edit-list-name",
+  newItem = "add-new-item",
+  editItem = "edit-item",
+  checkItem = "check-item",
 }
