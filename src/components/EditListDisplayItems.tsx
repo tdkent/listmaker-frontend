@@ -1,67 +1,49 @@
 import { useMutation, useQueryClient } from "@tanstack/react-query";
-import { useContext, useState, useReducer } from "react";
+import { useContext, useState } from "react";
 import { AxiosError } from "axios";
 
+import useError from "../hooks/useError";
 import { EditListPropsInt, ShoppingListInt, ShoppingListItemInt } from "../models/lists";
 import ModalContext, { ModalContentIdEnum } from "../context/ModalContext";
 import Modal from "./Modal";
 import Input from "./forms/Input";
 import Button from "./forms/Button";
-import { selectCheckbox, editItemName, deleteItem, editItem } from "../api/mutate-lists";
+import { editItem } from "../api/mutate-lists";
 import { EditListInputsEnum } from "../models/lists";
-import { ReducerActionInt } from "../models/reducers";
 import updateAllItems from "../utils/update-item";
 
 const EditListDisplayItems = ({ token, list }: EditListPropsInt) => {
   const modal = useContext(ModalContext);
-
-  // errors
-  // TODO: add useError hook to mutations
-
-  // reducer
-  const defaultState = list;
-
-  const reducer = (state: ShoppingListInt, action: ReducerActionInt) => {
-    throw new Error(`No matching "${action.type}" action type`);
-  };
-
-  const [itemId, setItemId] = useState<number>(0);
+  const { setFetchError } = useError();
+  const [listItem, setListItem] = useState<ShoppingListItemInt>();
   const [itemName, setItemName] = useState<string>("");
   const queryClient = useQueryClient();
-  // const mutateCheckbox = useMutation({
-  //   mutationFn: (itemId: number) => selectCheckbox(itemId, list.id, list),
-  //   onSuccess: () => queryClient.invalidateQueries(["list", list.id]),
-  // });
   const mutation = useMutation({
     mutationFn: (body: ShoppingListInt) => editItem(token, body),
     onSuccess: () => queryClient.invalidateQueries(["list", list.id]),
-    onError: (error: AxiosError) => console.log(error),
-  });
-  const mutateItemName = useMutation({
-    mutationFn: () => editItemName(list, itemId, itemName),
-    onSuccess: () => queryClient.invalidateQueries(["list", list.id]),
-  });
-  const mutateDeleteItem = useMutation({
-    mutationFn: () => deleteItem(list, itemId),
-    onSuccess: () => queryClient.invalidateQueries(["list", list.id]),
+    onError: (error: AxiosError) => setFetchError(error),
   });
 
   const handleSave = () => {
-    mutateItemName.mutate();
+    const updateItem = { ...(listItem as ShoppingListItemInt), name: itemName };
+    const body = updateAllItems(updateItem, list);
+    mutation.mutate(body);
     modal.provideId("");
     modal.toggleModal(false);
-    setItemId(0);
     setItemName("");
   };
   const handleDelete = () => {
-    mutateDeleteItem.mutate();
+    const deleteItem = list.items
+      .filter((item) => item.id !== listItem!.id)
+      .sort((a, b) => a.id - b.id);
+    const body = { ...list, items: deleteItem };
+    mutation.mutate(body);
     modal.provideId("");
     modal.toggleModal(false);
-    setItemId(0);
     setItemName("");
   };
   const handleCancel = () => {
-    setItemId(0);
+    setListItem(undefined);
     setItemName("");
     modal.provideId("");
     modal.toggleModal(false);
@@ -113,7 +95,7 @@ const EditListDisplayItems = ({ token, list }: EditListPropsInt) => {
                 type="button"
                 text="Edit"
                 handleClick={() => {
-                  setItemId(item.id);
+                  setListItem(item);
                   setItemName(item.name);
                   modal.provideId(ModalContentIdEnum.editItem);
                   modal.toggleModal(true);

@@ -84,16 +84,6 @@
       "slug": "test-list",
       "items": [
         {
-          "id": 0,
-          "name": "Apples",
-          "isDone": false
-        },
-        {
-          "id": 3,
-          "name": "Bananas",
-          "isDone": true
-        },
-        {
           "id": 216,
           "name": "Pears",
           "isDone": false
