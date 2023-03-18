@@ -1,8 +1,8 @@
 import { useEffect, useContext } from "react";
 import { Link, useNavigate } from "react-router-dom";
 
-import AuthContext from "../context/AuthContext";
-import LoginForm from "../components/auth/LoginForm";
+import AuthContext from "../../context/AuthContext";
+import LoginForm from "../../components/auth/LoginForm";
 
 const Login = () => {
   // auth check

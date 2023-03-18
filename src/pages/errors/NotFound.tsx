@@ -1,18 +1,17 @@
 import { useContext, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 
-import AuthContext from "../context/AuthContext";
-import checkLocalStorage from "../utils/check-local-storage";
+import AuthContext from "../../context/AuthContext";
+import checkLocalStorage from "../../utils/check-local-storage";
 
 const NotFound = () => {
   const auth = useContext(AuthContext);
   const navigate = useNavigate();
-
   useEffect(() => {
     const check = checkLocalStorage();
     if (check) return;
     else navigate("/login");
-  }, [auth.isLoggedIn]);
+  }, [auth.isLoggedIn, navigate]);
 
   return (
     <div>
