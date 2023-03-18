@@ -3,9 +3,9 @@ import { useNavigate, Link } from "react-router-dom";
 import { useQuery } from "@tanstack/react-query";
 import { AxiosError } from "axios";
 
-import AuthContext from "../context/AuthContext";
-import checkLocalStorage from "../utils/check-local-storage";
-import { fetchAllLists } from "../api/fetch-lists";
+import AuthContext from "../../context/AuthContext";
+import checkLocalStorage from "../../utils/check-local-storage";
+import { fetchAllLists } from "../../api/fetch-lists";
 
 // TODO: this can be replaced with a useQuery function
 const useLists = (userId: number, token: string) => {

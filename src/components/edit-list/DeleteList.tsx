@@ -3,14 +3,14 @@ import { useMutation } from "@tanstack/react-query";
 import { useNavigate } from "react-router-dom";
 import { AxiosError } from "axios";
 
-import useError from "../hooks/useError";
-import ModalContext, { ModalContentIdEnum } from "../context/ModalContext";
-import Modal from "./Modal";
-import Button from "./forms/Button";
-import { deleteList } from "../api/mutate-lists";
-import { EditListPropsInt } from "../models/lists";
+import useError from "../../hooks/useError";
+import ModalContext, { ModalContentIdEnum } from "../../context/ModalContext";
+import Modal from "../modal/Modal";
+import Button from "../forms/Button";
+import { deleteList } from "../../api/mutate-lists";
+import { EditListPropsInt } from "../../models/lists";
 
-const EditListDeleteList = ({ token, list }: EditListPropsInt) => {
+const DeleteList = ({ token, list }: EditListPropsInt) => {
   const { setFetchError } = useError();
   const modal = useContext(ModalContext);
   const navigate = useNavigate();
@@ -61,4 +61,4 @@ const EditListDeleteList = ({ token, list }: EditListPropsInt) => {
   );
 };
 
-export default EditListDeleteList;
+export default DeleteList;

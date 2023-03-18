@@ -1,9 +1,9 @@
 import { useContext, useEffect } from "react";
 import { Outlet, Link, useNavigate } from "react-router-dom";
 
-import AuthContext from "../context/AuthContext";
-import checkLocalStorage from "../utils/check-local-storage";
-import useUser from "../hooks/useUser";
+import AuthContext from "../../context/AuthContext";
+import checkLocalStorage from "../../utils/check-local-storage";
+import useUser from "../../hooks/useUser";
 
 const Profile = () => {
   // auth check

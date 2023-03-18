@@ -2,17 +2,17 @@ import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { useContext, useState } from "react";
 import { AxiosError } from "axios";
 
-import useError from "../hooks/useError";
-import { EditListPropsInt, ShoppingListInt, ShoppingListItemInt } from "../models/lists";
-import ModalContext, { ModalContentIdEnum } from "../context/ModalContext";
-import Modal from "./Modal";
-import Input from "./forms/Input";
-import Button from "./forms/Button";
-import { editItem } from "../api/mutate-lists";
-import { EditListInputsEnum } from "../models/lists";
-import updateAllItems from "../utils/update-item";
+import useError from "../../hooks/useError";
+import { EditListPropsInt, ShoppingListInt, ShoppingListItemInt } from "../../models/lists";
+import ModalContext, { ModalContentIdEnum } from "../../context/ModalContext";
+import Modal from "../modal/Modal";
+import Input from "../forms/Input";
+import Button from "../forms/Button";
+import { editItem } from "../../api/mutate-lists";
+import { EditListInputsEnum } from "../../models/lists";
+import updateAllItems from "../../utils/update-item";
 
-const EditListDisplayItems = ({ token, list }: EditListPropsInt) => {
+const EditItems = ({ token, list }: EditListPropsInt) => {
   const modal = useContext(ModalContext);
   const { setFetchError } = useError();
   const [listItem, setListItem] = useState<ShoppingListItemInt>();
@@ -43,7 +43,6 @@ const EditListDisplayItems = ({ token, list }: EditListPropsInt) => {
     setItemName("");
   };
   const handleCancel = () => {
-    setListItem(undefined);
     setItemName("");
     modal.provideId("");
     modal.toggleModal(false);
@@ -59,9 +58,9 @@ const EditListDisplayItems = ({ token, list }: EditListPropsInt) => {
           name={EditListInputsEnum.editItem}
           id={EditListInputsEnum.editItem}
           value={itemName}
-          handleChange={(e: React.FormEvent<HTMLInputElement>) =>
-            setItemName(e.currentTarget.value)
-          }
+          handleChange={(e: React.FormEvent<HTMLInputElement>) => {
+            setItemName(e.currentTarget.value);
+          }}
         />
         <Button type="button" text="Save" handleClick={handleSave} />
         <Button type="button" text="Delete" handleClick={handleDelete} />
@@ -69,7 +68,6 @@ const EditListDisplayItems = ({ token, list }: EditListPropsInt) => {
       </form>
     </div>
   );
-
   return (
     <>
       {modal.active && modal.contentId === ModalContentIdEnum.editItem && (
@@ -109,4 +107,4 @@ const EditListDisplayItems = ({ token, list }: EditListPropsInt) => {
   );
 };
 
-export default EditListDisplayItems;
+export default EditItems;

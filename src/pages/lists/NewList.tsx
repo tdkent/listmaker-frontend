@@ -3,18 +3,18 @@ import { useNavigate } from "react-router-dom";
 import { useMutation } from "@tanstack/react-query";
 import { AxiosError } from "axios";
 import slugify from "slugify";
-import { ToastContainer, toast } from "react-toastify";
+import { ToastContainer } from "react-toastify";
 
-import AuthContext from "../context/AuthContext";
-import Input from "../components/forms/Input";
-import Select from "../components/forms/Select";
-import Button from "../components/forms/Button";
-import { FormValidationInt } from "../models/errors";
-import { newListTypes, NewListInputsEnum, NewListInt } from "../models/lists";
-import checkLocalStorage from "../utils/check-local-storage";
-import { ReducerActionInt } from "../models/reducers";
-import { createNewList } from "../api/new-list";
-import ToastError from "../components/ToastError";
+import AuthContext from "../../context/AuthContext";
+import useError from "../../hooks/useError";
+import Input from "../../components/forms/Input";
+import Select from "../../components/forms/Select";
+import Button from "../../components/forms/Button";
+import { FormValidationInt } from "../../models/errors";
+import { newListTypes, NewListInputsEnum, NewListInt } from "../../models/lists";
+import checkLocalStorage from "../../utils/check-local-storage";
+import { ReducerActionInt } from "../../models/reducers";
+import { createNewList } from "../../api/new-list";
 
 const NewList = () => {
   // auth check
@@ -27,23 +27,8 @@ const NewList = () => {
   }, [auth.isLoggedIn, navigate]);
 
   // errors
+  const { setFetchError } = useError();
   const [formError, setFormError] = useState<FormValidationInt | null>(null);
-  // TODO: update with useError hook
-  const [responseError, setResponseError] = useState<AxiosError>();
-  useEffect(() => {
-    if (responseError) {
-      toast.error(<ToastError error={responseError} />, {
-        position: "top-center",
-        autoClose: 5000,
-        hideProgressBar: true,
-        closeOnClick: true,
-        pauseOnHover: true,
-        draggable: true,
-        progress: undefined,
-        theme: "colored",
-      });
-    }
-  }, [responseError]);
 
   // reducer
   const defaultState = {
@@ -79,7 +64,7 @@ const NewList = () => {
     onSuccess: (data) => {
       navigate(`/lists/${data.slug}&id=${data.id}`);
     },
-    onError: (error: AxiosError) => setResponseError(error),
+    onError: (error: AxiosError) => setFetchError(error),
   });
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
@@ -111,38 +96,36 @@ const NewList = () => {
   };
 
   return (
-    <>
+    <div>
+      <h2>Create New List</h2>
       <div>
-        <h2>Create New List</h2>
-        <div>
-          <form onSubmit={handleSubmit}>
-            <Input
-              label="Name"
-              name={NewListInputsEnum.name}
-              id={NewListInputsEnum.name}
-              type="text"
-              handleChange={handleChange}
-            />
-            {formError && formError.type === NewListInputsEnum.name && (
-              <span>{formError.message}</span>
-            )}
-            <Select
-              label="Type"
-              name={NewListInputsEnum.type}
-              id={NewListInputsEnum.type}
-              defaultValue=""
-              options={newListTypes}
-              handleSelect={handleSelect}
-            />
-            {formError && formError.type === NewListInputsEnum.type && (
-              <span>{formError.message}</span>
-            )}
-            <Button type="submit" text="Create" />
-          </form>
-        </div>
+        <form onSubmit={handleSubmit}>
+          <Input
+            label="Name"
+            name={NewListInputsEnum.name}
+            id={NewListInputsEnum.name}
+            type="text"
+            handleChange={handleChange}
+          />
+          {formError && formError.type === NewListInputsEnum.name && (
+            <span>{formError.message}</span>
+          )}
+          <Select
+            label="Type"
+            name={NewListInputsEnum.type}
+            id={NewListInputsEnum.type}
+            defaultValue=""
+            options={newListTypes}
+            handleSelect={handleSelect}
+          />
+          {formError && formError.type === NewListInputsEnum.type && (
+            <span>{formError.message}</span>
+          )}
+          <Button type="submit" text="Create" />
+        </form>
       </div>
       <ToastContainer />
-    </>
+    </div>
   );
 };
 

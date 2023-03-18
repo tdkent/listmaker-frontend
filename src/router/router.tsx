@@ -4,18 +4,16 @@ import { createBrowserRouter, Navigate } from "react-router-dom";
 import RootLayout from "../layouts/RootLayout";
 
 // pages
-import Home from "../pages/Home";
-import Register from "../pages/Register";
-import Login from "../pages/Login";
-import Profile from "../pages/Profile";
-import ProfileEdit from "../pages/ProfileEdit";
-import Lists from "../pages/Lists";
-import EditList from "../pages/EditList";
-import NewList from "../pages/NewList";
-import NotFound from "../pages/NotFound";
-
-// error elements
-import RootError from "../pages/RootError";
+import Home from "../pages/home/Home";
+import Register from "../pages/auth/Register";
+import Login from "../pages/auth/Login";
+import Profile from "../pages/profile/Profile";
+import EditProfile from "../pages/profile/EditProfile";
+import Lists from "../pages/lists/Lists";
+import List from "../pages/lists/List";
+import NewList from "../pages/lists/NewList";
+import NotFound from "../pages/errors/NotFound";
+import RootError from "../pages/errors/RootError";
 
 const router = createBrowserRouter([
   {
@@ -50,7 +48,7 @@ const router = createBrowserRouter([
               },
               {
                 path: ":slug",
-                element: <EditList />,
+                element: <List />,
               },
             ],
           },
@@ -63,7 +61,7 @@ const router = createBrowserRouter([
               },
               {
                 path: "edit",
-                element: <ProfileEdit />,
+                element: <EditProfile />,
               },
               {
                 path: "*",

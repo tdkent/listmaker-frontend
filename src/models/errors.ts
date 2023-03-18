@@ -17,10 +17,3 @@ export interface RootErrorInt {
     message: string;
   };
 }
-
-// Axios errors
-// TODO: This can be deleted once handleCatch func is no longer being used
-export interface AxiosErrorInfoInt {
-  status: number;
-  statusText: string;
-}

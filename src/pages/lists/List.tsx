@@ -2,16 +2,18 @@ import { useEffect, useContext } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import { useQuery } from "@tanstack/react-query";
 import { ToastContainer } from "react-toastify";
+import { AxiosError } from "axios";
 
-import AuthContext from "../context/AuthContext";
-import checkLocalStorage from "../utils/check-local-storage";
-import { fetchList } from "../api/fetch-lists";
-import EditListHeader from "../components/EditListHeader";
-import EditListAddItem from "../components/EditListAddItem";
-import EditListDisplayItems from "../components/EditListDisplayItems";
-import EditListDeleteList from "../components/EditListDeleteList";
+import AuthContext from "../../context/AuthContext";
+import useError from "../../hooks/useError";
+import checkLocalStorage from "../../utils/check-local-storage";
+import { fetchList } from "../../api/fetch-lists";
+import EditName from "../../components/edit-list/EditName";
+import AddItem from "../../components/edit-list/AddItem";
+import EditItems from "../../components/edit-list/EditItems";
+import DeleteList from "../../components/edit-list/DeleteList";
 
-const EditList = () => {
+const List = () => {
   // auth check
   const auth = useContext(AuthContext);
   const navigate = useNavigate();
@@ -25,10 +27,14 @@ const EditList = () => {
   const { slug }: { slug: string } = useParams() as { slug: string };
   const listId = Number(slug.split("=")[1]);
 
+  // errors
+  const { setFetchError } = useError();
+
   // query
   const { isLoading, isError, data, error } = useQuery({
     queryKey: ["list", listId],
     queryFn: () => fetchList(listId),
+    onError: (error: AxiosError) => setFetchError(error),
   });
 
   // conditional rendering
@@ -52,16 +58,14 @@ const EditList = () => {
 
   // main render
   return (
-    <>
-      <div>
-        <EditListHeader token={auth.token!} list={data} />
-        <EditListAddItem token={auth.token!} list={data} />
-        <EditListDisplayItems token={auth.token!} list={data} />
-        <EditListDeleteList token={auth.token!} list={data} />
-      </div>
+    <div>
+      <EditName token={auth.token!} list={data} />
+      <AddItem token={auth.token!} list={data} />
+      <EditItems token={auth.token!} list={data} />
+      <DeleteList token={auth.token!} list={data} />
       <ToastContainer />
-    </>
+    </div>
   );
 };
 
-export default EditList;
+export default List;

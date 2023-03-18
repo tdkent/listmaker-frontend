@@ -2,18 +2,18 @@ import { useState } from "react";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { AxiosError } from "axios";
 
-import useError from "../hooks/useError";
-import { addItemToList } from "../api/mutate-lists";
+import useError from "../../hooks/useError";
+import { addItemToList } from "../../api/mutate-lists";
 import {
   ShoppingListInt,
   ShoppingListItemInt,
   EditListInputsEnum,
   EditListPropsInt,
-} from "../models/lists";
-import Input from "./forms/Input";
-import Button from "./forms/Button";
+} from "../../models/lists";
+import Input from "../forms/Input";
+import Button from "../forms/Button";
 
-const EditListAddItem = ({ token, list }: EditListPropsInt) => {
+const AddItem = ({ token, list }: EditListPropsInt) => {
   const { setFetchError } = useError();
   const [itemName, setItemName] = useState("");
   const queryClient = useQueryClient();
@@ -56,4 +56,4 @@ const EditListAddItem = ({ token, list }: EditListPropsInt) => {
   );
 };
 
-export default EditListAddItem;
+export default AddItem;

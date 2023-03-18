@@ -2,7 +2,7 @@ import { useEffect, useContext } from "react";
 import { Link, useNavigate } from "react-router-dom";
 
 import AuthContext from "../context/AuthContext";
-import LoginUser from "../components/AuthLogin";
+import LoginForm from "../components/auth/LoginForm";
 
 const Login = () => {
   // auth check
@@ -18,8 +18,7 @@ const Login = () => {
     <div>
       <h2>User Login</h2>
       <div>
-        <LoginUser />
-        <p>I forgot my password</p>
+        <LoginForm />
         <p>
           <Link to="/register">Create new account</Link>
         </p>

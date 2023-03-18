@@ -1,27 +1,22 @@
-import { useContext, useReducer, useState, useEffect } from "react";
-import { ToastContainer, toast } from "react-toastify";
+import { useContext, useReducer, useState } from "react";
+import { ToastContainer } from "react-toastify";
 import { AxiosError } from "axios";
 import { useMutation } from "@tanstack/react-query";
 import { useNavigate } from "react-router-dom";
 
-import { FormValidationInt } from "../models/errors";
-import AuthContext from "../context/AuthContext";
-import Input from "./forms/Input";
-import Button from "./forms/Button";
-import { LoginInputsEnum } from "../models/auth";
-import { ReducerActionInt } from "../models/reducers";
-import { login } from "../api/auth";
-import ToastError from "./ToastError";
+import useError from "../../hooks/useError";
+import { FormValidationInt } from "../../models/errors";
+import AuthContext from "../../context/AuthContext";
+import Input from "../forms/Input";
+import Button from "../forms/Button";
+import { LoginInputsEnum } from "../../models/auth";
+import { ReducerActionInt } from "../../models/reducers";
+import { login } from "../../api/auth";
 
-const AuthLogin = () => {
+const LoginForm = () => {
   // errors
+  const { setFetchError } = useError();
   const [formError, setFormError] = useState<FormValidationInt | null>(null);
-  const [responseError, setResponseError] = useState<AxiosError>();
-  useEffect(() => {
-    if (responseError) {
-      toast.error(<ToastError error={responseError} />);
-    }
-  }, [responseError]);
 
   // form reducer
   const defaultState = {
@@ -50,7 +45,7 @@ const AuthLogin = () => {
   const navigate = useNavigate();
   const mutation = useMutation({
     mutationFn: () => login(state),
-    onError: (error: AxiosError) => setResponseError(error),
+    onError: (error: AxiosError) => setFetchError(error),
     onSuccess: (data) => {
       //TODO: API will return a real jwt
       auth.login("dummytokenstring", data.id);
@@ -75,11 +70,10 @@ const AuthLogin = () => {
       });
     }
 
-    // request if no form errors
     mutation.mutate();
   };
   return (
-    <>
+    <div>
       <form onSubmit={handleSubmit}>
         <Input
           label="Username Or Email"
@@ -102,8 +96,8 @@ const AuthLogin = () => {
         <Button type="submit" text="Log in" />
       </form>
       <ToastContainer />
-    </>
+    </div>
   );
 };
 
-export default AuthLogin;
+export default LoginForm;

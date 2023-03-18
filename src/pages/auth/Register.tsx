@@ -1,8 +1,8 @@
 import { useContext, useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
 
-import AuthContext from "../context/AuthContext";
-import AuthRegister from "../components/AuthRegister";
+import AuthContext from "../../context/AuthContext";
+import RegisterForm from "../../components/auth/RegisterForm";
 
 const Register = () => {
   // auth check
@@ -17,7 +17,7 @@ const Register = () => {
   return (
     <div>
       <h2>User Registration</h2>
-      <AuthRegister />
+      <RegisterForm />
       <p>
         <Link to="/user-auth/login">Log in to your account</Link>
       </p>

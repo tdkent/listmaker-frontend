@@ -1,39 +1,24 @@
-import React, { useContext, useReducer, useState, useEffect } from "react";
+import React, { useContext, useReducer, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { ToastContainer, toast } from "react-toastify";
+import { ToastContainer } from "react-toastify";
 import { useMutation } from "@tanstack/react-query";
 import { AxiosError } from "axios";
 
-import AuthContext from "../context/AuthContext";
-import { RegisterInputsEnum } from "../models/auth";
-import { FormValidationInt } from "../models/errors";
-import { ReducerActionInt } from "../models/reducers";
-import { register } from "../api/auth";
-import ToastError from "./ToastError";
-import Input from "./forms/Input";
-import Button from "./forms/Button";
+import AuthContext from "../../context/AuthContext";
+import useError from "../../hooks/useError";
+import { RegisterInputsEnum } from "../../models/auth";
+import { FormValidationInt } from "../../models/errors";
+import { ReducerActionInt } from "../../models/reducers";
+import { register } from "../../api/auth";
+import Input from "../forms/Input";
+import Button from "../forms/Button";
 
-const AuthRegister = () => {
+const RegisterForm = () => {
   // error handling
-  // TODO: update with useError hook
+  const { setFetchError } = useError();
   const [formError, setFormError] = useState<FormValidationInt | null>(null);
-  const [responseError, setResponseError] = useState<AxiosError>();
-  useEffect(() => {
-    if (responseError) {
-      toast.error(<ToastError error={responseError} />, {
-        position: "top-center",
-        autoClose: 5000,
-        hideProgressBar: true,
-        closeOnClick: true,
-        pauseOnHover: true,
-        draggable: true,
-        progress: undefined,
-        theme: "colored",
-      });
-    }
-  }, [responseError]);
 
-  // form reducer
+  // reducer
   const defaultState = {
     userEmail: "",
     userName: "",
@@ -67,7 +52,7 @@ const AuthRegister = () => {
   const navigate = useNavigate();
   const mutation = useMutation({
     mutationFn: () => register(state),
-    onError: (error: AxiosError) => setResponseError(error),
+    onError: (error: AxiosError) => setFetchError(error),
     onSuccess: (data) => {
       //TODO: backend will return jwt token
       auth.login("samuelbarberstoken", data.id);
@@ -110,7 +95,7 @@ const AuthRegister = () => {
   };
 
   return (
-    <>
+    <div>
       <form onSubmit={handleSubmit}>
         <Input
           label="Email"
@@ -154,8 +139,8 @@ const AuthRegister = () => {
         <Button type="submit" text="Sign up" />
       </form>
       <ToastContainer />
-    </>
+    </div>
   );
 };
 
-export default AuthRegister;
+export default RegisterForm;

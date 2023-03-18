@@ -9,18 +9,13 @@ import { StorageDataInt } from "./utils/check-local-storage";
 
 function App() {
   // modal context
-  // TODO: remove pending from modal context
-  const [pending, setPending] = useState<boolean>(false);
   const [modalActive, setModalActive] = useState<boolean>(false);
   const [contentId, setContentId] = useState<ModalContextInt["contentId"]>("");
   const toggleModal = (value: boolean) => setModalActive(value);
-  const togglePending = (value: boolean) => setPending(value);
   const provideId = (value: ModalContextInt["contentId"]) => setContentId(value);
   const modal: ModalContextInt = {
     active: modalActive,
-    pending,
     toggleModal,
-    togglePending,
     contentId,
     provideId,
   };

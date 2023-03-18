@@ -1,10 +1,10 @@
 import { AxiosError } from "axios";
 
-interface ToastErrorProps {
+interface ErrorToastProps {
   error: AxiosError;
 }
 
-const ToastError = ({ error }: ToastErrorProps) => {
+const ErrorToast = ({ error }: ErrorToastProps) => {
   return (
     <div>
       <p>
@@ -19,4 +19,4 @@ const ToastError = ({ error }: ToastErrorProps) => {
   );
 };
 
-export default ToastError;
+export default ErrorToast;

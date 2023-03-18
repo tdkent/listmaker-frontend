@@ -1,12 +1,12 @@
 import { useContext, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 
-import AuthContext from "../context/AuthContext";
-import checkLocalStorage from "../utils/check-local-storage";
-import useUser from "../hooks/useUser";
-import EditUserName from "../components/EditUserName";
+import AuthContext from "../../context/AuthContext";
+import checkLocalStorage from "../../utils/check-local-storage";
+import useUser from "../../hooks/useUser";
+import EditUserName from "../../components/user/EditUserName";
 
-const ProfileEdit = () => {
+const EditProfile = () => {
   // auth check
   const auth = useContext(AuthContext);
   const navigate = useNavigate();
@@ -57,4 +57,4 @@ const ProfileEdit = () => {
   );
 };
 
-export default ProfileEdit;
+export default EditProfile;

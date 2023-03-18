@@ -2,16 +2,16 @@ import { useState, useContext } from "react";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { AxiosError } from "axios";
 
-import useError from "../hooks/useError";
-import ModalContext, { ModalContentIdEnum } from "../context/ModalContext";
-import Modal from "./Modal";
-import Input from "./forms/Input";
-import Button from "./forms/Button";
-import { ShoppingListInt, EditListInputsEnum, EditListPropsInt } from "../models/lists";
-import { editListName } from "../api/mutate-lists";
-import { FormValidationInt } from "../models/errors";
+import useError from "../../hooks/useError";
+import ModalContext, { ModalContentIdEnum } from "../../context/ModalContext";
+import Modal from "../modal/Modal";
+import Input from "../forms/Input";
+import Button from "../forms/Button";
+import { ShoppingListInt, EditListInputsEnum, EditListPropsInt } from "../../models/lists";
+import { editListName } from "../../api/mutate-lists";
+import { FormValidationInt } from "../../models/errors";
 
-const EditListHeader = ({ list, token }: EditListPropsInt) => {
+const EditName = ({ list, token }: EditListPropsInt) => {
   const { setFetchError } = useError();
   const [listName, setListName] = useState(list.name);
   const modal = useContext(ModalContext);
@@ -94,4 +94,4 @@ const EditListHeader = ({ list, token }: EditListPropsInt) => {
   );
 };
 
-export default EditListHeader;
+export default EditName;
