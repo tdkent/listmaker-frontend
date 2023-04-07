@@ -6,7 +6,7 @@ import { fetchUserProfile } from "../api/user";
 const useUser = (userId: number, token: string) => {
   const { isLoading, isError, data, error } = useQuery({
     queryKey: ["user", userId],
-    queryFn: () => fetchUserProfile(userId, token),
+    queryFn: () => fetchUserProfile(token),
   });
   return { isError, isLoading, data, error: error as AxiosError };
 };

@@ -49,9 +49,7 @@ const EditProfile = () => {
   return (
     <div>
       <h2>Edit Your Profile</h2>
-      <div>
-        <EditUserName data={data} />
-      </div>
+      <div>{/* <EditUserName data={data} /> */}</div>
       {/* // TODO: Add a cancel button */}
     </div>
   );

@@ -20,12 +20,12 @@ const LoginForm = () => {
 
   // form reducer
   const defaultState = {
-    userNameOrEmail: "",
+    userEmail: "",
     userPassword: "",
   };
   const reducer = (state: typeof defaultState, action: ReducerActionInt) => {
-    if (action.type === LoginInputsEnum.user) {
-      return { ...state, userNameOrEmail: action.payload };
+    if (action.type === LoginInputsEnum.email) {
+      return { ...state, userEmail: action.payload };
     }
     if (action.type === LoginInputsEnum.password) {
       return { ...state, userPassword: action.payload };
@@ -47,8 +47,8 @@ const LoginForm = () => {
     mutationFn: () => login(state),
     onError: (error: AxiosError) => setFetchError(error),
     onSuccess: (data) => {
-      //TODO: API will return a real jwt
-      auth.login("dummytokenstring", data.id);
+      const { token, userId } = data.userData;
+      auth.login(token, userId);
       navigate("/lists");
     },
   });
@@ -57,16 +57,16 @@ const LoginForm = () => {
 
     // check for form validation errors
     // TODO: validation error component
-    if (!state.userNameOrEmail.length) {
+    if (!state.userEmail.length || !state.userEmail.match(/[@]/)) {
       return setFormError({
-        type: LoginInputsEnum.user,
-        message: "Please enter your username or email.",
+        type: LoginInputsEnum.email,
+        message: "Please enter a valid email address.",
       });
     }
     if (state.userPassword.length < 4) {
       return setFormError({
         type: LoginInputsEnum.password,
-        message: "Your password should be at least 4 characters long!",
+        message: "Your password should be at least 8 characters long!",
       });
     }
 
@@ -76,13 +76,13 @@ const LoginForm = () => {
     <div>
       <form onSubmit={handleSubmit}>
         <Input
-          label="Username Or Email"
-          name={LoginInputsEnum.user}
+          label="Email"
+          name={LoginInputsEnum.email}
           type="text"
-          id={LoginInputsEnum.user}
+          id={LoginInputsEnum.email}
           handleChange={handleChange}
         />
-        {formError && formError.type === LoginInputsEnum.user && <span>{formError.message}</span>}
+        {formError && formError.type === LoginInputsEnum.email && <span>{formError.message}</span>}
         <Input
           label="Password"
           name={LoginInputsEnum.password}

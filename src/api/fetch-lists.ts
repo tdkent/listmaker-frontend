@@ -1,11 +1,12 @@
 import axios from "axios";
 
-import { TEST_DB } from "../constants/global";
+import { API_URL } from "../constants/global";
 import { ListInt } from "../models/lists";
 
-export const fetchAllLists = async (userId: number, token: string): Promise<ListInt[]> => {
+export const fetchAllLists = async (token: string): Promise<ListInt[]> => {
+  const headers = { Authorization: `Bearer ${token}` };
   return axios
-    .get(`${TEST_DB}/lists?userId=${userId}`)
+    .get(`${API_URL}/list/fetch`, { headers })
     .then((response) => response.data)
     .catch((error) => Promise.reject(error));
 };
@@ -13,7 +14,7 @@ export const fetchAllLists = async (userId: number, token: string): Promise<List
 // TODO: update this fetch call
 export async function fetchList(listId: number): Promise<ListInt> {
   return await axios
-    .get(`${TEST_DB}/lists/${listId}`)
+    .get(`${API_URL}/lists/${listId}`)
     .then((response) => response.data)
     .catch((error) => Promise.reject(error));
 }

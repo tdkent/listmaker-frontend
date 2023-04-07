@@ -6,6 +6,14 @@ export interface UserInfoInt {
   userPassword: string;
 }
 
+export interface UserProfileResInt {
+  user: {
+    id: number;
+    userEmail: string;
+    userNickname: string;
+  };
+}
+
 // profile enum
 export enum UserProfileEnum {
   email = "userEmail",

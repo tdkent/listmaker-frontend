@@ -1,25 +1,34 @@
 // Register
 export enum RegisterInputsEnum {
   email = "userEmail",
-  username = "userName",
+  nickname = "userNickname",
   password = "userPassword",
   verify = "verifyPassword",
 }
 
 export interface RegisterBodyInt {
   userEmail: string;
-  userName: string;
+  userNickname: string;
   userPassword: string;
   verifyPassword: string;
 }
 
 // Login
 export enum LoginInputsEnum {
-  user = "userNameOrEmail",
+  email = "userEmail",
   password = "userPassword",
 }
 
 export interface LoginBodyInt {
-  userNameOrEmail: string;
+  userEmail: string;
   userPassword: string;
+}
+
+export interface LoginResInt {
+  message: string;
+  userData: {
+    userId: number;
+    userEmail: string;
+    token: string;
+  };
 }

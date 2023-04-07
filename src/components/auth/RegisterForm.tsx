@@ -1,10 +1,9 @@
-import React, { useContext, useReducer, useState } from "react";
+import React, { useReducer, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { ToastContainer } from "react-toastify";
 import { useMutation } from "@tanstack/react-query";
 import { AxiosError } from "axios";
 
-import AuthContext from "../../context/AuthContext";
 import useError from "../../hooks/useError";
 import { RegisterInputsEnum } from "../../models/auth";
 import { FormValidationInt } from "../../models/errors";
@@ -21,7 +20,7 @@ const RegisterForm = () => {
   // reducer
   const defaultState = {
     userEmail: "",
-    userName: "",
+    userNickname: "",
     userPassword: "",
     verifyPassword: "",
   };
@@ -29,7 +28,7 @@ const RegisterForm = () => {
     if (action.type === RegisterInputsEnum.email) {
       return { ...state, userEmail: action.payload };
     }
-    if (action.type === RegisterInputsEnum.username) {
+    if (action.type === RegisterInputsEnum.nickname) {
       return { ...state, userName: action.payload };
     }
     if (action.type === RegisterInputsEnum.password) {
@@ -53,34 +52,30 @@ const RegisterForm = () => {
   const mutation = useMutation({
     mutationFn: () => register(state),
     onError: (error: AxiosError) => setFetchError(error),
-    onSuccess: (data) => {
-      //TODO: backend will return jwt token
-      auth.login("samuelbarberstoken", data.id);
-      navigate("/lists");
+    onSuccess: () => {
+      // TODO: success toast
+      //? TODO: auto-fill email field on login page
+      navigate("/login");
     },
   });
-  const auth = useContext(AuthContext);
+  // const auth = useContext(AuthContext);
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
 
     // check for form validation errors
     // TODO: validation error component
+    // TODO: replace with better email check regex
     if (!state.userEmail.match(/[@]/)) {
       return setFormError({
         type: RegisterInputsEnum.email,
         message: "Please enter a valid email address.",
       });
     }
-    if (!state.userName || state.userName.length < 4) {
-      return setFormError({
-        type: RegisterInputsEnum.username,
-        message: "Please enter a username that is 4 or more characters long.",
-      });
-    }
-    if (state.userPassword.length < 4) {
+    // TODO: additional password checks
+    if (state.userPassword.length < 8) {
       return setFormError({
         type: RegisterInputsEnum.password,
-        message: "Please enter a password that is 4 or more characters long.",
+        message: "Please enter a password that is 8 or more characters long.",
       });
     }
     if (state.userPassword !== state.verifyPassword) {
@@ -100,7 +95,7 @@ const RegisterForm = () => {
         <Input
           label="Email"
           name={RegisterInputsEnum.email}
-          type="email"
+          type="text"
           id={RegisterInputsEnum.email}
           handleChange={handleChange}
         />
@@ -109,16 +104,13 @@ const RegisterForm = () => {
           <span>{formError.message}</span>
         )}
         <Input
-          label="Username"
-          name={RegisterInputsEnum.username}
+          label="Nickname"
+          name={RegisterInputsEnum.nickname}
           type="text"
-          id={RegisterInputsEnum.username}
+          id={RegisterInputsEnum.nickname}
           handleChange={handleChange}
         />
-        {formError && formError.type === RegisterInputsEnum.username && (
-          <span>{formError.message}</span>
-        )}
-        {/* // TODO: change type to password */}
+        {/* //! TODO: change type to password */}
         <Input
           label="Password"
           name={RegisterInputsEnum.password}

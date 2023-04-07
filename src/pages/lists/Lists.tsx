@@ -11,7 +11,7 @@ import { fetchAllLists } from "../../api/fetch-lists";
 const useLists = (userId: number, token: string) => {
   const { isLoading, isError, data, error } = useQuery({
     queryKey: ["lists", userId],
-    queryFn: () => fetchAllLists(userId, token),
+    queryFn: () => fetchAllLists(token),
   });
   return { isError, isLoading, lists: data, error: error as AxiosError };
 };
@@ -55,7 +55,9 @@ const Lists = () => {
     );
   }
 
-  if (!lists) {
+  console.log("lists", lists);
+
+  if (!lists || !lists.length) {
     return <h2>Could not find any list data.</h2>;
   }
 

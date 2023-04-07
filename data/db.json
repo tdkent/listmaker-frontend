@@ -122,13 +122,23 @@
       "id": 1,
       "userEmail": "jean@test.com",
       "userName": "sibelius",
-      "userPassword": "pass"
+      "userPassword": "pass",
+      "jean": ""
     },
     {
       "userEmail": "bela@test.com",
       "userName": "bela",
       "userPassword": "pass",
       "id": 2
+    },
+    {
+      "jean": "",
+      "id": 3
+    },
+    {
+      "userEmail": "samuel@test.com",
+      "userPassword": "$2b$04$K9Cpyk8Pd8O6u2EypgDfKOlld1Tga8MSjHskDS0McKo8xDILaOiOe",
+      "id": 4
     }
   ]
 }

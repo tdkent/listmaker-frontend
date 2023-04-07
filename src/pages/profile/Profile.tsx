@@ -17,6 +17,7 @@ const Profile = () => {
 
   // query
   const { isLoading, isError, data, error } = useUser(auth.userId as number, auth.token as string);
+  console.log("data: ", data);
 
   if (isLoading) {
     // TODO: Loading graphic / spinner
@@ -40,16 +41,18 @@ const Profile = () => {
   }
 
   //! What to do in this scenario?
-  if (!data || !data.userEmail || !data.userName) {
+  if (!data || !data.user) {
     return <div>User info is incomplete.</div>;
   }
+
+  const userData = data.user;
 
   return (
     <div>
       <h2>Your Profile</h2>
       <div>
-        <p>Username: {data.userName}</p>
-        <p>Email: {data.userEmail}</p>
+        <p>Nickname: {userData.userNickname}</p>
+        <p>Email: {userData.userEmail}</p>
       </div>
       <Link to="/profile/edit">Edit</Link>
       <Outlet />
