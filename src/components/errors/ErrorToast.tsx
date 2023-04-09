@@ -1,6 +1,6 @@
 import { AxiosError } from "axios";
 
-import { ValidationError, ClientError } from "../../models/errors";
+import { ValidationError } from "../../models/errors";
 
 interface ErrorToastProps {
   error: AxiosError;
@@ -30,7 +30,7 @@ const ErrorToast = ({ error }: ErrorToastProps) => {
           </p>
           <ul>
             {validationErrors.map((error) => (
-              <li>{error.msg}</li>
+              <li key={validationErrors.indexOf(error)}>{error.msg}</li>
             ))}
           </ul>
         </div>

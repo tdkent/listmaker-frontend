@@ -24,7 +24,3 @@ export interface ValidationError {
   param: string;
   value: string;
 }
-
-export interface ClientError {
-  message: string;
-}

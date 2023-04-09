@@ -6,33 +6,28 @@ import { ToastContainer } from "react-toastify";
 
 import AuthContext from "../../context/AuthContext";
 import useError from "../../hooks/useError";
-import { UserInfoInt } from "../../models/user";
+import { EditProfileReqInt, EditProfileFormEnum } from "../../models/user";
 import Input from "../forms/Input";
 import Button from "../forms/Button";
-import { UserProfileEnum } from "../../models/user";
 import { editUserProfile } from "../../api/user";
 import { ReducerActionInt } from "../../models/reducers";
 
-interface EditUserNameProps {
-  data: UserInfoInt;
+interface EditProfileFormProps {
+  user: EditProfileReqInt;
 }
 
-const EditUserName = ({ data }: EditUserNameProps) => {
+const EditProfileForm = ({ user }: EditProfileFormProps) => {
   const auth = useContext(AuthContext);
   const navigate = useNavigate();
   const { setFetchError } = useError();
 
   // reducer
-  const defaultState: UserInfoInt = {
-    id: data.id,
-    userEmail: data.userEmail,
-    userName: data.userName,
-    userPassword: data.userPassword,
-  };
   // TODO: add additional fields to be edited
-  const reducer = (state: UserInfoInt, action: ReducerActionInt) => {
-    if (action.type === UserProfileEnum.username) {
-      return { ...state, userName: action.payload };
+  const defaultState = { userNickname: user.userNickname };
+
+  const reducer = (state: typeof defaultState, action: ReducerActionInt) => {
+    if (action.type === EditProfileFormEnum.nickname) {
+      return { ...state, userNickname: action.payload };
     }
     throw new Error(`No matching "${action.type}" action type`);
   };
@@ -40,21 +35,19 @@ const EditUserName = ({ data }: EditUserNameProps) => {
 
   // form submission
   const mutation = useMutation({
-    mutationFn: (state: UserInfoInt) => editUserProfile(state, auth.token as string),
-    onError: (error: AxiosError) => setFetchError(error),
-    onSuccess: () => navigate("/profile"),
+    mutationFn: (state: typeof defaultState) => editUserProfile(state, auth.token as string),
+    onError: (error: AxiosError) => {
+      setFetchError(error);
+    },
+    onSuccess: () => {
+      navigate("/profile");
+    },
   });
   const handleChange = (e: React.FormEvent<HTMLInputElement>) => {
     dispatch({ type: e.currentTarget.name, payload: e.currentTarget.value });
   };
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-
-    // validation
-    // TODO: add onscreen form validation
-    if (!state.userName) alert("Please enter a username");
-
-    // submission
     mutation.mutate(state);
   };
 
@@ -63,10 +56,10 @@ const EditUserName = ({ data }: EditUserNameProps) => {
       <form onSubmit={handleSubmit}>
         <Input
           type="text"
-          name={UserProfileEnum.username}
-          id={UserProfileEnum.username}
-          label="Username"
-          value={state.userName}
+          name={EditProfileFormEnum.nickname}
+          id={EditProfileFormEnum.nickname}
+          label="Nickname"
+          value={state.userNickname}
           handleChange={handleChange}
         />
         <Button type="submit" text="Submit" />
@@ -76,4 +69,4 @@ const EditUserName = ({ data }: EditUserNameProps) => {
   );
 };
 
-export default EditUserName;
+export default EditProfileForm;

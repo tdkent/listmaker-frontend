@@ -29,7 +29,7 @@ const RegisterForm = () => {
       return { ...state, userEmail: action.payload };
     }
     if (action.type === RegisterInputsEnum.nickname) {
-      return { ...state, userName: action.payload };
+      return { ...state, userNickname: action.payload };
     }
     if (action.type === RegisterInputsEnum.password) {
       return { ...state, userPassword: action.payload };

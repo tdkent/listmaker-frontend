@@ -1,11 +1,4 @@
 // auth response object
-export interface UserInfoInt {
-  id: number;
-  userEmail: string;
-  userName: string;
-  userPassword: string;
-}
-
 export interface UserProfileResInt {
   user: {
     id: number;
@@ -14,8 +7,12 @@ export interface UserProfileResInt {
   };
 }
 
-// profile enum
-export enum UserProfileEnum {
-  email = "userEmail",
-  username = "userName",
+// edit user profile
+// TODO: interface and enum will have additional editable fields added
+export interface EditProfileReqInt {
+  userNickname: string;
+}
+
+export enum EditProfileFormEnum {
+  nickname = "userNickname",
 }

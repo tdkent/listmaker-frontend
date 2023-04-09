@@ -1,9 +1,9 @@
 import axios from "axios";
 
 import { API_URL } from "../constants/global";
-import { UserInfoInt, UserProfileResInt } from "../models/user";
+import { UserProfileResInt, EditProfileReqInt } from "../models/user";
+import ResMsgInt from "../models/http";
 
-// TODO: fetch will use token provided from auth instead of just userId
 export const fetchUserProfile = async (token: string): Promise<UserProfileResInt> => {
   const headers = { Authorization: `Bearer ${token}` };
   return axios
@@ -12,10 +12,13 @@ export const fetchUserProfile = async (token: string): Promise<UserProfileResInt
     .catch((error) => Promise.reject(error));
 };
 
-export const editUserProfile = async (state: UserInfoInt, token: string): Promise<UserInfoInt> => {
-  axios.put(`${API_URL}/users/${state.id}`, state).catch((error) => console.log(error));
+export const editUserProfile = async (
+  state: EditProfileReqInt,
+  token: string
+): Promise<ResMsgInt> => {
+  const headers = { Authorization: `Bearer ${token}` };
   return axios
-    .get(`${API_URL}/users/${state.id}`)
+    .patch(`${API_URL}/user/profile`, state, { headers })
     .then((response) => response.data)
     .catch((error) => Promise.reject(error));
 };
