@@ -59,10 +59,10 @@ const List = () => {
   // main render
   return (
     <div>
-      <EditName token={auth.token!} list={data} />
+      {/* <EditName token={auth.token!} list={data} />
       <AddItem token={auth.token!} list={data} />
       <EditItems token={auth.token!} list={data} />
-      <DeleteList token={auth.token!} list={data} />
+      <DeleteList token={auth.token!} list={data} /> */}
       <ToastContainer />
     </div>
   );

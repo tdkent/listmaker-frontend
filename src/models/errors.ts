@@ -1,9 +1,9 @@
 // Form validation errors
 import { RegisterInputsEnum, LoginInputsEnum } from "./auth";
-import { EditListInputsEnum, NewListInputsEnum } from "./lists";
+import { EditListInputsEnum, NewListFormEnum } from "./lists";
 
 export interface FormValidationInt {
-  type: RegisterInputsEnum | LoginInputsEnum | NewListInputsEnum | EditListInputsEnum;
+  type: RegisterInputsEnum | LoginInputsEnum | NewListFormEnum | EditListInputsEnum;
   message: string;
 }
 

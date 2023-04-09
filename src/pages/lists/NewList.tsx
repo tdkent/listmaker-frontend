@@ -2,7 +2,6 @@ import { useState, useContext, useEffect, useReducer } from "react";
 import { useNavigate } from "react-router-dom";
 import { useMutation } from "@tanstack/react-query";
 import { AxiosError } from "axios";
-import slugify from "slugify";
 import { ToastContainer } from "react-toastify";
 
 import AuthContext from "../../context/AuthContext";
@@ -11,7 +10,7 @@ import Input from "../../components/forms/Input";
 import Select from "../../components/forms/Select";
 import Button from "../../components/forms/Button";
 import { FormValidationInt } from "../../models/errors";
-import { newListTypes, NewListInputsEnum, NewListInt } from "../../models/lists";
+import { newListTypes, NewListFormEnum, NewListReqInt, NewListResInt } from "../../models/lists";
 import checkLocalStorage from "../../utils/check-local-storage";
 import { ReducerActionInt } from "../../models/reducers";
 import { createNewList } from "../../api/new-list";
@@ -36,11 +35,11 @@ const NewList = () => {
     type: "",
   };
   const reducer = (state: typeof defaultState, action: ReducerActionInt) => {
-    if (action.type === NewListInputsEnum.name) {
+    if (action.type === NewListFormEnum.name) {
       setFormError(null);
       return { ...state, name: action.payload };
     }
-    if (action.type === NewListInputsEnum.type) {
+    if (action.type === NewListFormEnum.type) {
       setFormError(null);
       return { ...state, type: action.payload };
     }
@@ -60,9 +59,10 @@ const NewList = () => {
     }
   };
   const mutation = useMutation({
-    mutationFn: (body: NewListInt) => createNewList(auth.token as string, body),
-    onSuccess: (data) => {
-      navigate(`/lists/${data.slug}&id=${data.id}`);
+    mutationFn: (body: NewListReqInt) => createNewList(body, auth.token as string),
+    onSuccess: (data: NewListResInt) => {
+      const { id, slug } = data.list;
+      navigate(`/lists/${slug}&id=${id}`);
     },
     onError: (error: AxiosError) => setFetchError(error),
   });
@@ -73,24 +73,21 @@ const NewList = () => {
     // TODO: add form validation component
     if (!state.name) {
       return setFormError({
-        type: NewListInputsEnum.name,
+        type: NewListFormEnum.name,
         message: "Please enter a name for your new list!",
       });
     }
     if (!state.type) {
       return setFormError({
-        type: NewListInputsEnum.type,
+        type: NewListFormEnum.type,
         message: "Please select a type for your new list!",
       });
     }
 
-    // submit
-    const body: NewListInt = {
-      userId: auth.userId as number,
+    // form submission
+    const body: NewListReqInt = {
       name: state.name,
       type: state.type,
-      slug: slugify(state.name.toLowerCase()),
-      items: [],
     };
     mutation.mutate(body);
   };
@@ -102,25 +99,21 @@ const NewList = () => {
         <form onSubmit={handleSubmit}>
           <Input
             label="Name"
-            name={NewListInputsEnum.name}
-            id={NewListInputsEnum.name}
+            name={NewListFormEnum.name}
+            id={NewListFormEnum.name}
             type="text"
             handleChange={handleChange}
           />
-          {formError && formError.type === NewListInputsEnum.name && (
-            <span>{formError.message}</span>
-          )}
+          {formError && formError.type === NewListFormEnum.name && <span>{formError.message}</span>}
           <Select
             label="Type"
-            name={NewListInputsEnum.type}
-            id={NewListInputsEnum.type}
+            name={NewListFormEnum.type}
+            id={NewListFormEnum.type}
             defaultValue=""
             options={newListTypes}
             handleSelect={handleSelect}
           />
-          {formError && formError.type === NewListInputsEnum.type && (
-            <span>{formError.message}</span>
-          )}
+          {formError && formError.type === NewListFormEnum.type && <span>{formError.message}</span>}
           <Button type="submit" text="Create" />
         </form>
       </div>

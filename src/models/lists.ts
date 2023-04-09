@@ -4,23 +4,24 @@ export enum NewListTypeEnum {
   todo = "To-Do",
 }
 
-export enum NewListInputsEnum {
+export enum NewListFormEnum {
   name = "name",
   type = "type",
 }
 
 export const newListTypes = [NewListTypeEnum.shop, NewListTypeEnum.todo];
 
-export interface NewListInt {
-  userId: number;
+export interface NewListReqInt {
   name: string;
-  slug: string;
   type: string;
-  items: ShoppingListItemInt[] | [];
+}
+
+export interface NewListResInt {
+  list: { id: number; slug: string };
 }
 
 // Created List with Database Id
-export interface ListInt extends NewListInt {
+export interface ListInt extends NewListReqInt {
   id: number;
 }
 

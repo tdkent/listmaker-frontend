@@ -75,7 +75,7 @@ const Lists = () => {
               <span>{list.type}</span>
               <div>
                 <div style={{ marginTop: "1rem" }}>
-                  <Link to={`/lists/${list.slug}&id=${list.id}`}>Edit</Link>
+                  {/* <Link to={`/lists/${list.slug}&id=${list.id}`}>Edit</Link> */}
                 </div>
               </div>
             </div>
