@@ -19,7 +19,6 @@ const useLists = (userId: number, token: string) => {
 const Lists = () => {
   // auth check
   const auth = useContext(AuthContext);
-  console.log("auth: ", auth);
   const navigate = useNavigate();
   useEffect(() => {
     const check = checkLocalStorage();
@@ -51,14 +50,19 @@ const Lists = () => {
           </p>
         )}
         <p>{error.message}</p>
+        <p>Our internal server is temporarily unavailable. Please try again later.</p>
       </div>
     );
   }
 
-  console.log("lists", lists);
-
   if (!lists || !lists.length) {
-    return <h2>Could not find any list data.</h2>;
+    return (
+      <div>
+        <h2>My Lists</h2>
+        <p>You haven't created any lists yet!</p>
+        <Link to="/new">Create New List</Link>
+      </div>
+    );
   }
 
   // main render
@@ -75,7 +79,7 @@ const Lists = () => {
               <span>{list.type}</span>
               <div>
                 <div style={{ marginTop: "1rem" }}>
-                  {/* <Link to={`/lists/${list.slug}&id=${list.id}`}>Edit</Link> */}
+                  <Link to={`/lists/${list.slug}&id=${list.id}`}>Edit</Link>
                 </div>
               </div>
             </div>

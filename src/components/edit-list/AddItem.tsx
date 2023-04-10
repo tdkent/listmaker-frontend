@@ -28,14 +28,14 @@ const AddItem = ({ token, list }: EditListPropsInt) => {
   const submitHandler = (e: React.FormEvent) => {
     e.preventDefault();
     // TODO: check if the item has already been added to the list?
-    if (!itemName) return;
-    const newItem: ShoppingListItemInt = {
-      // TODO: update how item id's are being created
-      id: list.items.length * Math.ceil(Math.random() * 100),
-      name: itemName,
-      isDone: false,
-    };
-    mutation.mutate({ ...list, items: [...list.items, newItem] });
+    // if (!itemName) return;
+    // const newItem: ShoppingListItemInt = {
+    //   // TODO: update how item id's are being created
+    //   id: list.items.length * Math.ceil(Math.random() * 100),
+    //   name: itemName,
+    //   isDone: false,
+    // };
+    // mutation.mutate({ ...list, items: [...list.items, newItem] });
   };
   return (
     <div style={{ border: "1px green dashed", padding: "1rem", margin: "1rem 0" }}>

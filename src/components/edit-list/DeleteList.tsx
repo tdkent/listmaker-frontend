@@ -10,13 +10,18 @@ import Button from "../forms/Button";
 import { deleteList } from "../../api/mutate-lists";
 import { EditListPropsInt } from "../../models/lists";
 
-const DeleteList = ({ token, list }: EditListPropsInt) => {
+interface DeleteListProps {
+  token: string;
+  id: number;
+}
+
+const DeleteList = ({ token, id }: DeleteListProps) => {
   const { setFetchError } = useError();
   const modal = useContext(ModalContext);
   const navigate = useNavigate();
 
   const mutate = useMutation({
-    mutationFn: () => deleteList(token, list.id),
+    mutationFn: () => deleteList(id, token),
     onSuccess: () => navigate("/lists"),
     onError: (error: AxiosError) => setFetchError(error),
   });

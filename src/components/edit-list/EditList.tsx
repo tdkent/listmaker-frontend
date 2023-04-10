@@ -7,13 +7,19 @@ import ModalContext, { ModalContentIdEnum } from "../../context/ModalContext";
 import Modal from "../modal/Modal";
 import Input from "../forms/Input";
 import Button from "../forms/Button";
-import { ShoppingListInt, EditListInputsEnum, EditListPropsInt } from "../../models/lists";
-import { editListName } from "../../api/mutate-lists";
+import { EditListInputsEnum } from "../../models/lists";
+import { editList } from "../../api/mutate-lists";
 import { FormValidationInt } from "../../models/errors";
 
-const EditName = ({ list, token }: EditListPropsInt) => {
+interface EditListProps {
+  token: string;
+  id: number;
+  name: string;
+}
+
+const EditList = ({ token, id, name }: EditListProps) => {
   const { setFetchError } = useError();
-  const [listName, setListName] = useState(list.name);
+  const [listName, setListName] = useState(name);
   const modal = useContext(ModalContext);
   const queryClient = useQueryClient();
 
@@ -22,10 +28,9 @@ const EditName = ({ list, token }: EditListPropsInt) => {
 
   // form submission
   const mutation = useMutation({
-    //! body type will depend on list type
-    mutationFn: (body: ShoppingListInt) => editListName(token, body),
+    mutationFn: () => editList(id, listName, token),
     onError: (error: AxiosError) => setFetchError(error),
-    onSuccess: () => queryClient.invalidateQueries(["list", list.id]),
+    onSuccess: () => queryClient.invalidateQueries(["list", id]),
   });
 
   const handleChange = (e: React.FormEvent<HTMLInputElement>) => {
@@ -46,15 +51,13 @@ const EditName = ({ list, token }: EditListPropsInt) => {
         message: "The name of your list cannot be blank!",
       });
     }
-    if (listName !== list.name) {
-      mutation.mutate({ ...list, name: listName });
-    }
+    if (listName !== name) mutation.mutate();
     modal.provideId("");
     modal.toggleModal(false);
   };
 
   const handleCancel = () => {
-    setListName(list.name);
+    setListName(name);
     setFormError(null);
     modal.provideId("");
     modal.toggleModal(false);
@@ -86,7 +89,7 @@ const EditName = ({ list, token }: EditListPropsInt) => {
       )}
       <div style={{ border: "1px dashed blue", padding: "1rem" }}>
         <div>
-          <h2>{list.name}</h2>
+          <h2>{name}</h2>
           <Button type="button" text="Edit" handleClick={handleInit} />
         </div>
       </div>
@@ -94,4 +97,4 @@ const EditName = ({ list, token }: EditListPropsInt) => {
   );
 };
 
-export default EditName;
+export default EditList;

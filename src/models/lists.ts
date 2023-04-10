@@ -25,6 +25,28 @@ export interface ListInt extends NewListReqInt {
   id: number;
 }
 
+// Fetch All Lists
+
+export interface AllListsInt {
+  lists: {
+    id: number;
+    name: string;
+    slug: string;
+    userId: number;
+    type: NewListTypeEnum.shop | NewListTypeEnum.todo;
+  }[];
+}
+
+// Fetch Single List
+
+export interface SingleListInt {
+  id: number;
+  name: string;
+  slug: string;
+  userId: number;
+  type: NewListTypeEnum.shop | NewListTypeEnum.todo;
+}
+
 // List Items
 // Shopping List
 export interface ShoppingListItemInt {
@@ -38,10 +60,14 @@ export interface ShoppingListInt extends ListInt {
 }
 
 // Edit List
+export interface EditListReqInt {
+  id: number;
+  name: string;
+}
 export interface EditListPropsInt {
   token: string;
   // TODO: needs to handle any list type
-  list: ShoppingListInt;
+  list: SingleListInt;
 }
 
 export enum EditListInputsEnum {

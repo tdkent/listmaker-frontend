@@ -25,22 +25,22 @@ const EditItems = ({ token, list }: EditListPropsInt) => {
   });
 
   const handleSave = () => {
-    const updateItem = { ...(listItem as ShoppingListItemInt), name: itemName };
-    const body = updateAllItems(updateItem, list);
-    mutation.mutate(body);
-    modal.provideId("");
-    modal.toggleModal(false);
-    setItemName("");
+    // const updateItem = { ...(listItem as ShoppingListItemInt), name: itemName };
+    // const body = updateAllItems(updateItem, list);
+    // mutation.mutate(body);
+    // modal.provideId("");
+    // modal.toggleModal(false);
+    // setItemName("");
   };
   const handleDelete = () => {
-    const deleteItem = list.items
-      .filter((item) => item.id !== listItem!.id)
-      .sort((a, b) => a.id - b.id);
-    const body = { ...list, items: deleteItem };
-    mutation.mutate(body);
-    modal.provideId("");
-    modal.toggleModal(false);
-    setItemName("");
+    // const deleteItem = list.items
+    //   .filter((item) => item.id !== listItem!.id)
+    //   .sort((a, b) => a.id - b.id);
+    // const body = { ...list, items: deleteItem };
+    // mutation.mutate(body);
+    // modal.provideId("");
+    // modal.toggleModal(false);
+    // setItemName("");
   };
   const handleCancel = () => {
     setItemName("");
@@ -75,7 +75,7 @@ const EditItems = ({ token, list }: EditListPropsInt) => {
       )}
       <div style={{ border: "1px dashed pink", padding: "1rem", margin: "1rem 0" }}>
         <ul>
-          {list.items.map((item) => (
+          {/* {list.items.map((item) => (
             <li key={item.id}>
               <input
                 type="checkbox"
@@ -100,7 +100,7 @@ const EditItems = ({ token, list }: EditListPropsInt) => {
                 }}
               />
             </li>
-          ))}
+          ))} */}
         </ul>
       </div>
     </>
