@@ -1,7 +1,7 @@
 import axios from "axios";
 
 import { API_URL } from "../constants/global";
-import { ShoppingListInt, SingleListInt, EditListReqInt } from "../models/lists";
+import { ShoppingListInt } from "../models/lists";
 
 // TODO: update fetch calls to require valid tokens in headers
 
@@ -19,11 +19,14 @@ export const deleteList = async (id: number, token: string) => {
     .catch((error) => Promise.reject(error));
 };
 
-export const addItemToList = async (token: string, body: ShoppingListInt) => {
-  return axios.put(`${API_URL}/lists/${body.id}`, body).catch((error) => Promise.reject(error));
+export const newItem = async (id: number, name: string, token: string) => {
+  const headers = { Authorization: `Bearer ${token}` };
+  return axios
+    .post(`${API_URL}/item/new/${id}`, { name }, { headers })
+    .catch((error) => Promise.reject(error));
 };
 
-export const editItem = async (token: string, body: ShoppingListInt) => {
+export const editItem = async (token: string, body: any) => {
   return axios.put(`${API_URL}/lists/${body.id}`, body).catch((error) => Promise.reject(error));
 };
 

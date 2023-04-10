@@ -1,6 +1,7 @@
-import { ShoppingListInt, ShoppingListItemInt } from "../models/lists";
+import { ShoppingListInt } from "../models/lists";
 
-const updateAllItems = (updatedItem: ShoppingListItemInt, list: ShoppingListInt) => {
+// TODO: type updatedItem
+const updateAllItems = (updatedItem: any, list: ShoppingListInt) => {
   const update = list.items
     .filter((el) => updatedItem.id !== el.id)
     .concat(updatedItem)

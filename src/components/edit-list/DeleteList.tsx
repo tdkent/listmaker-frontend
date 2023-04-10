@@ -8,7 +8,6 @@ import ModalContext, { ModalContentIdEnum } from "../../context/ModalContext";
 import Modal from "../modal/Modal";
 import Button from "../forms/Button";
 import { deleteList } from "../../api/mutate-lists";
-import { EditListPropsInt } from "../../models/lists";
 
 interface DeleteListProps {
   token: string;

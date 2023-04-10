@@ -1,3 +1,5 @@
+import { ShoppingListItemInt } from "./item";
+
 // Create New List
 export enum NewListTypeEnum {
   shop = "Shopping",
@@ -27,19 +29,7 @@ export interface ListInt extends NewListReqInt {
 
 // Fetch All Lists
 
-export interface AllListsInt {
-  lists: {
-    id: number;
-    name: string;
-    slug: string;
-    userId: number;
-    type: NewListTypeEnum.shop | NewListTypeEnum.todo;
-  }[];
-}
-
-// Fetch Single List
-
-export interface SingleListInt {
+export interface FetchAllListsInt {
   id: number;
   name: string;
   slug: string;
@@ -47,27 +37,24 @@ export interface SingleListInt {
   type: NewListTypeEnum.shop | NewListTypeEnum.todo;
 }
 
-// List Items
-// Shopping List
-export interface ShoppingListItemInt {
-  id: number;
-  name: string;
-  isDone: boolean;
+// Fetch Single List
+
+// TODO: items will include other item types objects (all packaged in an array)
+export interface FetchSingleListInt extends FetchAllListsInt {
+  items: ShoppingListItemInt[];
 }
 
+// List Items
+// Shopping List
+
 export interface ShoppingListInt extends ListInt {
-  items: ShoppingListItemInt[];
+  items: any[];
 }
 
 // Edit List
 export interface EditListReqInt {
   id: number;
   name: string;
-}
-export interface EditListPropsInt {
-  token: string;
-  // TODO: needs to handle any list type
-  list: SingleListInt;
 }
 
 export enum EditListInputsEnum {

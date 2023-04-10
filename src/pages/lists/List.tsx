@@ -65,12 +65,14 @@ const List = () => {
     return <div>Could not find list data.</div>;
   }
 
+  console.log("data", data);
+
   // main render
   return (
     <div>
       <EditList token={token} id={data.id} name={data.name} />
-      {/*<AddItem token={auth.token!} list={data} />
-      <EditItems token={auth.token!} list={data} />*/}
+      <AddItem token={token} id={data.id} />
+      <EditItems token={token} id={data.id} items={data.items} />
       <DeleteList token={token} id={data.id} />
       <ToastContainer />
     </div>
