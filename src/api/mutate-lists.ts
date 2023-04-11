@@ -26,12 +26,29 @@ export const newItem = async (id: number, name: string, token: string) => {
     .catch((error) => Promise.reject(error));
 };
 
-export const editItem = async (token: string, body: any) => {
-  return axios.put(`${API_URL}/lists/${body.id}`, body).catch((error) => Promise.reject(error));
+export const editItem = async (
+  listId: number,
+  itemId: number,
+  name: string,
+  listType: string,
+  token: string
+) => {
+  const headers = { Authorization: `Bearer ${token}` };
+  return axios
+    .patch(`${API_URL}/item/${listId}/${itemId}`, { listType, name }, { headers })
+    .catch((error) => Promise.reject(error));
 };
 
-export const selectCheckbox = async (token: string, body: ShoppingListInt) => {
-  await axios.put(`${API_URL}/lists/${body.id}`, body).catch((error) => Promise.reject(error));
+export const checkItem = async (
+  listId: number,
+  listType: string,
+  itemId: number,
+  token: string
+) => {
+  const headers = { Authorization: `Bearer ${token}` };
+  return axios
+    .patch(`${API_URL}/item/check/${listId}/${itemId}`, { listType }, { headers })
+    .catch((error) => Promise.reject(error));
 };
 
 export const deleteItem = async (list: ShoppingListInt, itemId: number) => {

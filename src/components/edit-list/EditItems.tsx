@@ -8,7 +8,7 @@ import ModalContext, { ModalContentIdEnum } from "../../context/ModalContext";
 import Modal from "../modal/Modal";
 import Input from "../forms/Input";
 import Button from "../forms/Button";
-import { editItem } from "../../api/mutate-lists";
+import { editItem, checkItem } from "../../api/mutate-lists";
 import { EditListInputsEnum, FetchSingleListInt } from "../../models/lists";
 import { ShoppingListItemInt } from "../../models/item";
 import updateAllItems from "../../utils/update-item";
@@ -16,29 +16,35 @@ import updateAllItems from "../../utils/update-item";
 interface EditItemsProps {
   token: string;
   id: number;
+  type: string;
   items: FetchSingleListInt["items"];
 }
 
-const EditItems = ({ token, id, items }: EditItemsProps) => {
+const EditItems = ({ token, id, type, items }: EditItemsProps) => {
   const modal = useContext(ModalContext);
   const { setFetchError } = useError();
   // Note: listItem object depends on list / item type
   const [listItem, setListItem] = useState<ShoppingListItemInt>();
+  const [editItemId, setEditItemId] = useState<number>();
   const [itemName, setItemName] = useState<string>("");
   const queryClient = useQueryClient();
-  const mutation = useMutation({
-    mutationFn: (body: ShoppingListInt) => editItem(token, body),
+  const checkMutation = useMutation({
+    // TODO: type the list types to limit to available list types only
+    mutationFn: (itemId: number) => checkItem(id, type, itemId, token),
+    onSuccess: () => queryClient.invalidateQueries(["list", id]),
+    onError: (error: AxiosError) => setFetchError(error),
+  });
+  const editMutation = useMutation({
+    mutationFn: (itemId: number) => editItem(id, itemId, itemName, type, token),
     onSuccess: () => queryClient.invalidateQueries(["list", id]),
     onError: (error: AxiosError) => setFetchError(error),
   });
 
   const handleSave = () => {
-    // const updateItem = { ...(listItem as ShoppingListItemInt), name: itemName };
-    // const body = updateAllItems(updateItem, list);
-    // mutation.mutate(body);
-    // modal.provideId("");
-    // modal.toggleModal(false);
-    // setItemName("");
+    editMutation.mutate(editItemId as number);
+    modal.provideId("");
+    modal.toggleModal(false);
+    setItemName("");
   };
   const handleDelete = () => {
     // const deleteItem = list.items
@@ -92,12 +98,7 @@ const EditItems = ({ token, id, items }: EditItemsProps) => {
                 id={EditListInputsEnum.checkItem}
                 name={EditListInputsEnum.checkItem}
                 checked={item.isChecked}
-                onChange={() => {
-                  const checkItem = { ...item, isChecked: !item.isChecked };
-                  console.log("checkItem: ", checkItem);
-                  // const body = updateAllItems(checkItem, list);
-                  // mutation.mutate(body);
-                }}
+                onChange={() => checkMutation.mutate(item.id)}
               />
               {item.name}
               <Button
@@ -105,6 +106,7 @@ const EditItems = ({ token, id, items }: EditItemsProps) => {
                 text="Edit"
                 handleClick={() => {
                   setListItem(item);
+                  setEditItemId(item.id);
                   setItemName(item.name);
                   modal.provideId(ModalContentIdEnum.editItem);
                   modal.toggleModal(true);
