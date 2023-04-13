@@ -7,6 +7,7 @@ const useUser = (userId: number, token: string) => {
   const { isLoading, isError, data, error } = useQuery({
     queryKey: ["user", userId],
     queryFn: () => fetchUserProfile(token),
+    enabled: !!token,
   });
   return { isError, isLoading, data, error: error as AxiosError };
 };
