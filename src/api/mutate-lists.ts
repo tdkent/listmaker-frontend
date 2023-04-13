@@ -35,7 +35,7 @@ export const editItem = async (
 ) => {
   const headers = { Authorization: `Bearer ${token}` };
   return axios
-    .patch(`${API_URL}/item/${listId}/${itemId}`, { listType, name }, { headers })
+    .patch(`${API_URL}/item/${listId}/${itemId}/${listType}`, { name }, { headers })
     .catch((error) => Promise.reject(error));
 };
 
@@ -47,12 +47,18 @@ export const checkItem = async (
 ) => {
   const headers = { Authorization: `Bearer ${token}` };
   return axios
-    .patch(`${API_URL}/item/check/${listId}/${itemId}`, { listType }, { headers })
+    .patch(`${API_URL}/item/${listId}/${itemId}/check`, { listType }, { headers })
     .catch((error) => Promise.reject(error));
 };
 
-export const deleteItem = async (list: ShoppingListInt, itemId: number) => {
-  const updateItems = list.items.filter((item) => item.id !== itemId).sort((a, b) => a.id - b.id);
-  const body = { ...list, items: [...updateItems] };
-  await axios.put(`${API_URL}/lists/${list.id}`, body).catch((error) => Promise.reject(error));
+export const deleteItem = async (
+  listId: number,
+  listType: string,
+  itemId: number,
+  token: string
+) => {
+  const headers = { Authorization: `Bearer ${token}` };
+  return axios
+    .delete(`${API_URL}/item/${listId}/${listType}/${itemId}`, { headers })
+    .catch((error) => Promise.reject(error));
 };

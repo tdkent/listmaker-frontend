@@ -8,10 +8,12 @@ import checkLocalStorage from "../../utils/check-local-storage";
 import { fetchAllLists } from "../../api/fetch-lists";
 
 // TODO: this can be replaced with a useQuery function
+// TODO: add onError to this function
 const useLists = (userId: number, token: string) => {
   const { isLoading, isError, data, error } = useQuery({
     queryKey: ["lists", userId],
     queryFn: () => fetchAllLists(token),
+    enabled: !!token,
   });
   return { isError, isLoading, lists: data, error: error as AxiosError };
 };

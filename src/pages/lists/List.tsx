@@ -35,6 +35,8 @@ const List = () => {
   const { isLoading, isError, data, error } = useQuery({
     queryKey: ["list", listId],
     queryFn: () => fetchList(listId, token),
+    // Note: function only fires if token is not ! (false) ie (!!)
+    enabled: !!token,
     onError: (error: AxiosError) => setFetchError(error),
   });
 

@@ -8,7 +8,7 @@ import ModalContext, { ModalContentIdEnum } from "../../context/ModalContext";
 import Modal from "../modal/Modal";
 import Input from "../forms/Input";
 import Button from "../forms/Button";
-import { editItem, checkItem } from "../../api/mutate-lists";
+import { editItem, checkItem, deleteItem } from "../../api/mutate-lists";
 import { EditListInputsEnum, FetchSingleListInt } from "../../models/lists";
 import { ShoppingListItemInt } from "../../models/item";
 import updateAllItems from "../../utils/update-item";
@@ -23,8 +23,6 @@ interface EditItemsProps {
 const EditItems = ({ token, id, type, items }: EditItemsProps) => {
   const modal = useContext(ModalContext);
   const { setFetchError } = useError();
-  // Note: listItem object depends on list / item type
-  const [listItem, setListItem] = useState<ShoppingListItemInt>();
   const [editItemId, setEditItemId] = useState<number>();
   const [itemName, setItemName] = useState<string>("");
   const queryClient = useQueryClient();
@@ -39,6 +37,11 @@ const EditItems = ({ token, id, type, items }: EditItemsProps) => {
     onSuccess: () => queryClient.invalidateQueries(["list", id]),
     onError: (error: AxiosError) => setFetchError(error),
   });
+  const deleteMutation = useMutation({
+    mutationFn: (itemId: number) => deleteItem(id, type, itemId, token),
+    onSuccess: () => queryClient.invalidateQueries(["list", id]),
+    onError: (error: AxiosError) => setFetchError(error),
+  });
 
   const handleSave = () => {
     editMutation.mutate(editItemId as number);
@@ -47,14 +50,10 @@ const EditItems = ({ token, id, type, items }: EditItemsProps) => {
     setItemName("");
   };
   const handleDelete = () => {
-    // const deleteItem = list.items
-    //   .filter((item) => item.id !== listItem!.id)
-    //   .sort((a, b) => a.id - b.id);
-    // const body = { ...list, items: deleteItem };
-    // mutation.mutate(body);
-    // modal.provideId("");
-    // modal.toggleModal(false);
-    // setItemName("");
+    deleteMutation.mutate(editItemId as number);
+    modal.provideId("");
+    modal.toggleModal(false);
+    setItemName("");
   };
   const handleCancel = () => {
     setItemName("");
@@ -105,7 +104,6 @@ const EditItems = ({ token, id, type, items }: EditItemsProps) => {
                 type="button"
                 text="Edit"
                 handleClick={() => {
-                  setListItem(item);
                   setEditItemId(item.id);
                   setItemName(item.name);
                   modal.provideId(ModalContentIdEnum.editItem);
