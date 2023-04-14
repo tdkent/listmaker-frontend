@@ -11,6 +11,7 @@ import { ReducerActionInt } from "../../models/reducers";
 import { register } from "../../api/auth";
 import Input from "../forms/Input";
 import Button from "../forms/Button";
+import useToast from "../../hooks/useToast";
 
 const RegisterForm = () => {
   // error handling
@@ -48,6 +49,7 @@ const RegisterForm = () => {
       payload: e.currentTarget.value,
     });
   };
+  const { setMsg } = useToast();
   const navigate = useNavigate();
   const mutation = useMutation({
     mutationFn: () => register(state),
@@ -56,6 +58,7 @@ const RegisterForm = () => {
       // TODO: success toast
       //? TODO: auto-fill email field on login page
       navigate("/login");
+      setMsg("New account created! Please log in.");
     },
   });
   // const auth = useContext(AuthContext);
@@ -130,7 +133,7 @@ const RegisterForm = () => {
         )}
         <Button type="submit" text="Sign up" />
       </form>
-      <ToastContainer />
+      {/* <ToastContainer /> */}
     </div>
   );
 };

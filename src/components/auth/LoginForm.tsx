@@ -95,7 +95,7 @@ const LoginForm = () => {
         )}
         <Button type="submit" text="Log in" />
       </form>
-      <ToastContainer />
+      {/* <ToastContainer /> */}
     </div>
   );
 };

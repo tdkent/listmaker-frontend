@@ -1,5 +1,6 @@
 import { RouterProvider } from "react-router-dom";
 import { useState, useEffect } from "react";
+import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
 import AuthContext, { AuthContextInt } from "./context/AuthContext";
@@ -57,6 +58,7 @@ function App() {
     <ModalContext.Provider value={modal}>
       <AuthContext.Provider value={user}>
         <RouterProvider router={router} />
+        {/* <ToastContainer /> */}
       </AuthContext.Provider>
     </ModalContext.Provider>
   );

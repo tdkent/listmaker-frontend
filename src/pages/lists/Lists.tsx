@@ -6,17 +6,7 @@ import { AxiosError } from "axios";
 import AuthContext from "../../context/AuthContext";
 import checkLocalStorage from "../../utils/check-local-storage";
 import { fetchAllLists } from "../../api/fetch-lists";
-
-// TODO: this can be replaced with a useQuery function
-// TODO: add onError to this function
-const useLists = (userId: number, token: string) => {
-  const { isLoading, isError, data, error } = useQuery({
-    queryKey: ["lists", userId],
-    queryFn: () => fetchAllLists(token),
-    enabled: !!token,
-  });
-  return { isError, isLoading, lists: data, error: error as AxiosError };
-};
+import useError from "../../hooks/useError";
 
 const Lists = () => {
   // auth check
@@ -29,10 +19,15 @@ const Lists = () => {
   }, [auth.isLoggedIn, navigate]);
 
   // query
-  const { isLoading, isError, lists, error } = useLists(
-    auth.userId as number,
-    auth.token as string
-  );
+  const { setFetchError } = useError();
+  const userId = auth.userId as number;
+  const token = auth.token as string;
+  const { isLoading, isError, data, error } = useQuery({
+    queryKey: ["lists", userId],
+    queryFn: () => fetchAllLists(token),
+    enabled: !!token,
+    onError: (error: AxiosError) => setFetchError(error),
+  });
 
   // conditional rendering
   // TODO: add loading component or spinner
@@ -57,7 +52,7 @@ const Lists = () => {
     );
   }
 
-  if (!lists || !lists.length) {
+  if (!data || !data.length) {
     return (
       <div>
         <h2>My Lists</h2>
@@ -72,7 +67,7 @@ const Lists = () => {
     <div>
       <h2>My Lists</h2>
       <div>
-        {lists.map((list) => {
+        {data.map((list) => {
           return (
             <div
               key={list.id}

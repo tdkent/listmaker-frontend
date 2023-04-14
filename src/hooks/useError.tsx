@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { AxiosError } from "axios";
 import { toast } from "react-toastify";
 
-import ErrorToast from "../components/errors/ErrorToast";
+import ErrorToast from "../components/toast-content/ErrorToast";
 
 const useError = () => {
   const [fetchError, setFetchError] = useState<AxiosError>();
@@ -10,7 +10,7 @@ const useError = () => {
     if (fetchError) {
       toast.error(<ErrorToast error={fetchError} />, {
         position: "top-center",
-        autoClose: 5000,
+        autoClose: 6000,
         hideProgressBar: true,
         closeOnClick: true,
         pauseOnHover: true,
