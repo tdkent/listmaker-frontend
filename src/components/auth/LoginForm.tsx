@@ -1,5 +1,4 @@
 import { useContext, useReducer, useState } from "react";
-// import { ToastContainer } from "react-toastify";
 import { AxiosError } from "axios";
 import { useMutation } from "@tanstack/react-query";
 import { useNavigate } from "react-router-dom";
@@ -95,7 +94,6 @@ const LoginForm = () => {
         )}
         <Button type="submit" text="Log in" />
       </form>
-      {/* <ToastContainer /> */}
     </div>
   );
 };

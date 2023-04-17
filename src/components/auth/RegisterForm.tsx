@@ -1,6 +1,6 @@
 import React, { useReducer, useState } from "react";
 import { useNavigate } from "react-router-dom";
-// import { ToastContainer } from "react-toastify";
+import { toast } from "react-toastify";
 import { useMutation } from "@tanstack/react-query";
 import { AxiosError } from "axios";
 
@@ -11,7 +11,6 @@ import { ReducerActionInt } from "../../models/reducers";
 import { register } from "../../api/auth";
 import Input from "../forms/Input";
 import Button from "../forms/Button";
-import useToast from "../../hooks/useToast";
 
 const RegisterForm = () => {
   // error handling
@@ -49,16 +48,23 @@ const RegisterForm = () => {
       payload: e.currentTarget.value,
     });
   };
-  const { setMsg } = useToast();
   const navigate = useNavigate();
   const mutation = useMutation({
     mutationFn: () => register(state),
     onError: (error: AxiosError) => setFetchError(error),
     onSuccess: () => {
-      // TODO: success toast
       //? TODO: auto-fill email field on login page
+      toast.success("New account created! Please log in.", {
+        position: "bottom-center",
+        autoClose: 6000,
+        hideProgressBar: true,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "colored",
+      });
       navigate("/login");
-      setMsg("New account created! Please log in.");
     },
   });
   // const auth = useContext(AuthContext);
@@ -133,7 +139,6 @@ const RegisterForm = () => {
         )}
         <Button type="submit" text="Sign up" />
       </form>
-      {/* <ToastContainer /> */}
     </div>
   );
 };

@@ -2,7 +2,6 @@ import { useContext, useReducer } from "react";
 import { useMutation } from "@tanstack/react-query";
 import { AxiosError } from "axios";
 import { useNavigate } from "react-router-dom";
-// import { ToastContainer } from "react-toastify";
 
 import AuthContext from "../../context/AuthContext";
 import useError from "../../hooks/useError";
@@ -64,7 +63,6 @@ const EditProfileForm = ({ user }: EditProfileFormProps) => {
         />
         <Button type="submit" text="Submit" />
       </form>
-      {/* <ToastContainer /> */}
     </div>
   );
 };
