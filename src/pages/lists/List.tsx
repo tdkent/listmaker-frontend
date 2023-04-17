@@ -1,7 +1,7 @@
 import { useEffect, useContext } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import { useQuery } from "@tanstack/react-query";
-import { ToastContainer } from "react-toastify";
+// import { ToastContainer } from "react-toastify";
 import { AxiosError } from "axios";
 
 import AuthContext from "../../context/AuthContext";
@@ -73,7 +73,7 @@ const List = () => {
       <AddItem token={token} id={data.id} />
       <EditItems token={token} id={data.id} type={data.type} items={data.items} />
       <DeleteList token={token} id={data.id} />
-      <ToastContainer />
+      {/* <ToastContainer /> */}
     </div>
   );
 };

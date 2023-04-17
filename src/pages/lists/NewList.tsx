@@ -2,7 +2,7 @@ import { useState, useContext, useEffect, useReducer } from "react";
 import { useNavigate } from "react-router-dom";
 import { useMutation } from "@tanstack/react-query";
 import { AxiosError } from "axios";
-import { ToastContainer } from "react-toastify";
+// import { ToastContainer } from "react-toastify";
 
 import AuthContext from "../../context/AuthContext";
 import useError from "../../hooks/useError";
@@ -117,7 +117,7 @@ const NewList = () => {
           <Button type="submit" text="Create" />
         </form>
       </div>
-      <ToastContainer />
+      {/* <ToastContainer /> */}
     </div>
   );
 };
