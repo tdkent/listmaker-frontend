@@ -24,16 +24,20 @@ const EditItems = ({ token, id, type, items }: EditItemsProps) => {
   const modal = useContext(ModalContext);
   const { setFetchError } = useError();
   const [editItemId, setEditItemId] = useState<number>();
+  const [itemChecked, setItemChecked] = useState<boolean>();
   const [itemName, setItemName] = useState<string>("");
+  const [itemCat, setItemCat] = useState<string>("");
   const queryClient = useQueryClient();
   const checkMutation = useMutation({
     // TODO: type the list types to limit to available list types only
-    mutationFn: (itemId: number) => checkItem(id, type, itemId, token),
+    mutationFn: ({ itemId, isChecked }: { itemId: number; isChecked: boolean }) =>
+      checkItem(id, type, itemId, isChecked, token),
     onSuccess: () => queryClient.invalidateQueries(["list", id]),
     onError: (error: AxiosError) => setFetchError(error),
   });
   const editMutation = useMutation({
-    mutationFn: (itemId: number) => editItem(id, itemId, itemName, type, token),
+    mutationFn: ({ itemId, isChecked }: { itemId: number; isChecked: boolean }) =>
+      editItem(id, itemId, isChecked, itemName, itemCat, type, token),
     onSuccess: () => queryClient.invalidateQueries(["list", id]),
     onError: (error: AxiosError) => setFetchError(error),
   });
@@ -44,19 +48,22 @@ const EditItems = ({ token, id, type, items }: EditItemsProps) => {
   });
 
   const handleSave = () => {
-    editMutation.mutate(editItemId as number);
+    editMutation.mutate({ itemId: editItemId as number, isChecked: itemChecked as boolean });
     modal.provideId("");
     modal.toggleModal(false);
     setItemName("");
+    setItemCat("");
   };
   const handleDelete = () => {
     deleteMutation.mutate(editItemId as number);
     modal.provideId("");
     modal.toggleModal(false);
     setItemName("");
+    setItemCat("");
   };
   const handleCancel = () => {
     setItemName("");
+    setItemCat("");
     modal.provideId("");
     modal.toggleModal(false);
   };
@@ -64,7 +71,7 @@ const EditItems = ({ token, id, type, items }: EditItemsProps) => {
   const modalContent = (
     <div>
       <form>
-        {/* // TODO: Add autofocus prop to Input component */}
+        {/* TODO: Add autofocus prop to Input component */}
         <Input
           label="Edit item"
           type="text"
@@ -75,6 +82,14 @@ const EditItems = ({ token, id, type, items }: EditItemsProps) => {
             setItemName(e.currentTarget.value);
           }}
         />
+        <Input
+          label="Category"
+          type="text"
+          name="itemCategory"
+          id="itemCategory"
+          value={itemCat}
+          handleChange={(e: React.FormEvent<HTMLInputElement>) => setItemCat(e.currentTarget.value)}
+        />
         <Button type="button" text="Save" handleClick={handleSave} />
         <Button type="button" text="Delete" handleClick={handleDelete} />
         <Button type="button" text="Cancel" handleClick={handleCancel} />
@@ -83,36 +98,96 @@ const EditItems = ({ token, id, type, items }: EditItemsProps) => {
   );
 
   // TODO: item display depends on list / item type
+
+  // puts all unique category names into an array
+  const categories = items
+    .map((obj) => obj.temp_category)
+    .filter((val, idx, arr) => arr.indexOf(val) === idx)
+    .sort((a, b) => a.toLowerCase().localeCompare(b.toLowerCase()));
+  const checkedInArray = categories.includes("Checked");
+
   return (
     <>
       {modal.active && modal.contentId === ModalContentIdEnum.editItem && (
         <Modal modalContent={modalContent} />
       )}
       <div style={{ border: "1px dashed pink", padding: "1rem", margin: "1rem 0" }}>
-        <ul>
-          {items.map((item) => (
-            <li key={item.id}>
-              <input
-                type="checkbox"
-                id={EditListInputsEnum.checkItem}
-                name={EditListInputsEnum.checkItem}
-                checked={item.isChecked}
-                onChange={() => checkMutation.mutate(item.id)}
-              />
-              {item.name}
-              <Button
-                type="button"
-                text="Edit"
-                handleClick={() => {
-                  setEditItemId(item.id);
-                  setItemName(item.name);
-                  modal.provideId(ModalContentIdEnum.editItem);
-                  modal.toggleModal(true);
-                }}
-              />
-            </li>
-          ))}
-        </ul>
+        {categories.map(
+          (cat) =>
+            cat !== "Checked" && (
+              <div key={cat}>
+                <h4>{cat}</h4>
+                <ul>
+                  {items.map(
+                    (item) =>
+                      item.temp_category === cat &&
+                      !item.isChecked && (
+                        <li key={item.id}>
+                          <input
+                            type="checkbox"
+                            id={EditListInputsEnum.checkItem}
+                            name={EditListInputsEnum.checkItem}
+                            checked={item.isChecked}
+                            onChange={() =>
+                              checkMutation.mutate({ itemId: item.id, isChecked: item.isChecked })
+                            }
+                          />
+                          {item.name}
+                          <Button
+                            type="button"
+                            text="Edit"
+                            handleClick={() => {
+                              setEditItemId(item.id);
+                              setItemChecked(item.isChecked);
+                              setItemName(item.name);
+                              setItemCat(item.perm_category);
+                              modal.provideId(ModalContentIdEnum.editItem);
+                              modal.toggleModal(true);
+                            }}
+                          />
+                        </li>
+                      )
+                  )}
+                </ul>
+              </div>
+            )
+        )}
+        {checkedInArray && (
+          <div>
+            <h4>Checked</h4>
+            <ul>
+              {items.map(
+                (item) =>
+                  item.isChecked && (
+                    <li key={item.id}>
+                      <input
+                        type="checkbox"
+                        id={EditListInputsEnum.checkItem}
+                        name={EditListInputsEnum.checkItem}
+                        checked={item.isChecked}
+                        onChange={() =>
+                          checkMutation.mutate({ itemId: item.id, isChecked: item.isChecked })
+                        }
+                      />
+                      {item.name}
+                      <Button
+                        type="button"
+                        text="Edit"
+                        handleClick={() => {
+                          setEditItemId(item.id);
+                          setItemChecked(item.isChecked);
+                          setItemName(item.name);
+                          setItemCat(item.perm_category);
+                          modal.provideId(ModalContentIdEnum.editItem);
+                          modal.toggleModal(true);
+                        }}
+                      />
+                    </li>
+                  )
+              )}
+            </ul>
+          </div>
+        )}
       </div>
     </>
   );
