@@ -6,6 +6,7 @@ import checkLocalStorage from "../../utils/check-local-storage";
 import useUser from "../../hooks/useUser";
 import EditProfileForm from "../../components/user/EditProfileForm";
 import { EditProfileReqInt } from "../../models/user";
+import QueryError from "../../components/errors/queryError";
 
 const EditProfile = () => {
   // auth check
@@ -26,19 +27,7 @@ const EditProfile = () => {
   }
 
   if (isError) {
-    // TODO: standardize on-page error info
-    //! Note that server errors are being routed to RootError
-    return (
-      <div>
-        <h2>There was an error!</h2>
-        {error.response && (
-          <p>
-            {error.response.status} {error.response.statusText}
-          </p>
-        )}
-        <p>{error.message}</p>
-      </div>
-    );
+    return <QueryError error={error} />;
   }
 
   //! TODO: initiate logout

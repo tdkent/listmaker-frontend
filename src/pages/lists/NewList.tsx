@@ -51,10 +51,10 @@ const NewList = () => {
     dispatch({ type: e.currentTarget.name, payload: e.currentTarget.value });
   };
   const handleSelect = (e: React.FormEvent<HTMLSelectElement>) => {
-    const selection = e.currentTarget.value.toLowerCase().match(/[a-z]/g);
+    // const selection = e.currentTarget.value.toLowerCase().match(/[a-z]/g);
     // check for null selection
-    if (selection) {
-      dispatch({ type: e.currentTarget.name, payload: selection.join("") });
+    if (e.currentTarget.value) {
+      dispatch({ type: e.currentTarget.name, payload: e.currentTarget.value });
     }
   };
   const mutation = useMutation({

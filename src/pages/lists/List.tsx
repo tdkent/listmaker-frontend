@@ -7,10 +7,12 @@ import AuthContext from "../../context/AuthContext";
 import useError from "../../hooks/useError";
 import checkLocalStorage from "../../utils/check-local-storage";
 import { fetchList } from "../../api/fetch-lists";
+import QueryError from "../../components/errors/queryError";
 import EditList from "../../components/edit-list/EditList";
-import AddItem from "../../components/edit-list/AddItem";
-import EditItems from "../../components/edit-list/EditItems";
+import AddShoppingItem from "../../components/edit-list/shopping/AddShoppingItem";
+import EditShoppingItem from "../../components/edit-list/shopping/EditShoppingItem";
 import DeleteList from "../../components/edit-list/DeleteList";
+import { AllListTypesEnum } from "../../models/lists";
 
 const List = () => {
   // auth check
@@ -44,20 +46,7 @@ const List = () => {
   }
 
   if (isError) {
-    // TODO: standardize on-page error info
-    //! Note that server errors are being routed to RootError
-    return (
-      <div>
-        <h2>There was an error!</h2>
-        {error.response && (
-          <p>
-            {error.response.status} {error.response.statusText}
-          </p>
-        )}
-        <p>{error.message}</p>
-        <p>Our internal server is temporarily unavailable. Please try again later.</p>
-      </div>
-    );
+    return <QueryError error={error} />;
   }
 
   //? TODO: how to handle this scenario?
@@ -69,8 +58,13 @@ const List = () => {
   return (
     <div>
       <EditList token={token} id={data.id} name={data.name} />
-      <AddItem token={token} id={data.id} />
-      <EditItems token={token} id={data.id} type={data.type} items={data.items} />
+      {/* Shopping */}
+      {data.type === AllListTypesEnum.shop && (
+        <>
+          <AddShoppingItem token={token} id={data.id} />
+          <EditShoppingItem token={token} id={data.id} type={data.type} items={data.items} />
+        </>
+      )}
       <DeleteList token={token} id={data.id} />
     </div>
   );

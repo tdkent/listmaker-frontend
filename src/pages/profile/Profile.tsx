@@ -4,6 +4,7 @@ import { Outlet, Link, useNavigate } from "react-router-dom";
 import AuthContext from "../../context/AuthContext";
 import checkLocalStorage from "../../utils/check-local-storage";
 import useUser from "../../hooks/useUser";
+import QueryError from "../../components/errors/queryError";
 
 const Profile = () => {
   // auth check
@@ -24,19 +25,7 @@ const Profile = () => {
   }
 
   if (isError) {
-    // TODO: standardize on-page error info
-    //! Note that server errors are being routed to RootError
-    return (
-      <div>
-        <h2>There was an error!</h2>
-        {error.response && (
-          <p>
-            {error.response.status} {error.response.statusText}
-          </p>
-        )}
-        <p>{error.message}</p>
-      </div>
-    );
+    return <QueryError error={error} />;
   }
 
   //! TODO: initiate logout

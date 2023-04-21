@@ -1,7 +1,7 @@
 import { ShoppingListItemInt } from "./item";
 
 // Create New List
-export enum NewListTypeEnum {
+export enum AllListTypesEnum {
   shop = "Shopping",
   todo = "To-Do",
 }
@@ -11,7 +11,7 @@ export enum NewListFormEnum {
   type = "type",
 }
 
-export const newListTypes = [NewListTypeEnum.shop, NewListTypeEnum.todo];
+export const newListTypes = [AllListTypesEnum.shop, AllListTypesEnum.todo];
 
 export interface NewListReqInt {
   name: string;
@@ -34,7 +34,7 @@ export interface FetchAllListsInt {
   name: string;
   slug: string;
   userId: number;
-  type: NewListTypeEnum.shop | NewListTypeEnum.todo;
+  type: AllListTypesEnum.shop | AllListTypesEnum.todo;
 }
 
 // Fetch Single List

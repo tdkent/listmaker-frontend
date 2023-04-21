@@ -8,3 +8,13 @@ export interface ShoppingListItemInt {
   temp_category: string;
   isChecked: boolean;
 }
+
+export enum EditItemFormInputsEnum {
+  name = "item-name",
+  cat = "item-category",
+  check = "check-item",
+}
+
+export enum CheckedItemEnum {
+  check = "__checked",
+}

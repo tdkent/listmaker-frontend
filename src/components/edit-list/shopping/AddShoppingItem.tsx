@@ -2,19 +2,18 @@ import { useState } from "react";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { AxiosError } from "axios";
 
-import useError from "../../hooks/useError";
-import { newItem } from "../../api/mutate-lists";
-import { EditListInputsEnum } from "../../models/lists";
-import Input from "../forms/Input";
-import Button from "../forms/Button";
+import useError from "../../../hooks/useError";
+import { newItem } from "../../../api/mutate-lists";
+import { EditListInputsEnum } from "../../../models/lists";
+import Input from "../../forms/Input";
+import Button from "../../forms/Button";
 
 interface AddItemProps {
   token: string;
   id: number;
 }
 
-// TODO: add-item form should be based on list type
-const AddItem = ({ token, id }: AddItemProps) => {
+const AddShoppingItem = ({ token, id }: AddItemProps) => {
   const { setFetchError } = useError();
   const [itemName, setItemName] = useState("");
   const queryClient = useQueryClient();
@@ -28,7 +27,6 @@ const AddItem = ({ token, id }: AddItemProps) => {
   });
   const submitHandler = (e: React.FormEvent) => {
     e.preventDefault();
-    // TODO: check if the item has already been added to the list?
     if (!itemName) return;
     mutation.mutate();
   };
@@ -51,4 +49,4 @@ const AddItem = ({ token, id }: AddItemProps) => {
   );
 };
 
-export default AddItem;
+export default AddShoppingItem;
