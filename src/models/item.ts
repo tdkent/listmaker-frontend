@@ -18,3 +18,13 @@ export enum EditItemFormInputsEnum {
 export enum CheckedItemEnum {
   check = "__checked",
 }
+
+// To-Do List
+
+export enum ToDoCats {
+  home = "Home",
+  work = "Work",
+  family = "Family",
+}
+
+export const todoItemCats = Object.values(ToDoCats);

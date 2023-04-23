@@ -9,7 +9,7 @@ import checkLocalStorage from "../../utils/check-local-storage";
 import { fetchList } from "../../api/fetch-lists";
 import QueryError from "../../components/errors/queryError";
 import EditList from "../../components/edit-list/EditList";
-import AddShoppingItem from "../../components/edit-list/shopping/AddShoppingItem";
+import NewItem from "../../components/edit-list/NewItem";
 import EditShoppingItem from "../../components/edit-list/shopping/EditShoppingItem";
 import DeleteList from "../../components/edit-list/DeleteList";
 import { AllListTypesEnum } from "../../models/lists";
@@ -58,12 +58,10 @@ const List = () => {
   return (
     <div>
       <EditList token={token} id={data.id} name={data.name} />
+      <NewItem token={token} id={data.id} />
       {/* Shopping */}
       {data.type === AllListTypesEnum.shop && (
-        <>
-          <AddShoppingItem token={token} id={data.id} />
-          <EditShoppingItem token={token} id={data.id} type={data.type} items={data.items} />
-        </>
+        <EditShoppingItem token={token} id={data.id} type={data.type} items={data.items} />
       )}
       <DeleteList token={token} id={data.id} />
     </div>
