@@ -21,10 +21,25 @@ export enum CheckedItemEnum {
 
 // To-Do List
 
+export interface TodoListItemInt {
+  id: number;
+  listId: number;
+  userId: number;
+  name: string;
+  category: string;
+  dueDate: Date;
+  isChecked: boolean;
+  age: {
+    days: number;
+  };
+}
+
 export enum ToDoCats {
   home = "Home",
   work = "Work",
   family = "Family",
+  errand = "Errand",
+  leisure = "Leisure",
 }
 
 export const todoItemCats = Object.values(ToDoCats);

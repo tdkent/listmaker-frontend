@@ -1,4 +1,4 @@
-import { ShoppingListItemInt } from "./item";
+import { ShoppingListItemInt, TodoListItemInt } from "./item";
 
 // Create New List
 export enum AllListTypesEnum {
@@ -41,7 +41,7 @@ export interface FetchAllListsInt {
 
 // TODO: items will include other item types objects (all packaged in an array)
 export interface FetchSingleListInt extends FetchAllListsInt {
-  items: ShoppingListItemInt[];
+  items: ShoppingListItemInt[] | TodoListItemInt[];
 }
 
 // List Items

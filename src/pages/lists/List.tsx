@@ -11,8 +11,10 @@ import QueryError from "../../components/errors/queryError";
 import EditList from "../../components/edit-list/EditList";
 import NewItem from "../../components/edit-list/NewItem";
 import EditShoppingItem from "../../components/edit-list/shopping/EditShoppingItem";
+import EditTodoItem from "../../components/edit-list/to-do/EditTodoItem";
 import DeleteList from "../../components/edit-list/DeleteList";
 import { AllListTypesEnum } from "../../models/lists";
+import { ShoppingListItemInt, TodoListItemInt } from "../../models/item";
 
 const List = () => {
   // auth check
@@ -61,7 +63,21 @@ const List = () => {
       <NewItem token={token} id={data.id} />
       {/* Shopping */}
       {data.type === AllListTypesEnum.shop && (
-        <EditShoppingItem token={token} id={data.id} type={data.type} items={data.items} />
+        <EditShoppingItem
+          token={token}
+          id={data.id}
+          type={data.type}
+          items={data.items as ShoppingListItemInt[]}
+        />
+      )}
+      {/* To-Do */}
+      {data.type === AllListTypesEnum.todo && (
+        <EditTodoItem
+          token={token}
+          id={data.id}
+          type={data.type}
+          items={data.items as TodoListItemInt[]}
+        />
       )}
       <DeleteList token={token} id={data.id} />
     </div>
