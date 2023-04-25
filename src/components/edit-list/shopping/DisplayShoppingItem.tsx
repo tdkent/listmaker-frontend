@@ -4,7 +4,7 @@ import { AxiosError } from "axios";
 
 import Button from "../../forms/Button";
 import { EditItemFormInputsEnum, ShoppingListItemInt } from "../../../models/item";
-import { checkItem } from "../../../api/mutate-lists";
+import { checkShoppingItem } from "../../../api/mutate-shopping-items";
 import ModalContext, { ModalContentIdEnum } from "../../../context/ModalContext";
 import useError from "../../../hooks/useError";
 
@@ -14,7 +14,6 @@ interface DisplayShoppingItemProps {
   type: string;
   item: ShoppingListItemInt;
   setEditItemId: (value: React.SetStateAction<number | undefined>) => void;
-  setItemChecked: (value: React.SetStateAction<boolean | undefined>) => void;
   setItemName: (value: React.SetStateAction<string>) => void;
   setItemCat: (value: React.SetStateAction<string>) => void;
 }
@@ -25,16 +24,14 @@ const DisplayShoppingItem = ({
   type,
   item,
   setEditItemId,
-  setItemChecked,
   setItemName,
   setItemCat,
 }: DisplayShoppingItemProps) => {
   const modal = useContext(ModalContext);
   const { setFetchError } = useError();
   const queryClient = useQueryClient();
-  const checkShoppingItem = useMutation({
-    mutationFn: ({ itemId, isChecked }: { itemId: number; isChecked: boolean }) =>
-      checkItem(id, type, itemId, isChecked, token),
+  const checkMutation = useMutation({
+    mutationFn: (itemId: number) => checkShoppingItem(id, itemId, token),
     onSuccess: () => queryClient.invalidateQueries(["list", id]),
     onError: (error: AxiosError) => setFetchError(error),
   });
@@ -45,12 +42,7 @@ const DisplayShoppingItem = ({
         id={EditItemFormInputsEnum.check}
         name={EditItemFormInputsEnum.check}
         checked={item.isChecked}
-        onChange={() =>
-          checkShoppingItem.mutate({
-            itemId: item.id,
-            isChecked: item.isChecked,
-          })
-        }
+        onChange={() => checkMutation.mutate(item.id)}
       />
       {item.name}
       <Button
@@ -58,7 +50,6 @@ const DisplayShoppingItem = ({
         text="Edit"
         handleClick={() => {
           setEditItemId(item.id);
-          setItemChecked(item.isChecked);
           setItemName(item.name);
           setItemCat(item.perm_category);
           modal.provideId(ModalContentIdEnum.editShoppingItem);

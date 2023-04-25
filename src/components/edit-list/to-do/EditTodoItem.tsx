@@ -6,7 +6,7 @@ import useError from "../../../hooks/useError";
 import ModalContext, { ModalContentIdEnum } from "../../../context/ModalContext";
 import Modal from "../../modal/Modal";
 import { editItem, deleteItem } from "../../../api/mutate-lists";
-import { TodoListItemInt, CheckedItemEnum } from "../../../models/item";
+import { TodoListItemInt, ToDoCats } from "../../../models/item";
 import EditTodoItemModal from "../../modal-content/EditTodoItemModal";
 import DisplayTodoItem from "./DisplayTodoItem";
 
@@ -26,17 +26,17 @@ const EditTodoItem = ({ token, id, type, items }: EditTodoItemProps) => {
   const [editItemId, setEditItemId] = useState<number>();
   const [itemChecked, setItemChecked] = useState<boolean>();
   const [itemName, setItemName] = useState<string>("");
-  const [itemCat, setItemCat] = useState<string>("");
+  const [itemCat, setItemCat] = useState<string>(ToDoCats.home);
 
   // mutations
   const queryClient = useQueryClient();
-  const editShoppingItem = useMutation({
+  const editTodoItem = useMutation({
     mutationFn: ({ itemId, isChecked }: { itemId: number; isChecked: boolean }) =>
       editItem(id, itemId, isChecked, itemName, itemCat, type, token),
     onSuccess: () => queryClient.invalidateQueries(["list", id]),
     onError: (error: AxiosError) => setFetchError(error),
   });
-  const deleteShoppingItem = useMutation({
+  const deleteTodoItem = useMutation({
     mutationFn: (itemId: number) => deleteItem(id, type, itemId, token),
     onSuccess: () => queryClient.invalidateQueries(["list", id]),
     onError: (error: AxiosError) => setFetchError(error),
@@ -44,14 +44,14 @@ const EditTodoItem = ({ token, id, type, items }: EditTodoItemProps) => {
 
   // handler functions
   const handleSave = () => {
-    editShoppingItem.mutate({ itemId: editItemId as number, isChecked: itemChecked as boolean });
+    editTodoItem.mutate({ itemId: editItemId as number, isChecked: itemChecked as boolean });
     modal.provideId("");
     modal.toggleModal(false);
     setItemName("");
     setItemCat("");
   };
   const handleDelete = () => {
-    deleteShoppingItem.mutate(editItemId as number);
+    deleteTodoItem.mutate(editItemId as number);
     modal.provideId("");
     modal.toggleModal(false);
     setItemName("");

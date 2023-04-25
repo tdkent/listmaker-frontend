@@ -39,7 +39,7 @@ export interface FetchAllListsInt {
 
 // Fetch Single List
 
-// TODO: items will include other item types objects (all packaged in an array)
+// Note: items will include other item types objects (all packaged in an array)
 export interface FetchSingleListInt extends FetchAllListsInt {
   items: ShoppingListItemInt[] | TodoListItemInt[];
 }

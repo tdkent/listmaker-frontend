@@ -9,7 +9,13 @@ import Input from "../../components/forms/Input";
 import Select from "../../components/forms/Select";
 import Button from "../../components/forms/Button";
 import { FormValidationInt } from "../../models/errors";
-import { newListTypes, NewListFormEnum, NewListReqInt, NewListResInt } from "../../models/lists";
+import {
+  newListTypes,
+  NewListFormEnum,
+  NewListReqInt,
+  NewListResInt,
+  AllListTypesEnum,
+} from "../../models/lists";
 import checkLocalStorage from "../../utils/check-local-storage";
 import { ReducerActionInt } from "../../models/reducers";
 import { createNewList } from "../../api/new-list";
@@ -31,7 +37,7 @@ const NewList = () => {
   // reducer
   const defaultState = {
     name: "",
-    type: "",
+    type: "Shopping",
   };
   const reducer = (state: typeof defaultState, action: ReducerActionInt) => {
     if (action.type === NewListFormEnum.name) {
@@ -45,13 +51,13 @@ const NewList = () => {
     throw new Error(`No matching "${action.type}" action type`);
   };
   const [state, dispatch] = useReducer(reducer, defaultState);
+  console.log("state: ", state);
 
   // form submission
   const handleChange = (e: React.FormEvent<HTMLInputElement>) => {
     dispatch({ type: e.currentTarget.name, payload: e.currentTarget.value });
   };
   const handleSelect = (e: React.FormEvent<HTMLSelectElement>) => {
-    // const selection = e.currentTarget.value.toLowerCase().match(/[a-z]/g);
     // check for null selection
     if (e.currentTarget.value) {
       dispatch({ type: e.currentTarget.name, payload: e.currentTarget.value });
@@ -76,12 +82,12 @@ const NewList = () => {
         message: "Please enter a name for your new list!",
       });
     }
-    if (!state.type) {
-      return setFormError({
-        type: NewListFormEnum.type,
-        message: "Please select a type for your new list!",
-      });
-    }
+    // if (!state.type) {
+    //   return setFormError({
+    //     type: NewListFormEnum.type,
+    //     message: "Please select a type for your new list!",
+    //   });
+    // }
 
     // form submission
     const body: NewListReqInt = {
@@ -108,7 +114,7 @@ const NewList = () => {
             label="Type"
             name={NewListFormEnum.type}
             id={NewListFormEnum.type}
-            defaultValue=""
+            defaultValue={AllListTypesEnum.shop}
             options={newListTypes}
             handleSelect={handleSelect}
           />

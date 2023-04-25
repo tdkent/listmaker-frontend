@@ -5,53 +5,51 @@ import { AxiosError } from "axios";
 import useError from "../../../hooks/useError";
 import ModalContext, { ModalContentIdEnum } from "../../../context/ModalContext";
 import Modal from "../../modal/Modal";
-import { editItem, deleteItem } from "../../../api/mutate-lists";
+import { editShoppingItem, removeShoppingItem } from "../../../api/mutate-shopping-items";
 import { ShoppingListItemInt, CheckedItemEnum } from "../../../models/item";
 import EditShoppingItemModal from "../../modal-content/EditShoppingItemModal";
 import DisplayShoppingItem from "./DisplayShoppingItem";
 
 interface EditShoppingItemProps {
   token: string;
-  id: number;
+  listId: number;
   type: string;
   items: ShoppingListItemInt[];
 }
 
-const EditShoppingItem = ({ token, id, type, items }: EditShoppingItemProps) => {
+const EditShoppingItem = ({ token, listId, type, items }: EditShoppingItemProps) => {
   // error handling
   const modal = useContext(ModalContext);
   const { setFetchError } = useError();
 
   // state
   const [editItemId, setEditItemId] = useState<number>();
-  const [itemChecked, setItemChecked] = useState<boolean>();
   const [itemName, setItemName] = useState<string>("");
   const [itemCat, setItemCat] = useState<string>("");
 
   // mutations
   const queryClient = useQueryClient();
-  const editShoppingItem = useMutation({
-    mutationFn: ({ itemId, isChecked }: { itemId: number; isChecked: boolean }) =>
-      editItem(id, itemId, isChecked, itemName, itemCat, type, token),
-    onSuccess: () => queryClient.invalidateQueries(["list", id]),
+  const editMutation = useMutation({
+    mutationFn: (itemId: number) => editShoppingItem(listId, itemId, itemName, itemCat, token),
+    onSuccess: () => queryClient.invalidateQueries(["list", listId]),
     onError: (error: AxiosError) => setFetchError(error),
   });
-  const deleteShoppingItem = useMutation({
-    mutationFn: (itemId: number) => deleteItem(id, type, itemId, token),
-    onSuccess: () => queryClient.invalidateQueries(["list", id]),
+  const removeMutation = useMutation({
+    mutationFn: (itemId: number) => removeShoppingItem(listId, itemId, token),
+    onSuccess: () => queryClient.invalidateQueries(["list", listId]),
     onError: (error: AxiosError) => setFetchError(error),
   });
 
   // handler functions
   const handleSave = () => {
-    editShoppingItem.mutate({ itemId: editItemId as number, isChecked: itemChecked as boolean });
+    editMutation.mutate(editItemId as number);
     modal.provideId("");
     modal.toggleModal(false);
     setItemName("");
     setItemCat("");
   };
   const handleDelete = () => {
-    deleteShoppingItem.mutate(editItemId as number);
+    removeMutation.mutate(editItemId as number);
     modal.provideId("");
     modal.toggleModal(false);
     setItemName("");
@@ -101,11 +99,10 @@ const EditShoppingItem = ({ token, id, type, items }: EditShoppingItemProps) => 
                         <div key={item.id}>
                           <DisplayShoppingItem
                             token={token}
-                            id={id}
+                            id={listId}
                             type={type}
                             item={item}
                             setEditItemId={setEditItemId}
-                            setItemChecked={setItemChecked}
                             setItemName={setItemName}
                             setItemCat={setItemCat}
                           />
@@ -126,11 +123,10 @@ const EditShoppingItem = ({ token, id, type, items }: EditShoppingItemProps) => 
                     <div key={item.id}>
                       <DisplayShoppingItem
                         token={token}
-                        id={id}
+                        id={listId}
                         type={type}
                         item={item}
                         setEditItemId={setEditItemId}
-                        setItemChecked={setItemChecked}
                         setItemName={setItemName}
                         setItemCat={setItemCat}
                       />

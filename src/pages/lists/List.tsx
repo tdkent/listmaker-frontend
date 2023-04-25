@@ -10,6 +10,7 @@ import { fetchList } from "../../api/fetch-lists";
 import QueryError from "../../components/errors/queryError";
 import EditList from "../../components/edit-list/EditList";
 import NewItem from "../../components/edit-list/NewItem";
+import NewShoppingItem from "../../components/edit-list/shopping/NewShoppingItem";
 import EditShoppingItem from "../../components/edit-list/shopping/EditShoppingItem";
 import EditTodoItem from "../../components/edit-list/to-do/EditTodoItem";
 import DeleteList from "../../components/edit-list/DeleteList";
@@ -60,15 +61,18 @@ const List = () => {
   return (
     <div>
       <EditList token={token} id={data.id} name={data.name} />
-      <NewItem token={token} id={data.id} />
+      {/* <NewItem token={token} id={data.id} /> */}
       {/* Shopping */}
       {data.type === AllListTypesEnum.shop && (
-        <EditShoppingItem
-          token={token}
-          id={data.id}
-          type={data.type}
-          items={data.items as ShoppingListItemInt[]}
-        />
+        <>
+          <NewShoppingItem token={token} listId={data.id} />
+          <EditShoppingItem
+            token={token}
+            listId={data.id}
+            type={data.type}
+            items={data.items as ShoppingListItemInt[]}
+          />
+        </>
       )}
       {/* To-Do */}
       {data.type === AllListTypesEnum.todo && (

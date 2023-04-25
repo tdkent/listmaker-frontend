@@ -1,7 +1,7 @@
 import Input from "../forms/Input";
 import Select from "../forms/Select";
 import Button from "../forms/Button";
-import { EditItemFormInputsEnum, todoItemCats } from "../../models/item";
+import { EditItemFormInputsEnum, ToDoCats, todoItemCats } from "../../models/item";
 
 interface EditTodoItemModalProps {
   itemName: string;
@@ -26,7 +26,7 @@ const EditTodoItemModal = ({
     <div>
       <form>
         <Input
-          label="Edit item"
+          label="Name"
           type="text"
           name={EditItemFormInputsEnum.name}
           id={EditItemFormInputsEnum.name}
@@ -45,9 +45,9 @@ const EditTodoItemModal = ({
         /> */}
         <Select
           label="Category"
-          name=""
-          id=""
-          defaultValue="Home"
+          name={EditItemFormInputsEnum.cat}
+          id={EditItemFormInputsEnum.cat}
+          defaultValue={ToDoCats.home}
           options={todoItemCats}
           handleSelect={(e: React.FormEvent<HTMLSelectElement>) =>
             setItemCat(e.currentTarget.value)

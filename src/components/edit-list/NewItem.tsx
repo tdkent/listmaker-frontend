@@ -3,7 +3,7 @@ import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { AxiosError } from "axios";
 
 import useError from "../../hooks/useError";
-import { newItem } from "../../api/mutate-lists";
+// import { newItem } from "../../api/mutate-lists";
 import { EditListInputsEnum } from "../../models/lists";
 import Input from "../forms/Input";
 import Button from "../forms/Button";
@@ -18,7 +18,7 @@ const NewItem = ({ token, id }: NewItemProps) => {
   const [itemName, setItemName] = useState("");
   const queryClient = useQueryClient();
   const mutation = useMutation({
-    mutationFn: () => newItem(id, itemName, token),
+    // mutationFn: () => newItem(id, itemName, token),
     onSuccess: () => {
       setItemName("");
       queryClient.invalidateQueries(["list", id]);

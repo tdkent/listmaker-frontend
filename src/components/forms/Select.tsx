@@ -17,9 +17,6 @@ const Select = ({ label, name, id, defaultValue, options, handleSelect }: Select
       </div>
       <div>
         <select name={name} id={id} defaultValue={defaultValue} onChange={handleSelect}>
-          <option disabled value="">
-            {""}
-          </option>
           {options.map((option) => {
             return (
               <option key={option} value={option}>

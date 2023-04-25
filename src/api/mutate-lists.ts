@@ -19,12 +19,12 @@ export const deleteList = async (id: number, token: string) => {
     .catch((error) => Promise.reject(error));
 };
 
-export const newItem = async (id: number, name: string, token: string) => {
-  const headers = { Authorization: `Bearer ${token}` };
-  return axios
-    .post(`${API_URL}/item/new/${id}`, { name }, { headers })
-    .catch((error) => Promise.reject(error));
-};
+// export const newItem = async (id: number, name: string, token: string) => {
+//   const headers = { Authorization: `Bearer ${token}` };
+//   return axios
+//     .post(`${API_URL}/item/new/${id}`, { name }, { headers })
+//     .catch((error) => Promise.reject(error));
+// };
 
 export const editItem = async (
   listId: number,

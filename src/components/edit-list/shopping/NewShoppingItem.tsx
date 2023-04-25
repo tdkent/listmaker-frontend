@@ -3,25 +3,25 @@ import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { AxiosError } from "axios";
 
 import useError from "../../../hooks/useError";
-import { newItem } from "../../../api/mutate-lists";
+import { newShoppingItem } from "../../../api/mutate-shopping-items";
 import { EditListInputsEnum } from "../../../models/lists";
 import Input from "../../forms/Input";
 import Button from "../../forms/Button";
 
-interface AddItemProps {
+interface NewShoppingItemProps {
   token: string;
-  id: number;
+  listId: number;
 }
 
-const AddShoppingItem = ({ token, id }: AddItemProps) => {
+const NewShoppingItem = ({ token, listId }: NewShoppingItemProps) => {
   const { setFetchError } = useError();
   const [itemName, setItemName] = useState("");
   const queryClient = useQueryClient();
   const mutation = useMutation({
-    mutationFn: () => newItem(id, itemName, token),
+    mutationFn: () => newShoppingItem(listId, itemName, token),
     onSuccess: () => {
       setItemName("");
-      queryClient.invalidateQueries(["list", id]);
+      queryClient.invalidateQueries(["list", listId]);
     },
     onError: (error: AxiosError) => setFetchError(error),
   });
@@ -49,4 +49,4 @@ const AddShoppingItem = ({ token, id }: AddItemProps) => {
   );
 };
 
-export default AddShoppingItem;
+export default NewShoppingItem;
