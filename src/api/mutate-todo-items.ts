@@ -2,17 +2,18 @@ import axios from "axios";
 
 import { API_URL } from "../constants/global";
 
-export const newShoppingItem = async (listId: number, name: string, token: string) => {
+export const newTodoItem = async (listId: number, name: string, token: string) => {
   const headers = { Authorization: `Bearer ${token}` };
+  console.log(listId, name, token);
   return axios
-    .post(`${API_URL}/shopping/${listId}`, { name }, { headers })
+    .post(`${API_URL}/todo/${listId}`, { name }, { headers })
     .catch((error) => Promise.reject(error));
 };
 
-export const checkShoppingItem = async (listId: number, itemId: number, token: string) => {
+export const checkTodoItem = async (listId: number, itemId: number, token: string) => {
   const headers = { Authorization: `Bearer ${token}` };
   return axios
-    .patch(`${API_URL}/shopping/check`, { listId, itemId }, { headers })
+    .patch(`${API_URL}/todo/check`, { listId, itemId }, { headers })
     .catch((error) => Promise.reject(error));
 };
 

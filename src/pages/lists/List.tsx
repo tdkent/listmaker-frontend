@@ -12,6 +12,7 @@ import EditList from "../../components/edit-list/EditList";
 import NewItem from "../../components/edit-list/NewItem";
 import NewShoppingItem from "../../components/edit-list/shopping/NewShoppingItem";
 import EditShoppingItem from "../../components/edit-list/shopping/EditShoppingItem";
+import NewTodoItem from "../../components/edit-list/to-do/NewTodoItem";
 import EditTodoItem from "../../components/edit-list/to-do/EditTodoItem";
 import DeleteList from "../../components/edit-list/DeleteList";
 import { AllListTypesEnum } from "../../models/lists";
@@ -76,12 +77,15 @@ const List = () => {
       )}
       {/* To-Do */}
       {data.type === AllListTypesEnum.todo && (
-        <EditTodoItem
-          token={token}
-          id={data.id}
-          type={data.type}
-          items={data.items as TodoListItemInt[]}
-        />
+        <>
+          <NewTodoItem token={token} listId={data.id} />
+          <EditTodoItem
+            token={token}
+            listId={data.id}
+            type={data.type}
+            items={data.items as TodoListItemInt[]}
+          />
+        </>
       )}
       <DeleteList token={token} id={data.id} />
     </div>

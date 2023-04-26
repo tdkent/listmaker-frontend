@@ -4,13 +4,13 @@ import { AxiosError } from "axios";
 
 import Button from "../../forms/Button";
 import { EditItemFormInputsEnum, TodoListItemInt } from "../../../models/item";
-import { checkItem } from "../../../api/mutate-lists";
+import { checkTodoItem } from "../../../api/mutate-todo-items";
 import ModalContext, { ModalContentIdEnum } from "../../../context/ModalContext";
 import useError from "../../../hooks/useError";
 
 interface DisplayTodoItemProps {
   token: string;
-  id: number;
+  listId: number;
   type: string;
   item: TodoListItemInt;
   setEditItemId: (value: React.SetStateAction<number | undefined>) => void;
@@ -21,7 +21,7 @@ interface DisplayTodoItemProps {
 
 const DisplayTodoItem = ({
   token,
-  id,
+  listId,
   type,
   item,
   setEditItemId,
@@ -32,10 +32,9 @@ const DisplayTodoItem = ({
   const modal = useContext(ModalContext);
   const { setFetchError } = useError();
   const queryClient = useQueryClient();
-  const checkTodoItem = useMutation({
-    mutationFn: ({ itemId, isChecked }: { itemId: number; isChecked: boolean }) =>
-      checkItem(id, type, itemId, isChecked, token),
-    onSuccess: () => queryClient.invalidateQueries(["list", id]),
+  const checkMutation = useMutation({
+    mutationFn: (itemId: number) => checkTodoItem(listId, itemId, token),
+    onSuccess: () => queryClient.invalidateQueries(["list", listId]),
     onError: (error: AxiosError) => setFetchError(error),
   });
 
@@ -56,12 +55,7 @@ const DisplayTodoItem = ({
         id={EditItemFormInputsEnum.check}
         name={EditItemFormInputsEnum.check}
         checked={item.isChecked}
-        onChange={() =>
-          checkTodoItem.mutate({
-            itemId: item.id,
-            isChecked: item.isChecked,
-          })
-        }
+        onChange={() => checkMutation.mutate(item.id)}
       />
       {item.name} {item.category}
       <p>{itemDue()}</p>

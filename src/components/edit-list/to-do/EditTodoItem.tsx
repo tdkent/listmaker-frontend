@@ -12,12 +12,12 @@ import DisplayTodoItem from "./DisplayTodoItem";
 
 interface EditTodoItemProps {
   token: string;
-  id: number;
+  listId: number;
   type: string;
   items: TodoListItemInt[];
 }
 
-const EditTodoItem = ({ token, id, type, items }: EditTodoItemProps) => {
+const EditTodoItem = ({ token, listId, type, items }: EditTodoItemProps) => {
   // error handling
   const modal = useContext(ModalContext);
   const { setFetchError } = useError();
@@ -32,13 +32,13 @@ const EditTodoItem = ({ token, id, type, items }: EditTodoItemProps) => {
   const queryClient = useQueryClient();
   const editTodoItem = useMutation({
     mutationFn: ({ itemId, isChecked }: { itemId: number; isChecked: boolean }) =>
-      editItem(id, itemId, isChecked, itemName, itemCat, type, token),
-    onSuccess: () => queryClient.invalidateQueries(["list", id]),
+      editItem(listId, itemId, isChecked, itemName, itemCat, type, token),
+    onSuccess: () => queryClient.invalidateQueries(["list", listId]),
     onError: (error: AxiosError) => setFetchError(error),
   });
   const deleteTodoItem = useMutation({
-    mutationFn: (itemId: number) => deleteItem(id, type, itemId, token),
-    onSuccess: () => queryClient.invalidateQueries(["list", id]),
+    mutationFn: (itemId: number) => deleteItem(listId, type, itemId, token),
+    onSuccess: () => queryClient.invalidateQueries(["list", listId]),
     onError: (error: AxiosError) => setFetchError(error),
   });
 
@@ -103,7 +103,7 @@ const EditTodoItem = ({ token, id, type, items }: EditTodoItemProps) => {
               <div key={item.id}>
                 <DisplayTodoItem
                   token={token}
-                  id={id}
+                  listId={listId}
                   type={type}
                   item={item}
                   setEditItemId={setEditItemId}
@@ -127,7 +127,7 @@ const EditTodoItem = ({ token, id, type, items }: EditTodoItemProps) => {
                   <div key={item.id}>
                     <DisplayTodoItem
                       token={token}
-                      id={id}
+                      listId={listId}
                       type={type}
                       item={item}
                       setEditItemId={setEditItemId}
