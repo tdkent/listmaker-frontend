@@ -11,16 +11,16 @@ import { deleteList } from "../../api/mutate-lists";
 
 interface DeleteListProps {
   token: string;
-  id: number;
+  listId: number;
 }
 
-const DeleteList = ({ token, id }: DeleteListProps) => {
+const DeleteList = ({ token, listId }: DeleteListProps) => {
   const { setFetchError } = useError();
   const modal = useContext(ModalContext);
   const navigate = useNavigate();
 
   const mutate = useMutation({
-    mutationFn: () => deleteList(id, token),
+    mutationFn: () => deleteList(listId, token),
     onSuccess: () => navigate("/lists"),
     onError: (error: AxiosError) => setFetchError(error),
   });

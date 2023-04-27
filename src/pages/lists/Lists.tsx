@@ -58,13 +58,13 @@ const Lists = () => {
         {data.map((list) => {
           return (
             <div
-              key={list.id}
+              key={list.listId}
               style={{ border: "1px dashed aquamarine", margin: "1rem 0", padding: "1rem" }}>
-              <h3>{list.name}</h3>
-              <span>{list.type}</span>
+              <h3>{list.listName}</h3>
+              <span>{list.listType}</span>
               <div>
                 <div style={{ marginTop: "1rem" }}>
-                  <Link to={`/lists/${list.slug}&id=${list.id}`}>Edit</Link>
+                  <Link to={`/lists/${list.listSlug}&id=${list.listId}`}>Edit</Link>
                 </div>
               </div>
             </div>

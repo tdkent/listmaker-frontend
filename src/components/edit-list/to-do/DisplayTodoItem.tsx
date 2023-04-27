@@ -11,7 +11,7 @@ import useError from "../../../hooks/useError";
 interface DisplayTodoItemProps {
   token: string;
   listId: number;
-  type: string;
+  listType: string;
   item: TodoListItemInt;
   setEditItemId: (value: React.SetStateAction<number | undefined>) => void;
   setItemChecked: (value: React.SetStateAction<boolean | undefined>) => void;
@@ -22,7 +22,7 @@ interface DisplayTodoItemProps {
 const DisplayTodoItem = ({
   token,
   listId,
-  type,
+  listType,
   item,
   setEditItemId,
   setItemChecked,
@@ -39,14 +39,16 @@ const DisplayTodoItem = ({
   });
 
   // TODO: develop more and put into util function
-  const itemDue = () => {
-    const age = item.age.days;
-    if (!age) return "Today";
-    if (age === -1) return "Tomorrow";
-    if (age === 1) return "Yesterday";
-    if (age < 0) return "In " + Math.abs(age) + " days";
-    return age + " days ago";
-  };
+  // const itemDue = () => {
+  //   const age = item.age.days;
+  //   if (!age) return "Today";
+  //   if (age === -1) return "Tomorrow";
+  //   if (age === 1) return "Yesterday";
+  //   if (age < 0) return "In " + Math.abs(age) + " days";
+  //   return age + " days ago";
+  // };
+
+  console.log(item);
 
   return (
     <li>
@@ -55,17 +57,17 @@ const DisplayTodoItem = ({
         id={EditItemFormInputsEnum.check}
         name={EditItemFormInputsEnum.check}
         checked={item.isChecked}
-        onChange={() => checkMutation.mutate(item.id)}
+        onChange={() => checkMutation.mutate(item.itemId)}
       />
-      {item.name} {item.category}
-      <p>{itemDue()}</p>
+      {item.itemName} {item.itemCategory}
+      {/* <p>{itemDue()}</p> */}
       <Button
         type="button"
         text="Edit"
         handleClick={() => {
-          setEditItemId(item.id);
+          setEditItemId(item.itemId);
           setItemChecked(item.isChecked);
-          setItemName(item.name);
+          setItemName(item.itemName);
           // setItemCat(item.perm_category);
           modal.provideId(ModalContentIdEnum.editTodoItem);
           modal.toggleModal(true);

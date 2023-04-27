@@ -2,11 +2,10 @@ import axios from "axios";
 
 import { API_URL } from "../constants/global";
 
-export const newTodoItem = async (listId: number, name: string, token: string) => {
+export const newTodoItem = async (listId: number, itemName: string, token: string) => {
   const headers = { Authorization: `Bearer ${token}` };
-  console.log(listId, name, token);
   return axios
-    .post(`${API_URL}/todo/${listId}`, { name }, { headers })
+    .post(`${API_URL}/todo/${listId}`, { itemName }, { headers })
     .catch((error) => Promise.reject(error));
 };
 

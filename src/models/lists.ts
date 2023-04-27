@@ -14,8 +14,8 @@ export enum NewListFormEnum {
 export const newListTypes = [AllListTypesEnum.shop, AllListTypesEnum.todo];
 
 export interface NewListReqInt {
-  name: string;
-  type: string;
+  listName: string;
+  listType: string;
 }
 
 export interface NewListResInt {
@@ -30,11 +30,11 @@ export interface ListInt extends NewListReqInt {
 // Fetch All Lists
 
 export interface FetchAllListsInt {
-  id: number;
-  name: string;
-  slug: string;
+  listId: number;
+  listName: string;
+  listSlug: string;
   userId: number;
-  type: AllListTypesEnum.shop | AllListTypesEnum.todo;
+  listType: AllListTypesEnum.shop | AllListTypesEnum.todo;
 }
 
 // Fetch Single List

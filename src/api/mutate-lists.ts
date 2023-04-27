@@ -5,17 +5,17 @@ import { ShoppingListInt } from "../models/lists";
 
 // TODO: update fetch calls to require valid tokens in headers
 
-export const editList = async (id: number, name: string, token: string) => {
+export const editList = async (listId: number, listName: string, token: string) => {
   const headers = { Authorization: `Bearer ${token}` };
   return axios
-    .patch(`${API_URL}/list/edit/${id}`, { name }, { headers })
+    .patch(`${API_URL}/list/edit/${listId}`, { listName }, { headers })
     .catch((error) => Promise.reject(error));
 };
 
-export const deleteList = async (id: number, token: string) => {
+export const deleteList = async (listId: number, token: string) => {
   const headers = { Authorization: `Bearer ${token}` };
   return axios
-    .delete(`${API_URL}/list/delete/${id}`, { headers })
+    .delete(`${API_URL}/list/delete/${listId}`, { headers })
     .catch((error) => Promise.reject(error));
 };
 

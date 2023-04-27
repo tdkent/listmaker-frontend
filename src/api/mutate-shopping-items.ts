@@ -2,10 +2,10 @@ import axios from "axios";
 
 import { API_URL } from "../constants/global";
 
-export const newShoppingItem = async (listId: number, name: string, token: string) => {
+export const newShoppingItem = async (listId: number, itemName: string, token: string) => {
   const headers = { Authorization: `Bearer ${token}` };
   return axios
-    .post(`${API_URL}/shopping/${listId}`, { name }, { headers })
+    .post(`${API_URL}/shopping/${listId}`, { itemName }, { headers })
     .catch((error) => Promise.reject(error));
 };
 
@@ -19,13 +19,13 @@ export const checkShoppingItem = async (listId: number, itemId: number, token: s
 export const editShoppingItem = async (
   listId: number,
   itemId: number,
-  name: string,
-  category: string,
+  itemName: string,
+  itemCategory: string,
   token: string
 ) => {
   const headers = { Authorization: `Bearer ${token}` };
   return axios
-    .patch(`${API_URL}/shopping/edit`, { listId, itemId, name, category }, { headers })
+    .patch(`${API_URL}/shopping/edit`, { listId, itemId, itemName, itemCategory }, { headers })
     .catch((error) => Promise.reject(error));
 };
 

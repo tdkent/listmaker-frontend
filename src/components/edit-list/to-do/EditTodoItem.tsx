@@ -13,11 +13,11 @@ import DisplayTodoItem from "./DisplayTodoItem";
 interface EditTodoItemProps {
   token: string;
   listId: number;
-  type: string;
+  listType: string;
   items: TodoListItemInt[];
 }
 
-const EditTodoItem = ({ token, listId, type, items }: EditTodoItemProps) => {
+const EditTodoItem = ({ token, listId, listType, items }: EditTodoItemProps) => {
   // error handling
   const modal = useContext(ModalContext);
   const { setFetchError } = useError();
@@ -32,12 +32,12 @@ const EditTodoItem = ({ token, listId, type, items }: EditTodoItemProps) => {
   const queryClient = useQueryClient();
   const editTodoItem = useMutation({
     mutationFn: ({ itemId, isChecked }: { itemId: number; isChecked: boolean }) =>
-      editItem(listId, itemId, isChecked, itemName, itemCat, type, token),
+      editItem(listId, itemId, isChecked, itemName, itemCat, listType, token),
     onSuccess: () => queryClient.invalidateQueries(["list", listId]),
     onError: (error: AxiosError) => setFetchError(error),
   });
   const deleteTodoItem = useMutation({
-    mutationFn: (itemId: number) => deleteItem(listId, type, itemId, token),
+    mutationFn: (itemId: number) => deleteItem(listId, listType, itemId, token),
     onSuccess: () => queryClient.invalidateQueries(["list", listId]),
     onError: (error: AxiosError) => setFetchError(error),
   });
@@ -100,11 +100,11 @@ const EditTodoItem = ({ token, listId, type, items }: EditTodoItemProps) => {
             {items.map((item) => (
               // item.category === cat &&
               // !item.isChecked && (
-              <div key={item.id}>
+              <div key={item.itemId}>
                 <DisplayTodoItem
                   token={token}
                   listId={listId}
-                  type={type}
+                  listType={listType}
                   item={item}
                   setEditItemId={setEditItemId}
                   setItemChecked={setItemChecked}
@@ -124,11 +124,11 @@ const EditTodoItem = ({ token, listId, type, items }: EditTodoItemProps) => {
             {items.map(
               (item) =>
                 item.isChecked && (
-                  <div key={item.id}>
+                  <div key={item.itemId}>
                     <DisplayTodoItem
                       token={token}
                       listId={listId}
-                      type={type}
+                      listType={listType}
                       item={item}
                       setEditItemId={setEditItemId}
                       setItemChecked={setItemChecked}

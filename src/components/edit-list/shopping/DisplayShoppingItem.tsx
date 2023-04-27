@@ -10,8 +10,7 @@ import useError from "../../../hooks/useError";
 
 interface DisplayShoppingItemProps {
   token: string;
-  id: number;
-  type: string;
+  listId: number;
   item: ShoppingListItemInt;
   setEditItemId: (value: React.SetStateAction<number | undefined>) => void;
   setItemName: (value: React.SetStateAction<string>) => void;
@@ -20,8 +19,7 @@ interface DisplayShoppingItemProps {
 
 const DisplayShoppingItem = ({
   token,
-  id,
-  type,
+  listId,
   item,
   setEditItemId,
   setItemName,
@@ -31,8 +29,8 @@ const DisplayShoppingItem = ({
   const { setFetchError } = useError();
   const queryClient = useQueryClient();
   const checkMutation = useMutation({
-    mutationFn: (itemId: number) => checkShoppingItem(id, itemId, token),
-    onSuccess: () => queryClient.invalidateQueries(["list", id]),
+    mutationFn: (itemId: number) => checkShoppingItem(listId, itemId, token),
+    onSuccess: () => queryClient.invalidateQueries(["list", listId]),
     onError: (error: AxiosError) => setFetchError(error),
   });
   return (
@@ -42,16 +40,16 @@ const DisplayShoppingItem = ({
         id={EditItemFormInputsEnum.check}
         name={EditItemFormInputsEnum.check}
         checked={item.isChecked}
-        onChange={() => checkMutation.mutate(item.id)}
+        onChange={() => checkMutation.mutate(item.itemId)}
       />
-      {item.name}
+      {item.itemName}
       <Button
         type="button"
         text="Edit"
         handleClick={() => {
-          setEditItemId(item.id);
-          setItemName(item.name);
-          setItemCat(item.perm_category);
+          setEditItemId(item.itemId);
+          setItemName(item.itemName);
+          setItemCat(item.permCategory);
           modal.provideId(ModalContentIdEnum.editShoppingItem);
           modal.toggleModal(true);
         }}

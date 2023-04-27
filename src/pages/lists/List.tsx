@@ -30,7 +30,7 @@ const List = () => {
 
   // params
   const { slug } = useParams() as { slug: string };
-  const listId = Number(slug.split("=")[1]);
+  const id = Number(slug.split("=")[1]);
   const token = auth.token as string;
 
   // errors
@@ -38,8 +38,8 @@ const List = () => {
 
   // query
   const { isLoading, isError, data, error } = useQuery({
-    queryKey: ["list", listId],
-    queryFn: () => fetchList(listId, token),
+    queryKey: ["list", id],
+    queryFn: () => fetchList(id, token),
     enabled: !!token,
     onError: (error: AxiosError) => setFetchError(error),
   });
@@ -58,36 +58,37 @@ const List = () => {
     return <div>Could not find list data.</div>;
   }
 
+  const { listId, listName, listType } = data;
+
   // main render
   return (
     <div>
-      <EditList token={token} id={data.id} name={data.name} />
-      {/* <NewItem token={token} id={data.id} /> */}
+      <EditList token={token} listId={listId} listName={listName} />
+      {/* <NewItem token={token} id={listId} /> */}
       {/* Shopping */}
-      {data.type === AllListTypesEnum.shop && (
+      {listType === AllListTypesEnum.shop && (
         <>
-          <NewShoppingItem token={token} listId={data.id} />
+          <NewShoppingItem token={token} listId={listId} />
           <EditShoppingItem
             token={token}
-            listId={data.id}
-            type={data.type}
+            listId={listId}
             items={data.items as ShoppingListItemInt[]}
           />
         </>
       )}
       {/* To-Do */}
-      {data.type === AllListTypesEnum.todo && (
+      {listType === AllListTypesEnum.todo && (
         <>
-          <NewTodoItem token={token} listId={data.id} />
+          <NewTodoItem token={token} listId={listId} />
           <EditTodoItem
             token={token}
-            listId={data.id}
-            type={data.type}
+            listId={listId}
+            listType={listType}
             items={data.items as TodoListItemInt[]}
           />
         </>
       )}
-      <DeleteList token={token} id={data.id} />
+      <DeleteList token={token} listId={listId} />
     </div>
   );
 };

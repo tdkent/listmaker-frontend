@@ -25,10 +25,7 @@ export interface LoginBodyInt {
 }
 
 export interface LoginResInt {
-  message: string;
-  userData: {
-    userId: number;
-    userEmail: string;
-    token: string;
-  };
+  userId: number;
+  userEmail: string;
+  token: string;
 }

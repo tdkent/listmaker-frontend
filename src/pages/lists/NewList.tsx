@@ -91,8 +91,8 @@ const NewList = () => {
 
     // form submission
     const body: NewListReqInt = {
-      name: state.name,
-      type: state.type,
+      listName: state.name,
+      listType: state.type,
     };
     mutation.mutate(body);
   };

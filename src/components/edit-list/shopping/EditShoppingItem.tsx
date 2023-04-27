@@ -13,11 +13,10 @@ import DisplayShoppingItem from "./DisplayShoppingItem";
 interface EditShoppingItemProps {
   token: string;
   listId: number;
-  type: string;
   items: ShoppingListItemInt[];
 }
 
-const EditShoppingItem = ({ token, listId, type, items }: EditShoppingItemProps) => {
+const EditShoppingItem = ({ token, listId, items }: EditShoppingItemProps) => {
   // error handling
   const modal = useContext(ModalContext);
   const { setFetchError } = useError();
@@ -64,7 +63,7 @@ const EditShoppingItem = ({ token, listId, type, items }: EditShoppingItemProps)
 
   // put all unique category names into sorted array
   const categories = items
-    .map((obj) => obj.temp_category)
+    .map((obj) => obj.tempCategory)
     .filter((val, idx, arr) => arr.indexOf(val) === idx)
     .sort((a, b) => a.toLowerCase().localeCompare(b.toLowerCase()));
 
@@ -94,13 +93,12 @@ const EditShoppingItem = ({ token, listId, type, items }: EditShoppingItemProps)
                 <ul>
                   {items.map(
                     (item) =>
-                      item.temp_category === cat &&
+                      item.tempCategory === cat &&
                       !item.isChecked && (
-                        <div key={item.id}>
+                        <div key={item.itemId}>
                           <DisplayShoppingItem
                             token={token}
-                            id={listId}
-                            type={type}
+                            listId={listId}
                             item={item}
                             setEditItemId={setEditItemId}
                             setItemName={setItemName}
@@ -120,11 +118,10 @@ const EditShoppingItem = ({ token, listId, type, items }: EditShoppingItemProps)
               {items.map(
                 (item) =>
                   item.isChecked && (
-                    <div key={item.id}>
+                    <div key={item.itemId}>
                       <DisplayShoppingItem
                         token={token}
-                        id={listId}
-                        type={type}
+                        listId={listId}
                         item={item}
                         setEditItemId={setEditItemId}
                         setItemName={setItemName}

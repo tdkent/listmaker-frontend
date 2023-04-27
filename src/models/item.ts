@@ -1,11 +1,11 @@
 // Shopping List
 export interface ShoppingListItemInt {
-  id: number;
+  itemId: number;
   listId: number;
   userId: number;
-  name: string;
-  perm_category: string;
-  temp_category: string;
+  itemName: string;
+  permCategory: string;
+  tempCategory: string;
   isChecked: boolean;
 }
 
@@ -16,18 +16,20 @@ export enum EditItemFormInputsEnum {
 }
 
 export enum CheckedItemEnum {
-  check = "__checked",
+  check = "_checked",
 }
 
 // To-Do List
 
 export interface TodoListItemInt {
-  id: number;
+  itemId: number;
   listId: number;
   userId: number;
-  name: string;
-  category: string;
-  dueDate: Date;
+  itemName: string;
+  itemCategory: string;
+  dateCreated: Date;
+  dateDue: Date;
+  dateCompleted: Date;
   isChecked: boolean;
   age: {
     days: number;

@@ -46,8 +46,7 @@ const LoginForm = () => {
     mutationFn: () => login(state),
     onError: (error: AxiosError) => setFetchError(error),
     onSuccess: (data) => {
-      const { token, userId } = data.userData;
-      auth.login(token, userId);
+      auth.login(data.token, data.userId);
       navigate("/lists");
     },
   });

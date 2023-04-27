@@ -13,13 +13,13 @@ import { FormValidationInt } from "../../models/errors";
 
 interface EditListProps {
   token: string;
-  id: number;
-  name: string;
+  listId: number;
+  listName: string;
 }
 
-const EditList = ({ token, id, name }: EditListProps) => {
+const EditList = ({ token, listId, listName }: EditListProps) => {
   const { setFetchError } = useError();
-  const [listName, setListName] = useState(name);
+  const [name, setName] = useState(listName);
   const modal = useContext(ModalContext);
   const queryClient = useQueryClient();
 
@@ -28,13 +28,13 @@ const EditList = ({ token, id, name }: EditListProps) => {
 
   // form submission
   const mutation = useMutation({
-    mutationFn: () => editList(id, listName, token),
+    mutationFn: () => editList(listId, name, token),
     onError: (error: AxiosError) => setFetchError(error),
-    onSuccess: () => queryClient.invalidateQueries(["list", id]),
+    onSuccess: () => queryClient.invalidateQueries(["list", listId]),
   });
 
   const handleChange = (e: React.FormEvent<HTMLInputElement>) => {
-    setListName(e.currentTarget.value);
+    setName(e.currentTarget.value);
     setFormError(null);
   };
 
@@ -57,7 +57,7 @@ const EditList = ({ token, id, name }: EditListProps) => {
   };
 
   const handleCancel = () => {
-    setListName(name);
+    setName(name);
     setFormError(null);
     modal.provideId("");
     modal.toggleModal(false);
@@ -72,7 +72,7 @@ const EditList = ({ token, id, name }: EditListProps) => {
           type="text"
           name={EditListInputsEnum.editName}
           id={EditListInputsEnum.editName}
-          value={listName}
+          value={name}
           handleChange={handleChange}
         />
         {formError && <span>{formError.message}</span>}
@@ -89,7 +89,7 @@ const EditList = ({ token, id, name }: EditListProps) => {
       )}
       <div style={{ border: "1px dashed blue", padding: "1rem" }}>
         <div>
-          <h2>{name}</h2>
+          <h2>{listName}</h2>
           <Button type="button" text="Edit" handleClick={handleInit} />
         </div>
       </div>
