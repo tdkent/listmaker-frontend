@@ -51,7 +51,6 @@ const NewList = () => {
     throw new Error(`No matching "${action.type}" action type`);
   };
   const [state, dispatch] = useReducer(reducer, defaultState);
-  console.log("state: ", state);
 
   // form submission
   const handleChange = (e: React.FormEvent<HTMLInputElement>) => {
@@ -66,8 +65,9 @@ const NewList = () => {
   const mutation = useMutation({
     mutationFn: (body: NewListReqInt) => createNewList(body, auth.token as string),
     onSuccess: (data: NewListResInt) => {
-      const { id, slug } = data.list;
-      navigate(`/lists/${slug}&id=${id}`);
+      console.log("data: ", data);
+      const { listId, listSlug } = data;
+      navigate(`/lists/${listSlug}&id=${listId}`);
     },
     onError: (error: AxiosError) => setFetchError(error),
   });

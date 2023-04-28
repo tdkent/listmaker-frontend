@@ -8,6 +8,8 @@ interface EditTodoItemModalProps {
   setItemName: (value: React.SetStateAction<string>) => void;
   itemCat: string;
   setItemCat: (value: React.SetStateAction<string>) => void;
+  itemDate: string;
+  setItemDate: (value: React.SetStateAction<string>) => void;
   handleSave: () => void;
   handleDelete: () => void;
   handleCancel: () => void;
@@ -21,6 +23,8 @@ const EditTodoItemModal = ({
   handleSave,
   handleDelete,
   handleCancel,
+  itemDate,
+  setItemDate,
 }: EditTodoItemModalProps) => {
   return (
     <div>
@@ -35,26 +39,28 @@ const EditTodoItemModal = ({
             setItemName(e.currentTarget.value);
           }}
         />
-        {/* <Input
-          label="Category"
-          type="text"
-          name={EditItemFormInputsEnum.cat}
-          id={EditItemFormInputsEnum.cat}
-          value={itemCat}
-          handleChange={(e: React.FormEvent<HTMLInputElement>) => setItemCat(e.currentTarget.value)}
-        /> */}
         <Select
           label="Category"
           name={EditItemFormInputsEnum.cat}
           id={EditItemFormInputsEnum.cat}
-          defaultValue={ToDoCats.home}
+          defaultValue={itemCat}
           options={todoItemCats}
           handleSelect={(e: React.FormEvent<HTMLSelectElement>) =>
             setItemCat(e.currentTarget.value)
           }
         />
+        <Input
+          label="Due"
+          type="date"
+          name={EditItemFormInputsEnum.date}
+          id={EditItemFormInputsEnum.date}
+          value={itemDate}
+          handleChange={(e: React.FormEvent<HTMLInputElement>) => {
+            setItemDate(e.currentTarget.value);
+          }}
+        />
         <Button type="button" text="Save" handleClick={handleSave} />
-        <Button type="button" text="Delete" handleClick={handleDelete} />
+        <Button type="button" text="Remove" handleClick={handleDelete} />
         <Button type="button" text="Cancel" handleClick={handleCancel} />
       </form>
     </div>

@@ -58,14 +58,9 @@ export const checkItem = async (
     .catch((error) => Promise.reject(error));
 };
 
-export const deleteItem = async (
-  listId: number,
-  listType: string,
-  itemId: number,
-  token: string
-) => {
+export const deleteItem = async (listId: number, itemId: number, token: string) => {
   const headers = { Authorization: `Bearer ${token}` };
   return axios
-    .patch(`${API_URL}/item/${listId}/${itemId}/delete`, { listType }, { headers })
+    .patch(`${API_URL}/todo/remove`, { listId, itemId }, { headers })
     .catch((error) => Promise.reject(error));
 };

@@ -17,6 +17,7 @@ interface DisplayTodoItemProps {
   setItemChecked: (value: React.SetStateAction<boolean | undefined>) => void;
   setItemName: (value: React.SetStateAction<string>) => void;
   setItemCat: (value: React.SetStateAction<string>) => void;
+  setItemDate: (value: React.SetStateAction<string>) => void;
 }
 
 const DisplayTodoItem = ({
@@ -28,6 +29,7 @@ const DisplayTodoItem = ({
   setItemChecked,
   setItemName,
   setItemCat,
+  setItemDate,
 }: DisplayTodoItemProps) => {
   const modal = useContext(ModalContext);
   const { setFetchError } = useError();
@@ -48,8 +50,6 @@ const DisplayTodoItem = ({
   //   return age + " days ago";
   // };
 
-  console.log(item);
-
   return (
     <li>
       <input
@@ -68,7 +68,8 @@ const DisplayTodoItem = ({
           setEditItemId(item.itemId);
           setItemChecked(item.isChecked);
           setItemName(item.itemName);
-          // setItemCat(item.perm_category);
+          setItemCat(item.itemCategory);
+          setItemDate(item.dateDue);
           modal.provideId(ModalContentIdEnum.editTodoItem);
           modal.toggleModal(true);
         }}

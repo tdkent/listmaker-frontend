@@ -19,7 +19,8 @@ export interface NewListReqInt {
 }
 
 export interface NewListResInt {
-  list: { id: number; slug: string };
+  listId: number;
+  listSlug: string;
 }
 
 // Created List with Database Id

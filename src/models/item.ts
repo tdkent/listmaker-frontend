@@ -12,6 +12,7 @@ export interface ShoppingListItemInt {
 export enum EditItemFormInputsEnum {
   name = "item-name",
   cat = "item-category",
+  date = "item-date",
   check = "check-item",
 }
 
@@ -27,9 +28,9 @@ export interface TodoListItemInt {
   userId: number;
   itemName: string;
   itemCategory: string;
-  dateCreated: Date;
-  dateDue: Date;
-  dateCompleted: Date;
+  dateCreated: string;
+  dateDue: string;
+  dateCompleted: string;
   isChecked: boolean;
   age: {
     days: number;

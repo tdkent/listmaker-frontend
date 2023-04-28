@@ -16,22 +16,27 @@ export const checkTodoItem = async (listId: number, itemId: number, token: strin
     .catch((error) => Promise.reject(error));
 };
 
-export const editShoppingItem = async (
+export const editTodoItem = async (
   listId: number,
   itemId: number,
-  name: string,
-  category: string,
+  itemName: string,
+  itemCategory: string,
+  itemDate: string,
   token: string
 ) => {
   const headers = { Authorization: `Bearer ${token}` };
   return axios
-    .patch(`${API_URL}/shopping/edit`, { listId, itemId, name, category }, { headers })
+    .patch(
+      `${API_URL}/todo/edit`,
+      { listId, itemId, itemName, itemCategory, itemDate },
+      { headers }
+    )
     .catch((error) => Promise.reject(error));
 };
 
-export const removeShoppingItem = async (listId: number, itemId: number, token: string) => {
+export const removeTodoItem = async (listId: number, itemId: number, token: string) => {
   const headers = { Authorization: `Bearer ${token}` };
   return axios
-    .patch(`${API_URL}/shopping/remove`, { listId, itemId }, { headers })
+    .patch(`${API_URL}/todo/remove`, { listId, itemId }, { headers })
     .catch((error) => Promise.reject(error));
 };
