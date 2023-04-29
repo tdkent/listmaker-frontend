@@ -6,7 +6,7 @@ import useError from "../../../hooks/useError";
 import ModalContext, { ModalContentIdEnum } from "../../../context/ModalContext";
 import Modal from "../../modal/Modal";
 import { editTodoItem, removeTodoItem } from "../../../api/mutate-todo-items";
-import { TodoListItemInt, ToDoCats } from "../../../models/item";
+import { TodoListItemInt } from "../../../models/item";
 import EditTodoItemModal from "../../modal-content/EditTodoItemModal";
 import DisplayTodoItem from "./DisplayTodoItem";
 
@@ -23,17 +23,16 @@ const EditTodoItem = ({ token, listId, listType, items }: EditTodoItemProps) => 
   const { setFetchError } = useError();
 
   // state
-  const [editItemId, setEditItemId] = useState<number>();
-  const [itemChecked, setItemChecked] = useState<boolean>();
-  const [itemName, setItemName] = useState<string>("");
-  const [itemCat, setItemCat] = useState<string>("");
-  const [itemDate, setItemDate] = useState<string>("");
+  const [id, setId] = useState<number>();
+  const [name, setName] = useState<string>("");
+  const [cat, setCat] = useState<string>("");
+  const [loc, setLoc] = useState<string>("");
+  const [date, setDate] = useState<string>("");
 
   // mutations
   const queryClient = useQueryClient();
   const editMutation = useMutation({
-    mutationFn: (itemId: number) =>
-      editTodoItem(listId, itemId, itemName, itemCat, itemDate, token),
+    mutationFn: (itemId: number) => editTodoItem(listId, itemId, name, cat, date, token),
     onSuccess: () => queryClient.invalidateQueries(["list", listId]),
     onError: (error: AxiosError) => setFetchError(error),
   });
@@ -45,19 +44,16 @@ const EditTodoItem = ({ token, listId, listType, items }: EditTodoItemProps) => 
 
   // handler functions
   const handleSave = () => {
-    editMutation.mutate(editItemId as number);
+    editMutation.mutate(id as number);
     modal.provideId("");
     modal.toggleModal(false);
-    // setItemName("");
   };
   const handleDelete = () => {
-    removeMutation.mutate(editItemId as number);
+    removeMutation.mutate(id as number);
     modal.provideId("");
     modal.toggleModal(false);
-    // setItemName("");
   };
   const handleCancel = () => {
-    // setItemName("");
     modal.provideId("");
     modal.toggleModal(false);
   };
@@ -68,12 +64,14 @@ const EditTodoItem = ({ token, listId, listType, items }: EditTodoItemProps) => 
         <Modal
           modalContent={
             <EditTodoItemModal
-              itemName={itemName}
-              setItemName={setItemName}
-              itemCat={itemCat}
-              setItemCat={setItemCat}
-              itemDate={itemDate}
-              setItemDate={setItemDate}
+              name={name}
+              cat={cat}
+              date={date}
+              loc={loc}
+              setName={setName}
+              setCat={setCat}
+              setDate={setDate}
+              setLoc={setLoc}
               handleSave={handleSave}
               handleDelete={handleDelete}
               handleCancel={handleCancel}
@@ -93,11 +91,10 @@ const EditTodoItem = ({ token, listId, listType, items }: EditTodoItemProps) => 
                       listId={listId}
                       listType={listType}
                       item={item}
-                      setEditItemId={setEditItemId}
-                      setItemChecked={setItemChecked}
-                      setItemName={setItemName}
-                      setItemCat={setItemCat}
-                      setItemDate={setItemDate}
+                      setId={setId}
+                      setName={setName}
+                      setCat={setCat}
+                      setDate={setDate}
                     />
                   </div>
                 )
@@ -116,11 +113,10 @@ const EditTodoItem = ({ token, listId, listType, items }: EditTodoItemProps) => 
                       listId={listId}
                       listType={listType}
                       item={item}
-                      setEditItemId={setEditItemId}
-                      setItemChecked={setItemChecked}
-                      setItemName={setItemName}
-                      setItemCat={setItemCat}
-                      setItemDate={setItemDate}
+                      setId={setId}
+                      setName={setName}
+                      setCat={setCat}
+                      setDate={setDate}
                     />
                   </div>
                 )

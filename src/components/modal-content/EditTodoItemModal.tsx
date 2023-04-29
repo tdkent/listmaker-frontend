@@ -4,27 +4,31 @@ import Button from "../forms/Button";
 import { EditItemFormInputsEnum, ToDoCats, todoItemCats } from "../../models/item";
 
 interface EditTodoItemModalProps {
-  itemName: string;
-  setItemName: (value: React.SetStateAction<string>) => void;
-  itemCat: string;
-  setItemCat: (value: React.SetStateAction<string>) => void;
-  itemDate: string;
-  setItemDate: (value: React.SetStateAction<string>) => void;
+  name: string;
+  cat: string;
+  date: string;
+  loc: string;
+  setName: (value: React.SetStateAction<string>) => void;
+  setCat: (value: React.SetStateAction<string>) => void;
+  setDate: (value: React.SetStateAction<string>) => void;
+  setLoc: (value: React.SetStateAction<string>) => void;
   handleSave: () => void;
   handleDelete: () => void;
   handleCancel: () => void;
 }
 
 const EditTodoItemModal = ({
-  itemName,
-  setItemName,
-  itemCat,
-  setItemCat,
+  name,
+  cat,
+  date,
+  loc,
+  setName,
+  setCat,
+  setDate,
+  setLoc,
   handleSave,
   handleDelete,
   handleCancel,
-  itemDate,
-  setItemDate,
 }: EditTodoItemModalProps) => {
   return (
     <div>
@@ -34,31 +38,39 @@ const EditTodoItemModal = ({
           type="text"
           name={EditItemFormInputsEnum.name}
           id={EditItemFormInputsEnum.name}
-          value={itemName}
+          value={name}
           handleChange={(e: React.FormEvent<HTMLInputElement>) => {
-            setItemName(e.currentTarget.value);
+            setName(e.currentTarget.value);
           }}
         />
         <Select
           label="Category"
           name={EditItemFormInputsEnum.cat}
           id={EditItemFormInputsEnum.cat}
-          defaultValue={itemCat}
+          defaultValue={cat}
           options={todoItemCats}
-          handleSelect={(e: React.FormEvent<HTMLSelectElement>) =>
-            setItemCat(e.currentTarget.value)
-          }
+          handleSelect={(e: React.FormEvent<HTMLSelectElement>) => setCat(e.currentTarget.value)}
         />
         <Input
           label="Due"
           type="date"
           name={EditItemFormInputsEnum.date}
           id={EditItemFormInputsEnum.date}
-          value={itemDate}
+          value={date}
           handleChange={(e: React.FormEvent<HTMLInputElement>) => {
-            setItemDate(e.currentTarget.value);
+            setDate(e.currentTarget.value);
           }}
         />
+        {(cat === ToDoCats.appoint || cat === ToDoCats.errand) && (
+          <Input
+            label="Location"
+            type="text"
+            name={EditItemFormInputsEnum.time}
+            id={EditItemFormInputsEnum.time}
+            value={loc}
+            handleChange={(e: React.FormEvent<HTMLInputElement>) => setLoc(e.currentTarget.value)}
+          />
+        )}
         <Button type="button" text="Save" handleClick={handleSave} />
         <Button type="button" text="Remove" handleClick={handleDelete} />
         <Button type="button" text="Cancel" handleClick={handleCancel} />

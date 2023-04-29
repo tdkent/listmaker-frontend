@@ -9,7 +9,6 @@ import checkLocalStorage from "../../utils/check-local-storage";
 import { fetchList } from "../../api/fetch-lists";
 import QueryError from "../../components/errors/queryError";
 import EditList from "../../components/edit-list/EditList";
-import NewItem from "../../components/edit-list/NewItem";
 import NewShoppingItem from "../../components/edit-list/shopping/NewShoppingItem";
 import EditShoppingItem from "../../components/edit-list/shopping/EditShoppingItem";
 import NewTodoItem from "../../components/edit-list/to-do/NewTodoItem";
@@ -64,7 +63,6 @@ const List = () => {
   return (
     <div>
       <EditList token={token} listId={listId} listName={listName} />
-      {/* <NewItem token={token} id={listId} /> */}
       {/* Shopping */}
       {listType === AllListTypesEnum.shop && (
         <>

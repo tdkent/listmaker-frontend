@@ -13,6 +13,8 @@ export enum EditItemFormInputsEnum {
   name = "item-name",
   cat = "item-category",
   date = "item-date",
+  time = "item-time",
+  loc = "item-location",
   check = "check-item",
 }
 
@@ -40,9 +42,17 @@ export interface TodoListItemInt {
 export enum ToDoCats {
   home = "Home",
   work = "Work",
-  family = "Family",
+  appoint = "Appointment",
   errand = "Errand",
-  leisure = "Leisure",
 }
 
 export const todoItemCats = Object.values(ToDoCats);
+
+// Edit Item
+
+export interface EditItemReqInt {
+  itemId: number;
+  listId: number;
+  name: string;
+  cat: string;
+}

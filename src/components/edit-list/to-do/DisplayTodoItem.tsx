@@ -13,11 +13,10 @@ interface DisplayTodoItemProps {
   listId: number;
   listType: string;
   item: TodoListItemInt;
-  setEditItemId: (value: React.SetStateAction<number | undefined>) => void;
-  setItemChecked: (value: React.SetStateAction<boolean | undefined>) => void;
-  setItemName: (value: React.SetStateAction<string>) => void;
-  setItemCat: (value: React.SetStateAction<string>) => void;
-  setItemDate: (value: React.SetStateAction<string>) => void;
+  setId: (value: React.SetStateAction<number | undefined>) => void;
+  setName: (value: React.SetStateAction<string>) => void;
+  setCat: (value: React.SetStateAction<string>) => void;
+  setDate: (value: React.SetStateAction<string>) => void;
 }
 
 const DisplayTodoItem = ({
@@ -25,11 +24,10 @@ const DisplayTodoItem = ({
   listId,
   listType,
   item,
-  setEditItemId,
-  setItemChecked,
-  setItemName,
-  setItemCat,
-  setItemDate,
+  setId,
+  setName,
+  setCat,
+  setDate,
 }: DisplayTodoItemProps) => {
   const modal = useContext(ModalContext);
   const { setFetchError } = useError();
@@ -40,15 +38,7 @@ const DisplayTodoItem = ({
     onError: (error: AxiosError) => setFetchError(error),
   });
 
-  // TODO: develop more and put into util function
-  // const itemDue = () => {
-  //   const age = item.age.days;
-  //   if (!age) return "Today";
-  //   if (age === -1) return "Tomorrow";
-  //   if (age === 1) return "Yesterday";
-  //   if (age < 0) return "In " + Math.abs(age) + " days";
-  //   return age + " days ago";
-  // };
+  // TODO: function for due date display
 
   return (
     <li>
@@ -60,16 +50,14 @@ const DisplayTodoItem = ({
         onChange={() => checkMutation.mutate(item.itemId)}
       />
       {item.itemName} {item.itemCategory}
-      {/* <p>{itemDue()}</p> */}
       <Button
         type="button"
         text="Edit"
         handleClick={() => {
-          setEditItemId(item.itemId);
-          setItemChecked(item.isChecked);
-          setItemName(item.itemName);
-          setItemCat(item.itemCategory);
-          setItemDate(item.dateDue);
+          setId(item.itemId);
+          setName(item.itemName);
+          setCat(item.itemCategory);
+          setDate(item.dateDue);
           modal.provideId(ModalContentIdEnum.editTodoItem);
           modal.toggleModal(true);
         }}
