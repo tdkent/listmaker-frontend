@@ -16,7 +16,9 @@ interface DisplayTodoItemProps {
   setId: (value: React.SetStateAction<number | undefined>) => void;
   setName: (value: React.SetStateAction<string>) => void;
   setCat: (value: React.SetStateAction<string>) => void;
+  setLoc: (value: React.SetStateAction<string>) => void;
   setDate: (value: React.SetStateAction<string>) => void;
+  setTime: (value: React.SetStateAction<string>) => void;
 }
 
 const DisplayTodoItem = ({
@@ -27,7 +29,9 @@ const DisplayTodoItem = ({
   setId,
   setName,
   setCat,
+  setLoc,
   setDate,
+  setTime,
 }: DisplayTodoItemProps) => {
   const modal = useContext(ModalContext);
   const { setFetchError } = useError();
@@ -57,7 +61,9 @@ const DisplayTodoItem = ({
           setId(item.itemId);
           setName(item.itemName);
           setCat(item.itemCategory);
+          setLoc(item.itemLocation || "");
           setDate(item.dateDue);
+          setTime(item.timeDue || "");
           modal.provideId(ModalContentIdEnum.editTodoItem);
           modal.toggleModal(true);
         }}

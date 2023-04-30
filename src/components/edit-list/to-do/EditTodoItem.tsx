@@ -28,11 +28,12 @@ const EditTodoItem = ({ token, listId, listType, items }: EditTodoItemProps) => 
   const [cat, setCat] = useState<string>("");
   const [loc, setLoc] = useState<string>("");
   const [date, setDate] = useState<string>("");
+  const [time, setTime] = useState<string>("");
 
   // mutations
   const queryClient = useQueryClient();
   const editMutation = useMutation({
-    mutationFn: (itemId: number) => editTodoItem(listId, itemId, name, cat, date, token),
+    mutationFn: (itemId: number) => editTodoItem(listId, itemId, name, cat, loc, date, time, token),
     onSuccess: () => queryClient.invalidateQueries(["list", listId]),
     onError: (error: AxiosError) => setFetchError(error),
   });
@@ -68,10 +69,12 @@ const EditTodoItem = ({ token, listId, listType, items }: EditTodoItemProps) => 
               cat={cat}
               date={date}
               loc={loc}
+              time={time}
               setName={setName}
               setCat={setCat}
               setDate={setDate}
               setLoc={setLoc}
+              setTime={setTime}
               handleSave={handleSave}
               handleDelete={handleDelete}
               handleCancel={handleCancel}
@@ -94,7 +97,9 @@ const EditTodoItem = ({ token, listId, listType, items }: EditTodoItemProps) => 
                       setId={setId}
                       setName={setName}
                       setCat={setCat}
+                      setLoc={setLoc}
                       setDate={setDate}
+                      setTime={setTime}
                     />
                   </div>
                 )
@@ -116,7 +121,9 @@ const EditTodoItem = ({ token, listId, listType, items }: EditTodoItemProps) => 
                       setId={setId}
                       setName={setName}
                       setCat={setCat}
+                      setLoc={setLoc}
                       setDate={setDate}
+                      setTime={setTime}
                     />
                   </div>
                 )

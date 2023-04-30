@@ -21,14 +21,16 @@ export const editTodoItem = async (
   itemId: number,
   itemName: string,
   itemCategory: string,
+  itemLocation: string,
   itemDate: string,
+  itemTime: string,
   token: string
 ) => {
   const headers = { Authorization: `Bearer ${token}` };
   return axios
     .patch(
       `${API_URL}/todo/edit`,
-      { listId, itemId, itemName, itemCategory, itemDate },
+      { listId, itemId, itemName, itemCategory, itemLocation, itemDate, itemTime },
       { headers }
     )
     .catch((error) => Promise.reject(error));

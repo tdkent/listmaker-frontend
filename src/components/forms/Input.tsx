@@ -1,9 +1,10 @@
 interface InputProps {
   label: string;
   name: string;
-  type: "email" | "text" | "password" | "number" | "date";
+  type: "email" | "text" | "password" | "number" | "date" | "time";
   id: string;
   value?: string;
+  step?: number;
   handleChange: (e: React.FormEvent<HTMLInputElement>) => void;
 }
 

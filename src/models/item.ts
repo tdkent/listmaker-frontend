@@ -30,8 +30,10 @@ export interface TodoListItemInt {
   userId: number;
   itemName: string;
   itemCategory: string;
+  itemLocation: string;
   dateCreated: string;
   dateDue: string;
+  timeDue: string;
   dateCompleted: string;
   isChecked: boolean;
   age: {
