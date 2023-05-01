@@ -63,7 +63,7 @@ const EditShoppingItem = ({ token, listId, items }: EditShoppingItemProps) => {
 
   // put all unique category names into sorted array
   const categories = items
-    .map((obj) => obj.tempCategory)
+    .map((obj) => obj.dispCategory)
     .filter((val, idx, arr) => arr.indexOf(val) === idx)
     .sort((a, b) => a.toLowerCase().localeCompare(b.toLowerCase()));
 
@@ -93,7 +93,7 @@ const EditShoppingItem = ({ token, listId, items }: EditShoppingItemProps) => {
                 <ul>
                   {items.map(
                     (item) =>
-                      item.tempCategory === cat &&
+                      item.dispCategory === cat &&
                       !item.isChecked && (
                         <div key={item.itemId}>
                           <DisplayShoppingItem

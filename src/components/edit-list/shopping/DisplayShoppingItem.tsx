@@ -49,7 +49,7 @@ const DisplayShoppingItem = ({
         handleClick={() => {
           setEditItemId(item.itemId);
           setItemName(item.itemName);
-          setItemCat(item.permCategory);
+          setItemCat(item.refCategory);
           modal.provideId(ModalContentIdEnum.editShoppingItem);
           modal.toggleModal(true);
         }}

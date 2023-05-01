@@ -4,8 +4,8 @@ export interface ShoppingListItemInt {
   listId: number;
   userId: number;
   itemName: string;
-  permCategory: string;
-  tempCategory: string;
+  refCategory: string;
+  dispCategory: string;
   isChecked: boolean;
 }
 
