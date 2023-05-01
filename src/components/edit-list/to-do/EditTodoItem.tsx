@@ -28,7 +28,8 @@ const EditTodoItem = ({ token, listId, listType, items }: EditTodoItemProps) => 
   const [cat, setCat] = useState<string>("");
   const [loc, setLoc] = useState<string>("");
   const [date, setDate] = useState<string>("");
-  const [time, setTime] = useState<string>("");
+  const [time, setTime] = useState<string | null>(null);
+  // const [time, setTime] = useState<string>("");
 
   // mutations
   const queryClient = useQueryClient();

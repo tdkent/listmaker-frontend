@@ -23,7 +23,7 @@ export const editTodoItem = async (
   itemCategory: string,
   itemLocation: string,
   itemDate: string,
-  itemTime: string,
+  itemTime: string | null,
   token: string
 ) => {
   const headers = { Authorization: `Bearer ${token}` };

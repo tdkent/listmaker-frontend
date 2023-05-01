@@ -8,12 +8,14 @@ interface EditTodoItemModalProps {
   cat: string;
   date: string;
   loc: string;
-  time: string;
+  time: string | null;
+  // time: string;
   setName: (value: React.SetStateAction<string>) => void;
   setCat: (value: React.SetStateAction<string>) => void;
   setDate: (value: React.SetStateAction<string>) => void;
   setLoc: (value: React.SetStateAction<string>) => void;
-  setTime: (value: React.SetStateAction<string>) => void;
+  // setTime: (value: React.SetStateAction<string>) => void;
+  setTime: (value: React.SetStateAction<string | null>) => void;
   handleSave: () => void;
   handleDelete: () => void;
   handleCancel: () => void;
@@ -73,9 +75,9 @@ const EditTodoItemModal = ({
             type="time"
             name={EditItemFormInputsEnum.time}
             id={EditItemFormInputsEnum.time}
-            value={time}
+            value={time || ""}
             handleChange={(e: React.FormEvent<HTMLInputElement>) => {
-              setTime(e.currentTarget.value);
+              setTime(e.currentTarget.value + ":00");
             }}
           />
         )}

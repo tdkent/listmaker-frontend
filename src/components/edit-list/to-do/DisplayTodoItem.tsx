@@ -18,7 +18,7 @@ interface DisplayTodoItemProps {
   setCat: (value: React.SetStateAction<string>) => void;
   setLoc: (value: React.SetStateAction<string>) => void;
   setDate: (value: React.SetStateAction<string>) => void;
-  setTime: (value: React.SetStateAction<string>) => void;
+  setTime: (value: React.SetStateAction<string | null>) => void;
 }
 
 const DisplayTodoItem = ({
@@ -63,7 +63,7 @@ const DisplayTodoItem = ({
           setCat(item.itemCategory);
           setLoc(item.itemLocation || "");
           setDate(item.dateDue);
-          setTime(item.timeDue || "");
+          setTime(item.timeDue || null);
           modal.provideId(ModalContentIdEnum.editTodoItem);
           modal.toggleModal(true);
         }}
