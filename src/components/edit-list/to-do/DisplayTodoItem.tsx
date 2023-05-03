@@ -3,7 +3,7 @@ import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { AxiosError } from "axios";
 
 import Button from "../../forms/Button";
-import { EditItemFormInputsEnum, TodoListItemInt } from "../../../models/item";
+import { EditItemFormInputsEnum, TodoListItemInt, SubtaskInt } from "../../../models/item";
 import { checkTodoItem } from "../../../api/mutate-todo-items";
 import ModalContext, { ModalContentIdEnum } from "../../../context/ModalContext";
 import useError from "../../../hooks/useError";
@@ -11,7 +11,6 @@ import useError from "../../../hooks/useError";
 interface DisplayTodoItemProps {
   token: string;
   listId: number;
-  listType: string;
   item: TodoListItemInt;
   setId: (value: React.SetStateAction<number | undefined>) => void;
   setName: (value: React.SetStateAction<string>) => void;
@@ -19,12 +18,12 @@ interface DisplayTodoItemProps {
   setLoc: (value: React.SetStateAction<string>) => void;
   setDate: (value: React.SetStateAction<string>) => void;
   setTime: (value: React.SetStateAction<string | null>) => void;
+  setTasks: (value: React.SetStateAction<SubtaskInt[] | null>) => void;
 }
 
 const DisplayTodoItem = ({
   token,
   listId,
-  listType,
   item,
   setId,
   setName,
@@ -32,6 +31,7 @@ const DisplayTodoItem = ({
   setLoc,
   setDate,
   setTime,
+  setTasks,
 }: DisplayTodoItemProps) => {
   const modal = useContext(ModalContext);
   const { setFetchError } = useError();
@@ -64,6 +64,7 @@ const DisplayTodoItem = ({
           setLoc(item.itemLocation || "");
           setDate(item.dateDue);
           setTime(item.timeDue || null);
+          setTasks(item.itemTasks);
           modal.provideId(ModalContentIdEnum.editTodoItem);
           modal.toggleModal(true);
         }}

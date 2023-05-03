@@ -16,6 +16,7 @@ export enum EditItemFormInputsEnum {
   time = "item-time",
   loc = "item-location",
   check = "check-item",
+  task = "item-subtask",
 }
 
 export enum CheckedItemEnum {
@@ -23,6 +24,13 @@ export enum CheckedItemEnum {
 }
 
 // To-Do List
+
+export interface SubtaskInt {
+  taskId: number;
+  itemId: number;
+  taskName: string;
+  isChecked: boolean;
+}
 
 export interface TodoListItemInt {
   itemId: number;
@@ -36,9 +44,7 @@ export interface TodoListItemInt {
   timeDue: string;
   dateCompleted: string;
   isChecked: boolean;
-  age: {
-    days: number;
-  };
+  itemTasks: SubtaskInt[];
 }
 
 export enum ToDoCats {

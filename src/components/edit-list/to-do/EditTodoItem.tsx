@@ -6,7 +6,7 @@ import useError from "../../../hooks/useError";
 import ModalContext, { ModalContentIdEnum } from "../../../context/ModalContext";
 import Modal from "../../modal/Modal";
 import { editTodoItem, removeTodoItem } from "../../../api/mutate-todo-items";
-import { TodoListItemInt } from "../../../models/item";
+import { TodoListItemInt, SubtaskInt } from "../../../models/item";
 import EditTodoItemModal from "../../modal-content/EditTodoItemModal";
 import DisplayTodoItem from "./DisplayTodoItem";
 
@@ -29,7 +29,7 @@ const EditTodoItem = ({ token, listId, listType, items }: EditTodoItemProps) => 
   const [loc, setLoc] = useState<string>("");
   const [date, setDate] = useState<string>("");
   const [time, setTime] = useState<string | null>(null);
-  // const [time, setTime] = useState<string>("");
+  const [tasks, setTasks] = useState<SubtaskInt[] | null>(null);
 
   // mutations
   const queryClient = useQueryClient();
@@ -66,11 +66,14 @@ const EditTodoItem = ({ token, listId, listType, items }: EditTodoItemProps) => 
         <Modal
           modalContent={
             <EditTodoItemModal
+              listId={listId}
+              itemId={id as number}
               name={name}
               cat={cat}
               date={date}
               loc={loc}
               time={time}
+              tasks={tasks}
               setName={setName}
               setCat={setCat}
               setDate={setDate}
@@ -93,7 +96,6 @@ const EditTodoItem = ({ token, listId, listType, items }: EditTodoItemProps) => 
                     <DisplayTodoItem
                       token={token}
                       listId={listId}
-                      listType={listType}
                       item={item}
                       setId={setId}
                       setName={setName}
@@ -101,6 +103,7 @@ const EditTodoItem = ({ token, listId, listType, items }: EditTodoItemProps) => 
                       setLoc={setLoc}
                       setDate={setDate}
                       setTime={setTime}
+                      setTasks={setTasks}
                     />
                   </div>
                 )
@@ -117,7 +120,6 @@ const EditTodoItem = ({ token, listId, listType, items }: EditTodoItemProps) => 
                     <DisplayTodoItem
                       token={token}
                       listId={listId}
-                      listType={listType}
                       item={item}
                       setId={setId}
                       setName={setName}
@@ -125,6 +127,7 @@ const EditTodoItem = ({ token, listId, listType, items }: EditTodoItemProps) => 
                       setLoc={setLoc}
                       setDate={setDate}
                       setTime={setTime}
+                      setTasks={setTasks}
                     />
                   </div>
                 )

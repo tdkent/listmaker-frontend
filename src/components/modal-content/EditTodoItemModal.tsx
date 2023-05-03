@@ -1,20 +1,22 @@
+import Subtasks from "../edit-list/to-do/Subtasks";
 import Input from "../forms/Input";
 import Select from "../forms/Select";
 import Button from "../forms/Button";
-import { EditItemFormInputsEnum, ToDoCats, todoItemCats } from "../../models/item";
+import { EditItemFormInputsEnum, ToDoCats, todoItemCats, SubtaskInt } from "../../models/item";
 
 interface EditTodoItemModalProps {
+  listId: number;
+  itemId: number;
   name: string;
   cat: string;
   date: string;
   loc: string;
   time: string | null;
-  // time: string;
+  tasks: SubtaskInt[] | null;
   setName: (value: React.SetStateAction<string>) => void;
   setCat: (value: React.SetStateAction<string>) => void;
   setDate: (value: React.SetStateAction<string>) => void;
   setLoc: (value: React.SetStateAction<string>) => void;
-  // setTime: (value: React.SetStateAction<string>) => void;
   setTime: (value: React.SetStateAction<string | null>) => void;
   handleSave: () => void;
   handleDelete: () => void;
@@ -22,11 +24,14 @@ interface EditTodoItemModalProps {
 }
 
 const EditTodoItemModal = ({
+  listId,
+  itemId,
   name,
   cat,
   date,
   loc,
   time,
+  tasks,
   setName,
   setCat,
   setDate,
@@ -90,6 +95,9 @@ const EditTodoItemModal = ({
             value={loc}
             handleChange={(e: React.FormEvent<HTMLInputElement>) => setLoc(e.currentTarget.value)}
           />
+        )}
+        {cat === ToDoCats.work && (
+          <Subtasks listId={listId} itemId={itemId} tasks={tasks as SubtaskInt[]} />
         )}
         <Button type="button" text="Save" handleClick={handleSave} />
         <Button type="button" text="Remove" handleClick={handleDelete} />
