@@ -15,10 +15,10 @@ export const newSubtask = async (
     .catch((error) => Promise.reject(error));
 };
 
-export const deleteSubtask = async (taskId: number, token: string) => {
+export const deleteSubtask = async (taskId: number, itemId: number, token: string) => {
   const headers = { Authorization: `Bearer ${token}` };
   return axios
-    .delete(`${API_URL}/todo/${taskId}/subtask`, { headers })
+    .delete(`${API_URL}/todo/${itemId}/subtask/${taskId}`, { headers })
     .then((response) => response.data)
     .catch((error) => Promise.reject(error));
 };

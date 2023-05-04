@@ -35,9 +35,10 @@ const EditSubtasksModal = ({ token, listId, itemId, items, tasks }: EditSubtasks
   });
 
   const deleteMutation = useMutation({
-    mutationFn: (taskId: number) => deleteSubtask(taskId, token),
+    mutationFn: (taskId: number) => deleteSubtask(taskId, itemId, token),
     onSuccess: (data) => {
-      console.log("data: ", data);
+      setTaskList(data || []);
+      queryClient.invalidateQueries(["list", listId]);
     },
     onError: (error: AxiosError) => setFetchError(error),
   });
@@ -46,8 +47,6 @@ const EditSubtasksModal = ({ token, listId, itemId, items, tasks }: EditSubtasks
   const handleChange = (e: React.FormEvent<HTMLInputElement>) => {
     setNewTask(e.currentTarget.value);
   };
-
-  const handleDelete = () => {};
 
   const handleSave = (e: React.FormEvent) => {
     e.preventDefault();
