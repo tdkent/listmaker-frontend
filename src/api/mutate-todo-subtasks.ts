@@ -15,6 +15,19 @@ export const newSubtask = async (
     .catch((error) => Promise.reject(error));
 };
 
+export const editSubtask = async (
+  taskId: number,
+  itemId: number,
+  newName: string,
+  token: string
+) => {
+  const headers = { Authorization: `Bearer ${token}` };
+  return axios
+    .patch(`${API_URL}/todo/${itemId}/subtask`, { taskId, newName }, { headers })
+    .then((response) => response.data)
+    .catch((error) => Promise.reject(error));
+};
+
 export const deleteSubtask = async (taskId: number, itemId: number, token: string) => {
   const headers = { Authorization: `Bearer ${token}` };
   return axios

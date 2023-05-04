@@ -17,6 +17,7 @@ export enum EditItemFormInputsEnum {
   loc = "item-location",
   check = "check-item",
   task = "item-subtask",
+  editTask = "edit-subtask",
 }
 
 export enum CheckedItemEnum {
