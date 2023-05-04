@@ -6,7 +6,7 @@ import useError from "../../hooks/useError";
 import Input from "../forms/Input";
 import Button from "../forms/Button";
 import { EditItemFormInputsEnum, SubtaskInt, TodoListItemInt } from "../../models/item";
-import { newTodoSubtask } from "../../api/mutate-todo-subtasks";
+import { newSubtask, deleteSubtask } from "../../api/mutate-todo-subtasks";
 
 interface EditSubtasksModalProps {
   token: string;
@@ -26,7 +26,7 @@ const EditSubtasksModal = ({ token, listId, itemId, items, tasks }: EditSubtasks
 
   // mutation function
   const newMutation = useMutation({
-    mutationFn: () => newTodoSubtask(itemId, listId, newTask, token),
+    mutationFn: () => newSubtask(itemId, listId, newTask, token),
     onSuccess: (data) => {
       setTaskList(data);
       queryClient.invalidateQueries(["list", listId]);
@@ -34,9 +34,13 @@ const EditSubtasksModal = ({ token, listId, itemId, items, tasks }: EditSubtasks
     onError: (error: AxiosError) => setFetchError(error),
   });
 
-  // const deleteMutation = useMutation({
-  //   mutationFn: () => console.log('')
-  // })
+  const deleteMutation = useMutation({
+    mutationFn: (taskId: number) => deleteSubtask(taskId, token),
+    onSuccess: (data) => {
+      console.log("data: ", data);
+    },
+    onError: (error: AxiosError) => setFetchError(error),
+  });
 
   // handler functions
   const handleChange = (e: React.FormEvent<HTMLInputElement>) => {
@@ -74,7 +78,11 @@ const EditSubtasksModal = ({ token, listId, itemId, items, tasks }: EditSubtasks
               <div key={task.taskId}>
                 <li>{task.taskName}</li>
                 <Button type="button" text="edit" handleClick={() => {}} />
-                <Button type="button" text="x" handleClick={handleDelete} />
+                <Button
+                  type="button"
+                  text="x"
+                  handleClick={() => deleteMutation.mutate(task.taskId)}
+                />
               </div>
             );
           })}
