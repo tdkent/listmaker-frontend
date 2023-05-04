@@ -8,6 +8,7 @@ import Modal from "../../modal/Modal";
 import { editTodoItem, removeTodoItem } from "../../../api/mutate-todo-items";
 import { TodoListItemInt, SubtaskInt } from "../../../models/item";
 import EditTodoItemModal from "../../modal-content/EditTodoItemModal";
+import EditSubtasksModal from "../../modal-content/EditSubtasksModal";
 import DisplayTodoItem from "./DisplayTodoItem";
 
 interface EditTodoItemProps {
@@ -30,6 +31,12 @@ const EditTodoItem = ({ token, listId, listType, items }: EditTodoItemProps) => 
   const [date, setDate] = useState<string>("");
   const [time, setTime] = useState<string | null>(null);
   const [tasks, setTasks] = useState<SubtaskInt[] | null>(null);
+
+  // if (id) {
+  //   const tasks = items.filter((item) => item.itemId === id).map((item) => item.itemTasks);
+  //   console.log("tasks: ", tasks[0]);
+  //   setTasks(tasks[0]);
+  // }
 
   // mutations
   const queryClient = useQueryClient();
@@ -82,6 +89,19 @@ const EditTodoItem = ({ token, listId, listType, items }: EditTodoItemProps) => 
               handleSave={handleSave}
               handleDelete={handleDelete}
               handleCancel={handleCancel}
+            />
+          }
+        />
+      )}
+      {modal.active && modal.contentId === ModalContentIdEnum.editSubtasks && (
+        <Modal
+          modalContent={
+            <EditSubtasksModal
+              token={token}
+              listId={listId}
+              itemId={id as number}
+              items={items}
+              tasks={tasks as SubtaskInt[]}
             />
           }
         />

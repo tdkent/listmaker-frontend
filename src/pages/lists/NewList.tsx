@@ -65,7 +65,6 @@ const NewList = () => {
   const mutation = useMutation({
     mutationFn: (body: NewListReqInt) => createNewList(body, auth.token as string),
     onSuccess: (data: NewListResInt) => {
-      console.log("data: ", data);
       const { listId, listSlug } = data;
       navigate(`/lists/${listSlug}&id=${listId}`);
     },

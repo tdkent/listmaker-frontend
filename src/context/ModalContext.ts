@@ -7,6 +7,7 @@ export enum ModalContentIdEnum {
   deleteList = "DELETE_LIST",
   editShoppingItem = "EDIT_SHOPPING_ITEM",
   editTodoItem = "EDIT_TODO_ITEM",
+  editSubtasks = "EDIT_SUBTASK",
 }
 
 export interface ModalContextInt {

@@ -64,8 +64,17 @@ const DisplayTodoItem = ({
           setLoc(item.itemLocation || "");
           setDate(item.dateDue);
           setTime(item.timeDue || null);
-          setTasks(item.itemTasks);
           modal.provideId(ModalContentIdEnum.editTodoItem);
+          modal.toggleModal(true);
+        }}
+      />
+      <Button
+        type="button"
+        text="Subtasks"
+        handleClick={() => {
+          setId(item.itemId);
+          setTasks(item.itemTasks);
+          modal.provideId(ModalContentIdEnum.editSubtasks);
           modal.toggleModal(true);
         }}
       />

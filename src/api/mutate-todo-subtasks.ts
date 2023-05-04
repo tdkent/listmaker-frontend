@@ -11,5 +11,6 @@ export const newTodoSubtask = async (
   const headers = { Authorization: `Bearer ${token}` };
   return axios
     .post(`${API_URL}/todo/${listId}/subtask`, { itemId, taskName }, { headers })
+    .then((response) => response.data)
     .catch((error) => Promise.reject(error));
 };

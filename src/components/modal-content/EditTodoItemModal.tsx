@@ -1,4 +1,3 @@
-import Subtasks from "../edit-list/to-do/Subtasks";
 import Input from "../forms/Input";
 import Select from "../forms/Select";
 import Button from "../forms/Button";
@@ -95,9 +94,6 @@ const EditTodoItemModal = ({
             value={loc}
             handleChange={(e: React.FormEvent<HTMLInputElement>) => setLoc(e.currentTarget.value)}
           />
-        )}
-        {cat === ToDoCats.work && (
-          <Subtasks listId={listId} itemId={itemId} tasks={tasks as SubtaskInt[]} />
         )}
         <Button type="button" text="Save" handleClick={handleSave} />
         <Button type="button" text="Remove" handleClick={handleDelete} />
