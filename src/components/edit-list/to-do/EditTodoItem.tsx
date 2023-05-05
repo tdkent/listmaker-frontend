@@ -32,12 +32,6 @@ const EditTodoItem = ({ token, listId, listType, items }: EditTodoItemProps) => 
   const [time, setTime] = useState<string | null>(null);
   const [tasks, setTasks] = useState<SubtaskInt[] | null>(null);
 
-  // if (id) {
-  //   const tasks = items.filter((item) => item.itemId === id).map((item) => item.itemTasks);
-  //   console.log("tasks: ", tasks[0]);
-  //   setTasks(tasks[0]);
-  // }
-
   // mutations
   const queryClient = useQueryClient();
   const editMutation = useMutation({

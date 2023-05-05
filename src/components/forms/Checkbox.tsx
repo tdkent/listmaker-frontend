@@ -4,15 +4,7 @@ interface CheckboxProps {
 }
 
 const Checkbox = ({ checked, onChange }: CheckboxProps) => {
-  return (
-    <input
-      type="checkbox"
-      id="item-checkbox"
-      name="item-checkbox"
-      checked={checked}
-      onChange={onChange}
-    />
-  );
+  return <input type="checkbox" id="item-checkbox" checked={checked} onChange={onChange} />;
 };
 
 export default Checkbox;

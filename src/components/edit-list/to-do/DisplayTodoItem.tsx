@@ -2,6 +2,7 @@ import { useContext } from "react";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { AxiosError } from "axios";
 
+import DisplayTodoSubtask from "./DisplayTodoSubtask";
 import Button from "../../forms/Button";
 import { EditItemFormInputsEnum, TodoListItemInt, SubtaskInt } from "../../../models/item";
 import { checkTodoItem } from "../../../api/mutate-todo-items";
@@ -46,38 +47,41 @@ const DisplayTodoItem = ({
 
   return (
     <li>
-      <input
-        type="checkbox"
-        id={EditItemFormInputsEnum.check}
-        name={EditItemFormInputsEnum.check}
-        checked={item.isChecked}
-        onChange={() => checkMutation.mutate(item.itemId)}
-      />
-      {item.itemName} {item.itemCategory}
-      <Button
-        type="button"
-        text="Edit"
-        handleClick={() => {
-          setId(item.itemId);
-          setName(item.itemName);
-          setCat(item.itemCategory);
-          setLoc(item.itemLocation || "");
-          setDate(item.dateDue);
-          setTime(item.timeDue || null);
-          modal.provideId(ModalContentIdEnum.editTodoItem);
-          modal.toggleModal(true);
-        }}
-      />
-      <Button
-        type="button"
-        text="Subtasks"
-        handleClick={() => {
-          setId(item.itemId);
-          setTasks(item.itemTasks);
-          modal.provideId(ModalContentIdEnum.editSubtasks);
-          modal.toggleModal(true);
-        }}
-      />
+      <div>
+        <input
+          type="checkbox"
+          id={EditItemFormInputsEnum.check}
+          name={EditItemFormInputsEnum.check}
+          checked={item.isChecked}
+          onChange={() => checkMutation.mutate(item.itemId)}
+        />
+        {item.itemName} {item.itemCategory}
+        <Button
+          type="button"
+          text="Edit"
+          handleClick={() => {
+            setId(item.itemId);
+            setName(item.itemName);
+            setCat(item.itemCategory);
+            setLoc(item.itemLocation || "");
+            setDate(item.dateDue);
+            setTime(item.timeDue || null);
+            modal.provideId(ModalContentIdEnum.editTodoItem);
+            modal.toggleModal(true);
+          }}
+        />
+        <Button
+          type="button"
+          text="Subtasks"
+          handleClick={() => {
+            setId(item.itemId);
+            setTasks(item.itemTasks);
+            modal.provideId(ModalContentIdEnum.editSubtasks);
+            modal.toggleModal(true);
+          }}
+        />
+      </div>
+      <DisplayTodoSubtask tasks={item.itemTasks} listId={listId} token={token} />
     </li>
   );
 };

@@ -104,48 +104,50 @@ const EditSubtasksModal = ({ token, listId, itemId, items, tasks }: EditSubtasks
       </div>
       <div>
         <ul>
-          {taskList.map((task) => {
-            return (
-              <div key={task.taskId}>
-                {isEditing && task.taskId === taskId ? (
-                  <div>
-                    <Form id={FormIdEnum.editTask} onSubmit={handleEditSubmit}>
-                      <Input
-                        label=""
-                        type="text"
-                        name={EditItemFormInputsEnum.editTask}
-                        id={EditItemFormInputsEnum.editTask}
-                        value={editTask}
-                        handleChange={handleEditChange}
-                      />
-                      <Button type="submit" text="Save" />
-                      <Button type="button" text="Cancel" handleClick={handleEditCancel} />
-                    </Form>
-                  </div>
-                ) : (
-                  <div>
-                    <li>{task.taskName}</li>
+          {taskList
+            .sort((a, b) => a.taskId - b.taskId)
+            .map((task) => {
+              return (
+                <div key={task.taskId}>
+                  {isEditing && task.taskId === taskId ? (
                     <div>
-                      <Button
-                        type="button"
-                        text="edit"
-                        handleClick={() => {
-                          setIsEditing(true);
-                          setTaskId(task.taskId);
-                          setEditTask(task.taskName);
-                        }}
-                      />
-                      <Button
-                        type="button"
-                        text="x"
-                        handleClick={() => deleteMutation.mutate(task.taskId)}
-                      />
+                      <Form id={FormIdEnum.editTask} onSubmit={handleEditSubmit}>
+                        <Input
+                          label=""
+                          type="text"
+                          name={EditItemFormInputsEnum.editTask}
+                          id={EditItemFormInputsEnum.editTask}
+                          value={editTask}
+                          handleChange={handleEditChange}
+                        />
+                        <Button type="submit" text="Save" />
+                        <Button type="button" text="Cancel" handleClick={handleEditCancel} />
+                      </Form>
                     </div>
-                  </div>
-                )}
-              </div>
-            );
-          })}
+                  ) : (
+                    <div>
+                      <li>{task.taskName}</li>
+                      <div>
+                        <Button
+                          type="button"
+                          text="edit"
+                          handleClick={() => {
+                            setIsEditing(true);
+                            setTaskId(task.taskId);
+                            setEditTask(task.taskName);
+                          }}
+                        />
+                        <Button
+                          type="button"
+                          text="x"
+                          handleClick={() => deleteMutation.mutate(task.taskId)}
+                        />
+                      </div>
+                    </div>
+                  )}
+                </div>
+              );
+            })}
         </ul>
       </div>
       <div>
