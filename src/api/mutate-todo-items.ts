@@ -24,13 +24,26 @@ export const editTodoItem = async (
   itemLocation: string,
   itemDate: string,
   itemTime: string | null,
+  isRecurring: boolean,
+  recurVal: string,
   token: string
 ) => {
+  console.log(isRecurring, recurVal);
   const headers = { Authorization: `Bearer ${token}` };
   return axios
     .patch(
       `${API_URL}/todo/edit`,
-      { listId, itemId, itemName, itemCategory, itemLocation, itemDate, itemTime },
+      {
+        listId,
+        itemId,
+        itemName,
+        itemCategory,
+        itemLocation,
+        itemDate,
+        itemTime,
+        isRecurring,
+        recurVal,
+      },
       { headers }
     )
     .catch((error) => Promise.reject(error));

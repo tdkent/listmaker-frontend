@@ -3,7 +3,8 @@ import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { AxiosError } from "axios";
 
 import Button from "../../forms/Button";
-import { EditItemFormInputsEnum, ShoppingListItemInt } from "../../../models/item";
+import { EditItemFormInputsEnum } from "../../../models/item";
+import { ShoppingListItemInt } from "../../../models/shopping";
 import { checkShoppingItem } from "../../../api/mutate-shopping-items";
 import ModalContext, { ModalContentIdEnum } from "../../../context/ModalContext";
 import useError from "../../../hooks/useError";

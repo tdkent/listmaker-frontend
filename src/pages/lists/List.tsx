@@ -15,7 +15,8 @@ import NewTodoItem from "../../components/edit-list/to-do/NewTodoItem";
 import EditTodoItem from "../../components/edit-list/to-do/EditTodoItem";
 import DeleteList from "../../components/edit-list/DeleteList";
 import { AllListTypesEnum } from "../../models/lists";
-import { ShoppingListItemInt, TodoListItemInt } from "../../models/item";
+import { TodoListItemInt } from "../../models/todo";
+import { ShoppingListItemInt } from "../../models/shopping";
 
 const List = () => {
   // auth check

@@ -6,7 +6,7 @@ import useError from "../../../hooks/useError";
 import ModalContext, { ModalContentIdEnum } from "../../../context/ModalContext";
 import Modal from "../../modal/Modal";
 import { editTodoItem, removeTodoItem } from "../../../api/mutate-todo-items";
-import { TodoListItemInt, SubtaskInt } from "../../../models/item";
+import { TodoListItemInt, SubtaskInt } from "../../../models/todo";
 import EditTodoItemModal from "../../modal-content/EditTodoItemModal";
 import EditSubtasksModal from "../../modal-content/EditSubtasksModal";
 import DisplayTodoItem from "./DisplayTodoItem";
@@ -31,11 +31,14 @@ const EditTodoItem = ({ token, listId, listType, items }: EditTodoItemProps) => 
   const [date, setDate] = useState<string>("");
   const [time, setTime] = useState<string | null>(null);
   const [tasks, setTasks] = useState<SubtaskInt[] | null>(null);
+  const [isRecurring, setIsRecurring] = useState(false);
+  const [recur, setRecur] = useState<string>("");
 
   // mutations
   const queryClient = useQueryClient();
   const editMutation = useMutation({
-    mutationFn: (itemId: number) => editTodoItem(listId, itemId, name, cat, loc, date, time, token),
+    mutationFn: (itemId: number) =>
+      editTodoItem(listId, itemId, name, cat, loc, date, time, isRecurring, recur, token),
     onSuccess: () => queryClient.invalidateQueries(["list", listId]),
     onError: (error: AxiosError) => setFetchError(error),
   });
@@ -75,11 +78,15 @@ const EditTodoItem = ({ token, listId, listType, items }: EditTodoItemProps) => 
               loc={loc}
               time={time}
               tasks={tasks}
+              isRecurring={isRecurring}
+              recur={recur}
               setName={setName}
               setCat={setCat}
               setDate={setDate}
               setLoc={setLoc}
               setTime={setTime}
+              setIsRecurring={setIsRecurring}
+              setRecur={setRecur}
               handleSave={handleSave}
               handleDelete={handleDelete}
               handleCancel={handleCancel}
@@ -118,6 +125,8 @@ const EditTodoItem = ({ token, listId, listType, items }: EditTodoItemProps) => 
                       setDate={setDate}
                       setTime={setTime}
                       setTasks={setTasks}
+                      setIsRecurring={setIsRecurring}
+                      setRecur={setRecur}
                     />
                   </div>
                 )
@@ -142,6 +151,8 @@ const EditTodoItem = ({ token, listId, listType, items }: EditTodoItemProps) => 
                       setDate={setDate}
                       setTime={setTime}
                       setTasks={setTasks}
+                      setIsRecurring={setIsRecurring}
+                      setRecur={setRecur}
                     />
                   </div>
                 )

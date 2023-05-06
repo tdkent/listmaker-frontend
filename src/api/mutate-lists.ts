@@ -1,7 +1,6 @@
 import axios from "axios";
 
 import { API_URL } from "../constants/global";
-import { ShoppingListInt } from "../models/lists";
 
 // TODO: update fetch calls to require valid tokens in headers
 

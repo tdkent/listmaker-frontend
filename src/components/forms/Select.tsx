@@ -6,7 +6,7 @@ interface SelectProps {
   id: string;
   defaultValue: string;
   handleSelect: (e: React.FormEvent<HTMLSelectElement>) => void;
-  options: string[];
+  options: string[] | number[];
 }
 
 const Select = ({ label, name, id, defaultValue, options, handleSelect }: SelectProps) => {

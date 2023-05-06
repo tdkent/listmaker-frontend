@@ -1,7 +1,9 @@
 import Input from "../forms/Input";
 import Select from "../forms/Select";
 import Button from "../forms/Button";
-import { EditItemFormInputsEnum, ToDoCats, todoItemCats, SubtaskInt } from "../../models/item";
+import { EditItemFormInputsEnum } from "../../models/item";
+import { ToDoCats, todoItemCats, SubtaskInt } from "../../models/todo";
+import RepeatTodo from "./RepeatTodo";
 
 interface EditTodoItemModalProps {
   listId: number;
@@ -11,12 +13,16 @@ interface EditTodoItemModalProps {
   date: string;
   loc: string;
   time: string | null;
+  isRecurring: boolean;
+  recur: string;
   tasks: SubtaskInt[] | null;
   setName: (value: React.SetStateAction<string>) => void;
   setCat: (value: React.SetStateAction<string>) => void;
   setDate: (value: React.SetStateAction<string>) => void;
   setLoc: (value: React.SetStateAction<string>) => void;
   setTime: (value: React.SetStateAction<string | null>) => void;
+  setIsRecurring: (value: React.SetStateAction<boolean>) => void;
+  setRecur: (value: React.SetStateAction<string>) => void;
   handleSave: () => void;
   handleDelete: () => void;
   handleCancel: () => void;
@@ -30,12 +36,16 @@ const EditTodoItemModal = ({
   date,
   loc,
   time,
+  isRecurring,
+  recur,
   tasks,
   setName,
   setCat,
   setDate,
   setLoc,
   setTime,
+  setIsRecurring,
+  setRecur,
   handleSave,
   handleDelete,
   handleCancel,
@@ -95,6 +105,12 @@ const EditTodoItemModal = ({
             handleChange={(e: React.FormEvent<HTMLInputElement>) => setLoc(e.currentTarget.value)}
           />
         )}
+        <RepeatTodo
+          isRecurring={isRecurring}
+          setIsRecurring={setIsRecurring}
+          recur={recur}
+          setRecur={setRecur}
+        />
         <Button type="button" text="Save" handleClick={handleSave} />
         <Button type="button" text="Remove" handleClick={handleDelete} />
         <Button type="button" text="Cancel" handleClick={handleCancel} />

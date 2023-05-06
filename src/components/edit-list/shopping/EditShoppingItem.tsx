@@ -6,7 +6,8 @@ import useError from "../../../hooks/useError";
 import ModalContext, { ModalContentIdEnum } from "../../../context/ModalContext";
 import Modal from "../../modal/Modal";
 import { editShoppingItem, removeShoppingItem } from "../../../api/mutate-shopping-items";
-import { ShoppingListItemInt, CheckedItemEnum } from "../../../models/item";
+import { CheckedItemEnum } from "../../../models/item";
+import { ShoppingListItemInt } from "../../../models/shopping";
 import EditShoppingItemModal from "../../modal-content/EditShoppingItemModal";
 import DisplayShoppingItem from "./DisplayShoppingItem";
 

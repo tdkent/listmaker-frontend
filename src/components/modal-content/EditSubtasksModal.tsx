@@ -7,7 +7,8 @@ import ModalContext from "../../context/ModalContext";
 import Input from "../forms/Input";
 import Button from "../forms/Button";
 import Form from "../forms/Form";
-import { EditItemFormInputsEnum, SubtaskInt, TodoListItemInt } from "../../models/item";
+import { EditItemFormInputsEnum } from "../../models/item";
+import { SubtaskInt, TodoListItemInt } from "../../models/todo";
 import { FormIdEnum } from "../../models/form";
 import { newSubtask, editSubtask, deleteSubtask } from "../../api/mutate-todo-subtasks";
 

@@ -4,7 +4,8 @@ import { AxiosError } from "axios";
 
 import DisplayTodoSubtask from "./DisplayTodoSubtask";
 import Button from "../../forms/Button";
-import { EditItemFormInputsEnum, TodoListItemInt, SubtaskInt } from "../../../models/item";
+import { EditItemFormInputsEnum } from "../../../models/item";
+import { TodoListItemInt, SubtaskInt } from "../../../models/todo";
 import { checkTodoItem } from "../../../api/mutate-todo-items";
 import ModalContext, { ModalContentIdEnum } from "../../../context/ModalContext";
 import useError from "../../../hooks/useError";
@@ -20,6 +21,8 @@ interface DisplayTodoItemProps {
   setDate: (value: React.SetStateAction<string>) => void;
   setTime: (value: React.SetStateAction<string | null>) => void;
   setTasks: (value: React.SetStateAction<SubtaskInt[] | null>) => void;
+  setIsRecurring: (value: React.SetStateAction<boolean>) => void;
+  setRecur: (value: React.SetStateAction<string>) => void;
 }
 
 const DisplayTodoItem = ({
@@ -33,6 +36,8 @@ const DisplayTodoItem = ({
   setDate,
   setTime,
   setTasks,
+  setIsRecurring,
+  setRecur,
 }: DisplayTodoItemProps) => {
   const modal = useContext(ModalContext);
   const { setFetchError } = useError();
@@ -66,6 +71,8 @@ const DisplayTodoItem = ({
             setLoc(item.itemLocation || "");
             setDate(item.dateDue);
             setTime(item.timeDue || null);
+            setIsRecurring(item.isRecurring);
+            setRecur(item.recurVal);
             modal.provideId(ModalContentIdEnum.editTodoItem);
             modal.toggleModal(true);
           }}

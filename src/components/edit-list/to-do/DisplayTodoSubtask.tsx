@@ -2,7 +2,7 @@ import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { AxiosError } from "axios";
 
 import useError from "../../../hooks/useError";
-import { SubtaskInt } from "../../../models/item";
+import { SubtaskInt } from "../../../models/todo";
 import Checkbox from "../../forms/Checkbox";
 import { checkSubtask } from "../../../api/mutate-todo-subtasks";
 
