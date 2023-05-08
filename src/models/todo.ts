@@ -12,6 +12,7 @@ export interface TodoListItemInt {
   isChecked: boolean;
   isRecurring: boolean;
   recurVal: string;
+  dateRecurring: string;
   itemTasks: SubtaskInt[];
 }
 

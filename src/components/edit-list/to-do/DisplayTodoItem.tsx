@@ -43,11 +43,18 @@ const DisplayTodoItem = ({
   const { setFetchError } = useError();
   const queryClient = useQueryClient();
   const checkMutation = useMutation({
-    mutationFn: (itemId: number) => checkTodoItem(listId, itemId, token),
+    mutationFn: ({
+      itemId,
+      recurDate,
+      recurVal,
+    }: {
+      itemId: number;
+      recurDate: string;
+      recurVal: string;
+    }) => checkTodoItem(listId, itemId, recurDate, recurVal, token),
     onSuccess: () => queryClient.invalidateQueries(["list", listId]),
     onError: (error: AxiosError) => setFetchError(error),
   });
-
   // TODO: function for due date display
 
   return (
@@ -58,7 +65,13 @@ const DisplayTodoItem = ({
           id={EditItemFormInputsEnum.check}
           name={EditItemFormInputsEnum.check}
           checked={item.isChecked}
-          onChange={() => checkMutation.mutate(item.itemId)}
+          onChange={() =>
+            checkMutation.mutate({
+              itemId: item.itemId,
+              recurDate: item.dateRecurring,
+              recurVal: item.recurVal,
+            })
+          }
         />
         {item.itemName} {item.itemCategory}
         <Button

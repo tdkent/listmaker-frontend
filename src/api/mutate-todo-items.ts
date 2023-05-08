@@ -9,10 +9,16 @@ export const newTodoItem = async (listId: number, itemName: string, token: strin
     .catch((error) => Promise.reject(error));
 };
 
-export const checkTodoItem = async (listId: number, itemId: number, token: string) => {
+export const checkTodoItem = async (
+  listId: number,
+  itemId: number,
+  recurDate: string,
+  recurVal: string,
+  token: string
+) => {
   const headers = { Authorization: `Bearer ${token}` };
   return axios
-    .patch(`${API_URL}/todo/check`, { listId, itemId }, { headers })
+    .patch(`${API_URL}/todo/check`, { listId, itemId, recurDate, recurVal }, { headers })
     .catch((error) => Promise.reject(error));
 };
 
