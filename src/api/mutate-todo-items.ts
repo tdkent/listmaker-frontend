@@ -9,16 +9,10 @@ export const newTodoItem = async (listId: number, itemName: string, token: strin
     .catch((error) => Promise.reject(error));
 };
 
-export const checkTodoItem = async (
-  listId: number,
-  itemId: number,
-  recurDate: string,
-  recurVal: string,
-  token: string
-) => {
+export const checkTodoItem = async (listId: number, itemId: number, token: string) => {
   const headers = { Authorization: `Bearer ${token}` };
   return axios
-    .patch(`${API_URL}/todo/check`, { listId, itemId, recurDate, recurVal }, { headers })
+    .patch(`${API_URL}/todo/check`, { listId, itemId }, { headers })
     .catch((error) => Promise.reject(error));
 };
 
@@ -31,10 +25,11 @@ export const editTodoItem = async (
   itemDate: string,
   itemTime: string | null,
   isRecurring: boolean,
-  recurVal: string,
+  recurInteger: string,
+  recurInterval: string,
   token: string
 ) => {
-  console.log(isRecurring, recurVal);
+  console.log(recurInteger, recurInterval);
   const headers = { Authorization: `Bearer ${token}` };
   return axios
     .patch(
@@ -48,7 +43,8 @@ export const editTodoItem = async (
         itemDate,
         itemTime,
         isRecurring,
-        recurVal,
+        recurInteger,
+        recurInterval,
       },
       { headers }
     )

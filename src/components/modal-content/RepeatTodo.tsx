@@ -1,20 +1,25 @@
 import Select from "../forms/Select";
 import Checkbox from "../forms/Checkbox";
-import { unitOpt, UnitOptEnum } from "../../models/todo";
+import { recurIntegerOpt, recurIntervalOptS, recurIntervalOptP } from "../../models/todo";
 
 interface RepeatTodoProps {
   isRecurring: boolean;
   setIsRecurring: (value: React.SetStateAction<boolean>) => void;
-  recur: string;
-  setRecur: (value: React.SetStateAction<string>) => void;
+  recurInteger: string;
+  setRecurInteger: (value: React.SetStateAction<string>) => void;
+  recurInterval: string;
+  setRecurInterval: (value: React.SetStateAction<string>) => void;
 }
 
-const RepeatTodo = ({ isRecurring, setIsRecurring, recur, setRecur }: RepeatTodoProps) => {
-  const handleChange = () => {
-    setIsRecurring((prev) => !prev);
-    if (isRecurring) setRecur("");
-    else setRecur(UnitOptEnum.d);
-  };
+const RepeatTodo = ({
+  isRecurring,
+  setIsRecurring,
+  recurInteger,
+  setRecurInteger,
+  recurInterval,
+  setRecurInterval,
+}: RepeatTodoProps) => {
+  const handleChange = () => setIsRecurring((prev) => !prev);
   return (
     <div>
       <h4>Repeat</h4>
@@ -24,10 +29,24 @@ const RepeatTodo = ({ isRecurring, setIsRecurring, recur, setRecur }: RepeatTodo
         <Select
           label=""
           name=""
+          id="repeat-todo-integer"
+          defaultValue={recurInteger || "1"}
+          options={recurIntegerOpt(10)}
+          handleSelect={(e: React.FormEvent<HTMLSelectElement>) =>
+            setRecurInteger(e.currentTarget.value)
+          }
+        />
+        <Select
+          label=""
+          name=""
           id="repeat-todo-unit"
-          defaultValue={recur || unitOpt[0]}
-          options={unitOpt}
-          handleSelect={(e: React.FormEvent<HTMLSelectElement>) => setRecur(e.currentTarget.value)}
+          defaultValue={recurInterval || recurIntervalOptS[0]}
+          options={Object.values(
+            recurInteger === "1" || !recurInteger ? recurIntervalOptS : recurIntervalOptP
+          )}
+          handleSelect={(e: React.FormEvent<HTMLSelectElement>) =>
+            setRecurInterval(e.currentTarget.value)
+          }
         />
       </div>
     </div>

@@ -27,14 +27,31 @@ export const todoItemCats = Object.values(ToDoCats);
 
 // Repeat
 
-export enum UnitOptEnum {
+export const recurIntegerOpt = (n: number) => {
+  let arr: number[] = [];
+  for (let i = 1; i <= n; i++) {
+    arr.push(i);
+  }
+  return arr;
+};
+
+export enum RecurIntervalSEnum {
   d = "day",
   w = "week",
   m = "month",
   y = "year",
 }
 
-export const unitOpt = Object.values(UnitOptEnum);
+export enum RecurIntervalPEnum {
+  d = "days",
+  w = "weeks",
+  m = "months",
+  y = "years",
+}
+
+export const recurIntervalOptS = Object.values(RecurIntervalSEnum);
+
+export const recurIntervalOptP = Object.values(RecurIntervalPEnum);
 
 // Subtasks
 

@@ -32,13 +32,26 @@ const EditTodoItem = ({ token, listId, listType, items }: EditTodoItemProps) => 
   const [time, setTime] = useState<string | null>(null);
   const [tasks, setTasks] = useState<SubtaskInt[] | null>(null);
   const [isRecurring, setIsRecurring] = useState(false);
-  const [recur, setRecur] = useState<string>("");
+  const [recurInteger, setRecurInteger] = useState<string>("");
+  const [recurInterval, setRecurInterval] = useState<string>("");
 
   // mutations
   const queryClient = useQueryClient();
   const editMutation = useMutation({
     mutationFn: (itemId: number) =>
-      editTodoItem(listId, itemId, name, cat, loc, date, time, isRecurring, recur, token),
+      editTodoItem(
+        listId,
+        itemId,
+        name,
+        cat,
+        loc,
+        date,
+        time,
+        isRecurring,
+        recurInteger,
+        recurInterval,
+        token
+      ),
     onSuccess: () => queryClient.invalidateQueries(["list", listId]),
     onError: (error: AxiosError) => setFetchError(error),
   });
@@ -79,14 +92,16 @@ const EditTodoItem = ({ token, listId, listType, items }: EditTodoItemProps) => 
               time={time}
               tasks={tasks}
               isRecurring={isRecurring}
-              recur={recur}
+              recurInteger={recurInteger}
+              recurInterval={recurInterval}
               setName={setName}
               setCat={setCat}
               setDate={setDate}
               setLoc={setLoc}
               setTime={setTime}
               setIsRecurring={setIsRecurring}
-              setRecur={setRecur}
+              setRecurInteger={setRecurInteger}
+              setRecurInterval={setRecurInterval}
               handleSave={handleSave}
               handleDelete={handleDelete}
               handleCancel={handleCancel}
@@ -126,7 +141,8 @@ const EditTodoItem = ({ token, listId, listType, items }: EditTodoItemProps) => 
                       setTime={setTime}
                       setTasks={setTasks}
                       setIsRecurring={setIsRecurring}
-                      setRecur={setRecur}
+                      setRecurInteger={setRecurInteger}
+                      setRecurInterval={setRecurInterval}
                     />
                   </div>
                 )
@@ -152,7 +168,8 @@ const EditTodoItem = ({ token, listId, listType, items }: EditTodoItemProps) => 
                       setTime={setTime}
                       setTasks={setTasks}
                       setIsRecurring={setIsRecurring}
-                      setRecur={setRecur}
+                      setRecurInteger={setRecurInteger}
+                      setRecurInterval={setRecurInterval}
                     />
                   </div>
                 )

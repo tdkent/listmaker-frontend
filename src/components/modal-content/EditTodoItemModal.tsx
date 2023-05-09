@@ -14,7 +14,8 @@ interface EditTodoItemModalProps {
   loc: string;
   time: string | null;
   isRecurring: boolean;
-  recur: string;
+  recurInteger: string;
+  recurInterval: string;
   tasks: SubtaskInt[] | null;
   setName: (value: React.SetStateAction<string>) => void;
   setCat: (value: React.SetStateAction<string>) => void;
@@ -22,7 +23,8 @@ interface EditTodoItemModalProps {
   setLoc: (value: React.SetStateAction<string>) => void;
   setTime: (value: React.SetStateAction<string | null>) => void;
   setIsRecurring: (value: React.SetStateAction<boolean>) => void;
-  setRecur: (value: React.SetStateAction<string>) => void;
+  setRecurInteger: (value: React.SetStateAction<string>) => void;
+  setRecurInterval: (value: React.SetStateAction<string>) => void;
   handleSave: () => void;
   handleDelete: () => void;
   handleCancel: () => void;
@@ -37,7 +39,8 @@ const EditTodoItemModal = ({
   loc,
   time,
   isRecurring,
-  recur,
+  recurInteger,
+  recurInterval,
   tasks,
   setName,
   setCat,
@@ -45,7 +48,8 @@ const EditTodoItemModal = ({
   setLoc,
   setTime,
   setIsRecurring,
-  setRecur,
+  setRecurInteger,
+  setRecurInterval,
   handleSave,
   handleDelete,
   handleCancel,
@@ -108,8 +112,10 @@ const EditTodoItemModal = ({
         <RepeatTodo
           isRecurring={isRecurring}
           setIsRecurring={setIsRecurring}
-          recur={recur}
-          setRecur={setRecur}
+          recurInteger={recurInteger}
+          setRecurInteger={setRecurInteger}
+          recurInterval={recurInterval}
+          setRecurInterval={setRecurInterval}
         />
         <Button type="button" text="Save" handleClick={handleSave} />
         <Button type="button" text="Remove" handleClick={handleDelete} />

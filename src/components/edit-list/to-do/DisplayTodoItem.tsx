@@ -22,7 +22,8 @@ interface DisplayTodoItemProps {
   setTime: (value: React.SetStateAction<string | null>) => void;
   setTasks: (value: React.SetStateAction<SubtaskInt[] | null>) => void;
   setIsRecurring: (value: React.SetStateAction<boolean>) => void;
-  setRecur: (value: React.SetStateAction<string>) => void;
+  setRecurInteger: (value: React.SetStateAction<string>) => void;
+  setRecurInterval: (value: React.SetStateAction<string>) => void;
 }
 
 const DisplayTodoItem = ({
@@ -37,7 +38,8 @@ const DisplayTodoItem = ({
   setTime,
   setTasks,
   setIsRecurring,
-  setRecur,
+  setRecurInteger,
+  setRecurInterval,
 }: DisplayTodoItemProps) => {
   const modal = useContext(ModalContext);
   const { setFetchError } = useError();
@@ -51,7 +53,7 @@ const DisplayTodoItem = ({
       itemId: number;
       recurDate: string;
       recurVal: string;
-    }) => checkTodoItem(listId, itemId, recurDate, recurVal, token),
+    }) => checkTodoItem(listId, itemId, token),
     onSuccess: () => queryClient.invalidateQueries(["list", listId]),
     onError: (error: AxiosError) => setFetchError(error),
   });
@@ -85,7 +87,8 @@ const DisplayTodoItem = ({
             setDate(item.dateDue);
             setTime(item.timeDue || null);
             setIsRecurring(item.isRecurring);
-            setRecur(item.recurVal);
+            setRecurInteger(!item.recurVal ? "" : item.recurVal.split(" ")[0]);
+            setRecurInterval(!item.recurVal ? "" : item.recurVal.split(" ")[1]);
             modal.provideId(ModalContentIdEnum.editTodoItem);
             modal.toggleModal(true);
           }}
