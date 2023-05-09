@@ -4,6 +4,7 @@ import Button from "../forms/Button";
 import { EditItemFormInputsEnum } from "../../models/item";
 import { ToDoCats, todoItemCats, SubtaskInt } from "../../models/todo";
 import RepeatTodo from "./RepeatTodo";
+import Map from "../edit-list/to-do/Map";
 
 interface EditTodoItemModalProps {
   listId: number;
@@ -100,14 +101,17 @@ const EditTodoItemModal = ({
           />
         )}
         {(cat === ToDoCats.appoint || cat === ToDoCats.errand) && (
-          <Input
-            label="Location"
-            type="text"
-            name={EditItemFormInputsEnum.time}
-            id={EditItemFormInputsEnum.time}
-            value={loc}
-            handleChange={(e: React.FormEvent<HTMLInputElement>) => setLoc(e.currentTarget.value)}
-          />
+          <div>
+            <Input
+              label="Location"
+              type="text"
+              name={EditItemFormInputsEnum.time}
+              id={EditItemFormInputsEnum.time}
+              value={loc}
+              handleChange={(e: React.FormEvent<HTMLInputElement>) => setLoc(e.currentTarget.value)}
+            />
+            <Map />
+          </div>
         )}
         <RepeatTodo
           isRecurring={isRecurring}
