@@ -1,10 +1,10 @@
+import Form from "../forms/Form";
 import Input from "../forms/Input";
 import Select from "../forms/Select";
 import Button from "../forms/Button";
 import { EditItemFormInputsEnum } from "../../models/item";
-import { ToDoCats, todoItemCats, SubtaskInt } from "../../models/todo";
+import { todoItemCats, SubtaskInt } from "../../models/todo";
 import RepeatTodo from "./RepeatTodo";
-import Map from "../edit-list/to-do/Map";
 
 interface EditTodoItemModalProps {
   listId: number;
@@ -57,38 +57,39 @@ const EditTodoItemModal = ({
 }: EditTodoItemModalProps) => {
   return (
     <div>
-      <form>
-        <Input
-          label="Name"
-          type="text"
-          name={EditItemFormInputsEnum.name}
-          id={EditItemFormInputsEnum.name}
-          value={name}
-          handleChange={(e: React.FormEvent<HTMLInputElement>) => {
-            setName(e.currentTarget.value);
-          }}
-        />
-        <Select
-          label="Category"
-          name={EditItemFormInputsEnum.cat}
-          id={EditItemFormInputsEnum.cat}
-          defaultValue={cat}
-          options={todoItemCats}
-          handleSelect={(e: React.FormEvent<HTMLSelectElement>) => {
-            setCat(e.currentTarget.value);
-          }}
-        />
-        <Input
-          label="Due Date"
-          type="date"
-          name={EditItemFormInputsEnum.date}
-          id={EditItemFormInputsEnum.date}
-          value={date}
-          handleChange={(e: React.FormEvent<HTMLInputElement>) => {
-            setDate(e.currentTarget.value);
-          }}
-        />
-        {(cat === ToDoCats.appoint || cat === ToDoCats.work) && (
+      {/* Todo Basics */}
+      <div>
+        <Form id="todo-info-form">
+          <Input
+            label="Name"
+            type="text"
+            name={EditItemFormInputsEnum.name}
+            id={EditItemFormInputsEnum.name}
+            value={name}
+            handleChange={(e: React.FormEvent<HTMLInputElement>) => {
+              setName(e.currentTarget.value);
+            }}
+          />
+          <Select
+            label="Category"
+            name={EditItemFormInputsEnum.cat}
+            id={EditItemFormInputsEnum.cat}
+            defaultValue={cat}
+            options={todoItemCats}
+            handleSelect={(e: React.FormEvent<HTMLSelectElement>) => {
+              setCat(e.currentTarget.value);
+            }}
+          />
+          <Input
+            label="Due Date"
+            type="date"
+            name={EditItemFormInputsEnum.date}
+            id={EditItemFormInputsEnum.date}
+            value={date}
+            handleChange={(e: React.FormEvent<HTMLInputElement>) => {
+              setDate(e.currentTarget.value);
+            }}
+          />
           <Input
             label="Time"
             type="time"
@@ -99,20 +100,12 @@ const EditTodoItemModal = ({
               setTime(e.currentTarget.value + ":00");
             }}
           />
-        )}
-        {(cat === ToDoCats.appoint || cat === ToDoCats.errand) && (
-          <div>
-            <Input
-              label="Location"
-              type="text"
-              name={EditItemFormInputsEnum.time}
-              id={EditItemFormInputsEnum.time}
-              value={loc}
-              handleChange={(e: React.FormEvent<HTMLInputElement>) => setLoc(e.currentTarget.value)}
-            />
-            <Map />
-          </div>
-        )}
+        </Form>
+      </div>
+      {/* Todo Location */}
+      <div>Location Form Here</div>
+      {/* Todo Repeat */}
+      <div>
         <RepeatTodo
           isRecurring={isRecurring}
           setIsRecurring={setIsRecurring}
@@ -121,10 +114,10 @@ const EditTodoItemModal = ({
           recurInterval={recurInterval}
           setRecurInterval={setRecurInterval}
         />
-        <Button type="button" text="Save" handleClick={handleSave} />
-        <Button type="button" text="Remove" handleClick={handleDelete} />
-        <Button type="button" text="Cancel" handleClick={handleCancel} />
-      </form>
+      </div>
+      <Button type="button" text="Save" handleClick={handleSave} />
+      <Button type="button" text="Remove" handleClick={handleDelete} />
+      <Button type="button" text="Cancel" handleClick={handleCancel} />
     </div>
   );
 };
