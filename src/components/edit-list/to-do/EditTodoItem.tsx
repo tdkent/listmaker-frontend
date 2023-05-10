@@ -1,6 +1,7 @@
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { useContext, useState } from "react";
 import { AxiosError } from "axios";
+import { useLoadScript } from "@react-google-maps/api";
 
 import useError from "../../../hooks/useError";
 import ModalContext, { ModalContentIdEnum } from "../../../context/ModalContext";
@@ -17,6 +18,8 @@ interface EditTodoItemProps {
   listType: string;
   items: TodoListItemInt[];
 }
+
+const libraries: ["places"] = ["places"];
 
 const EditTodoItem = ({ token, listId, listType, items }: EditTodoItemProps) => {
   // error handling
@@ -77,6 +80,12 @@ const EditTodoItem = ({ token, listId, listType, items }: EditTodoItemProps) => 
     modal.toggleModal(false);
   };
 
+  // google maps
+  const { isLoaded } = useLoadScript({
+    googleMapsApiKey: process.env.REACT_APP_GOOGLE_MAP_KEY!,
+    libraries,
+  });
+
   return (
     <>
       {modal.active && modal.contentId === ModalContentIdEnum.editTodoItem && (
@@ -105,6 +114,7 @@ const EditTodoItem = ({ token, listId, listType, items }: EditTodoItemProps) => 
               handleSave={handleSave}
               handleDelete={handleDelete}
               handleCancel={handleCancel}
+              isLoaded={isLoaded}
             />
           }
         />

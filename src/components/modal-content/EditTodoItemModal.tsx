@@ -4,6 +4,7 @@ import Select from "../forms/Select";
 import Button from "../forms/Button";
 import { EditItemFormInputsEnum } from "../../models/item";
 import { todoItemCats, SubtaskInt } from "../../models/todo";
+import TodoLocation from "../edit-list/to-do/TodoLocation";
 import RepeatTodo from "./RepeatTodo";
 
 interface EditTodoItemModalProps {
@@ -29,6 +30,7 @@ interface EditTodoItemModalProps {
   handleSave: () => void;
   handleDelete: () => void;
   handleCancel: () => void;
+  isLoaded: boolean;
 }
 
 const EditTodoItemModal = ({
@@ -54,6 +56,7 @@ const EditTodoItemModal = ({
   handleSave,
   handleDelete,
   handleCancel,
+  isLoaded,
 }: EditTodoItemModalProps) => {
   return (
     <div>
@@ -103,21 +106,22 @@ const EditTodoItemModal = ({
         </Form>
       </div>
       {/* Todo Location */}
-      <div>Location Form Here</div>
+      <TodoLocation isLoaded={isLoaded} />
       {/* Todo Repeat */}
+      <RepeatTodo
+        isRecurring={isRecurring}
+        setIsRecurring={setIsRecurring}
+        recurInteger={recurInteger}
+        setRecurInteger={setRecurInteger}
+        recurInterval={recurInterval}
+        setRecurInterval={setRecurInterval}
+      />
+      {/* Form Controls */}
       <div>
-        <RepeatTodo
-          isRecurring={isRecurring}
-          setIsRecurring={setIsRecurring}
-          recurInteger={recurInteger}
-          setRecurInteger={setRecurInteger}
-          recurInterval={recurInterval}
-          setRecurInterval={setRecurInterval}
-        />
+        <Button type="button" text="Save" handleClick={handleSave} />
+        <Button type="button" text="Remove" handleClick={handleDelete} />
+        <Button type="button" text="Cancel" handleClick={handleCancel} />
       </div>
-      <Button type="button" text="Save" handleClick={handleSave} />
-      <Button type="button" text="Remove" handleClick={handleDelete} />
-      <Button type="button" text="Cancel" handleClick={handleCancel} />
     </div>
   );
 };

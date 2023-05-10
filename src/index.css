@@ -25,3 +25,8 @@ ul {
 nav ul {
   display: flex;
 }
+
+.map-container {
+  height: 300px;
+  width: 300px;
+}
