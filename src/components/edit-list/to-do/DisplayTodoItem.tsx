@@ -17,7 +17,8 @@ interface DisplayTodoItemProps {
   setId: (value: React.SetStateAction<number | undefined>) => void;
   setName: (value: React.SetStateAction<string>) => void;
   setCat: (value: React.SetStateAction<string>) => void;
-  setLoc: (value: React.SetStateAction<string>) => void;
+  setLoc: (value: React.SetStateAction<string | null>) => void;
+  setCoords: (value: React.SetStateAction<google.maps.LatLngLiteral | null>) => void;
   setDate: (value: React.SetStateAction<string>) => void;
   setTime: (value: React.SetStateAction<string | null>) => void;
   setTasks: (value: React.SetStateAction<SubtaskInt[] | null>) => void;
@@ -34,6 +35,7 @@ const DisplayTodoItem = ({
   setName,
   setCat,
   setLoc,
+  setCoords,
   setDate,
   setTime,
   setTasks,
@@ -83,7 +85,8 @@ const DisplayTodoItem = ({
             setId(item.itemId);
             setName(item.itemName);
             setCat(item.itemCategory);
-            setLoc(item.itemLocation || "");
+            setLoc(item.itemLocation);
+            setCoords(item.itemCoords);
             setDate(item.dateDue);
             setTime(item.timeDue || null);
             setIsRecurring(item.isRecurring);

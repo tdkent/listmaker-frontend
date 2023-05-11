@@ -30,7 +30,9 @@ const EditTodoItem = ({ token, listId, listType, items }: EditTodoItemProps) => 
   const [id, setId] = useState<number>();
   const [name, setName] = useState<string>("");
   const [cat, setCat] = useState<string>("");
-  const [loc, setLoc] = useState<string>("");
+  const [loc, setLoc] = useState<string | null>(null);
+  const [oloc, setOloc] = useState<string | null>(null);
+  const [coords, setCoords] = useState<google.maps.LatLngLiteral | null>(null);
   const [date, setDate] = useState<string>("");
   const [time, setTime] = useState<string | null>(null);
   const [tasks, setTasks] = useState<SubtaskInt[] | null>(null);
@@ -48,6 +50,7 @@ const EditTodoItem = ({ token, listId, listType, items }: EditTodoItemProps) => 
         name,
         cat,
         loc,
+        coords,
         date,
         time,
         isRecurring,
@@ -98,6 +101,7 @@ const EditTodoItem = ({ token, listId, listType, items }: EditTodoItemProps) => 
               cat={cat}
               date={date}
               loc={loc}
+              coords={coords}
               time={time}
               tasks={tasks}
               isRecurring={isRecurring}
@@ -111,6 +115,7 @@ const EditTodoItem = ({ token, listId, listType, items }: EditTodoItemProps) => 
               setIsRecurring={setIsRecurring}
               setRecurInteger={setRecurInteger}
               setRecurInterval={setRecurInterval}
+              setCoords={setCoords}
               handleSave={handleSave}
               handleDelete={handleDelete}
               handleCancel={handleCancel}
@@ -147,6 +152,7 @@ const EditTodoItem = ({ token, listId, listType, items }: EditTodoItemProps) => 
                       setName={setName}
                       setCat={setCat}
                       setLoc={setLoc}
+                      setCoords={setCoords}
                       setDate={setDate}
                       setTime={setTime}
                       setTasks={setTasks}
@@ -174,6 +180,7 @@ const EditTodoItem = ({ token, listId, listType, items }: EditTodoItemProps) => 
                       setName={setName}
                       setCat={setCat}
                       setLoc={setLoc}
+                      setCoords={setCoords}
                       setDate={setDate}
                       setTime={setTime}
                       setTasks={setTasks}

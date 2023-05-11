@@ -5,6 +5,7 @@ export interface TodoListItemInt {
   itemName: string;
   itemCategory: string;
   itemLocation: string;
+  itemCoords: google.maps.LatLngLiteral | null;
   dateCreated: string;
   dateDue: string;
   timeDue: string;

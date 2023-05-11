@@ -21,7 +21,8 @@ export const editTodoItem = async (
   itemId: number,
   itemName: string,
   itemCategory: string,
-  itemLocation: string,
+  itemLocation: string | null,
+  itemCoords: google.maps.LatLngLiteral | null,
   itemDate: string,
   itemTime: string | null,
   isRecurring: boolean,
@@ -29,7 +30,6 @@ export const editTodoItem = async (
   recurInterval: string,
   token: string
 ) => {
-  console.log(recurInteger, recurInterval);
   const headers = { Authorization: `Bearer ${token}` };
   return axios
     .patch(
@@ -40,6 +40,7 @@ export const editTodoItem = async (
         itemName,
         itemCategory,
         itemLocation,
+        itemCoords,
         itemDate,
         itemTime,
         isRecurring,

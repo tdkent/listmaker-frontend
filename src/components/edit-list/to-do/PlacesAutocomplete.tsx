@@ -6,11 +6,12 @@ import Input from "../../forms/Input";
 import Button from "../../forms/Button";
 
 interface PlacesAutocompleteProps {
+  loc: string | null;
+  setLoc: (value: React.SetStateAction<string | null>) => void;
   setCoords: (value: React.SetStateAction<google.maps.LatLngLiteral | null>) => void;
 }
 
-const PlacesAutocomplete = ({ setCoords }: PlacesAutocompleteProps) => {
-  const [selectedPlace, setSelectedPlace] = useState("");
+const PlacesAutocomplete = ({ loc, setCoords, setLoc }: PlacesAutocompleteProps) => {
   const [formError, setFormError] = useState<string>("");
 
   const {
@@ -21,14 +22,19 @@ const PlacesAutocomplete = ({ setCoords }: PlacesAutocompleteProps) => {
     clearSuggestions,
   } = usePlacesAutocomplete();
 
-  const handleClick = async () => {
+  const handleAdd = async () => {
     // TODO: form error component
-    if (!selectedPlace) return setFormError("Enter an address or place");
-    const results = await getGeocode({ address: selectedPlace });
+    if (!loc) return setFormError("Enter an address or place");
+    const results = await getGeocode({ address: loc });
     const { lat, lng } = getLatLng(results[0]);
+    console.log("lat, lng: ", lat, lng);
     setCoords({ lat, lng });
     clearSuggestions();
-    setSelectedPlace("");
+  };
+
+  const handleDelete = () => {
+    setLoc(null);
+    setCoords(null);
   };
   return (
     <div>
@@ -39,11 +45,11 @@ const PlacesAutocomplete = ({ setCoords }: PlacesAutocompleteProps) => {
           name=""
           type="text"
           disabled={!ready}
-          value={value || selectedPlace}
+          value={value || loc || ""}
           handleChange={(e: React.FormEvent<HTMLInputElement>) => {
             setValue(e.currentTarget.value);
-            setSelectedPlace("");
             setFormError("");
+            setLoc("");
           }}
         />
         {formError && (
@@ -60,7 +66,7 @@ const PlacesAutocomplete = ({ setCoords }: PlacesAutocompleteProps) => {
                     key={place.place_id}
                     onClick={() => {
                       setValue("");
-                      setSelectedPlace(place.description);
+                      setLoc(place.description);
                     }}>
                     {place.description}
                   </li>
@@ -69,7 +75,8 @@ const PlacesAutocomplete = ({ setCoords }: PlacesAutocompleteProps) => {
             </ul>
           </div>
         )}
-        <Button text="+" type="button" handleClick={handleClick} />
+        <Button text="+" type="button" handleClick={handleAdd} />
+        <Button text="x" type="button" handleClick={handleDelete} />
       </Form>
     </div>
   );

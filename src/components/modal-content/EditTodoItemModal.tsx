@@ -13,7 +13,8 @@ interface EditTodoItemModalProps {
   name: string;
   cat: string;
   date: string;
-  loc: string;
+  loc: string | null;
+  coords: google.maps.LatLngLiteral | null;
   time: string | null;
   isRecurring: boolean;
   recurInteger: string;
@@ -22,7 +23,8 @@ interface EditTodoItemModalProps {
   setName: (value: React.SetStateAction<string>) => void;
   setCat: (value: React.SetStateAction<string>) => void;
   setDate: (value: React.SetStateAction<string>) => void;
-  setLoc: (value: React.SetStateAction<string>) => void;
+  setLoc: (value: React.SetStateAction<string | null>) => void;
+  setCoords: (value: React.SetStateAction<google.maps.LatLngLiteral | null>) => void;
   setTime: (value: React.SetStateAction<string | null>) => void;
   setIsRecurring: (value: React.SetStateAction<boolean>) => void;
   setRecurInteger: (value: React.SetStateAction<string>) => void;
@@ -40,6 +42,7 @@ const EditTodoItemModal = ({
   cat,
   date,
   loc,
+  coords,
   time,
   isRecurring,
   recurInteger,
@@ -49,6 +52,7 @@ const EditTodoItemModal = ({
   setCat,
   setDate,
   setLoc,
+  setCoords,
   setTime,
   setIsRecurring,
   setRecurInteger,
@@ -106,7 +110,13 @@ const EditTodoItemModal = ({
         </Form>
       </div>
       {/* Todo Location */}
-      <TodoLocation isLoaded={isLoaded} />
+      <TodoLocation
+        isLoaded={isLoaded}
+        loc={loc}
+        setLoc={setLoc}
+        coords={coords}
+        setCoords={setCoords}
+      />
       {/* Todo Repeat */}
       <RepeatTodo
         isRecurring={isRecurring}
