@@ -1,13 +1,14 @@
 interface ButtonProps {
   type: "button" | "submit" | "reset" | undefined;
-  text: string;
+  text: string | JSX.Element;
   handleClick?: () => void;
+  className?: string;
 }
 
-const Button = ({ type, text, handleClick }: ButtonProps) => {
+const Button = ({ type, text, className, handleClick }: ButtonProps) => {
   return (
     <div>
-      <button type={type} onClick={handleClick}>
+      <button type={type} onClick={handleClick} className={className}>
         {text}
       </button>
     </div>

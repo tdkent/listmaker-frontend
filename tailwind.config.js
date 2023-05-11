@@ -2,10 +2,12 @@
 module.exports = {
   content: ["./src/**/*.{js,jsx,ts,tsx}"],
   theme: {
+    fontFamily: {
+      sans: ["Open Sans", "sans-serif"],
+      display: ["Lobster Two", "Open Sans", "sans-serif"],
+    },
     extend: {},
   },
-  fontFamily: {
-    sans: ["Open Sans", "sans-serif"],
-  },
+
   plugins: [],
 };

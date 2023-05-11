@@ -4,39 +4,6 @@
 @tailwind components;
 @tailwind utilities;
 
-@layer base {
-  html {
-    font-family: "Open Sans", sans-serif;
-  }
-  h1 {
-    font-family: "Lobster Two", "Open Sans", sans-serif;
-  }
-}
-
-body {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-}
-
-header nav a {
-  text-decoration: none;
-  padding: 0 1rem;
-}
-
-header nav a.active {
-  background: darkgray;
-  color: white;
-}
-
-ul {
-  list-style: none;
-}
-
-nav ul {
-  display: flex;
-}
-
 .map-container {
   height: 300px;
   width: 300px;
