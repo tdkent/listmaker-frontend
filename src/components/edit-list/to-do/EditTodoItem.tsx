@@ -31,6 +31,7 @@ const EditTodoItem = ({ token, listId, listType, items }: EditTodoItemProps) => 
   const [name, setName] = useState<string>("");
   const [cat, setCat] = useState<string>("");
   const [loc, setLoc] = useState<string | null>(null);
+  // TODO: prevent the same location from being geolocated multiple times
   const [oloc, setOloc] = useState<string | null>(null);
   const [coords, setCoords] = useState<google.maps.LatLngLiteral | null>(null);
   const [date, setDate] = useState<string>("");
