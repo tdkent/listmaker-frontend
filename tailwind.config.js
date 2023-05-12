@@ -6,7 +6,13 @@ module.exports = {
       sans: ["Open Sans", "sans-serif"],
       display: ["Lobster Two", "Open Sans", "sans-serif"],
     },
-    extend: {},
+    extend: {
+      colors: {
+        azure: "#007efc",
+        "azure-medium": "#005CB8",
+        "azure-dark": "#00478F",
+      },
+    },
   },
 
   plugins: [],

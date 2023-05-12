@@ -9,6 +9,7 @@ import { RegisterInputsEnum } from "../../models/auth";
 import { FormValidationInt } from "../../models/errors";
 import { ReducerActionInt } from "../../models/reducers";
 import { register } from "../../api/auth";
+import Form from "../forms/Form";
 import Input from "../forms/Input";
 import Button from "../forms/Button";
 
@@ -98,9 +99,14 @@ const RegisterForm = () => {
     mutation.mutate();
   };
 
+  // TODO: form input validation styles
+  // TODO: add state that tracks if input has been clicked into.
+  // TODO: If it is clicked out of and a valid input is not registered, show error style / text
+  // TODO: tool tip for password
+  // TODO: add symbols indicating required inputs
   return (
-    <div>
-      <form onSubmit={handleSubmit}>
+    <div className="my-6 w-[96%]">
+      <Form id="form-register" onSubmit={handleSubmit}>
         <Input
           label="Email"
           name={RegisterInputsEnum.email}
@@ -138,7 +144,7 @@ const RegisterForm = () => {
           <span>{formError.message}</span>
         )}
         <Button type="submit" text="Sign up" />
-      </form>
+      </Form>
     </div>
   );
 };

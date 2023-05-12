@@ -8,7 +8,7 @@ interface FormProps {
 
 const Form = ({ children, id, onSubmit }: FormProps) => {
   return (
-    <form id={id} onSubmit={onSubmit}>
+    <form id={id} onSubmit={onSubmit} className="flex flex-col">
       {children}
     </form>
   );

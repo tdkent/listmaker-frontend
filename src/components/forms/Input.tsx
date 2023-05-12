@@ -11,8 +11,8 @@ interface InputProps {
 
 const Input = ({ label, name, type, id, value, disabled, handleChange }: InputProps) => {
   return (
-    <div>
-      <div>
+    <div className="flex flex-col mb-3">
+      <div className="mb-1">
         <label htmlFor={name}>{label}</label>
       </div>
       <div>
@@ -23,6 +23,7 @@ const Input = ({ label, name, type, id, value, disabled, handleChange }: InputPr
           value={value}
           disabled={disabled}
           onChange={handleChange}
+          className="border border-gray-400 rounded w-full p-2"
         />
       </div>
     </div>
