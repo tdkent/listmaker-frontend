@@ -3,6 +3,7 @@ import { Link, useNavigate } from "react-router-dom";
 
 import AuthContext from "../../context/AuthContext";
 import LoginForm from "../../components/auth/LoginForm";
+import Hyperlink from "../../components/forms/Hyperlink";
 
 const Login = () => {
   // auth check
@@ -15,15 +16,13 @@ const Login = () => {
   }, [auth.isLoggedIn, navigate]);
 
   return (
-    <div>
-      <h2>User Login</h2>
-      <div>
-        <LoginForm />
-        <p>
-          <Link to="/register">Create new account</Link>
-        </p>
-      </div>
-    </div>
+    <section>
+      <h2>Log in to ListMaker</h2>
+      <LoginForm />
+      <p className="pl-1">
+        Don't have an account? <Hyperlink to="/register">Sign up for free</Hyperlink>
+      </p>
+    </section>
   );
 };
 

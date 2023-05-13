@@ -6,10 +6,12 @@ import { useNavigate } from "react-router-dom";
 import useError from "../../hooks/useError";
 import { FormValidationInt } from "../../models/errors";
 import AuthContext from "../../context/AuthContext";
+import Form from "../forms/Form";
 import Input from "../forms/Input";
 import Button from "../forms/Button";
 import { LoginInputsEnum } from "../../models/auth";
 import { ReducerActionInt } from "../../models/reducers";
+import { CustomStylesEnum } from "../../models/styles";
 import { login } from "../../api/auth";
 
 const LoginForm = () => {
@@ -71,8 +73,8 @@ const LoginForm = () => {
     mutation.mutate();
   };
   return (
-    <div>
-      <form onSubmit={handleSubmit}>
+    <div className="my-6">
+      <Form id="form-login" onSubmit={handleSubmit}>
         <Input
           label="Email"
           name={LoginInputsEnum.email}
@@ -91,8 +93,8 @@ const LoginForm = () => {
         {formError && formError.type === LoginInputsEnum.password && (
           <span>{formError.message}</span>
         )}
-        <Button type="submit" text="Log in" />
-      </form>
+        <Button type="submit" text="Log in" styles={CustomStylesEnum.authButton} />
+      </Form>
     </div>
   );
 };

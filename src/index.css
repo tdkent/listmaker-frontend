@@ -4,6 +4,30 @@
 @tailwind components;
 @tailwind utilities;
 
+@layer components {
+  .auth-form-button {
+    @apply w-full rounded-md mt-4 px-4 py-2 text-white font-semibold transition ease-in duration-500 bg-azure hover:bg-azure-medium;
+  }
+}
+
+@layer base {
+  body {
+    @apply text-gray-900;
+  }
+  h1 {
+    @apply font-display text-[#007efc] leading-8 text-5xl;
+  }
+  h2 {
+    @apply text-2xl leading-8 font-semibold;
+  }
+  h3 {
+    @apply text-xl;
+  }
+  h4 {
+    @apply text-lg;
+  }
+}
+
 .map-container {
   height: 300px;
   width: 300px;

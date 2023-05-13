@@ -1,5 +1,5 @@
 import { NavLink } from "react-router-dom";
-import { useContext } from "react";
+import { useContext, useState } from "react";
 
 import AuthContext from "../context/AuthContext";
 import Button from "../components/forms/Button";
@@ -14,8 +14,8 @@ const NavBar = ({ showNav, setShowNav }: NavBarProps) => {
   const auth = useContext(AuthContext);
   return (
     <div
-      className={`transition-all duration-1000 fixed top-0 ${
-        showNav ? "left-0" : "left-full"
+      className={`transition-all fixed top-0 ${
+        showNav ? "left-0 duration-1000" : "left-full duration-0"
       } z-100 bg-white w-full h-screen p-4`}>
       <div className="flex">
         <Button text={<Close />} type="button" handleClick={() => setShowNav(false)} />
@@ -24,18 +24,42 @@ const NavBar = ({ showNav, setShowNav }: NavBarProps) => {
       <nav className="p-2 my-4">
         <ul className="text-lg">
           <li className="py-4 border-b">
-            <NavLink to="/">Home</NavLink>
+            <NavLink
+              to="/"
+              onClick={() => {
+                setShowNav(false);
+              }}>
+              Home
+            </NavLink>
           </li>
           <li className="py-4 border-b">
-            <NavLink to="/new">New List</NavLink>
+            <NavLink
+              to="/new"
+              onClick={() => {
+                setShowNav(false);
+              }}>
+              New List
+            </NavLink>
           </li>
           {auth.isLoggedIn && (
             <>
               <li className="py-4 border-b">
-                <NavLink to="lists">My Lists</NavLink>
+                <NavLink
+                  to="lists"
+                  onClick={() => {
+                    setShowNav(false);
+                  }}>
+                  My Lists
+                </NavLink>
               </li>
               <li className="py-4 border-b">
-                <NavLink to="profile">Profile</NavLink>
+                <NavLink
+                  to="profile"
+                  onClick={() => {
+                    setShowNav(false);
+                  }}>
+                  Profile
+                </NavLink>
               </li>
               <li className="py-4">
                 <button onClick={auth.logout}>Log Out</button>
@@ -43,9 +67,28 @@ const NavBar = ({ showNav, setShowNav }: NavBarProps) => {
             </>
           )}
           {!auth.isLoggedIn && (
-            <li>
-              <NavLink to="login">Login</NavLink>
-            </li>
+            <>
+              <li className="py-4 border-b">
+                <NavLink
+                  to="login"
+                  onClick={() => {
+                    setShowNav(false);
+                  }}>
+                  Log In
+                </NavLink>
+              </li>
+              <li className="py-4 lg:mt-2">
+                <NavLink
+                  to="register"
+                  onClick={() => {
+                    setShowNav(false);
+                  }}>
+                  <span className="lg:rounded-md lg:px-4 lg:py-2 lg:text-white lg:transition lg:ease-in lg:duration-500 lg:bg-azure lg:hover:bg-azure-medium">
+                    Sign Up
+                  </span>
+                </NavLink>
+              </li>
+            </>
           )}
         </ul>
       </nav>

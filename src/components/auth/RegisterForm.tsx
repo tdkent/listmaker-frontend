@@ -8,6 +8,7 @@ import useError from "../../hooks/useError";
 import { RegisterInputsEnum } from "../../models/auth";
 import { FormValidationInt } from "../../models/errors";
 import { ReducerActionInt } from "../../models/reducers";
+import { CustomStylesEnum } from "../../models/styles";
 import { register } from "../../api/auth";
 import Form from "../forms/Form";
 import Input from "../forms/Input";
@@ -105,7 +106,7 @@ const RegisterForm = () => {
   // TODO: tool tip for password
   // TODO: add symbols indicating required inputs
   return (
-    <div className="my-6 w-[96%]">
+    <div className="my-6">
       <Form id="form-register" onSubmit={handleSubmit}>
         <Input
           label="Email"
@@ -143,7 +144,7 @@ const RegisterForm = () => {
         {formError && formError.type === RegisterInputsEnum.password && (
           <span>{formError.message}</span>
         )}
-        <Button type="submit" text="Sign up" />
+        <Button type="submit" text="Sign up" styles={CustomStylesEnum.authButton} />
       </Form>
     </div>
   );
