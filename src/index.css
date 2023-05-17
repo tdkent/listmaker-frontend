@@ -6,11 +6,20 @@
 
 @layer components {
   .auth-form-button {
-    @apply w-full rounded-md mt-4 px-4 py-2 text-white font-semibold transition ease-in duration-500 bg-azure hover:bg-azure-medium;
+    @apply w-full rounded-md mt-6 px-4 py-2 text-white font-semibold transition ease-in duration-500;
+  }
+  .button-bg-primary {
+    @apply bg-azure hover:bg-azure-medium;
+  }
+  .button-bg-warning {
+    @apply bg-tomato hover:bg-tomato-medium;
   }
 }
 
 @layer base {
+  html {
+    @apply m-0 p-0 box-border;
+  }
   body {
     @apply text-gray-900;
   }
@@ -24,7 +33,7 @@
     @apply text-xl;
   }
   h4 {
-    @apply text-lg;
+    @apply text-lg font-medium;
   }
 }
 

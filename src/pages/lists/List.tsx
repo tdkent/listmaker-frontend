@@ -87,7 +87,6 @@ const List = () => {
           />
         </>
       )}
-      <DeleteList token={token} listId={listId} />
     </div>
   );
 };

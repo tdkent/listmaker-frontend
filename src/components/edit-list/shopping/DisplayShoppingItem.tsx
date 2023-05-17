@@ -3,7 +3,8 @@ import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { AxiosError } from "axios";
 
 import Button from "../../forms/Button";
-import { EditItemFormInputsEnum } from "../../../models/item";
+import Checkbox from "../../forms/Checkbox";
+import Pencil from "../../../icons/Pencil";
 import { ShoppingListItemInt } from "../../../models/shopping";
 import { checkShoppingItem } from "../../../api/mutate-shopping-items";
 import ModalContext, { ModalContentIdEnum } from "../../../context/ModalContext";
@@ -35,26 +36,24 @@ const DisplayShoppingItem = ({
     onError: (error: AxiosError) => setFetchError(error),
   });
   return (
-    <li>
-      <input
-        type="checkbox"
-        id={EditItemFormInputsEnum.check}
-        name={EditItemFormInputsEnum.check}
-        checked={item.isChecked}
-        onChange={() => checkMutation.mutate(item.itemId)}
-      />
-      {item.itemName}
-      <Button
-        type="button"
-        text="Edit"
-        handleClick={() => {
-          setEditItemId(item.itemId);
-          setItemName(item.itemName);
-          setItemCat(item.refCategory);
-          modal.provideId(ModalContentIdEnum.editShoppingItem);
-          modal.toggleModal(true);
-        }}
-      />
+    <li className="flex items-center justify-between py-1">
+      <div>
+        <Checkbox checked={item.isChecked} onChange={() => checkMutation.mutate(item.itemId)} />
+        <span className={`${item.isChecked && "line-through text-gray-600"}`}>{item.itemName}</span>
+      </div>
+      <div>
+        <Button
+          type="button"
+          text={<Pencil />}
+          handleClick={() => {
+            setEditItemId(item.itemId);
+            setItemName(item.itemName);
+            setItemCat(item.refCategory);
+            modal.provideId(ModalContentIdEnum.editShoppingItem);
+            modal.toggleModal(true);
+          }}
+        />
+      </div>
     </li>
   );
 };

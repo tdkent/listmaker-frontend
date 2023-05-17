@@ -1,6 +1,7 @@
 import Input from "../forms/Input";
 import Button from "../forms/Button";
 import { EditItemFormInputsEnum } from "../../models/item";
+import { CustomStylesEnum } from "../../models/styles";
 
 interface EditShoppingItemModalProps {
   itemName: string;
@@ -23,9 +24,12 @@ const EditShoppingItemModal = ({
 }: EditShoppingItemModalProps) => {
   return (
     <div>
+      <div className="text-center">
+        <span className="text-lg">Edit Shopping Item</span>
+      </div>
       <form>
         <Input
-          label="Edit item"
+          label="Name"
           type="text"
           name={EditItemFormInputsEnum.name}
           id={EditItemFormInputsEnum.name}
@@ -42,9 +46,24 @@ const EditShoppingItemModal = ({
           value={itemCat}
           handleChange={(e: React.FormEvent<HTMLInputElement>) => setItemCat(e.currentTarget.value)}
         />
-        <Button type="button" text="Save" handleClick={handleSave} />
-        <Button type="button" text="Delete" handleClick={handleDelete} />
-        <Button type="button" text="Cancel" handleClick={handleCancel} />
+        <Button
+          type="button"
+          text="Save"
+          handleClick={handleSave}
+          styles={`${CustomStylesEnum.authButton} ${CustomStylesEnum.btnPrimary}`}
+        />
+        <Button
+          type="button"
+          text="Delete"
+          handleClick={handleDelete}
+          styles={`${CustomStylesEnum.authButton} ${CustomStylesEnum.btnWarning}`}
+        />
+        <Button
+          type="button"
+          text="Cancel"
+          handleClick={handleCancel}
+          styles="w-full my-6 font-semibold"
+        />
       </form>
     </div>
   );

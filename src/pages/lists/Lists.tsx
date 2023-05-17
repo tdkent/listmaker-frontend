@@ -8,6 +8,7 @@ import checkLocalStorage from "../../utils/check-local-storage";
 import { fetchAllLists } from "../../api/fetch-lists";
 import useError from "../../hooks/useError";
 import QueryError from "../../components/errors/queryError";
+import Pencil from "../../icons/Pencil";
 
 const Lists = () => {
   // auth check
@@ -54,18 +55,20 @@ const Lists = () => {
   return (
     <div>
       <h2>My Lists</h2>
-      <div>
+      <div className="my-6 border-b">
         {data.map((list) => {
           return (
             <div
               key={list.listId}
-              style={{ border: "1px dashed aquamarine", margin: "1rem 0", padding: "1rem" }}>
-              <h3>{list.listName}</h3>
-              <span>{list.listType}</span>
-              <div>
-                <div style={{ marginTop: "1rem" }}>
-                  <Link to={`/lists/${list.listSlug}&id=${list.listId}`}>Edit</Link>
-                </div>
+              className="flex flex-row justify-between items-center border-t py-4">
+              <div className="flex flex-col">
+                <span className="font-semibold">{list.listName}</span>
+                <span className="text-xs">{list.listType}</span>
+              </div>
+              <div className="">
+                <Link to={`/lists/${list.listSlug}&id=${list.listId}`}>
+                  <Pencil />
+                </Link>
               </div>
             </div>
           );

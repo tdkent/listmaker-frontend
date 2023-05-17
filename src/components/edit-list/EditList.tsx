@@ -1,15 +1,19 @@
 import { useState, useContext } from "react";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { AxiosError } from "axios";
+import { useNavigate } from "react-router-dom";
 
 import useError from "../../hooks/useError";
 import ModalContext, { ModalContentIdEnum } from "../../context/ModalContext";
 import Modal from "../modal/Modal";
-import Input from "../forms/Input";
 import Button from "../forms/Button";
 import { EditListInputsEnum } from "../../models/lists";
-import { editList } from "../../api/mutate-lists";
+import { editList, deleteList } from "../../api/mutate-lists";
 import { FormValidationInt } from "../../models/errors";
+import Pencil from "../../icons/Pencil";
+import Trash from "../../icons/Trash";
+import EditListModal from "../modal-content/EditListModal";
+import DeleteListModal from "../modal-content/DeleteListModal";
 
 interface EditListProps {
   token: string;
@@ -19,27 +23,39 @@ interface EditListProps {
 
 const EditList = ({ token, listId, listName }: EditListProps) => {
   const { setFetchError } = useError();
-  const [name, setName] = useState(listName);
+  const [newName, setNewName] = useState(listName);
   const modal = useContext(ModalContext);
   const queryClient = useQueryClient();
+  const navigate = useNavigate();
 
   // errors
   const [formError, setFormError] = useState<FormValidationInt | null>(null);
 
   // form submission
-  const mutation = useMutation({
-    mutationFn: () => editList(listId, name, token),
+  const editMutation = useMutation({
+    mutationFn: () => editList(listId, newName, token),
     onError: (error: AxiosError) => setFetchError(error),
     onSuccess: () => queryClient.invalidateQueries(["list", listId]),
   });
 
+  const deleteMutation = useMutation({
+    mutationFn: () => deleteList(listId, token),
+    onSuccess: () => navigate("/lists"),
+    onError: (error: AxiosError) => setFetchError(error),
+  });
+
   const handleChange = (e: React.FormEvent<HTMLInputElement>) => {
-    setName(e.currentTarget.value);
+    setNewName(e.currentTarget.value);
     setFormError(null);
   };
 
-  const handleInit = () => {
+  const handleEditInit = () => {
     modal.provideId(ModalContentIdEnum.editList);
+    modal.toggleModal(true);
+  };
+
+  const handleDeleteInit = () => {
+    modal.provideId(ModalContentIdEnum.deleteList);
     modal.toggleModal(true);
   };
 
@@ -51,46 +67,49 @@ const EditList = ({ token, listId, listName }: EditListProps) => {
         message: "The name of your list cannot be blank!",
       });
     }
-    if (listName !== name) mutation.mutate();
+    if (listName !== newName) editMutation.mutate();
+    modal.provideId("");
+    modal.toggleModal(false);
+  };
+
+  const handleDelete = () => {
+    deleteMutation.mutate();
     modal.provideId("");
     modal.toggleModal(false);
   };
 
   const handleCancel = () => {
-    setName(name);
+    setNewName(newName);
     setFormError(null);
     modal.provideId("");
     modal.toggleModal(false);
   };
 
-  // modal
-  const modalContent = (
-    <div>
-      <form>
-        <Input
-          label="Name"
-          type="text"
-          name={EditListInputsEnum.editName}
-          id={EditListInputsEnum.editName}
-          value={name}
-          handleChange={handleChange}
-        />
-        {formError && <span>{formError.message}</span>}
-        <Button type="button" text="Submit" handleClick={handleSubmit} />
-        <Button type="button" text="Cancel" handleClick={handleCancel} />
-      </form>
-    </div>
-  );
-
   return (
     <>
       {modal.active && modal.contentId === ModalContentIdEnum.editList && (
-        <Modal modalContent={modalContent} />
+        <Modal
+          modalContent={
+            <EditListModal
+              newName={newName}
+              formError={formError}
+              handleChange={handleChange}
+              handleSubmit={handleSubmit}
+              handleCancel={handleCancel}
+            />
+          }
+        />
       )}
-      <div style={{ border: "1px dashed blue", padding: "1rem" }}>
-        <div>
-          <h2>{listName}</h2>
-          <Button type="button" text="Edit" handleClick={handleInit} />
+      {modal.active && modal.contentId === ModalContentIdEnum.deleteList && (
+        <Modal
+          modalContent={<DeleteListModal handleDelete={handleDelete} handleCancel={handleCancel} />}
+        />
+      )}
+      <div className="flex flex-row justify-between items-center">
+        <h4>{listName}</h4>
+        <div className="flex flex-row">
+          <Button type="button" text={<Pencil />} handleClick={handleEditInit} />
+          <Button type="button" text={<Trash />} handleClick={handleDeleteInit} />
         </div>
       </div>
     </>

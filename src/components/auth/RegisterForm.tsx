@@ -5,6 +5,7 @@ import { useMutation } from "@tanstack/react-query";
 import { AxiosError } from "axios";
 
 import useError from "../../hooks/useError";
+// import useValidation from "../../hooks/useValidation";
 import { RegisterInputsEnum } from "../../models/auth";
 import { FormValidationInt } from "../../models/errors";
 import { ReducerActionInt } from "../../models/reducers";
@@ -13,6 +14,7 @@ import { register } from "../../api/auth";
 import Form from "../forms/Form";
 import Input from "../forms/Input";
 import Button from "../forms/Button";
+import Info from "../../icons/Info";
 
 const RegisterForm = () => {
   // error handling
@@ -42,6 +44,19 @@ const RegisterForm = () => {
     throw new Error(`No matching "${action.type}" action type`);
   };
   const [state, dispatch] = useReducer(reducer, defaultState);
+
+  // form validation
+  const handleEmailBlur = (e: React.FormEvent<HTMLInputElement>) => {
+    // check for valid email
+    if (
+      !e.currentTarget.value.match(/[@]/) ||
+      !e.currentTarget.value.match(/[.]/) ||
+      !e.currentTarget.value.match(/[a-zA-Z]/) ||
+      e.currentTarget.value.length < 5
+    ) {
+      console.log("Invalid email");
+    }
+  };
 
   // form submission
   const handleChange = (e: React.FormEvent<HTMLInputElement>) => {
@@ -114,6 +129,7 @@ const RegisterForm = () => {
           type="text"
           id={RegisterInputsEnum.email}
           handleChange={handleChange}
+          handleBlur={handleEmailBlur}
         />
         {/* //TODO: Error message component */}
         {formError && formError.type === RegisterInputsEnum.email && (

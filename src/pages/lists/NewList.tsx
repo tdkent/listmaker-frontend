@@ -19,6 +19,7 @@ import {
 import checkLocalStorage from "../../utils/check-local-storage";
 import { ReducerActionInt } from "../../models/reducers";
 import { createNewList } from "../../api/new-list";
+import { CustomStylesEnum } from "../../models/styles";
 
 const NewList = () => {
   // auth check
@@ -99,7 +100,7 @@ const NewList = () => {
   return (
     <div>
       <h2>Create New List</h2>
-      <div>
+      <div className="my-6">
         <form onSubmit={handleSubmit}>
           <Input
             label="Name"
@@ -118,7 +119,11 @@ const NewList = () => {
             handleSelect={handleSelect}
           />
           {formError && formError.type === NewListFormEnum.type && <span>{formError.message}</span>}
-          <Button type="submit" text="Create" />
+          <Button
+            type="submit"
+            text="Create"
+            styles={`${CustomStylesEnum.authButton} ${CustomStylesEnum.btnPrimary}`}
+          />
         </form>
       </div>
     </div>

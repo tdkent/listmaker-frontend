@@ -9,23 +9,12 @@ interface ModalContentProps {
 }
 
 const ModalContent = ({ modalContent }: ModalContentProps) => {
-  const modal = (
-    <div
-      style={{
-        zIndex: 100,
-        position: "fixed",
-        top: "22vh",
-        left: "25%",
-        width: "50%",
-        background: "white",
-        boxShadow: "0 2px 8px rgba(0, 0, 0, 0.26)",
-        borderRadius: "8px",
-        padding: "2rem",
-      }}>
+  const modalDisplay = (
+    <div className="z-50 fixed w-full h-screen l-0 bg-white p-2 rounded-lg top-8">
       {modalContent}
     </div>
   );
-  return ReactDOM.createPortal(modal, document.getElementById("modal")!);
+  return ReactDOM.createPortal(modalDisplay, document.getElementById("modal")!);
 };
 
 const Modal = (props: ModalContentProps) => {

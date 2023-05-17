@@ -85,12 +85,14 @@ const EditShoppingItem = ({ token, listId, items }: EditShoppingItemProps) => {
           }
         />
       )}
-      <div style={{ border: "1px dashed pink", padding: "1rem", margin: "1rem 0" }}>
+      <div>
         {categories.map(
           (cat) =>
             cat !== CheckedItemEnum.check && (
-              <div key={categories.indexOf(cat)}>
-                <h4>{cat}</h4>
+              <div key={categories.indexOf(cat)} className="mb-2">
+                <div>
+                  <span className="font-medium">{cat}</span>
+                </div>
                 <ul>
                   {items.map(
                     (item) =>
@@ -114,7 +116,9 @@ const EditShoppingItem = ({ token, listId, items }: EditShoppingItemProps) => {
         )}
         {categories.includes(CheckedItemEnum.check) && (
           <div>
-            <h4>Checked Items</h4>
+            <div>
+              <span className="font-medium">Checked Items</span>
+            </div>
             <ul>
               {items.map(
                 (item) =>

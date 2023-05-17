@@ -32,17 +32,17 @@ const NavBar = ({ showNav, setShowNav }: NavBarProps) => {
               Home
             </NavLink>
           </li>
-          <li className="py-4 border-b">
-            <NavLink
-              to="/new"
-              onClick={() => {
-                setShowNav(false);
-              }}>
-              New List
-            </NavLink>
-          </li>
           {auth.isLoggedIn && (
             <>
+              <li className="py-4 border-b">
+                <NavLink
+                  to="/new"
+                  onClick={() => {
+                    setShowNav(false);
+                  }}>
+                  New List
+                </NavLink>
+              </li>
               <li className="py-4 border-b">
                 <NavLink
                   to="lists"

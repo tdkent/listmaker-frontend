@@ -7,6 +7,8 @@ import { newShoppingItem } from "../../../api/mutate-shopping-items";
 import { EditListInputsEnum } from "../../../models/lists";
 import Input from "../../forms/Input";
 import Button from "../../forms/Button";
+import Form from "../../forms/Form";
+import { CustomStylesEnum } from "../../../models/styles";
 
 interface NewShoppingItemProps {
   token: string;
@@ -31,20 +33,25 @@ const NewShoppingItem = ({ token, listId }: NewShoppingItemProps) => {
     mutation.mutate();
   };
   return (
-    <div style={{ border: "1px green dashed", padding: "1rem", margin: "1rem 0" }}>
-      <form onSubmit={submitHandler}>
+    <div className="my-6">
+      <Form id="add-shopping-item-form" onSubmit={submitHandler}>
         <Input
-          label="Add a new item"
+          label=""
           type="text"
           name={EditListInputsEnum.newItem}
           id={EditListInputsEnum.newItem}
           value={itemName}
+          placeholder="Add new"
           handleChange={(e: React.FormEvent<HTMLInputElement>) =>
             setItemName(e.currentTarget.value)
           }
         />
-        <Button type="submit" text="Add" />
-      </form>
+        <Button
+          type="submit"
+          text="Add Item"
+          styles={`${CustomStylesEnum.authButton} ${CustomStylesEnum.btnPrimary} mt-0`}
+        />
+      </Form>
     </div>
   );
 };

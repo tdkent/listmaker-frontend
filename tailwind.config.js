@@ -11,9 +11,11 @@ module.exports = {
         azure: "#007efc",
         "azure-medium": "#005CB8",
         "azure-dark": "#00478F",
+        tomato: "#DF0101",
+        "tomato-medium": "#8E0101",
       },
     },
   },
 
-  plugins: [],
+  plugins: [require("@tailwindcss/forms")],
 };
