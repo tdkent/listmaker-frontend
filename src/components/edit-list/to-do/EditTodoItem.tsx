@@ -147,7 +147,7 @@ const EditTodoItem = ({ token, listId, listType, items }: EditTodoItemProps) => 
             {items.map(
               (item) =>
                 !item.isChecked && (
-                  <li key={item.itemId} className="py-2.5">
+                  <li key={item.itemId} className="border-b">
                     <DisplayTodoItem
                       token={token}
                       listId={listId}
@@ -170,11 +170,11 @@ const EditTodoItem = ({ token, listId, listType, items }: EditTodoItemProps) => 
           </ul>
         </div>
         {completedItems.length ? (
-          <div className="mt-4 border-t">
-            <h4 className="my-4">Completed Items</h4>
+          <div className="mt-4">
+            <h4 className="mt-6 mb-2">Completed Items</h4>
             <ul>
               {completedItems.map((item) => (
-                <li key={item.itemId} className="p-2 bg-gray-50 text-gray-600">
+                <li key={item.itemId} className="text-gray-600 border-b">
                   <DisplayTodoItem
                     token={token}
                     listId={listId}

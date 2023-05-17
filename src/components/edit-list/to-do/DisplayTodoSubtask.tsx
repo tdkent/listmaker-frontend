@@ -24,25 +24,25 @@ const DisplayTodoSubtask = ({ tasks, listId, token }: DisplaySubtaskProps) => {
   });
 
   return (
-    <div>
-      <ul>
-        {tasks
-          .sort((a, b) => a.taskId - b.taskId)
-          .map((task) => {
-            return (
-              <div key={task.taskId}>
-                <li>
-                  <Checkbox
-                    checked={task.isChecked}
-                    onChange={() => mutation.mutate({ taskId: task.taskId, itemId: task.itemId })}
-                  />
-                  {task.taskName}
-                </li>
-              </div>
-            );
-          })}
-      </ul>
-    </div>
+    <ul>
+      {tasks
+        .sort((a, b) => a.taskId - b.taskId)
+        .map((task) => {
+          return (
+            <div
+              key={task.taskId}
+              className={`text-[13px] px-4 py-2 ${task.isChecked && "line-through text-gray-600"}`}>
+              <li>
+                <Checkbox
+                  checked={task.isChecked}
+                  onChange={() => mutation.mutate({ taskId: task.taskId, itemId: task.itemId })}
+                />
+                {task.taskName}
+              </li>
+            </div>
+          );
+        })}
+    </ul>
   );
 };
 

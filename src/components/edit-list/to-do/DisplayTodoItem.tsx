@@ -1,16 +1,20 @@
 import { useContext } from "react";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { AxiosError } from "axios";
+import { DateTime } from "luxon";
 
 import DisplayTodoSubtask from "./DisplayTodoSubtask";
 import Button from "../../forms/Button";
 import Checkbox from "../../forms/Checkbox";
-import { TodoListItemInt, SubtaskInt } from "../../../models/todo";
+import { TodoListItemInt, SubtaskInt, ToDoCats } from "../../../models/todo";
 import { checkTodoItem } from "../../../api/mutate-todo-items";
 import ModalContext, { ModalContentIdEnum } from "../../../context/ModalContext";
 import useError from "../../../hooks/useError";
 import Pencil from "../../../icons/Pencil";
 import Queue from "../../../icons/Queue";
+import Calendar from "../../../icons/Calendar";
+import Check from "../../../icons/Check";
+import { createRelativeDate, checkDueDate, createCompletedDate } from "../../../utils/luxon-dates";
 
 interface DisplayTodoItemProps {
   token: string;
@@ -61,11 +65,14 @@ const DisplayTodoItem = ({
     onSuccess: () => queryClient.invalidateQueries(["list", listId]),
     onError: (error: AxiosError) => setFetchError(error),
   });
-  // TODO: function for due date display
+
+  const dueDate = createRelativeDate(item.dateDue);
+  const checkDate = checkDueDate(item.dateDue);
+  const completedDate = createCompletedDate(item.dateCompleted);
 
   return (
     <>
-      <div className="flex flex-row justify-between items-center">
+      <div className="flex flex-row justify-between items-center py-3">
         <div className="flex flex-row items-center">
           <Checkbox
             checked={item.isChecked}
@@ -77,11 +84,28 @@ const DisplayTodoItem = ({
               })
             }
           />
-          <div className="ml-1">
-            <span>{item.itemName}</span>
-            <div className="text-xs">
-              <span className="mr-2">{item.itemCategory}</span>
-              <span>{item.dateDue}</span>
+          <div className={"ml-1"}>
+            <span className={`${item.isChecked && "line-through"}`}>{item.itemName}</span>
+            <div className="flex flex-row text-xs">
+              <span className="mr-4">
+                {item.itemCategory === ToDoCats.appoint ? "Appt" : item.itemCategory}
+              </span>
+              <span
+                className={`flex flex-row items-center ${
+                  !completedDate && !checkDate && "text-red-700"
+                }`}>
+                {completedDate ? (
+                  <>
+                    <Check />
+                    {completedDate}
+                  </>
+                ) : (
+                  <>
+                    <Calendar />
+                    {dueDate}
+                  </>
+                )}
+              </span>
             </div>
           </div>
         </div>
@@ -116,9 +140,11 @@ const DisplayTodoItem = ({
           />
         </div>
       </div>
-      <div>
-        <DisplayTodoSubtask tasks={item.itemTasks} listId={listId} token={token} />
-      </div>
+      {item.itemTasks.length ? (
+        <div className="mb-3">
+          <DisplayTodoSubtask tasks={item.itemTasks} listId={listId} token={token} />
+        </div>
+      ) : null}
     </>
   );
 };
