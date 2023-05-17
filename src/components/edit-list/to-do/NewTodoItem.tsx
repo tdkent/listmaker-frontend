@@ -5,8 +5,10 @@ import { AxiosError } from "axios";
 import useError from "../../../hooks/useError";
 import { newTodoItem } from "../../../api/mutate-todo-items";
 import { EditListInputsEnum } from "../../../models/lists";
+import Form from "../../forms/Form";
 import Input from "../../forms/Input";
 import Button from "../../forms/Button";
+import { CustomStylesEnum } from "../../../models/styles";
 
 interface NewTodoItemProps {
   token: string;
@@ -31,8 +33,8 @@ const NewTodoItem = ({ token, listId }: NewTodoItemProps) => {
     mutation.mutate();
   };
   return (
-    <div style={{ border: "1px green dashed", padding: "1rem", margin: "1rem 0" }}>
-      <form onSubmit={submitHandler}>
+    <div className="my-6">
+      <Form id="new-todo-item-form" onSubmit={submitHandler}>
         <Input
           label="New to-do"
           type="text"
@@ -43,8 +45,12 @@ const NewTodoItem = ({ token, listId }: NewTodoItemProps) => {
             setItemName(e.currentTarget.value)
           }
         />
-        <Button type="submit" text="Add" />
-      </form>
+        <Button
+          type="submit"
+          text="Add"
+          styles={`${CustomStylesEnum.authButton} ${CustomStylesEnum.btnPrimary} mt-0`}
+        />
+      </Form>
     </div>
   );
 };

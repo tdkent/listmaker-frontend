@@ -4,11 +4,13 @@ import { AxiosError } from "axios";
 
 import DisplayTodoSubtask from "./DisplayTodoSubtask";
 import Button from "../../forms/Button";
-import { EditItemFormInputsEnum } from "../../../models/item";
+import Checkbox from "../../forms/Checkbox";
 import { TodoListItemInt, SubtaskInt } from "../../../models/todo";
 import { checkTodoItem } from "../../../api/mutate-todo-items";
 import ModalContext, { ModalContentIdEnum } from "../../../context/ModalContext";
 import useError from "../../../hooks/useError";
+import Pencil from "../../../icons/Pencil";
+import Queue from "../../../icons/Queue";
 
 interface DisplayTodoItemProps {
   token: string;
@@ -62,53 +64,62 @@ const DisplayTodoItem = ({
   // TODO: function for due date display
 
   return (
-    <li>
-      <div>
-        <input
-          type="checkbox"
-          id={EditItemFormInputsEnum.check}
-          name={EditItemFormInputsEnum.check}
-          checked={item.isChecked}
-          onChange={() =>
-            checkMutation.mutate({
-              itemId: item.itemId,
-              recurDate: item.dateRecurring,
-              recurVal: item.recurVal,
-            })
-          }
-        />
-        {item.itemName} {item.itemCategory}
-        <Button
-          type="button"
-          text="Edit"
-          handleClick={() => {
-            setId(item.itemId);
-            setName(item.itemName);
-            setCat(item.itemCategory);
-            setLoc(item.itemLocation);
-            setCoords(item.itemCoords);
-            setDate(item.dateDue);
-            setTime(item.timeDue || null);
-            setIsRecurring(item.isRecurring);
-            setRecurInteger(!item.recurVal ? "" : item.recurVal.split(" ")[0]);
-            setRecurInterval(!item.recurVal ? "" : item.recurVal.split(" ")[1]);
-            modal.provideId(ModalContentIdEnum.editTodoItem);
-            modal.toggleModal(true);
-          }}
-        />
-        <Button
-          type="button"
-          text="Subtasks"
-          handleClick={() => {
-            setId(item.itemId);
-            setTasks(item.itemTasks);
-            modal.provideId(ModalContentIdEnum.editSubtasks);
-            modal.toggleModal(true);
-          }}
-        />
+    <>
+      <div className="flex flex-row justify-between items-center">
+        <div className="flex flex-row items-center">
+          <Checkbox
+            checked={item.isChecked}
+            onChange={() =>
+              checkMutation.mutate({
+                itemId: item.itemId,
+                recurDate: item.dateRecurring,
+                recurVal: item.recurVal,
+              })
+            }
+          />
+          <div className="ml-1">
+            <span>{item.itemName}</span>
+            <div className="text-xs">
+              <span className="mr-2">{item.itemCategory}</span>
+              <span>{item.dateDue}</span>
+            </div>
+          </div>
+        </div>
+        <div className="flex flex-row">
+          <Button
+            type="button"
+            text={<Pencil />}
+            handleClick={() => {
+              setId(item.itemId);
+              setName(item.itemName);
+              setCat(item.itemCategory);
+              setLoc(item.itemLocation);
+              setCoords(item.itemCoords);
+              setDate(item.dateDue);
+              setTime(item.timeDue || null);
+              setIsRecurring(item.isRecurring);
+              setRecurInteger(!item.recurVal ? "" : item.recurVal.split(" ")[0]);
+              setRecurInterval(!item.recurVal ? "" : item.recurVal.split(" ")[1]);
+              modal.provideId(ModalContentIdEnum.editTodoItem);
+              modal.toggleModal(true);
+            }}
+          />
+          <Button
+            type="button"
+            text={<Queue />}
+            handleClick={() => {
+              setId(item.itemId);
+              setTasks(item.itemTasks);
+              modal.provideId(ModalContentIdEnum.editSubtasks);
+              modal.toggleModal(true);
+            }}
+          />
+        </div>
       </div>
-      <DisplayTodoSubtask tasks={item.itemTasks} listId={listId} token={token} />
-    </li>
+      <div>
+        <DisplayTodoSubtask tasks={item.itemTasks} listId={listId} token={token} />
+      </div>
+    </>
   );
 };
 

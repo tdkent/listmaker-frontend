@@ -32,7 +32,6 @@ const EditTodoItem = ({ token, listId, listType, items }: EditTodoItemProps) => 
   const [cat, setCat] = useState<string>("");
   const [loc, setLoc] = useState<string | null>(null);
   // TODO: prevent the same location from being geolocated multiple times
-  const [oloc, setOloc] = useState<string | null>(null);
   const [coords, setCoords] = useState<google.maps.LatLngLiteral | null>(null);
   const [date, setDate] = useState<string>("");
   const [time, setTime] = useState<string | null>(null);
@@ -90,6 +89,10 @@ const EditTodoItem = ({ token, listId, listType, items }: EditTodoItemProps) => 
     libraries,
   });
 
+  // completed items
+
+  const completedItems = items.filter((item) => item.isChecked);
+
   return (
     <>
       {modal.active && modal.contentId === ModalContentIdEnum.editTodoItem && (
@@ -138,13 +141,13 @@ const EditTodoItem = ({ token, listId, listType, items }: EditTodoItemProps) => 
           }
         />
       )}
-      <div style={{ border: "1px dashed pink", padding: "1rem", margin: "1rem 0" }}>
+      <section>
         <div>
           <ul>
             {items.map(
               (item) =>
                 !item.isChecked && (
-                  <div key={item.itemId}>
+                  <li key={item.itemId} className="py-2.5">
                     <DisplayTodoItem
                       token={token}
                       listId={listId}
@@ -161,40 +164,39 @@ const EditTodoItem = ({ token, listId, listType, items }: EditTodoItemProps) => 
                       setRecurInteger={setRecurInteger}
                       setRecurInterval={setRecurInterval}
                     />
-                  </div>
+                  </li>
                 )
             )}
           </ul>
         </div>
-        <div>
-          <h4>Completed Todos</h4>
-          <ul>
-            {items.map(
-              (item) =>
-                item.isChecked && (
-                  <div key={item.itemId}>
-                    <DisplayTodoItem
-                      token={token}
-                      listId={listId}
-                      item={item}
-                      setId={setId}
-                      setName={setName}
-                      setCat={setCat}
-                      setLoc={setLoc}
-                      setCoords={setCoords}
-                      setDate={setDate}
-                      setTime={setTime}
-                      setTasks={setTasks}
-                      setIsRecurring={setIsRecurring}
-                      setRecurInteger={setRecurInteger}
-                      setRecurInterval={setRecurInterval}
-                    />
-                  </div>
-                )
-            )}
-          </ul>
-        </div>
-      </div>
+        {completedItems.length ? (
+          <div className="mt-4 border-t">
+            <h4 className="my-4">Completed Items</h4>
+            <ul>
+              {completedItems.map((item) => (
+                <li key={item.itemId} className="p-2 bg-gray-50 text-gray-600">
+                  <DisplayTodoItem
+                    token={token}
+                    listId={listId}
+                    item={item}
+                    setId={setId}
+                    setName={setName}
+                    setCat={setCat}
+                    setLoc={setLoc}
+                    setCoords={setCoords}
+                    setDate={setDate}
+                    setTime={setTime}
+                    setTasks={setTasks}
+                    setIsRecurring={setIsRecurring}
+                    setRecurInteger={setRecurInteger}
+                    setRecurInterval={setRecurInterval}
+                  />
+                </li>
+              ))}
+            </ul>
+          </div>
+        ) : null}
+      </section>
     </>
   );
 };

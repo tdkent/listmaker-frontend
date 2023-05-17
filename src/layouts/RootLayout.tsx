@@ -14,7 +14,7 @@ const RootLayout = (): JSX.Element => {
         <div className="flex justify-between items-center mb-4">
           <Logo />
           <Button
-            text={<Hamburger className="w-6 h-6 mx-2" />}
+            text={<Hamburger />}
             type="button"
             handleClick={() => {
               setShowNav(true);

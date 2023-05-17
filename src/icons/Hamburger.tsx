@@ -1,8 +1,4 @@
-interface Props {
-  className: string;
-}
-
-const Hamburger = ({ className }: Props) => {
+const Hamburger = () => {
   return (
     <svg
       xmlns="http://www.w3.org/2000/svg"
@@ -10,7 +6,7 @@ const Hamburger = ({ className }: Props) => {
       viewBox="0 0 24 24"
       strokeWidth={1.2}
       stroke="currentColor"
-      className={className}>
+      className="w-6 h-6 mx-2">
       <path
         strokeLinecap="round"
         strokeLinejoin="round"
