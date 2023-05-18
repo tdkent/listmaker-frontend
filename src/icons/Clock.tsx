@@ -8,7 +8,7 @@ const Clock = () => {
       viewBox="0 0 24 24"
       strokeWidth={1.5}
       stroke="currentColor"
-      className="w-6 h-6">
+      className="w-3 h-3 mr-0.5">
       <path
         strokeLinecap="round"
         strokeLinejoin="round"

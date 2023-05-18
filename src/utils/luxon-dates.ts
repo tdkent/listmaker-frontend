@@ -9,7 +9,12 @@ export const checkDueDate = (date: string): boolean => {
   return DateTime.fromISO(date) > DateTime.now();
 };
 
-export const createCompletedDate = (date: string): string | null => {
+export const createLocalDate = (date: string): string | null => {
   if (date) return DateTime.fromISO(date).toLocaleString();
+  return null;
+};
+
+export const createTimeDue = (time: string): string | null => {
+  if (time) return DateTime.fromISO(time).toLocaleString(DateTime.TIME_SIMPLE);
   return null;
 };

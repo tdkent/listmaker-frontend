@@ -1,8 +1,6 @@
-import { useContext } from "react";
+import { useContext, useState } from "react";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { AxiosError } from "axios";
-import { DateTime } from "luxon";
-
 import DisplayTodoSubtask from "./DisplayTodoSubtask";
 import Button from "../../forms/Button";
 import Checkbox from "../../forms/Checkbox";
@@ -13,8 +11,16 @@ import useError from "../../../hooks/useError";
 import Pencil from "../../../icons/Pencil";
 import Queue from "../../../icons/Queue";
 import Calendar from "../../../icons/Calendar";
+import Clock from "../../../icons/Clock";
 import Check from "../../../icons/Check";
-import { createRelativeDate, checkDueDate, createCompletedDate } from "../../../utils/luxon-dates";
+import {
+  createRelativeDate,
+  checkDueDate,
+  createLocalDate,
+  createTimeDue,
+} from "../../../utils/luxon-dates";
+import Modal from "../../modal/Modal";
+import TodoDetailsModal from "../../modal-content/TodoDetailsModal";
 
 interface DisplayTodoItemProps {
   token: string;
@@ -31,6 +37,7 @@ interface DisplayTodoItemProps {
   setIsRecurring: (value: React.SetStateAction<boolean>) => void;
   setRecurInteger: (value: React.SetStateAction<string>) => void;
   setRecurInterval: (value: React.SetStateAction<string>) => void;
+  setSelectedItem: (value: React.SetStateAction<TodoListItemInt | null>) => void;
 }
 
 const DisplayTodoItem = ({
@@ -48,6 +55,7 @@ const DisplayTodoItem = ({
   setIsRecurring,
   setRecurInteger,
   setRecurInterval,
+  setSelectedItem,
 }: DisplayTodoItemProps) => {
   const modal = useContext(ModalContext);
   const { setFetchError } = useError();
@@ -68,7 +76,8 @@ const DisplayTodoItem = ({
 
   const dueDate = createRelativeDate(item.dateDue);
   const checkDate = checkDueDate(item.dateDue);
-  const completedDate = createCompletedDate(item.dateCompleted);
+  const completedDate = createLocalDate(item.dateCompleted);
+  const timeDue = createTimeDue(item.timeDue);
 
   return (
     <>
@@ -86,12 +95,12 @@ const DisplayTodoItem = ({
           />
           <div className={"ml-1"}>
             <span className={`${item.isChecked && "line-through"}`}>{item.itemName}</span>
-            <div className="flex flex-row text-xs">
-              <span className="mr-4">
+            <div className="flex flex-row text-xs mt-0.5">
+              <span className="mr-2.5">
                 {item.itemCategory === ToDoCats.appoint ? "Appt" : item.itemCategory}
               </span>
               <span
-                className={`flex flex-row items-center ${
+                className={`flex flex-row items-center mr-2 ${
                   !completedDate && !checkDate && "text-red-700"
                 }`}>
                 {completedDate ? (
@@ -106,11 +115,29 @@ const DisplayTodoItem = ({
                   </>
                 )}
               </span>
+              {item.timeDue && (
+                <span
+                  className={`flex flex-row items-center ${
+                    !completedDate && !checkDate && "text-red-700"
+                  }`}>
+                  <Clock />
+                  {timeDue}
+                </span>
+              )}
             </div>
           </div>
         </div>
         <div className="flex flex-row">
           <Button
+            type="button"
+            text={<Pencil />}
+            handleClick={() => {
+              setSelectedItem(item);
+              modal.provideId(ModalContentIdEnum.displayTodoItem);
+              modal.toggleModal(true);
+            }}
+          />
+          {/* <Button
             type="button"
             text={<Pencil />}
             handleClick={() => {
@@ -127,7 +154,7 @@ const DisplayTodoItem = ({
               modal.provideId(ModalContentIdEnum.editTodoItem);
               modal.toggleModal(true);
             }}
-          />
+          /> */}
           <Button
             type="button"
             text={<Queue />}

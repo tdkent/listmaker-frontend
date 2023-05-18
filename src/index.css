@@ -35,6 +35,9 @@
   h4 {
     @apply text-lg font-medium;
   }
+  h6 {
+    @apply text-lg font-medium;
+  }
 }
 
 .map-container {

@@ -8,6 +8,7 @@ import ModalContext, { ModalContentIdEnum } from "../../../context/ModalContext"
 import Modal from "../../modal/Modal";
 import { editTodoItem, removeTodoItem } from "../../../api/mutate-todo-items";
 import { TodoListItemInt, SubtaskInt } from "../../../models/todo";
+import TodoDetailsModal from "../../modal-content/TodoDetailsModal";
 import EditTodoItemModal from "../../modal-content/EditTodoItemModal";
 import EditSubtasksModal from "../../modal-content/EditSubtasksModal";
 import DisplayTodoItem from "./DisplayTodoItem";
@@ -27,6 +28,7 @@ const EditTodoItem = ({ token, listId, listType, items }: EditTodoItemProps) => 
   const { setFetchError } = useError();
 
   // state
+  const [selectedItem, setSelectedItem] = useState<TodoListItemInt | null>(null);
   const [id, setId] = useState<number>();
   const [name, setName] = useState<string>("");
   const [cat, setCat] = useState<string>("");
@@ -95,6 +97,28 @@ const EditTodoItem = ({ token, listId, listType, items }: EditTodoItemProps) => 
 
   return (
     <>
+      {modal.active && modal.contentId === ModalContentIdEnum.displayTodoItem && (
+        <Modal
+          modalContent={
+            <TodoDetailsModal
+              item={selectedItem!}
+              isLoaded={isLoaded}
+              handleCancel={handleCancel}
+              setId={setId}
+              setName={setName}
+              setCat={setCat}
+              setLoc={setLoc}
+              setCoords={setCoords}
+              setDate={setDate}
+              setTime={setTime}
+              setTasks={setTasks}
+              setIsRecurring={setIsRecurring}
+              setRecurInteger={setRecurInteger}
+              setRecurInterval={setRecurInterval}
+            />
+          }
+        />
+      )}
       {modal.active && modal.contentId === ModalContentIdEnum.editTodoItem && (
         <Modal
           modalContent={
@@ -163,6 +187,7 @@ const EditTodoItem = ({ token, listId, listType, items }: EditTodoItemProps) => 
                       setIsRecurring={setIsRecurring}
                       setRecurInteger={setRecurInteger}
                       setRecurInterval={setRecurInterval}
+                      setSelectedItem={setSelectedItem}
                     />
                   </li>
                 )
@@ -190,6 +215,7 @@ const EditTodoItem = ({ token, listId, listType, items }: EditTodoItemProps) => 
                     setIsRecurring={setIsRecurring}
                     setRecurInteger={setRecurInteger}
                     setRecurInterval={setRecurInterval}
+                    setSelectedItem={setSelectedItem}
                   />
                 </li>
               ))}
