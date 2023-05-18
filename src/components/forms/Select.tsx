@@ -12,7 +12,7 @@ interface SelectProps {
 const Select = ({ label, name, id, defaultValue, options, handleSelect }: SelectProps) => {
   return (
     <div>
-      <div className="mb-1">
+      <div className="mb-1 font-medium">
         <label htmlFor={name}>{label}</label>
       </div>
       <div>
@@ -21,7 +21,7 @@ const Select = ({ label, name, id, defaultValue, options, handleSelect }: Select
           id={id}
           defaultValue={defaultValue}
           onChange={handleSelect}
-          className="form-select w-full p-2.5 rounded-md bg-gray-50 border border-gray-400">
+          className="form-select w-full mb-3 p-2.5 rounded-md bg-gray-50 border border-gray-400">
           {options.map((option) => {
             return (
               <option key={option} value={option}>

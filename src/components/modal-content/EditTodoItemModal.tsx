@@ -14,7 +14,7 @@ interface EditTodoItemModalProps {
   cat: string;
   date: string;
   loc: string | null;
-  coords: google.maps.LatLngLiteral | null;
+  // coords: google.maps.LatLngLiteral | null;
   time: string | null;
   isRecurring: boolean;
   recurInteger: string;
@@ -24,7 +24,7 @@ interface EditTodoItemModalProps {
   setCat: (value: React.SetStateAction<string>) => void;
   setDate: (value: React.SetStateAction<string>) => void;
   setLoc: (value: React.SetStateAction<string | null>) => void;
-  setCoords: (value: React.SetStateAction<google.maps.LatLngLiteral | null>) => void;
+  // setCoords: (value: React.SetStateAction<google.maps.LatLngLiteral | null>) => void;
   setTime: (value: React.SetStateAction<string | null>) => void;
   setIsRecurring: (value: React.SetStateAction<boolean>) => void;
   setRecurInteger: (value: React.SetStateAction<string>) => void;
@@ -42,7 +42,6 @@ const EditTodoItemModal = ({
   cat,
   date,
   loc,
-  coords,
   time,
   isRecurring,
   recurInteger,
@@ -52,7 +51,6 @@ const EditTodoItemModal = ({
   setCat,
   setDate,
   setLoc,
-  setCoords,
   setTime,
   setIsRecurring,
   setRecurInteger,
@@ -64,7 +62,9 @@ const EditTodoItemModal = ({
 }: EditTodoItemModalProps) => {
   return (
     <div>
-      {/* Todo Basics */}
+      <div className="text-center">
+        <span className="text-lg">Edit Item</span>
+      </div>
       <div>
         <Form id="todo-info-form">
           <Input
@@ -109,15 +109,7 @@ const EditTodoItemModal = ({
           />
         </Form>
       </div>
-      {/* Todo Location */}
-      <TodoLocation
-        isLoaded={isLoaded}
-        loc={loc}
-        setLoc={setLoc}
-        coords={coords}
-        setCoords={setCoords}
-      />
-      {/* Todo Repeat */}
+      <TodoLocation isLoaded={isLoaded} loc={loc} setLoc={setLoc} />
       <RepeatTodo
         isRecurring={isRecurring}
         setIsRecurring={setIsRecurring}
@@ -126,7 +118,6 @@ const EditTodoItemModal = ({
         recurInterval={recurInterval}
         setRecurInterval={setRecurInterval}
       />
-      {/* Form Controls */}
       <div>
         <Button type="button" text="Save" handleClick={handleSave} />
         <Button type="button" text="Remove" handleClick={handleDelete} />

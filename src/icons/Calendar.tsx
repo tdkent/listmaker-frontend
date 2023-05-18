@@ -1,6 +1,10 @@
 import React from "react";
 
-const Calendar = () => {
+interface Props {
+  styles: string;
+}
+
+const Calendar = ({ styles }: Props) => {
   return (
     <svg
       xmlns="http://www.w3.org/2000/svg"
@@ -8,7 +12,8 @@ const Calendar = () => {
       viewBox="0 0 24 24"
       strokeWidth={1.5}
       stroke="currentColor"
-      className="w-3 h-3 mr-0.5">
+      // className="w-3 h-3 mr-0.5"
+      className={styles}>
       <path
         strokeLinecap="round"
         strokeLinejoin="round"

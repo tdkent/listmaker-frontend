@@ -6,8 +6,8 @@ interface TodoMapProps {
 
 const TodoMap = ({ center }: TodoMapProps) => {
   return (
-    <div>
-      <GoogleMap zoom={16} center={center} mapContainerClassName="map-container">
+    <div className="border border-gray-600 mx-auto mt-4 h-52 w-full">
+      <GoogleMap zoom={15} center={center} mapContainerClassName="map-container">
         <MarkerF position={center} />
       </GoogleMap>
     </div>

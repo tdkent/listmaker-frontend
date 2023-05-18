@@ -25,7 +25,7 @@ const EditShoppingItemModal = ({
   return (
     <div>
       <div className="text-center">
-        <span className="text-lg">Edit Shopping Item</span>
+        <span className="text-lg">Edit Item</span>
       </div>
       <form>
         <Input

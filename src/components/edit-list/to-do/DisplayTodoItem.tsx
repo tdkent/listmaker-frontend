@@ -12,6 +12,7 @@ import Pencil from "../../../icons/Pencil";
 import Queue from "../../../icons/Queue";
 import Calendar from "../../../icons/Calendar";
 import Clock from "../../../icons/Clock";
+import CircleEllipsis from "../../../icons/CircleEllipsis";
 import Check from "../../../icons/Check";
 import {
   createRelativeDate,
@@ -30,7 +31,7 @@ interface DisplayTodoItemProps {
   setName: (value: React.SetStateAction<string>) => void;
   setCat: (value: React.SetStateAction<string>) => void;
   setLoc: (value: React.SetStateAction<string | null>) => void;
-  setCoords: (value: React.SetStateAction<google.maps.LatLngLiteral | null>) => void;
+  // setCoords: (value: React.SetStateAction<google.maps.LatLngLiteral | null>) => void;
   setDate: (value: React.SetStateAction<string>) => void;
   setTime: (value: React.SetStateAction<string | null>) => void;
   setTasks: (value: React.SetStateAction<SubtaskInt[] | null>) => void;
@@ -48,7 +49,7 @@ const DisplayTodoItem = ({
   setName,
   setCat,
   setLoc,
-  setCoords,
+  // setCoords,
   setDate,
   setTime,
   setTasks,
@@ -110,7 +111,7 @@ const DisplayTodoItem = ({
                   </>
                 ) : (
                   <>
-                    <Calendar />
+                    <Calendar styles="w-3 h-3 mr-0.5" />
                     {dueDate}
                   </>
                 )}
@@ -130,7 +131,7 @@ const DisplayTodoItem = ({
         <div className="flex flex-row">
           <Button
             type="button"
-            text={<Pencil />}
+            text={<CircleEllipsis />}
             handleClick={() => {
               setSelectedItem(item);
               modal.provideId(ModalContentIdEnum.displayTodoItem);

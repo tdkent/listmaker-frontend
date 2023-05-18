@@ -1,4 +1,5 @@
 import axios from "axios";
+import { getGeocode, getLatLng } from "use-places-autocomplete";
 
 import { API_URL } from "../constants/global";
 
@@ -22,7 +23,6 @@ export const editTodoItem = async (
   itemName: string,
   itemCategory: string,
   itemLocation: string | null,
-  itemCoords: google.maps.LatLngLiteral | null,
   itemDate: string,
   itemTime: string | null,
   isRecurring: boolean,
@@ -40,7 +40,6 @@ export const editTodoItem = async (
         itemName,
         itemCategory,
         itemLocation,
-        itemCoords,
         itemDate,
         itemTime,
         isRecurring,
