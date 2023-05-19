@@ -2,6 +2,7 @@ import React from "react";
 
 interface SelectProps {
   label: string;
+  required: boolean;
   name: string;
   id: string;
   defaultValue: string;
@@ -9,11 +10,22 @@ interface SelectProps {
   options: string[] | number[];
 }
 
-const Select = ({ label, name, id, defaultValue, options, handleSelect }: SelectProps) => {
+const Select = ({
+  label,
+  name,
+  id,
+  defaultValue,
+  options,
+  handleSelect,
+  required,
+}: SelectProps) => {
   return (
     <div>
       <div className="mb-1 font-medium">
-        <label htmlFor={name}>{label}</label>
+        <label htmlFor={name}>
+          {label}
+          {required && " *"}
+        </label>
       </div>
       <div>
         <select

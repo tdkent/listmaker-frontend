@@ -108,6 +108,7 @@ const NewList = () => {
             id={NewListFormEnum.name}
             type="text"
             handleChange={handleChange}
+            required={true}
           />
           {formError && formError.type === NewListFormEnum.name && <span>{formError.message}</span>}
           <Select
@@ -117,6 +118,7 @@ const NewList = () => {
             defaultValue={AllListTypesEnum.shop}
             options={newListTypes}
             handleSelect={handleSelect}
+            required={false}
           />
           {formError && formError.type === NewListFormEnum.type && <span>{formError.message}</span>}
           <Button

@@ -35,6 +35,7 @@ const EditShoppingItemModal = ({
           name={EditItemFormInputsEnum.name}
           id={EditItemFormInputsEnum.name}
           value={itemName}
+          required={false}
           handleChange={(e: React.FormEvent<HTMLInputElement>) => {
             setItemName(e.currentTarget.value);
           }}
@@ -45,6 +46,7 @@ const EditShoppingItemModal = ({
           name={EditItemFormInputsEnum.cat}
           id={EditItemFormInputsEnum.cat}
           value={itemCat}
+          required={false}
           handleChange={(e: React.FormEvent<HTMLInputElement>) => setItemCat(e.currentTarget.value)}
         />
         <Button

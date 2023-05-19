@@ -60,6 +60,7 @@ const EditProfileForm = ({ user }: EditProfileFormProps) => {
           label="Nickname"
           value={state.userNickname}
           handleChange={handleChange}
+          required={false}
         />
         <Button type="submit" text="Submit" />
       </form>

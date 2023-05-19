@@ -31,6 +31,7 @@ const EditListModal = ({
           name={EditListInputsEnum.editName}
           id={EditListInputsEnum.editName}
           value={newName}
+          required={false}
           handleChange={handleChange}
         />
         {formError && <span>{formError.message}</span>}

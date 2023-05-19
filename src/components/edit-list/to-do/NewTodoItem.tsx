@@ -41,6 +41,7 @@ const NewTodoItem = ({ token, listId }: NewTodoItemProps) => {
           name={EditListInputsEnum.newItem}
           id={EditListInputsEnum.newItem}
           value={itemName}
+          required={false}
           handleChange={(e: React.FormEvent<HTMLInputElement>) =>
             setItemName(e.currentTarget.value)
           }

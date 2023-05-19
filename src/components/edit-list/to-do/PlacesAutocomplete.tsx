@@ -39,6 +39,7 @@ const PlacesAutocomplete = ({ loc, setLoc }: PlacesAutocompleteProps) => {
         name=""
         type="text"
         disabled={!ready}
+        required={false}
         value={value || loc || ""}
         handleChange={(e: React.FormEvent<HTMLInputElement>) => {
           setValue(e.currentTarget.value);

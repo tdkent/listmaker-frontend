@@ -42,6 +42,7 @@ const NewShoppingItem = ({ token, listId }: NewShoppingItemProps) => {
           id={EditListInputsEnum.newItem}
           value={itemName}
           placeholder="Add new"
+          required={false}
           handleChange={(e: React.FormEvent<HTMLInputElement>) =>
             setItemName(e.currentTarget.value)
           }

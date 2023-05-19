@@ -81,6 +81,7 @@ const LoginForm = () => {
           type="text"
           id={LoginInputsEnum.email}
           handleChange={handleChange}
+          required={true}
         />
         {formError && formError.type === LoginInputsEnum.email && <span>{formError.message}</span>}
         <Input
@@ -89,6 +90,7 @@ const LoginForm = () => {
           type="text"
           id={LoginInputsEnum.password}
           handleChange={handleChange}
+          required={true}
         />
         {formError && formError.type === LoginInputsEnum.password && (
           <span>{formError.message}</span>

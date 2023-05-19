@@ -33,6 +33,7 @@ const RepeatTodo = ({
           id="repeat-todo-integer"
           defaultValue={recurInteger || "1"}
           options={recurIntegerOpt(10)}
+          required={false}
           handleSelect={(e: React.FormEvent<HTMLSelectElement>) =>
             setRecurInteger(e.currentTarget.value)
           }
@@ -42,6 +43,7 @@ const RepeatTodo = ({
           name=""
           id="repeat-todo-unit"
           defaultValue={recurInterval || recurIntervalOptS[0]}
+          required={false}
           options={Object.values(
             recurInteger === "1" || !recurInteger ? recurIntervalOptS : recurIntervalOptP
           )}

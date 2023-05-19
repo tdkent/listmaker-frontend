@@ -130,6 +130,7 @@ const RegisterForm = () => {
           id={RegisterInputsEnum.email}
           handleChange={handleChange}
           handleBlur={handleEmailBlur}
+          required={true}
         />
         {/* //TODO: Error message component */}
         {formError && formError.type === RegisterInputsEnum.email && (
@@ -141,6 +142,7 @@ const RegisterForm = () => {
           type="text"
           id={RegisterInputsEnum.nickname}
           handleChange={handleChange}
+          required={false}
         />
         {/* //! TODO: change type to password */}
         <Input
@@ -149,6 +151,7 @@ const RegisterForm = () => {
           type="text"
           id={RegisterInputsEnum.password}
           handleChange={handleChange}
+          required={true}
         />
         <Input
           label="Verify Password"
@@ -156,6 +159,7 @@ const RegisterForm = () => {
           type="text"
           id={RegisterInputsEnum.verify}
           handleChange={handleChange}
+          required={true}
         />
         {formError && formError.type === RegisterInputsEnum.password && (
           <span>{formError.message}</span>

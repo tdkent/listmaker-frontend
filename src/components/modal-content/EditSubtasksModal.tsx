@@ -107,6 +107,7 @@ const EditSubtasksModal = ({ token, listId, itemId, items, tasks }: EditSubtasks
             id={EditItemFormInputsEnum.task}
             value={newTask}
             handleChange={handleNewChange}
+            required={false}
           />
           <Button
             type="submit"
@@ -133,6 +134,7 @@ const EditSubtasksModal = ({ token, listId, itemId, items, tasks }: EditSubtasks
                             id={EditItemFormInputsEnum.editTask}
                             value={editTask}
                             handleChange={handleEditChange}
+                            required={false}
                           />
                           <div className="flex flex-row justify-end ">
                             <Button

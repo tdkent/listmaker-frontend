@@ -50,6 +50,7 @@ const EditNicknameForm = ({ userNickname, setEditNickname }: Props) => {
           label="Nickname"
           value={newName}
           handleChange={handleChange}
+          required={false}
         />
         <Button type="submit" text="Submit" />
       </Form>

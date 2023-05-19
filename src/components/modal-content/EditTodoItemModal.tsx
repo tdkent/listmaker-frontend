@@ -74,6 +74,7 @@ const EditTodoItemModal = ({
             name={EditItemFormInputsEnum.name}
             id={EditItemFormInputsEnum.name}
             value={name}
+            required={false}
             handleChange={(e: React.FormEvent<HTMLInputElement>) => {
               setName(e.currentTarget.value);
             }}
@@ -84,6 +85,7 @@ const EditTodoItemModal = ({
             id={EditItemFormInputsEnum.cat}
             defaultValue={cat}
             options={todoItemCats}
+            required={false}
             handleSelect={(e: React.FormEvent<HTMLSelectElement>) => {
               setCat(e.currentTarget.value);
             }}
@@ -94,6 +96,7 @@ const EditTodoItemModal = ({
             name={EditItemFormInputsEnum.date}
             id={EditItemFormInputsEnum.date}
             value={date}
+            required={false}
             handleChange={(e: React.FormEvent<HTMLInputElement>) => {
               setDate(e.currentTarget.value);
             }}
@@ -104,6 +107,7 @@ const EditTodoItemModal = ({
             name={EditItemFormInputsEnum.time}
             id={EditItemFormInputsEnum.time}
             value={time || ""}
+            required={false}
             handleChange={(e: React.FormEvent<HTMLInputElement>) => {
               setTime(e.currentTarget.value + ":00");
             }}
