@@ -44,7 +44,7 @@ const DisplayShoppingItem = ({
       <div>
         <Button
           type="button"
-          text={<Pencil />}
+          text={<Pencil styles="w-5 h-5 stroke-gray-600 mr-1 mt-1" />}
           handleClick={() => {
             setEditItemId(item.itemId);
             setItemName(item.itemName);

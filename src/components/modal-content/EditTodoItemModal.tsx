@@ -6,6 +6,7 @@ import { EditItemFormInputsEnum } from "../../models/item";
 import { todoItemCats, SubtaskInt } from "../../models/todo";
 import TodoLocation from "../edit-list/to-do/TodoLocation";
 import RepeatTodo from "./RepeatTodo";
+import { CustomStylesEnum } from "../../models/styles";
 
 interface EditTodoItemModalProps {
   listId: number;
@@ -61,7 +62,7 @@ const EditTodoItemModal = ({
   isLoaded,
 }: EditTodoItemModalProps) => {
   return (
-    <div>
+    <div className="mt-2 mb-6">
       <div className="text-center">
         <span className="text-lg">Edit Item</span>
       </div>
@@ -107,21 +108,45 @@ const EditTodoItemModal = ({
               setTime(e.currentTarget.value + ":00");
             }}
           />
+          <TodoLocation isLoaded={isLoaded} loc={loc} setLoc={setLoc} />
+          <RepeatTodo
+            isRecurring={isRecurring}
+            setIsRecurring={setIsRecurring}
+            recurInteger={recurInteger}
+            setRecurInteger={setRecurInteger}
+            recurInterval={recurInterval}
+            setRecurInterval={setRecurInterval}
+          />
         </Form>
       </div>
-      <TodoLocation isLoaded={isLoaded} loc={loc} setLoc={setLoc} />
-      <RepeatTodo
+      {/* <TodoLocation isLoaded={isLoaded} loc={loc} setLoc={setLoc} /> */}
+      {/* <RepeatTodo
         isRecurring={isRecurring}
         setIsRecurring={setIsRecurring}
         recurInteger={recurInteger}
         setRecurInteger={setRecurInteger}
         recurInterval={recurInterval}
         setRecurInterval={setRecurInterval}
-      />
+      /> */}
       <div>
-        <Button type="button" text="Save" handleClick={handleSave} />
-        <Button type="button" text="Remove" handleClick={handleDelete} />
-        <Button type="button" text="Cancel" handleClick={handleCancel} />
+        <Button
+          type="button"
+          text="Save"
+          handleClick={handleSave}
+          styles={`${CustomStylesEnum.authButton} ${CustomStylesEnum.btnPrimary}`}
+        />
+        <Button
+          type="button"
+          text="Delete"
+          handleClick={handleDelete}
+          styles={`${CustomStylesEnum.authButton} ${CustomStylesEnum.btnWarning}`}
+        />
+        <Button
+          type="button"
+          text="Cancel"
+          handleClick={handleCancel}
+          styles="w-full my-6 font-semibold"
+        />
       </div>
     </div>
   );

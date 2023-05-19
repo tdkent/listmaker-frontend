@@ -21,11 +21,12 @@ const RepeatTodo = ({
 }: RepeatTodoProps) => {
   const handleChange = () => setIsRecurring((prev) => !prev);
   return (
-    <div>
-      <h4>Repeat</h4>
-      <Checkbox checked={isRecurring} onChange={handleChange} />
-      <div hidden={!isRecurring}>
-        <h4>Every</h4>
+    <div className="my-2">
+      <div className="flex items-center">
+        <Checkbox id="repeat-item-checkbox" checked={isRecurring} onChange={handleChange} />
+        <label htmlFor="repeat-item-checkbox">Repeat {isRecurring && "item every:"}</label>
+      </div>
+      <div hidden={!isRecurring} className="mt-4">
         <Select
           label=""
           name=""

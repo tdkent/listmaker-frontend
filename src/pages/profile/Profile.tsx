@@ -44,10 +44,10 @@ const Profile = () => {
 
   return (
     <div>
-      <h2>Your Profile</h2>
+      <h2>My Profile</h2>
       <div>
-        <p>Nickname: {userData.userNickname}</p>
         <p>Email: {userData.userEmail}</p>
+        <p>Nickname: {userData.userNickname}</p>
       </div>
       <Link to="/profile/edit">Edit</Link>
       <Outlet />

@@ -1,5 +1,6 @@
 import Input from "../forms/Input";
 import Button from "../forms/Button";
+import Form from "../forms/Form";
 import { EditItemFormInputsEnum } from "../../models/item";
 import { CustomStylesEnum } from "../../models/styles";
 
@@ -23,11 +24,11 @@ const EditShoppingItemModal = ({
   handleCancel,
 }: EditShoppingItemModalProps) => {
   return (
-    <div>
+    <div className="mt-2">
       <div className="text-center">
         <span className="text-lg">Edit Item</span>
       </div>
-      <form>
+      <Form id="edit-shopping-item-form">
         <Input
           label="Name"
           type="text"
@@ -64,7 +65,7 @@ const EditShoppingItemModal = ({
           handleClick={handleCancel}
           styles="w-full my-6 font-semibold"
         />
-      </form>
+      </Form>
     </div>
   );
 };

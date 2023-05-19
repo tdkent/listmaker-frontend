@@ -106,7 +106,7 @@ const DisplayTodoItem = ({
                 }`}>
                 {completedDate ? (
                   <>
-                    <Check />
+                    <Check styles="w-4 h-4 mr-1" />
                     {completedDate}
                   </>
                 ) : (

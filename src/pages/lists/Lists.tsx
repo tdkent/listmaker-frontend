@@ -67,7 +67,7 @@ const Lists = () => {
               </div>
               <div className="">
                 <Link to={`/lists/${list.listSlug}&id=${list.listId}`}>
-                  <Pencil />
+                  <Pencil styles="w-5 h-5 stroke-gray-600 mr-1 mt-1" />
                 </Link>
               </div>
             </div>

@@ -9,11 +9,7 @@ interface TodoLocationProps {
 }
 
 const TodoLocation = ({ isLoaded, loc, setLoc }: TodoLocationProps) => {
-  return (
-    <div>
-      <PlacesAutocomplete loc={loc} setLoc={setLoc} />
-    </div>
-  );
+  return <PlacesAutocomplete loc={loc} setLoc={setLoc} />;
 };
 
 export default TodoLocation;

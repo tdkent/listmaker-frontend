@@ -1,9 +1,6 @@
-import { useState } from "react";
-import usePlacesAutocomplete, { getGeocode, getLatLng } from "use-places-autocomplete";
+import usePlacesAutocomplete from "use-places-autocomplete";
 
-import Form from "../../forms/Form";
 import Input from "../../forms/Input";
-import Button from "../../forms/Button";
 import ChevonRight from "../../../icons/ChevonRight";
 
 interface PlacesAutocompleteProps {
@@ -12,8 +9,6 @@ interface PlacesAutocompleteProps {
 }
 
 const PlacesAutocomplete = ({ loc, setLoc }: PlacesAutocompleteProps) => {
-  const [formError, setFormError] = useState<string>("");
-
   const {
     ready,
     value,
@@ -38,7 +33,6 @@ const PlacesAutocomplete = ({ loc, setLoc }: PlacesAutocompleteProps) => {
   // };
   return (
     <>
-      {/* <Form id="todo-location-form"> */}
       <Input
         label="Address"
         id=""
@@ -48,15 +42,9 @@ const PlacesAutocomplete = ({ loc, setLoc }: PlacesAutocompleteProps) => {
         value={value || loc || ""}
         handleChange={(e: React.FormEvent<HTMLInputElement>) => {
           setValue(e.currentTarget.value);
-          setFormError("");
           setLoc("");
         }}
       />
-      {formError && (
-        <div>
-          <p>{formError}</p>
-        </div>
-      )}
       {status === "OK" && data && (
         <div>
           <ul>
@@ -78,9 +66,6 @@ const PlacesAutocomplete = ({ loc, setLoc }: PlacesAutocompleteProps) => {
           </ul>
         </div>
       )}
-      {/* <Button text="+" type="button" handleClick={handleAdd} />
-        <Button text="x" type="button" handleClick={handleDelete} /> */}
-      {/* </Form> */}
     </>
   );
 };

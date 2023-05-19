@@ -18,7 +18,11 @@ const NavBar = ({ showNav, setShowNav }: NavBarProps) => {
         showNav ? "left-0 duration-1000" : "left-full duration-0"
       } z-100 bg-white w-full h-screen p-4`}>
       <div className="flex">
-        <Button text={<Close />} type="button" handleClick={() => setShowNav(false)} />
+        <Button
+          text={<Close styles="w-7 h-7 stroke-gray-600" />}
+          type="button"
+          handleClick={() => setShowNav(false)}
+        />
       </div>
 
       <nav className="p-2 my-4">
