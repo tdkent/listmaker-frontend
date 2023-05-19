@@ -16,3 +16,10 @@ export interface EditProfileReqInt {
 export enum EditProfileFormEnum {
   nickname = "userNickname",
 }
+
+// change password
+export enum ChangePasswordInputsEnum {
+  new = "new-password-input",
+  ver = "verify-password-input",
+  curr = "current-password-input",
+}
