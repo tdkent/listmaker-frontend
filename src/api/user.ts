@@ -22,3 +22,11 @@ export const editUserProfile = async (
     .then((response) => response.data)
     .catch((error) => Promise.reject(error));
 };
+
+export const editNickname = async (userNickname: string, token: string): Promise<ResMsgInt> => {
+  const headers = { Authorization: `Bearer ${token}` };
+  return axios
+    .patch(`${API_URL}/user/nickname`, { userNickname }, { headers })
+    .then((response) => response.data)
+    .catch((error) => Promise.reject(error));
+};

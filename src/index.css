@@ -14,6 +14,9 @@
   .button-bg-warning {
     @apply bg-tomato hover:bg-tomato-medium;
   }
+  .button-cancel {
+    @apply w-full my-6 font-semibold;
+  }
 }
 
 @layer base {

@@ -44,7 +44,7 @@ const EditListModal = ({
           type="button"
           text="Cancel"
           handleClick={handleCancel}
-          styles="w-full my-6 font-semibold"
+          styles={CustomStylesEnum.btnCancel}
         />
       </form>
     </div>

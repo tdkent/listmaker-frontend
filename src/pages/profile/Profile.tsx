@@ -1,4 +1,4 @@
-import { useContext, useEffect } from "react";
+import { useContext, useEffect, useState } from "react";
 import { Outlet, Link, useNavigate } from "react-router-dom";
 
 import AuthContext from "../../context/AuthContext";
@@ -9,6 +9,12 @@ import { CustomStylesEnum } from "../../models/styles";
 import Form from "../../components/forms/Form";
 import Input from "../../components/forms/Input";
 import Button from "../../components/forms/Button";
+import Hyperlink from "../../components/forms/Hyperlink";
+import DisplayEmail from "../../components/user/DisplayEmail";
+import DisplayNickname from "../../components/user/DisplayNickname";
+import EditNicknameForm from "../../components/user/EditNicknameForm";
+import DisplayPassword from "../../components/user/DisplayPassword";
+import EditPasswordForm from "../../components/user/EditPasswordForm";
 
 const Profile = () => {
   // auth check
@@ -20,8 +26,11 @@ const Profile = () => {
     else navigate("/login");
   }, [auth.isLoggedIn, navigate]);
 
+  const [editNickname, setEditNickname] = useState(false);
+  const [editPassword, setEditPassword] = useState(false);
+
   // query
-  const { isLoading, isError, data, error } = useUser(auth.userId as number, auth.token as string);
+  const { isLoading, isError, data, error } = useUser(auth.userId!, auth.token!);
 
   if (isLoading) {
     // TODO: Loading graphic / spinner
@@ -44,33 +53,29 @@ const Profile = () => {
 
   const userData = data.user;
 
-  // TODO: add list data and other account info
-
   return (
     <div>
       <h2>My Profile</h2>
-      <div className="border-t my-4 py-4">
-        <p className="mb-2.5">Email: {userData.userEmail}</p>
-        <p className="mb-2.5">Nickname: {userData.userNickname}</p>
-        <div
-          className={`${CustomStylesEnum.authButton} ${CustomStylesEnum.btnPrimary} text-center`}>
-          <Link to="/profile/edit">Edit</Link>
-        </div>
+      <div className="my-6">
+        <DisplayEmail userEmail={userData.userEmail} />
       </div>
-      <div className="border-t my-4 py-4">
-        <h4>Change Password</h4>
-        <div className="my-4">
-          <Form id="change-password-form">
-            {/* // TODO: change type to password */}
-            <Input type="text" id="" name="" label="New Password" handleChange={() => {}} />
-            <Input type="text" id="" name="" label="Confirm New Password" handleChange={() => {}} />
-            <Input type="text" id="" name="" label="Current Password" handleChange={() => {}} />
-            <Button type="submit" text="Submit" handleClick={() => {}} />
-            <Button type="button" text="Cancel" handleClick={() => {}} />
-          </Form>
-        </div>
+      <div className="my-4">
+        {editNickname ? (
+          <EditNicknameForm
+            userNickname={userData.userNickname}
+            setEditNickname={setEditNickname}
+          />
+        ) : (
+          <DisplayNickname userNickname={userData.userNickname} setEditNickname={setEditNickname} />
+        )}
       </div>
-      <Outlet />
+      <div className="my-4 py-4">
+        {editPassword ? (
+          <EditPasswordForm setEditPassword={setEditPassword} />
+        ) : (
+          <DisplayPassword setEditPassword={setEditPassword} />
+        )}
+      </div>
     </div>
   );
 };
