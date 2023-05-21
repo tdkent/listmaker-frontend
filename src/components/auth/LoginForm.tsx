@@ -95,7 +95,11 @@ const LoginForm = () => {
         {formError && formError.type === LoginInputsEnum.password && (
           <span>{formError.message}</span>
         )}
-        <Button type="submit" text="Log in" styles={CustomStylesEnum.authButton} />
+        <Button
+          type="submit"
+          text="Log in"
+          styles={`${CustomStylesEnum.authButton} ${CustomStylesEnum.btnPrimary}`}
+        />
       </Form>
     </div>
   );

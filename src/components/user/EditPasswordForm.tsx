@@ -16,13 +16,6 @@ interface Props {
   setEditPassword: (value: React.SetStateAction<boolean>) => void;
 }
 
-// validation does not occur until Save button is clicked
-// first check is for matching password / confirm password fields
-// this check is done front end only
-// second check is for correct password features (min length, etc)
-// this check is done backend, with an error returned for failure
-// third check is for current password against db password
-
 const EditPasswordForm = ({ setEditPassword }: Props) => {
   const auth = useContext(AuthContext);
   const { setFetchError } = useError();
@@ -59,6 +52,7 @@ const EditPasswordForm = ({ setEditPassword }: Props) => {
   });
 
   const handleChange = (e: React.FormEvent<HTMLInputElement>) => {
+    setIsError(false);
     dispatch({
       type: e.currentTarget.name,
       payload: e.currentTarget.value,
@@ -69,10 +63,10 @@ const EditPasswordForm = ({ setEditPassword }: Props) => {
     e.preventDefault();
     if (state.newPassword !== state.verifyPassword) {
       setIsError(true);
-      setErrorId(ChangePasswordInputsEnum.ver);
-      return;
+      return setErrorId(ChangePasswordInputsEnum.ver);
     }
-    // mutation.mutate();
+    mutation.mutate();
+    setEditPassword(false);
   };
 
   return (
@@ -84,20 +78,16 @@ const EditPasswordForm = ({ setEditPassword }: Props) => {
       </p>
       <div>
         <Form id="change-password-form" onSubmit={handleSubmit}>
-          {/* // TODO: change type to password */}
           <Input
-            type="text"
+            type="password"
             id={ChangePasswordInputsEnum.new}
             name={ChangePasswordInputsEnum.new}
             label="New Password"
             handleChange={handleChange}
-            isError={isError}
-            errorId={errorId}
-            errorString={"Password is not correctly formatted."}
             required={true}
           />
           <Input
-            type="text"
+            type="password"
             id={ChangePasswordInputsEnum.ver}
             name={ChangePasswordInputsEnum.ver}
             label="Confirm New Password"
@@ -108,7 +98,7 @@ const EditPasswordForm = ({ setEditPassword }: Props) => {
             required={true}
           />
           <Input
-            type="text"
+            type="password"
             id={ChangePasswordInputsEnum.curr}
             name={ChangePasswordInputsEnum.curr}
             label="Current Password"
@@ -118,7 +108,7 @@ const EditPasswordForm = ({ setEditPassword }: Props) => {
           <Button
             type="submit"
             text="Save"
-            styles={`${CustomStylesEnum.authButton} ${CustomStylesEnum.btnPrimary}`}
+            styles={`${CustomStylesEnum.authButton} ${CustomStylesEnum.btnPrimary} mt-0`}
           />
           <Button
             type="button"
