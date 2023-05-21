@@ -7,11 +7,6 @@ export enum AllListTypesEnum {
   todo = "To-Do",
 }
 
-export enum NewListFormEnum {
-  name = "name",
-  type = "type",
-}
-
 export const newListTypes = [AllListTypesEnum.shop, AllListTypesEnum.todo];
 
 export interface NewListReqInt {

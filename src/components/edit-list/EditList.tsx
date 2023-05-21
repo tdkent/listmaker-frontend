@@ -7,13 +7,13 @@ import useError from "../../hooks/useError";
 import ModalContext, { ModalContentIdEnum } from "../../context/ModalContext";
 import Modal from "../modal/Modal";
 import Button from "../forms/Button";
-import { EditListInputsEnum } from "../../models/lists";
+import { InputIdsEnum } from "../../models/forms";
 import { editList, deleteList } from "../../api/mutate-lists";
-import { FormValidationInt } from "../../models/errors";
 import Pencil from "../../icons/Pencil";
 import Trash from "../../icons/Trash";
 import EditListModal from "../modal-content/EditListModal";
 import DeleteListModal from "../modal-content/DeleteListModal";
+import { nameLength } from "../../utils/form-validation";
 
 interface EditListProps {
   token: string;
@@ -22,16 +22,17 @@ interface EditListProps {
 }
 
 const EditList = ({ token, listId, listName }: EditListProps) => {
-  const { setFetchError } = useError();
-  const [newName, setNewName] = useState(listName);
   const modal = useContext(ModalContext);
   const queryClient = useQueryClient();
   const navigate = useNavigate();
 
   // errors
-  const [formError, setFormError] = useState<FormValidationInt | null>(null);
+  const { setFetchError } = useError();
+  const [isError, setIsError] = useState(false);
+  const [errorId, setErrorId] = useState("");
 
   // form submission
+  const [newName, setNewName] = useState(listName);
   const editMutation = useMutation({
     mutationFn: () => editList(listId, newName, token),
     onError: (error: AxiosError) => setFetchError(error),
@@ -46,7 +47,7 @@ const EditList = ({ token, listId, listName }: EditListProps) => {
 
   const handleChange = (e: React.FormEvent<HTMLInputElement>) => {
     setNewName(e.currentTarget.value);
-    setFormError(null);
+    setIsError(false);
   };
 
   const handleEditInit = () => {
@@ -60,12 +61,9 @@ const EditList = ({ token, listId, listName }: EditListProps) => {
   };
 
   const handleSubmit = () => {
-    // TODO: validate form
-    if (!listName) {
-      return setFormError({
-        type: EditListInputsEnum.editName,
-        message: "The name of your list cannot be blank!",
-      });
+    if (!nameLength(newName)) {
+      setIsError(true);
+      return setErrorId(InputIdsEnum.editListName);
     }
     if (listName !== newName) editMutation.mutate();
     modal.provideId("");
@@ -79,8 +77,8 @@ const EditList = ({ token, listId, listName }: EditListProps) => {
   };
 
   const handleCancel = () => {
-    setNewName(newName);
-    setFormError(null);
+    setNewName(listName);
+    setIsError(false);
     modal.provideId("");
     modal.toggleModal(false);
   };
@@ -92,10 +90,11 @@ const EditList = ({ token, listId, listName }: EditListProps) => {
           modalContent={
             <EditListModal
               newName={newName}
-              formError={formError}
               handleChange={handleChange}
               handleSubmit={handleSubmit}
               handleCancel={handleCancel}
+              isError={isError}
+              errorId={errorId}
             />
           }
         />

@@ -1,11 +1,4 @@
 // Register
-export enum RegisterInputsEnum {
-  email = "userEmail",
-  nickname = "userNickname",
-  password = "userPassword",
-  verify = "verifyPassword",
-}
-
 export interface RegisterBodyInt {
   userEmail: string;
   userNickname: string;
@@ -14,11 +7,6 @@ export interface RegisterBodyInt {
 }
 
 // Login
-export enum LoginInputsEnum {
-  email = "userEmail",
-  password = "userPassword",
-}
-
 export interface LoginBodyInt {
   userEmail: string;
   userPassword: string;

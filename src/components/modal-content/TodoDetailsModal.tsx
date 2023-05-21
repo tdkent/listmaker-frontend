@@ -78,7 +78,7 @@ const TodoDetailsModal = ({
         </div>
       </div>
       <div className="mt-3 text-center">
-        <h6>{item.itemName}</h6>
+        <p>{item.itemName}</p>
         <p>{item.itemCategory}</p>
       </div>
       <div className="mt-4 pt-3 pb-1 px-2 border-t">

@@ -1,12 +1,13 @@
+import Form from "../forms/Form";
 import Input from "../forms/Input";
 import Button from "../forms/Button";
-import { EditListInputsEnum } from "../../models/lists";
 import { CustomStylesEnum } from "../../models/styles";
-import { FormValidationInt } from "../../models/errors";
+import { FormIdsEnum, InputIdsEnum, FormErrorsEnum } from "../../models/forms";
 
 interface ModalProps {
   newName: string;
-  formError: FormValidationInt | null;
+  isError: boolean;
+  errorId: string;
   handleChange: (e: React.FormEvent<HTMLInputElement>) => void;
   handleSubmit: () => void;
   handleCancel: () => void;
@@ -14,7 +15,8 @@ interface ModalProps {
 
 const EditListModal = ({
   newName,
-  formError,
+  isError,
+  errorId,
   handleChange,
   handleSubmit,
   handleCancel,
@@ -22,19 +24,21 @@ const EditListModal = ({
   return (
     <div className="mt-2">
       <div className="text-center">
-        <span className="text-lg">Edit List</span>
+        <h6>Edit List</h6>
+        <p className="my-4 text-left">Make sure list name is 1-24 characters long.</p>
       </div>
-      <form>
+      <Form id={FormIdsEnum.editList}>
         <Input
           label="Name"
           type="text"
-          name={EditListInputsEnum.editName}
-          id={EditListInputsEnum.editName}
+          id={InputIdsEnum.editListName}
           value={newName}
-          required={false}
+          required={true}
           handleChange={handleChange}
+          isError={isError}
+          errorId={errorId}
+          errorString={FormErrorsEnum.name}
         />
-        {formError && <span>{formError.message}</span>}
         <Button
           type="button"
           text="Save"
@@ -47,7 +51,7 @@ const EditListModal = ({
           handleClick={handleCancel}
           styles={CustomStylesEnum.btnCancel}
         />
-      </form>
+      </Form>
     </div>
   );
 };

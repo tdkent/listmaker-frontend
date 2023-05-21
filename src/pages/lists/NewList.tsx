@@ -5,18 +5,14 @@ import { AxiosError } from "axios";
 
 import AuthContext from "../../context/AuthContext";
 import useError from "../../hooks/useError";
+import checkLocalStorage from "../../utils/check-local-storage";
+import { nameLength } from "../../utils/form-validation";
+import Form from "../../components/forms/Form";
 import Input from "../../components/forms/Input";
 import Select from "../../components/forms/Select";
 import Button from "../../components/forms/Button";
-import { FormValidationInt } from "../../models/errors";
-import {
-  newListTypes,
-  NewListFormEnum,
-  NewListReqInt,
-  NewListResInt,
-  AllListTypesEnum,
-} from "../../models/lists";
-import checkLocalStorage from "../../utils/check-local-storage";
+import { newListTypes, NewListReqInt, NewListResInt, AllListTypesEnum } from "../../models/lists";
+import { FormIdsEnum, InputIdsEnum, FormErrorsEnum } from "../../models/forms";
 import { ReducerActionInt } from "../../models/reducers";
 import { createNewList } from "../../api/new-list";
 import { CustomStylesEnum } from "../../models/styles";
@@ -33,7 +29,8 @@ const NewList = () => {
 
   // errors
   const { setFetchError } = useError();
-  const [formError, setFormError] = useState<FormValidationInt | null>(null);
+  const [isError, setIsError] = useState(false);
+  const [errorId, setErrorId] = useState("");
 
   // reducer
   const defaultState = {
@@ -41,28 +38,24 @@ const NewList = () => {
     type: "Shopping",
   };
   const reducer = (state: typeof defaultState, action: ReducerActionInt) => {
-    if (action.type === NewListFormEnum.name) {
-      setFormError(null);
+    if (action.type === InputIdsEnum.newListName) {
       return { ...state, name: action.payload };
     }
-    if (action.type === NewListFormEnum.type) {
-      setFormError(null);
+    if (action.type === InputIdsEnum.newListType) {
       return { ...state, type: action.payload };
     }
     throw new Error(`No matching "${action.type}" action type`);
   };
   const [state, dispatch] = useReducer(reducer, defaultState);
-
-  // form submission
   const handleChange = (e: React.FormEvent<HTMLInputElement>) => {
-    dispatch({ type: e.currentTarget.name, payload: e.currentTarget.value });
+    setIsError(false);
+    dispatch({ type: e.currentTarget.id, payload: e.currentTarget.value });
   };
   const handleSelect = (e: React.FormEvent<HTMLSelectElement>) => {
-    // check for null selection
-    if (e.currentTarget.value) {
-      dispatch({ type: e.currentTarget.name, payload: e.currentTarget.value });
-    }
+    dispatch({ type: e.currentTarget.id, payload: e.currentTarget.value });
   };
+
+  // mutation
   const mutation = useMutation({
     mutationFn: (body: NewListReqInt) => createNewList(body, auth.token as string),
     onSuccess: (data: NewListResInt) => {
@@ -73,23 +66,12 @@ const NewList = () => {
   });
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-
-    // validate
-    // TODO: add form validation component
-    if (!state.name) {
-      return setFormError({
-        type: NewListFormEnum.name,
-        message: "Please enter a name for your new list!",
-      });
+    // form validation
+    if (!nameLength(state.name)) {
+      setIsError(true);
+      return setErrorId(InputIdsEnum.newListName);
     }
-    // if (!state.type) {
-    //   return setFormError({
-    //     type: NewListFormEnum.type,
-    //     message: "Please select a type for your new list!",
-    //   });
-    // }
-
-    // form submission
+    // mutate
     const body: NewListReqInt = {
       listName: state.name,
       listType: state.type,
@@ -101,32 +83,31 @@ const NewList = () => {
     <div>
       <h2>Create New List</h2>
       <div className="my-6">
-        <form onSubmit={handleSubmit}>
+        <Form id={FormIdsEnum.newList} onSubmit={handleSubmit}>
           <Input
             label="Name"
-            name={NewListFormEnum.name}
-            id={NewListFormEnum.name}
+            id={InputIdsEnum.newListName}
             type="text"
             handleChange={handleChange}
             required={true}
+            isError={isError}
+            errorId={errorId}
+            errorString={FormErrorsEnum.name}
           />
-          {formError && formError.type === NewListFormEnum.name && <span>{formError.message}</span>}
           <Select
             label="Type"
-            name={NewListFormEnum.type}
-            id={NewListFormEnum.type}
+            id={InputIdsEnum.newListType}
             defaultValue={AllListTypesEnum.shop}
             options={newListTypes}
             handleSelect={handleSelect}
-            required={false}
+            required={true}
           />
-          {formError && formError.type === NewListFormEnum.type && <span>{formError.message}</span>}
           <Button
             type="submit"
-            text="Create"
+            text="Submit"
             styles={`${CustomStylesEnum.authButton} ${CustomStylesEnum.btnPrimary}`}
           />
-        </form>
+        </Form>
       </div>
     </div>
   );

@@ -1,9 +1,9 @@
 import Info from "../../icons/Info";
-import { RegisterInputsEnum } from "../../models/auth";
+import { InputIdsEnum } from "../../models/forms";
 
 interface InputProps {
   label: string;
-  name: string;
+  name?: string;
   type: "email" | "text" | "password" | "number" | "date" | "time";
   required: boolean;
   id: string;
@@ -12,7 +12,6 @@ interface InputProps {
   step?: number;
   disabled?: boolean;
   handleChange: (e: React.FormEvent<HTMLInputElement>) => void;
-  handleBlur?: (e: React.FormEvent<HTMLInputElement>) => void;
   isError?: boolean;
   errorString?: string;
   errorId?: string;
@@ -28,20 +27,18 @@ const Input = ({
   placeholder,
   disabled,
   handleChange,
-  handleBlur,
   isError,
   errorString,
   errorId,
 }: InputProps) => {
-  console.log(isError, errorId);
   return (
-    <div className="relative mb-1 pb-4">
+    <div className="relative mb-1.5 pb-4">
       <div className="flex justify-between items-center mb-1 pl-0.5 font-medium">
         <label htmlFor={name}>
           {label}
           {required && " *"}
         </label>
-        {id === RegisterInputsEnum.password && <Info />}
+        {(id === InputIdsEnum.regPass || id === InputIdsEnum.regName) && <Info />}
       </div>
       <div>
         <input
@@ -52,7 +49,6 @@ const Input = ({
           placeholder={placeholder}
           disabled={disabled}
           onChange={handleChange}
-          onBlur={handleBlur}
           className={`bg-gray-50 focus:bg-gray-50 border ${
             !isError && ` focus:border-2 hover:border-azure`
           } ${
@@ -61,7 +57,7 @@ const Input = ({
         />
       </div>
       {isError && errorId === id && (
-        <div className="inline-block absolute left-0.5 top-[calc(100%-1rem)]">
+        <div className="inline-block absolute left-0.5 top-[calc(100%-1.1rem)]">
           <span className="text-sm text-tomato">{errorString}</span>
         </div>
       )}

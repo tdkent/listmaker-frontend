@@ -3,7 +3,7 @@ import React from "react";
 interface SelectProps {
   label: string;
   required: boolean;
-  name: string;
+  name?: string;
   id: string;
   defaultValue: string;
   handleSelect: (e: React.FormEvent<HTMLSelectElement>) => void;

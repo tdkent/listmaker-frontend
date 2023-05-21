@@ -9,7 +9,7 @@ import Button from "../forms/Button";
 import Form from "../forms/Form";
 import { EditItemFormInputsEnum } from "../../models/item";
 import { SubtaskInt, TodoListItemInt } from "../../models/todo";
-import { FormIdEnum } from "../../models/form";
+import { FormIdsEnum } from "../../models/forms";
 import { newSubtask, editSubtask, deleteSubtask } from "../../api/mutate-todo-subtasks";
 import { CustomStylesEnum } from "../../models/styles";
 import Pencil from "../../icons/Pencil";
@@ -95,11 +95,11 @@ const EditSubtasksModal = ({ token, listId, itemId, items, tasks }: EditSubtasks
   return (
     <div className="mt-2 mb-6">
       <div className="text-center pb-2 border-b">
-        <h6 className="text-lg">Subtasks</h6>
+        <h6>Subtasks</h6>
       </div>
       <div className="my-4 pb-4 border-b">
         {/* <p className="text-center">New Subtask</p> */}
-        <Form id={FormIdEnum.newTask} onSubmit={handleNewSubmit}>
+        <Form id={FormIdsEnum.newTask} onSubmit={handleNewSubmit}>
           <Input
             label="New Subtask"
             type="text"
@@ -126,7 +126,7 @@ const EditSubtasksModal = ({ token, listId, itemId, items, tasks }: EditSubtasks
                   <div key={task.taskId}>
                     {isEditing && task.taskId === taskId ? (
                       <div className="mb-2.5">
-                        <Form id={FormIdEnum.editTask} onSubmit={handleEditSubmit}>
+                        <Form id={FormIdsEnum.editTask} onSubmit={handleEditSubmit}>
                           <Input
                             label=""
                             type="text"
