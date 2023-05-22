@@ -1,15 +1,10 @@
 import { useContext, useEffect, useState } from "react";
-import { Outlet, Link, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 import AuthContext from "../../context/AuthContext";
 import checkLocalStorage from "../../utils/check-local-storage";
 import useUser from "../../hooks/useUser";
 import QueryError from "../../components/errors/queryError";
-import { CustomStylesEnum } from "../../models/styles";
-import Form from "../../components/forms/Form";
-import Input from "../../components/forms/Input";
-import Button from "../../components/forms/Button";
-import Hyperlink from "../../components/forms/Hyperlink";
 import DisplayEmail from "../../components/user/DisplayEmail";
 import DisplayNickname from "../../components/user/DisplayNickname";
 import EditNicknameForm from "../../components/user/EditNicknameForm";

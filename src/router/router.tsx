@@ -8,7 +8,6 @@ import Home from "../pages/home/Home";
 import Register from "../pages/auth/Register";
 import Login from "../pages/auth/Login";
 import Profile from "../pages/profile/Profile";
-import EditProfile from "../pages/profile/EditProfile";
 import Lists from "../pages/lists/Lists";
 import List from "../pages/lists/List";
 import NewList from "../pages/lists/NewList";
@@ -58,10 +57,6 @@ const router = createBrowserRouter([
               {
                 index: true,
                 element: <Profile />,
-              },
-              {
-                path: "edit",
-                element: <EditProfile />,
               },
               {
                 path: "*",

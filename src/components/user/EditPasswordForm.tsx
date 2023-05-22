@@ -5,12 +5,13 @@ import { AxiosError } from "axios";
 import AuthContext from "../../context/AuthContext";
 import useError from "../../hooks/useError";
 import { ReducerActionInt } from "../../models/reducers";
-import { ChangePasswordInputsEnum } from "../../models/user";
 import { CustomStylesEnum } from "../../models/styles";
 import Form from "../forms/Form";
 import Input from "../forms/Input";
 import Button from "../forms/Button";
 import { editPassword } from "../../api/user";
+import { FormIdsEnum, InputIdsEnum, FormErrorsEnum } from "../../models/forms";
+import { checkPasswordLength, checkConfirmPassword } from "../../utils/form-validation";
 
 interface Props {
   setEditPassword: (value: React.SetStateAction<boolean>) => void;
@@ -31,13 +32,13 @@ const EditPasswordForm = ({ setEditPassword }: Props) => {
   };
 
   const reducer = (state: typeof defaultState, action: ReducerActionInt) => {
-    if (action.type === ChangePasswordInputsEnum.new) {
+    if (action.type === InputIdsEnum.editPasswordNew) {
       return { ...state, newPassword: action.payload };
     }
-    if (action.type === ChangePasswordInputsEnum.ver) {
+    if (action.type === InputIdsEnum.editPasswordConfirm) {
       return { ...state, verifyPassword: action.payload };
     }
-    if (action.type === ChangePasswordInputsEnum.curr) {
+    if (action.type === InputIdsEnum.editPasswordCurrent) {
       return { ...state, currentPassword: action.payload };
     }
     throw new Error(`No matching "${action.type}" action type`);
@@ -54,16 +55,24 @@ const EditPasswordForm = ({ setEditPassword }: Props) => {
   const handleChange = (e: React.FormEvent<HTMLInputElement>) => {
     setIsError(false);
     dispatch({
-      type: e.currentTarget.name,
+      type: e.currentTarget.id,
       payload: e.currentTarget.value,
     });
   };
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    if (state.newPassword !== state.verifyPassword) {
+    if (!checkPasswordLength(state.newPassword)) {
       setIsError(true);
-      return setErrorId(ChangePasswordInputsEnum.ver);
+      return setErrorId(InputIdsEnum.editPasswordNew);
+    }
+    if (!checkConfirmPassword(state.newPassword, state.verifyPassword)) {
+      setIsError(true);
+      return setErrorId(InputIdsEnum.editPasswordConfirm);
+    }
+    if (!checkPasswordLength(state.currentPassword)) {
+      setIsError(true);
+      return setErrorId(InputIdsEnum.editPasswordCurrent);
     }
     mutation.mutate();
     setEditPassword(false);
@@ -77,38 +86,41 @@ const EditPasswordForm = ({ setEditPassword }: Props) => {
         lowercase letter, and 1 number.
       </p>
       <div>
-        <Form id="change-password-form" onSubmit={handleSubmit}>
+        <Form id={FormIdsEnum.editPassword} onSubmit={handleSubmit}>
           <Input
             type="password"
-            id={ChangePasswordInputsEnum.new}
-            name={ChangePasswordInputsEnum.new}
+            id={InputIdsEnum.editPasswordNew}
             label="New Password"
             handleChange={handleChange}
             required={true}
+            isError={isError}
+            errorId={errorId}
+            errorString={FormErrorsEnum.passLength}
           />
           <Input
             type="password"
-            id={ChangePasswordInputsEnum.ver}
-            name={ChangePasswordInputsEnum.ver}
+            id={InputIdsEnum.editPasswordConfirm}
             label="Confirm New Password"
             handleChange={handleChange}
             isError={isError}
             errorId={errorId}
-            errorString={"Password confirmation does not match."}
+            errorString={FormErrorsEnum.passConfirm}
             required={true}
           />
           <Input
             type="password"
-            id={ChangePasswordInputsEnum.curr}
-            name={ChangePasswordInputsEnum.curr}
+            id={InputIdsEnum.editPasswordCurrent}
             label="Current Password"
             handleChange={handleChange}
             required={true}
+            isError={isError}
+            errorId={errorId}
+            errorString={FormErrorsEnum.passLength}
           />
           <Button
             type="submit"
             text="Save"
-            styles={`${CustomStylesEnum.authButton} ${CustomStylesEnum.btnPrimary} mt-0`}
+            styles={`${CustomStylesEnum.authButton} ${CustomStylesEnum.btnPrimary}`}
           />
           <Button
             type="button"

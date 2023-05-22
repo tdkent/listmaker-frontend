@@ -9,6 +9,8 @@ export enum FormIdsEnum {
   editShopItem = "edit-shopping-item-form",
   newTodoItem = "new-todo-item-form",
   editTodoItem = "edit-todo-item-form",
+  editNickname = "edit-nickname-form",
+  editPassword = "edit-password-form",
 }
 
 export enum InputIdsEnum {
@@ -35,6 +37,10 @@ export enum InputIdsEnum {
   todoRepeatInterval = "edit-todo-repeat-interval-select",
   todoTaskName = "new-todo-subtask-name-input",
   todoTaskEdit = "edit-todo-subtask-name-input",
+  editNickname = "edit-nickname-input",
+  editPasswordNew = "new-password-input",
+  editPasswordConfirm = "confirm-new-password-input",
+  editPasswordCurrent = "current-password-input",
 }
 
 export enum FormErrorsEnum {

@@ -46,10 +46,3 @@ export interface EditListReqInt {
   id: number;
   name: string;
 }
-
-// export enum EditListInputsEnum {
-//   editName = "edit-list-name",
-//   newItem = "add-new-item",
-//   editItem = "edit-item",
-//   checkItem = "check-item",
-// }

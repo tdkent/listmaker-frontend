@@ -2,8 +2,6 @@ import { useRouteError } from "react-router-dom";
 
 import { RootErrorInt } from "../../models/errors";
 
-// TODO: update this page.
-//? Exactly when does this page trigger?
 const RootError = () => {
   const error: RootErrorInt = useRouteError() as RootErrorInt;
   console.error(error);
