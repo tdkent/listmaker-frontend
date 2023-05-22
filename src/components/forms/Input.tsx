@@ -8,7 +8,6 @@ interface InputProps {
   required: boolean;
   id: string;
   value?: string;
-  placeholder?: string;
   step?: number;
   disabled?: boolean;
   handleChange: (e: React.FormEvent<HTMLInputElement>) => void;
@@ -24,7 +23,6 @@ const Input = ({
   required,
   id,
   value,
-  placeholder,
   disabled,
   handleChange,
   isError,
@@ -46,7 +44,6 @@ const Input = ({
           type={type}
           id={id}
           value={value}
-          placeholder={placeholder}
           disabled={disabled}
           onChange={handleChange}
           className={`bg-gray-50 focus:bg-gray-50 border ${

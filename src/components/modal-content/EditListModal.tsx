@@ -37,7 +37,7 @@ const EditListModal = ({
           handleChange={handleChange}
           isError={isError}
           errorId={errorId}
-          errorString={FormErrorsEnum.name}
+          errorString={FormErrorsEnum.nameLength}
         />
         <Button
           type="button"

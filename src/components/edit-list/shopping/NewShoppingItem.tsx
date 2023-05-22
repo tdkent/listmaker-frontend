@@ -4,11 +4,12 @@ import { AxiosError } from "axios";
 
 import useError from "../../../hooks/useError";
 import { newShoppingItem } from "../../../api/mutate-shopping-items";
-import { EditListInputsEnum } from "../../../models/lists";
 import Input from "../../forms/Input";
 import Button from "../../forms/Button";
 import Form from "../../forms/Form";
 import { CustomStylesEnum } from "../../../models/styles";
+import { FormIdsEnum, InputIdsEnum, FormErrorsEnum } from "../../../models/forms";
+import { checkNameBlank } from "../../../utils/form-validation";
 
 interface NewShoppingItemProps {
   token: string;
@@ -16,7 +17,12 @@ interface NewShoppingItemProps {
 }
 
 const NewShoppingItem = ({ token, listId }: NewShoppingItemProps) => {
+  // errors
   const { setFetchError } = useError();
+  const [isError, setIsError] = useState(false);
+  const [errorId, setErrorId] = useState("");
+
+  // mutation
   const [itemName, setItemName] = useState("");
   const queryClient = useQueryClient();
   const mutation = useMutation({
@@ -27,30 +33,38 @@ const NewShoppingItem = ({ token, listId }: NewShoppingItemProps) => {
     },
     onError: (error: AxiosError) => setFetchError(error),
   });
+  const handleChange = (e: React.FormEvent<HTMLInputElement>) => {
+    setItemName(e.currentTarget.value);
+    setIsError(false);
+  };
   const submitHandler = (e: React.FormEvent) => {
     e.preventDefault();
-    if (!itemName) return;
+    // form validation
+    if (!checkNameBlank(itemName)) {
+      setIsError(true);
+      return setErrorId(InputIdsEnum.newShopName);
+    }
+    // mutate
     mutation.mutate();
   };
   return (
     <div className="my-6">
-      <Form id="add-shopping-item-form" onSubmit={submitHandler}>
+      <Form id={FormIdsEnum.newShopItem} onSubmit={submitHandler}>
         <Input
-          label=""
+          label="Name"
           type="text"
-          name={EditListInputsEnum.newItem}
-          id={EditListInputsEnum.newItem}
+          id={InputIdsEnum.newShopName}
           value={itemName}
-          placeholder="Add new"
-          required={false}
-          handleChange={(e: React.FormEvent<HTMLInputElement>) =>
-            setItemName(e.currentTarget.value)
-          }
+          required={true}
+          handleChange={handleChange}
+          isError={isError}
+          errorId={errorId}
+          errorString={FormErrorsEnum.nameBlank}
         />
         <Button
           type="submit"
           text="Add Item"
-          styles={`${CustomStylesEnum.authButton} ${CustomStylesEnum.btnPrimary} mt-0`}
+          styles={`${CustomStylesEnum.authButton} ${CustomStylesEnum.btnPrimary}`}
         />
       </Form>
     </div>

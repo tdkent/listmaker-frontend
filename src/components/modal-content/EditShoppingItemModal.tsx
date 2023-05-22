@@ -1,13 +1,16 @@
 import Input from "../forms/Input";
 import Button from "../forms/Button";
 import Form from "../forms/Form";
-import { EditItemFormInputsEnum } from "../../models/item";
 import { CustomStylesEnum } from "../../models/styles";
+import { FormIdsEnum, InputIdsEnum, FormErrorsEnum } from "../../models/forms";
 
 interface EditShoppingItemModalProps {
   itemName: string;
-  setItemName: (value: React.SetStateAction<string>) => void;
   itemCat: string;
+  isError: boolean;
+  errorId: string;
+  setIsError: (value: React.SetStateAction<boolean>) => void;
+  setItemName: (value: React.SetStateAction<string>) => void;
   setItemCat: (value: React.SetStateAction<string>) => void;
   handleSave: () => void;
   handleDelete: () => void;
@@ -18,36 +21,47 @@ const EditShoppingItemModal = ({
   itemName,
   setItemName,
   itemCat,
+  setIsError,
   setItemCat,
   handleSave,
   handleDelete,
   handleCancel,
+  isError,
+  errorId,
 }: EditShoppingItemModalProps) => {
   return (
     <div className="mt-2">
       <div className="text-center">
         <span className="text-lg">Edit Item</span>
       </div>
-      <Form id="edit-shopping-item-form">
+      <Form id={FormIdsEnum.editShopItem}>
         <Input
           label="Name"
           type="text"
-          name={EditItemFormInputsEnum.name}
-          id={EditItemFormInputsEnum.name}
+          id={InputIdsEnum.editShopName}
           value={itemName}
-          required={false}
+          required={true}
           handleChange={(e: React.FormEvent<HTMLInputElement>) => {
+            setIsError(false);
             setItemName(e.currentTarget.value);
           }}
+          isError={isError}
+          errorId={errorId}
+          errorString={FormErrorsEnum.nameBlank}
         />
         <Input
           label="Category"
           type="text"
-          name={EditItemFormInputsEnum.cat}
-          id={EditItemFormInputsEnum.cat}
+          id={InputIdsEnum.editShopCat}
           value={itemCat}
-          required={false}
-          handleChange={(e: React.FormEvent<HTMLInputElement>) => setItemCat(e.currentTarget.value)}
+          required={true}
+          handleChange={(e: React.FormEvent<HTMLInputElement>) => {
+            setIsError(false);
+            setItemCat(e.currentTarget.value);
+          }}
+          isError={isError}
+          errorId={errorId}
+          errorString={FormErrorsEnum.nameBlank}
         />
         <Button
           type="button"

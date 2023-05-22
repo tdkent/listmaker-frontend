@@ -6,7 +6,7 @@ import { AxiosError } from "axios";
 import AuthContext from "../../context/AuthContext";
 import useError from "../../hooks/useError";
 import checkLocalStorage from "../../utils/check-local-storage";
-import { nameLength } from "../../utils/form-validation";
+import { checkNameLength } from "../../utils/form-validation";
 import Form from "../../components/forms/Form";
 import Input from "../../components/forms/Input";
 import Select from "../../components/forms/Select";
@@ -67,7 +67,7 @@ const NewList = () => {
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     // form validation
-    if (!nameLength(state.name)) {
+    if (!checkNameLength(state.name)) {
       setIsError(true);
       return setErrorId(InputIdsEnum.newListName);
     }
@@ -92,7 +92,7 @@ const NewList = () => {
             required={true}
             isError={isError}
             errorId={errorId}
-            errorString={FormErrorsEnum.name}
+            errorString={FormErrorsEnum.nameLength}
           />
           <Select
             label="Type"

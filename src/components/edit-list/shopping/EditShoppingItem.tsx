@@ -10,6 +10,8 @@ import { CheckedItemEnum } from "../../../models/item";
 import { ShoppingListItemInt } from "../../../models/shopping";
 import EditShoppingItemModal from "../../modal-content/EditShoppingItemModal";
 import DisplayShoppingItem from "./DisplayShoppingItem";
+import { checkNameBlank } from "../../../utils/form-validation";
+import { InputIdsEnum } from "../../../models/forms";
 
 interface EditShoppingItemProps {
   token: string;
@@ -21,6 +23,8 @@ const EditShoppingItem = ({ token, listId, items }: EditShoppingItemProps) => {
   // error handling
   const modal = useContext(ModalContext);
   const { setFetchError } = useError();
+  const [isError, setIsError] = useState(false);
+  const [errorId, setErrorId] = useState("");
 
   // state
   const [editItemId, setEditItemId] = useState<number>();
@@ -42,14 +46,22 @@ const EditShoppingItem = ({ token, listId, items }: EditShoppingItemProps) => {
 
   // handler functions
   const handleSave = () => {
-    editMutation.mutate(editItemId as number);
+    if (!checkNameBlank(itemName)) {
+      setIsError(true);
+      return setErrorId(InputIdsEnum.editShopName);
+    }
+    if (!checkNameBlank(itemCat)) {
+      setIsError(true);
+      return setErrorId(InputIdsEnum.editShopCat);
+    }
+    editMutation.mutate(editItemId!);
     modal.provideId("");
     modal.toggleModal(false);
     setItemName("");
     setItemCat("");
   };
   const handleDelete = () => {
-    removeMutation.mutate(editItemId as number);
+    removeMutation.mutate(editItemId!);
     modal.provideId("");
     modal.toggleModal(false);
     setItemName("");
@@ -58,6 +70,7 @@ const EditShoppingItem = ({ token, listId, items }: EditShoppingItemProps) => {
   const handleCancel = () => {
     setItemName("");
     setItemCat("");
+    setIsError(false);
     modal.provideId("");
     modal.toggleModal(false);
   };
@@ -81,6 +94,9 @@ const EditShoppingItem = ({ token, listId, items }: EditShoppingItemProps) => {
               handleSave={handleSave}
               handleDelete={handleDelete}
               handleCancel={handleCancel}
+              isError={isError}
+              setIsError={setIsError}
+              errorId={errorId}
             />
           }
         />

@@ -13,7 +13,7 @@ import Pencil from "../../icons/Pencil";
 import Trash from "../../icons/Trash";
 import EditListModal from "../modal-content/EditListModal";
 import DeleteListModal from "../modal-content/DeleteListModal";
-import { nameLength } from "../../utils/form-validation";
+import { checkNameLength } from "../../utils/form-validation";
 
 interface EditListProps {
   token: string;
@@ -61,7 +61,7 @@ const EditList = ({ token, listId, listName }: EditListProps) => {
   };
 
   const handleSubmit = () => {
-    if (!nameLength(newName)) {
+    if (!checkNameLength(newName)) {
       setIsError(true);
       return setErrorId(InputIdsEnum.editListName);
     }

@@ -18,7 +18,12 @@ export const checkConfirmPassword = (p1: string, p2: string): boolean => {
   return false;
 };
 
-export const nameLength = (name: string): boolean => {
+export const checkNameLength = (name: string): boolean => {
   if (name.length > 1 && name.length <= 24) return true;
+  return false;
+};
+
+export const checkNameBlank = (name: string): boolean => {
+  if (name.length) return true;
   return false;
 };
