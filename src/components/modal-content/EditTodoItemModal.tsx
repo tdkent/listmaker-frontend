@@ -2,30 +2,25 @@ import Form from "../forms/Form";
 import Input from "../forms/Input";
 import Select from "../forms/Select";
 import Button from "../forms/Button";
-import { EditItemFormInputsEnum } from "../../models/item";
 import { todoItemCats, SubtaskInt } from "../../models/todo";
 import TodoLocation from "../edit-list/to-do/TodoLocation";
 import RepeatTodo from "./RepeatTodo";
 import { CustomStylesEnum } from "../../models/styles";
+import { FormIdsEnum, InputIdsEnum, FormErrorsEnum } from "../../models/forms";
 
 interface EditTodoItemModalProps {
-  listId: number;
-  itemId: number;
   name: string;
   cat: string;
   date: string;
   loc: string | null;
-  // coords: google.maps.LatLngLiteral | null;
   time: string | null;
   isRecurring: boolean;
   recurInteger: string;
   recurInterval: string;
-  tasks: SubtaskInt[] | null;
   setName: (value: React.SetStateAction<string>) => void;
   setCat: (value: React.SetStateAction<string>) => void;
   setDate: (value: React.SetStateAction<string>) => void;
   setLoc: (value: React.SetStateAction<string | null>) => void;
-  // setCoords: (value: React.SetStateAction<google.maps.LatLngLiteral | null>) => void;
   setTime: (value: React.SetStateAction<string | null>) => void;
   setIsRecurring: (value: React.SetStateAction<boolean>) => void;
   setRecurInteger: (value: React.SetStateAction<string>) => void;
@@ -34,11 +29,12 @@ interface EditTodoItemModalProps {
   handleDelete: () => void;
   handleCancel: () => void;
   isLoaded: boolean;
+  isError: boolean;
+  setIsError: (value: React.SetStateAction<boolean>) => void;
+  errorId: string;
 }
 
 const EditTodoItemModal = ({
-  listId,
-  itemId,
   name,
   cat,
   date,
@@ -47,7 +43,6 @@ const EditTodoItemModal = ({
   isRecurring,
   recurInteger,
   recurInterval,
-  tasks,
   setName,
   setCat,
   setDate,
@@ -60,32 +55,37 @@ const EditTodoItemModal = ({
   handleDelete,
   handleCancel,
   isLoaded,
+  isError,
+  setIsError,
+  errorId,
 }: EditTodoItemModalProps) => {
   return (
     <div className="mt-2 mb-6">
       <div className="text-center">
-        <span className="text-lg">Edit Item</span>
+        <h6>Edit Item</h6>
       </div>
       <div>
-        <Form id="todo-info-form">
+        <Form id={FormIdsEnum.editTodoItem}>
           <Input
             label="Name"
             type="text"
-            name={EditItemFormInputsEnum.name}
-            id={EditItemFormInputsEnum.name}
+            id={InputIdsEnum.editTodoName}
             value={name}
-            required={false}
+            required={true}
             handleChange={(e: React.FormEvent<HTMLInputElement>) => {
+              setIsError(false);
               setName(e.currentTarget.value);
             }}
+            isError={isError}
+            errorId={errorId}
+            errorString={FormErrorsEnum.nameBlank}
           />
           <Select
             label="Category"
-            name={EditItemFormInputsEnum.cat}
-            id={EditItemFormInputsEnum.cat}
+            id={InputIdsEnum.editTodoCat}
             defaultValue={cat}
             options={todoItemCats}
-            required={false}
+            required={true}
             handleSelect={(e: React.FormEvent<HTMLSelectElement>) => {
               setCat(e.currentTarget.value);
             }}
@@ -93,10 +93,9 @@ const EditTodoItemModal = ({
           <Input
             label="Due Date"
             type="date"
-            name={EditItemFormInputsEnum.date}
-            id={EditItemFormInputsEnum.date}
+            id={InputIdsEnum.editTodoDate}
             value={date}
-            required={false}
+            required={true}
             handleChange={(e: React.FormEvent<HTMLInputElement>) => {
               setDate(e.currentTarget.value);
             }}
@@ -104,8 +103,7 @@ const EditTodoItemModal = ({
           <Input
             label="Time"
             type="time"
-            name={EditItemFormInputsEnum.time}
-            id={EditItemFormInputsEnum.time}
+            id={InputIdsEnum.editTodoTime}
             value={time || ""}
             required={false}
             handleChange={(e: React.FormEvent<HTMLInputElement>) => {
@@ -123,15 +121,6 @@ const EditTodoItemModal = ({
           />
         </Form>
       </div>
-      {/* <TodoLocation isLoaded={isLoaded} loc={loc} setLoc={setLoc} /> */}
-      {/* <RepeatTodo
-        isRecurring={isRecurring}
-        setIsRecurring={setIsRecurring}
-        recurInteger={recurInteger}
-        setRecurInteger={setRecurInteger}
-        recurInterval={recurInterval}
-        setRecurInterval={setRecurInterval}
-      /> */}
       <div>
         <Button
           type="button"

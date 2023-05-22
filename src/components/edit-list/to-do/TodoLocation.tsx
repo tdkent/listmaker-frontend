@@ -1,6 +1,8 @@
-import { useMemo } from "react";
-import PlacesAutocomplete from "./PlacesAutocomplete";
-import TodoMap from "./TodoMap";
+import usePlacesAutocomplete from "use-places-autocomplete";
+
+import Input from "../../forms/Input";
+import ChevonRight from "../../../icons/ChevonRight";
+import { InputIdsEnum } from "../../../models/forms";
 
 interface TodoLocationProps {
   isLoaded: boolean;
@@ -9,7 +11,50 @@ interface TodoLocationProps {
 }
 
 const TodoLocation = ({ isLoaded, loc, setLoc }: TodoLocationProps) => {
-  return <PlacesAutocomplete loc={loc} setLoc={setLoc} />;
+  const {
+    ready,
+    value,
+    setValue,
+    suggestions: { status, data },
+    clearSuggestions,
+  } = usePlacesAutocomplete();
+  return (
+    <>
+      <Input
+        label="Address"
+        id={InputIdsEnum.editTodoAddress}
+        type="text"
+        disabled={!ready}
+        required={false}
+        value={value || loc || ""}
+        handleChange={(e: React.FormEvent<HTMLInputElement>) => {
+          setValue(e.currentTarget.value);
+          setLoc("");
+        }}
+      />
+      {status === "OK" && data && (
+        <div>
+          <ul>
+            {data.map((place) => {
+              return (
+                <li
+                  key={place.place_id}
+                  onClick={() => {
+                    setValue("");
+                    setLoc(place.description);
+                    clearSuggestions();
+                  }}
+                  className="flex flex-row items-center text-sm my-1.5 pl-2 hover:bg-azure hover:text-white hover:cursor-pointer">
+                  <ChevonRight />
+                  {place.description}
+                </li>
+              );
+            })}
+          </ul>
+        </div>
+      )}
+    </>
+  );
 };
 
 export default TodoLocation;

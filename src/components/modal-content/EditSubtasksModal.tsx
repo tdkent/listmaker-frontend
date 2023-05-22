@@ -9,13 +9,14 @@ import Button from "../forms/Button";
 import Form from "../forms/Form";
 import { EditItemFormInputsEnum } from "../../models/item";
 import { SubtaskInt, TodoListItemInt } from "../../models/todo";
-import { FormIdsEnum } from "../../models/forms";
+import { FormIdsEnum, InputIdsEnum, FormErrorsEnum } from "../../models/forms";
 import { newSubtask, editSubtask, deleteSubtask } from "../../api/mutate-todo-subtasks";
 import { CustomStylesEnum } from "../../models/styles";
 import Pencil from "../../icons/Pencil";
 import Trash from "../../icons/Trash";
 import Check from "../../icons/Check";
 import Close from "../../icons/Close";
+import { checkNameBlank } from "../../utils/form-validation";
 
 interface EditSubtasksModalProps {
   token: string;
@@ -35,6 +36,8 @@ const EditSubtasksModal = ({ token, listId, itemId, items, tasks }: EditSubtasks
   const [taskId, setTaskId] = useState<number>();
   const [isEditing, setIsEditing] = useState<boolean>(false);
   const [taskList, setTaskList] = useState<SubtaskInt[]>(tasks);
+  const [isError, setIsError] = useState(false);
+  const [errorId, setErrorId] = useState("");
 
   // mutation function
   const newMutation = useMutation({
@@ -65,8 +68,10 @@ const EditSubtasksModal = ({ token, listId, itemId, items, tasks }: EditSubtasks
   });
 
   // handler functions
-  const handleNewChange = (e: React.FormEvent<HTMLInputElement>) =>
+  const handleNewChange = (e: React.FormEvent<HTMLInputElement>) => {
+    setIsError(false);
     setNewTask(e.currentTarget.value);
+  };
 
   const handleEditCancel = () => {
     setIsEditing(false);
@@ -77,6 +82,10 @@ const EditSubtasksModal = ({ token, listId, itemId, items, tasks }: EditSubtasks
 
   const handleNewSubmit = (e: React.FormEvent) => {
     e.preventDefault();
+    if (!checkNameBlank(newTask)) {
+      setIsError(true);
+      return setErrorId(InputIdsEnum.todoTaskName);
+    }
     newMutation.mutate();
     setNewTask("");
   };
@@ -88,6 +97,7 @@ const EditSubtasksModal = ({ token, listId, itemId, items, tasks }: EditSubtasks
   };
 
   const handleClose = () => {
+    setIsError(false);
     modal.provideId("");
     modal.toggleModal(false);
   };
@@ -98,25 +108,27 @@ const EditSubtasksModal = ({ token, listId, itemId, items, tasks }: EditSubtasks
         <h6>Subtasks</h6>
       </div>
       <div className="my-4 pb-4 border-b">
-        {/* <p className="text-center">New Subtask</p> */}
         <Form id={FormIdsEnum.newTask} onSubmit={handleNewSubmit}>
           <Input
-            label="New Subtask"
+            label="Name"
             type="text"
-            name={EditItemFormInputsEnum.task}
-            id={EditItemFormInputsEnum.task}
+            id={InputIdsEnum.todoTaskName}
             value={newTask}
             handleChange={handleNewChange}
-            required={false}
+            required={true}
+            isError={isError}
+            errorId={errorId}
+            errorString={FormErrorsEnum.nameBlank}
           />
           <Button
             type="submit"
             text="Add"
-            styles={`${CustomStylesEnum.authButton} ${CustomStylesEnum.btnPrimary} mt-0`}
+            styles={`${CustomStylesEnum.authButton} ${CustomStylesEnum.btnPrimary}`}
           />
         </Form>
       </div>
-      <div className="">
+      {/* // TODO: Put this into new component */}
+      <div>
         {taskList.length ? (
           <ul>
             {taskList
@@ -130,8 +142,7 @@ const EditSubtasksModal = ({ token, listId, itemId, items, tasks }: EditSubtasks
                           <Input
                             label=""
                             type="text"
-                            name={EditItemFormInputsEnum.editTask}
-                            id={EditItemFormInputsEnum.editTask}
+                            id={InputIdsEnum.todoTaskEdit}
                             value={editTask}
                             handleChange={handleEditChange}
                             required={false}

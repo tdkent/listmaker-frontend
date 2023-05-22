@@ -4,7 +4,6 @@ import { AxiosError } from "axios";
 
 import useError from "../../../hooks/useError";
 import { newTodoItem } from "../../../api/mutate-todo-items";
-import { EditListInputsEnum } from "../../../models/lists";
 import Form from "../../forms/Form";
 import Input from "../../forms/Input";
 import Button from "../../forms/Button";

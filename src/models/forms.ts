@@ -8,6 +8,7 @@ export enum FormIdsEnum {
   newShopItem = "new-shopping-item-form",
   editShopItem = "edit-shopping-item-form",
   newTodoItem = "new-todo-item-form",
+  editTodoItem = "edit-todo-item-form",
 }
 
 export enum InputIdsEnum {
@@ -24,6 +25,16 @@ export enum InputIdsEnum {
   editShopName = "edit-shopping-item-name-input",
   editShopCat = "edit-shopping-item-category-input",
   newTodoName = "new-todo-item-name-input",
+  editTodoName = "edit-todo-item-name-input",
+  editTodoCat = "edit-todo-item-category-select",
+  editTodoDate = "edit-todo-item-date-input",
+  editTodoTime = "edit-todo-item-time-input",
+  editTodoAddress = "edit-todo-item-address-input",
+  todoRepeat = "edit-todo-repeat-checkbox",
+  todoRepeatInteger = "edit-todo-repeat-integer-select",
+  todoRepeatInterval = "edit-todo-repeat-interval-select",
+  todoTaskName = "new-todo-subtask-name-input",
+  todoTaskEdit = "edit-todo-subtask-name-input",
 }
 
 export enum FormErrorsEnum {

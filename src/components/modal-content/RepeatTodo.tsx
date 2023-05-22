@@ -1,6 +1,7 @@
 import Select from "../forms/Select";
 import Checkbox from "../forms/Checkbox";
 import { recurIntegerOpt, recurIntervalOptS, recurIntervalOptP } from "../../models/todo";
+import { InputIdsEnum } from "../../models/forms";
 
 interface RepeatTodoProps {
   isRecurring: boolean;
@@ -23,14 +24,13 @@ const RepeatTodo = ({
   return (
     <div className="my-2">
       <div className="flex items-center">
-        <Checkbox id="repeat-item-checkbox" checked={isRecurring} onChange={handleChange} />
+        <Checkbox id={InputIdsEnum.todoRepeat} checked={isRecurring} onChange={handleChange} />
         <label htmlFor="repeat-item-checkbox">Repeat {isRecurring && "item every:"}</label>
       </div>
       <div hidden={!isRecurring} className="mt-4">
         <Select
           label=""
-          name=""
-          id="repeat-todo-integer"
+          id={InputIdsEnum.todoRepeatInteger}
           defaultValue={recurInteger || "1"}
           options={recurIntegerOpt(10)}
           required={false}
@@ -40,8 +40,7 @@ const RepeatTodo = ({
         />
         <Select
           label=""
-          name=""
-          id="repeat-todo-unit"
+          id={InputIdsEnum.todoRepeatInterval}
           defaultValue={recurInterval || recurIntervalOptS[0]}
           required={false}
           options={Object.values(

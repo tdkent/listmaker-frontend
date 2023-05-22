@@ -12,6 +12,8 @@ import TodoDetailsModal from "../../modal-content/TodoDetailsModal";
 import EditTodoItemModal from "../../modal-content/EditTodoItemModal";
 import EditSubtasksModal from "../../modal-content/EditSubtasksModal";
 import DisplayTodoItem from "./DisplayTodoItem";
+import { checkNameBlank } from "../../../utils/form-validation";
+import { InputIdsEnum } from "../../../models/forms";
 
 interface EditTodoItemProps {
   token: string;
@@ -26,6 +28,8 @@ const EditTodoItem = ({ token, listId, listType, items }: EditTodoItemProps) => 
   // error handling
   const modal = useContext(ModalContext);
   const { setFetchError } = useError();
+  const [isError, setIsError] = useState(false);
+  const [errorId, setErrorId] = useState("");
 
   // state
   const [selectedItem, setSelectedItem] = useState<TodoListItemInt | null>(null);
@@ -33,7 +37,6 @@ const EditTodoItem = ({ token, listId, listType, items }: EditTodoItemProps) => 
   const [name, setName] = useState<string>("");
   const [cat, setCat] = useState<string>("");
   const [loc, setLoc] = useState<string | null>(null);
-  // const [coords, setCoords] = useState<google.maps.LatLngLiteral | null>(null);
   const [date, setDate] = useState<string>("");
   const [time, setTime] = useState<string | null>(null);
   const [tasks, setTasks] = useState<SubtaskInt[] | null>(null);
@@ -69,6 +72,12 @@ const EditTodoItem = ({ token, listId, listType, items }: EditTodoItemProps) => 
 
   // handler functions
   const handleSave = () => {
+    // form validation
+    if (!checkNameBlank(name)) {
+      setIsError(true);
+      return setErrorId(InputIdsEnum.editTodoName);
+    }
+    // mutate
     editMutation.mutate(id as number);
     modal.provideId("");
     modal.toggleModal(false);
@@ -81,6 +90,7 @@ const EditTodoItem = ({ token, listId, listType, items }: EditTodoItemProps) => 
   const handleCancel = () => {
     modal.provideId("");
     modal.toggleModal(false);
+    setIsError(false);
   };
 
   // google maps
@@ -90,7 +100,6 @@ const EditTodoItem = ({ token, listId, listType, items }: EditTodoItemProps) => 
   });
 
   // completed items
-
   const completedItems = items.filter((item) => item.isChecked);
 
   return (
@@ -106,7 +115,6 @@ const EditTodoItem = ({ token, listId, listType, items }: EditTodoItemProps) => 
               setName={setName}
               setCat={setCat}
               setLoc={setLoc}
-              // setCoords={setCoords}
               setDate={setDate}
               setTime={setTime}
               setTasks={setTasks}
@@ -121,15 +129,11 @@ const EditTodoItem = ({ token, listId, listType, items }: EditTodoItemProps) => 
         <Modal
           modalContent={
             <EditTodoItemModal
-              listId={listId}
-              itemId={id as number}
               name={name}
               cat={cat}
               date={date}
               loc={loc}
-              // coords={coords}
               time={time}
-              tasks={tasks}
               isRecurring={isRecurring}
               recurInteger={recurInteger}
               recurInterval={recurInterval}
@@ -141,11 +145,13 @@ const EditTodoItem = ({ token, listId, listType, items }: EditTodoItemProps) => 
               setIsRecurring={setIsRecurring}
               setRecurInteger={setRecurInteger}
               setRecurInterval={setRecurInterval}
-              // setCoords={setCoords}
               handleSave={handleSave}
               handleDelete={handleDelete}
               handleCancel={handleCancel}
               isLoaded={isLoaded}
+              isError={isError}
+              setIsError={setIsError}
+              errorId={errorId}
             />
           }
         />
@@ -178,7 +184,6 @@ const EditTodoItem = ({ token, listId, listType, items }: EditTodoItemProps) => 
                       setName={setName}
                       setCat={setCat}
                       setLoc={setLoc}
-                      // setCoords={setCoords}
                       setDate={setDate}
                       setTime={setTime}
                       setTasks={setTasks}
@@ -206,7 +211,6 @@ const EditTodoItem = ({ token, listId, listType, items }: EditTodoItemProps) => 
                     setName={setName}
                     setCat={setCat}
                     setLoc={setLoc}
-                    // setCoords={setCoords}
                     setDate={setDate}
                     setTime={setTime}
                     setTasks={setTasks}
