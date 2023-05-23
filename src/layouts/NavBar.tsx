@@ -12,6 +12,10 @@ interface NavBarProps {
 
 const NavBar = ({ showNav, setShowNav }: NavBarProps) => {
   const auth = useContext(AuthContext);
+  const handleLogOut = () => {
+    setShowNav(false);
+    auth.logout();
+  };
   return (
     <div
       className={`transition-all fixed top-0 ${
@@ -66,7 +70,7 @@ const NavBar = ({ showNav, setShowNav }: NavBarProps) => {
                 </NavLink>
               </li>
               <li className="py-4">
-                <button onClick={auth.logout}>Log Out</button>
+                <button onClick={handleLogOut}>Log Out</button>
               </li>
             </>
           )}

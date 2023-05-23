@@ -1,4 +1,4 @@
-import { useContext, useState } from "react";
+import { useContext } from "react";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { AxiosError } from "axios";
 import DisplayTodoSubtask from "./DisplayTodoSubtask";
@@ -8,7 +8,6 @@ import { TodoListItemInt, SubtaskInt, ToDoCats } from "../../../models/todo";
 import { checkTodoItem } from "../../../api/mutate-todo-items";
 import ModalContext, { ModalContentIdEnum } from "../../../context/ModalContext";
 import useError from "../../../hooks/useError";
-import Pencil from "../../../icons/Pencil";
 import Queue from "../../../icons/Queue";
 import Calendar from "../../../icons/Calendar";
 import Clock from "../../../icons/Clock";
@@ -20,8 +19,6 @@ import {
   createLocalDate,
   createTimeDue,
 } from "../../../utils/luxon-dates";
-import Modal from "../../modal/Modal";
-import TodoDetailsModal from "../../modal-content/TodoDetailsModal";
 
 interface DisplayTodoItemProps {
   token: string;
@@ -31,7 +28,6 @@ interface DisplayTodoItemProps {
   setName: (value: React.SetStateAction<string>) => void;
   setCat: (value: React.SetStateAction<string>) => void;
   setLoc: (value: React.SetStateAction<string | null>) => void;
-  // setCoords: (value: React.SetStateAction<google.maps.LatLngLiteral | null>) => void;
   setDate: (value: React.SetStateAction<string>) => void;
   setTime: (value: React.SetStateAction<string | null>) => void;
   setTasks: (value: React.SetStateAction<SubtaskInt[] | null>) => void;
@@ -46,31 +42,15 @@ const DisplayTodoItem = ({
   listId,
   item,
   setId,
-  setName,
-  setCat,
-  setLoc,
-  // setCoords,
-  setDate,
-  setTime,
   setTasks,
-  setIsRecurring,
-  setRecurInteger,
-  setRecurInterval,
   setSelectedItem,
 }: DisplayTodoItemProps) => {
   const modal = useContext(ModalContext);
   const { setFetchError } = useError();
   const queryClient = useQueryClient();
   const checkMutation = useMutation({
-    mutationFn: ({
-      itemId,
-      recurDate,
-      recurVal,
-    }: {
-      itemId: number;
-      recurDate: string;
-      recurVal: string;
-    }) => checkTodoItem(listId, itemId, token),
+    mutationFn: ({ itemId }: { itemId: number; recurDate: string; recurVal: string }) =>
+      checkTodoItem(listId, itemId, token),
     onSuccess: () => queryClient.invalidateQueries(["list", listId]),
     onError: (error: AxiosError) => setFetchError(error),
   });
@@ -138,24 +118,6 @@ const DisplayTodoItem = ({
               modal.toggleModal(true);
             }}
           />
-          {/* <Button
-            type="button"
-            text={<Pencil />}
-            handleClick={() => {
-              setId(item.itemId);
-              setName(item.itemName);
-              setCat(item.itemCategory);
-              setLoc(item.itemLocation);
-              setCoords(item.itemCoords);
-              setDate(item.dateDue);
-              setTime(item.timeDue || null);
-              setIsRecurring(item.isRecurring);
-              setRecurInteger(!item.recurVal ? "" : item.recurVal.split(" ")[0]);
-              setRecurInterval(!item.recurVal ? "" : item.recurVal.split(" ")[1]);
-              modal.provideId(ModalContentIdEnum.editTodoItem);
-              modal.toggleModal(true);
-            }}
-          /> */}
           <Button
             type="button"
             text={<Queue />}

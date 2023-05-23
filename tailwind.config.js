@@ -9,6 +9,7 @@ module.exports = {
     extend: {
       colors: {
         azure: "#007efc",
+        "azure-light": "#1F8FFF",
         "azure-medium": "#005CB8",
         "azure-dark": "#00478F",
         tomato: "#DF0101",

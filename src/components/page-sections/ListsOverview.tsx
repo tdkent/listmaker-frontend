@@ -1,19 +1,43 @@
-import { CustomStylesEnum } from "../../models/styles";
+import { useContext } from "react";
+
+import AuthContext from "../../context/AuthContext";
+import Hyperlink from "../forms/Hyperlink";
 
 const ListsOverview = () => {
+  const auth = useContext(AuthContext);
   return (
     <section className="my-6 pr-2">
       <h3>Create and customize lists to keep track of your goals</h3>
-      <p>
-        Lorem ipsum dolor sit, amet consectetur adipisicing elit. Ab temporibus accusamus dolor
-        aliquam pariatur adipisci, facere corrupti fugiat consectetur? Nam ducimus neque saepe
-        inventore at harum, culpa necessitatibus quasi magni!
-      </p>
-      <p>
-        Lorem ipsum dolor sit, amet consectetur adipisicing elit. Ab temporibus accusamus dolor
-        aliquam pariatur adipisci, facere corrupti fugiat consectetur? Nam ducimus neque saepe
-        inventore at harum, culpa necessitatibus quasi magni!
-      </p>
+      <div className="mt-4">
+        <p className="font-medium">Shopping</p>
+        <p className="my-2">
+          Add and categorize everything you need to buy for your grocery, supply, and other shopping
+          runs!
+        </p>
+      </div>
+      <div className="mt-4">
+        <p className="font-medium">To-Do</p>
+        <p className="my-2">
+          Organize your busy schedule with a list of to-do items. Your to-dos are tracked by due
+          date and category, and can be enhanced with optional info such as due time, address,
+          recurrence, and subtasks!
+        </p>
+      </div>
+      <div className="mt-4">
+        <p className="font-medium">...with more list types coming!</p>
+      </div>
+      <div className="mt-6 border-t">
+        <h4 className="mt-4 text-xl font-normal">Ready to get started?</h4>
+        <div className="mt-4">
+          <p>
+            {auth.isLoggedIn ? (
+              <Hyperlink to="/new">Create a new list</Hyperlink>
+            ) : (
+              <Hyperlink to="/register">Create a free account</Hyperlink>
+            )}
+          </p>
+        </div>
+      </div>
     </section>
   );
 };
