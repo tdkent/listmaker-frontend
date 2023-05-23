@@ -6,7 +6,7 @@ export const createRelativeDate = (date: string): string => {
 };
 
 export const checkDueDate = (date: string): boolean => {
-  return DateTime.fromISO(date) > DateTime.now();
+  return DateTime.fromISO(date).toISODate()! < DateTime.now().toISODate()!;
 };
 
 export const createLocalDate = (date: string): string | null => {

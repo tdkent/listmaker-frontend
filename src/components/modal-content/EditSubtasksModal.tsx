@@ -69,9 +69,13 @@ const EditSubtasksModal = ({ token, listId, itemId, items, tasks }: EditSubtasks
   };
 
   return (
-    <div className="mt-2 mb-6">
-      <div className="text-center pb-2 border-b">
+    <div className="mt-2 mb-6 text-sm">
+      <div className="flex items-center justify-between text-center px-3 pb-2 border-b">
+        <div className="text-left grow shrink basis-0">
+          <Button type="button" text="Close" handleClick={handleClose} />
+        </div>
         <h6>Subtasks</h6>
+        <div className="grow shrink basis-0" />
       </div>
       <div className="my-4 pb-4 border-b">
         <Form id={FormIdsEnum.newTask} onSubmit={handleNewSubmit}>
@@ -102,14 +106,6 @@ const EditSubtasksModal = ({ token, listId, itemId, items, tasks }: EditSubtasks
         isEditing={isEditing}
         setIsEditing={setIsEditing}
       />
-      <div>
-        <Button
-          type="button"
-          text="Close"
-          handleClick={handleClose}
-          styles="w-full my-6 font-semibold"
-        />
-      </div>
     </div>
   );
 };

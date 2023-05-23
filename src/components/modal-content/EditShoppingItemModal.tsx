@@ -32,7 +32,7 @@ const EditShoppingItemModal = ({
   return (
     <div className="mt-2">
       <div className="text-center">
-        <span className="text-lg">Edit Item</span>
+        <h6>Edit Item</h6>
       </div>
       <Form id={FormIdsEnum.editShopItem}>
         <Input

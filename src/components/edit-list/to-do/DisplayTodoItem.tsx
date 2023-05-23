@@ -102,7 +102,7 @@ const DisplayTodoItem = ({
               </span>
               <span
                 className={`flex flex-row items-center mr-2 ${
-                  !completedDate && !checkDate && "text-red-700"
+                  !completedDate && checkDate && "text-red-700"
                 }`}>
                 {completedDate ? (
                   <>

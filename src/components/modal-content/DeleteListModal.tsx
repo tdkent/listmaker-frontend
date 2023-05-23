@@ -10,7 +10,7 @@ const DeleteListModal = ({ handleDelete, handleCancel }: ModalProps) => {
   return (
     <div>
       <div className="text-center">
-        <span className="text-lg">Delete List</span>
+        <h6>Delete List</h6>
         <p className="text-center my-4">Are you sure you want to delete this list?</p>
       </div>
       <div>

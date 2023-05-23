@@ -6,7 +6,6 @@ import { TodoListItemInt, SubtaskInt } from "../../models/todo";
 import { createRelativeDate, createLocalDate, createTimeDue } from "../../utils/luxon-dates";
 import TodoMap from "../edit-list/to-do/TodoMap";
 import Button from "../forms/Button";
-import { CustomStylesEnum } from "../../models/styles";
 import Calendar from "../../icons/Calendar";
 import Pin from "../../icons/Pin";
 import Repeat from "../../icons/Repeat";
@@ -19,10 +18,8 @@ interface TodoDetailsProps {
   setName: (value: React.SetStateAction<string>) => void;
   setCat: (value: React.SetStateAction<string>) => void;
   setLoc: (value: React.SetStateAction<string | null>) => void;
-  // setCoords: (value: React.SetStateAction<google.maps.LatLngLiteral | null>) => void;
   setDate: (value: React.SetStateAction<string>) => void;
   setTime: (value: React.SetStateAction<string | null>) => void;
-  setTasks: (value: React.SetStateAction<SubtaskInt[] | null>) => void;
   setIsRecurring: (value: React.SetStateAction<boolean>) => void;
   setRecurInteger: (value: React.SetStateAction<string>) => void;
   setRecurInterval: (value: React.SetStateAction<string>) => void;
@@ -36,10 +33,8 @@ const TodoDetailsModal = ({
   setName,
   setCat,
   setLoc,
-  // setCoords,
   setDate,
   setTime,
-  setTasks,
   setIsRecurring,
   setRecurInteger,
   setRecurInterval,
@@ -53,7 +48,7 @@ const TodoDetailsModal = ({
           <Button type="button" text="Close" handleClick={handleCancel} />
         </div>
         <div>
-          <p className="font-medium">Item Details</p>
+          <h6>Item Details</h6>
         </div>
         <div>
           <Button
@@ -64,7 +59,6 @@ const TodoDetailsModal = ({
               setName(item.itemName);
               setCat(item.itemCategory);
               setLoc(item.itemLocation);
-              // setCoords(item.itemCoords);
               setDate(item.dateDue);
               setTime(item.timeDue || null);
               setIsRecurring(item.isRecurring);
@@ -113,33 +107,6 @@ const TodoDetailsModal = ({
             : "This item does not repeat"}
         </p>
       </div>
-      {/* <div>
-        <Button
-          type="button"
-          text="Edit Item"
-          handleClick={() => {
-            setId(item.itemId);
-            setName(item.itemName);
-            setCat(item.itemCategory);
-            setLoc(item.itemLocation);
-            setCoords(item.itemCoords);
-            setDate(item.dateDue);
-            setTime(item.timeDue || null);
-            setIsRecurring(item.isRecurring);
-            setRecurInteger(!item.recurVal ? "" : item.recurVal.split(" ")[0]);
-            setRecurInterval(!item.recurVal ? "" : item.recurVal.split(" ")[1]);
-            modal.provideId(ModalContentIdEnum.editTodoItem);
-            modal.toggleModal(true);
-          }}
-          styles={`${CustomStylesEnum.authButton} ${CustomStylesEnum.btnPrimary}`}
-        />
-        <Button
-          type="button"
-          text="Close"
-          handleClick={handleCancel}
-          styles="w-full my-6 font-semibold"
-        />
-      </div> */}
     </div>
   );
 };

@@ -25,7 +25,6 @@ const EditListModal = ({
     <div className="mt-2">
       <div className="text-center">
         <h6>Edit List</h6>
-        <p className="my-4 text-left">Make sure list name is 1-24 characters long.</p>
       </div>
       <Form id={FormIdsEnum.editList}>
         <Input

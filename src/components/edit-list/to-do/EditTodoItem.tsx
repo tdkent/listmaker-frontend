@@ -117,7 +117,6 @@ const EditTodoItem = ({ token, listId, listType, items }: EditTodoItemProps) => 
               setLoc={setLoc}
               setDate={setDate}
               setTime={setTime}
-              setTasks={setTasks}
               setIsRecurring={setIsRecurring}
               setRecurInteger={setRecurInteger}
               setRecurInterval={setRecurInterval}
