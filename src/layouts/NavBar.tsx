@@ -16,7 +16,7 @@ const NavBar = ({ showNav, setShowNav }: NavBarProps) => {
     <div
       className={`transition-all fixed top-0 ${
         showNav ? "left-0 duration-1000" : "left-full duration-0"
-      } z-100 bg-white w-full h-screen p-4`}>
+      } z-50 bg-white w-full h-screen p-4`}>
       <div className="flex">
         <Button
           text={<Close styles="w-7 h-7 stroke-gray-600" />}

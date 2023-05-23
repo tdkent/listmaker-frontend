@@ -2,7 +2,7 @@ import Form from "../forms/Form";
 import Input from "../forms/Input";
 import Select from "../forms/Select";
 import Button from "../forms/Button";
-import { todoItemCats, SubtaskInt } from "../../models/todo";
+import { todoItemCats } from "../../models/todo";
 import TodoLocation from "../edit-list/to-do/TodoLocation";
 import RepeatTodo from "./RepeatTodo";
 import { CustomStylesEnum } from "../../models/styles";

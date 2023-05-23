@@ -10,7 +10,7 @@ interface ModalContentProps {
 
 const ModalContent = ({ modalContent }: ModalContentProps) => {
   const modalDisplay = (
-    <div className="z-50 fixed w-full h-screen overflow-auto l-0 bg-white p-2 rounded-lg top-8">
+    <div className="z-30 fixed w-full h-screen overflow-auto l-0 bg-white p-2 rounded-lg top-8">
       {modalContent}
     </div>
   );
