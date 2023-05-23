@@ -11,6 +11,7 @@ import {
   checkPasswordLength,
   checkConfirmPassword,
 } from "../../utils/form-validation";
+import successToast from "../../utils/success-toast";
 import { FormErrorsEnum, FormIdsEnum, InputIdsEnum } from "../../models/forms";
 import { ReducerActionInt } from "../../models/reducers";
 import { CustomStylesEnum } from "../../models/styles";
@@ -62,16 +63,7 @@ const RegisterForm = () => {
     mutationFn: () => register(state),
     onError: (error: AxiosError) => setFetchError(error),
     onSuccess: () => {
-      toast.success("New account created! Please log in.", {
-        position: "bottom-center",
-        autoClose: 6000,
-        hideProgressBar: true,
-        closeOnClick: true,
-        pauseOnHover: true,
-        draggable: true,
-        progress: undefined,
-        theme: "colored",
-      });
+      successToast("New account created!");
       navigate("/login");
     },
   });

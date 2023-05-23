@@ -1,5 +1,5 @@
 import { useReducer, useContext, useState } from "react";
-import { useMutation, useQueryClient } from "@tanstack/react-query";
+import { useMutation } from "@tanstack/react-query";
 import { AxiosError } from "axios";
 
 import AuthContext from "../../context/AuthContext";
@@ -12,6 +12,7 @@ import Button from "../forms/Button";
 import { editPassword } from "../../api/user";
 import { FormIdsEnum, InputIdsEnum, FormErrorsEnum } from "../../models/forms";
 import { checkPasswordLength, checkConfirmPassword } from "../../utils/form-validation";
+import successToast from "../../utils/success-toast";
 
 interface Props {
   setEditPassword: (value: React.SetStateAction<boolean>) => void;
@@ -20,7 +21,6 @@ interface Props {
 const EditPasswordForm = ({ setEditPassword }: Props) => {
   const auth = useContext(AuthContext);
   const { setFetchError } = useError();
-  const queryClient = useQueryClient();
 
   const [isError, setIsError] = useState(false);
   const [errorId, setErrorId] = useState("");
@@ -49,7 +49,7 @@ const EditPasswordForm = ({ setEditPassword }: Props) => {
   const mutation = useMutation({
     mutationFn: () => editPassword(state.newPassword, state.currentPassword, auth.token!),
     onError: (error: AxiosError) => setFetchError(error),
-    onSuccess: () => queryClient.invalidateQueries(["user", auth.userId]),
+    onSuccess: () => successToast("Password updated!"),
   });
 
   const handleChange = (e: React.FormEvent<HTMLInputElement>) => {

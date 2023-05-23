@@ -11,6 +11,7 @@ import { editNickname } from "../../api/user";
 import { CustomStylesEnum } from "../../models/styles";
 import { FormIdsEnum, InputIdsEnum, FormErrorsEnum } from "../../models/forms";
 import { checkNickname } from "../../utils/form-validation";
+import successToast from "../../utils/success-toast";
 
 interface Props {
   userNickname: string;
@@ -30,7 +31,10 @@ const EditNicknameForm = ({ userNickname, setEditNickname }: Props) => {
   const mutation = useMutation({
     mutationFn: () => editNickname(newName, auth.token as string),
     onError: (error: AxiosError) => setFetchError(error),
-    onSuccess: () => queryClient.invalidateQueries(["user", auth.userId]),
+    onSuccess: () => {
+      queryClient.invalidateQueries(["user", auth.userId]);
+      successToast("Nickname updated!");
+    },
   });
   const handleChange = (e: React.FormEvent<HTMLInputElement>) => {
     setNewName(e.currentTarget.value);

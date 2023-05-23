@@ -1,20 +1,10 @@
-import { useContext, useEffect, useRef } from "react";
+import { useContext } from "react";
 import { Link } from "react-router-dom";
 
 import AuthContext from "../context/AuthContext";
 
-interface Props {
-  setFooterHeight: (value: React.SetStateAction<number>) => void;
-}
-
-const Footer = ({ setFooterHeight }: Props) => {
+const Footer = () => {
   const auth = useContext(AuthContext);
-
-  // footer height
-  useEffect(() => {
-    const element = document.getElementById("footer");
-    setFooterHeight(element!.offsetHeight);
-  }, []);
   return (
     <footer id="footer" className="mt-6 py-6 bg-azure text-white text-sm">
       <nav id="footer-navigation-bar" className="flex flex-col items-center">

@@ -9,14 +9,9 @@ import Hamburger from "../icons/Hamburger";
 
 const RootLayout = (): JSX.Element => {
   const [showNav, setShowNav] = useState(false);
-  const [footerHeight, setFooterHeight] = useState(0);
-  console.log("footerHeight: ", footerHeight);
-  const height: string = footerHeight + "px";
-  console.log("height: ", height);
-
   return (
     <>
-      <div id="container" className={`min-h-[calc(100vh-${height})]`}>
+      <div id="container" className={`min-h-[calc(100vh-192px)]`}>
         <header className="mx-2 mt-4 mb-4 border-b border-gray-200 relative z-10">
           <div className="flex justify-between items-center mb-4">
             <Logo />
@@ -34,7 +29,7 @@ const RootLayout = (): JSX.Element => {
           <Outlet />
         </main>
       </div>
-      <Footer setFooterHeight={setFooterHeight} />
+      <Footer />
     </>
   );
 };
