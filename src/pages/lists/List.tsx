@@ -16,6 +16,7 @@ import EditTodoItem from "../../components/edit-list/to-do/EditTodoItem";
 import { AllListTypesEnum } from "../../models/lists";
 import { TodoListItemInt } from "../../models/todo";
 import { ShoppingListItemInt } from "../../models/shopping";
+import LoadingSpinner from "../../components/ui/LoadingSpinner";
 
 const List = () => {
   // auth check
@@ -43,9 +44,8 @@ const List = () => {
     onError: (error: AxiosError) => setFetchError(error),
   });
 
-  // conditional rendering
   if (isLoading) {
-    return <div>Loading...</div>;
+    return <LoadingSpinner />;
   }
 
   if (isError) {

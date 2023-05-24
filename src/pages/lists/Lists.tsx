@@ -9,6 +9,7 @@ import { fetchAllLists } from "../../api/fetch-lists";
 import useError from "../../hooks/useError";
 import QueryError from "../../components/errors/queryError";
 import Pencil from "../../icons/Pencil";
+import LoadingSpinner from "../../components/ui/LoadingSpinner";
 
 const Lists = () => {
   // auth check
@@ -31,10 +32,8 @@ const Lists = () => {
     onError: (error: AxiosError) => setFetchError(error),
   });
 
-  // conditional rendering
-  // TODO: add loading component or spinner
   if (isLoading) {
-    return <div>Loading...</div>;
+    return <LoadingSpinner />;
   }
 
   if (isError) {

@@ -10,6 +10,7 @@ import DisplayNickname from "../../components/user/DisplayNickname";
 import EditNicknameForm from "../../components/user/EditNicknameForm";
 import DisplayPassword from "../../components/user/DisplayPassword";
 import EditPasswordForm from "../../components/user/EditPasswordForm";
+import LoadingSpinner from "../../components/ui/LoadingSpinner";
 
 const Profile = () => {
   // auth check
@@ -28,8 +29,7 @@ const Profile = () => {
   const { isLoading, isError, data, error } = useUser(auth.userId!, auth.token!);
 
   if (isLoading) {
-    // TODO: Loading graphic / spinner
-    return <div>Loading...</div>;
+    return <LoadingSpinner />;
   }
 
   if (isError) {

@@ -93,7 +93,17 @@ const TodoDetailsModal = ({
         {item.itemLocation ? (
           <>
             <p>{item.itemLocation}</p>
-            {center && <>{isLoaded ? <TodoMap center={center} /> : <p>Loading map...</p>}</>}
+            {center && (
+              <>
+                {isLoaded ? (
+                  <TodoMap center={center} />
+                ) : (
+                  <div className="flex flex-row items-center mt-4 h-52 border border-white">
+                    <p className="text-gray-400 font-thin">Loading map...</p>
+                  </div>
+                )}
+              </>
+            )}
           </>
         ) : (
           <p>This item does not have a location</p>
