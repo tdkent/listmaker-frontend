@@ -2,7 +2,7 @@ import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { useContext, useState } from "react";
 import { AxiosError } from "axios";
 
-import useError from "../../../hooks/useError";
+import ErrorContext from "../../../context/ErrorContext";
 import ModalContext, { ModalContentIdEnum } from "../../../context/ModalContext";
 import Modal from "../../modal/Modal";
 import { editShoppingItem, removeShoppingItem } from "../../../api/mutate-shopping-items";
@@ -22,9 +22,9 @@ interface EditShoppingItemProps {
 const EditShoppingItem = ({ token, listId, items }: EditShoppingItemProps) => {
   // error handling
   const modal = useContext(ModalContext);
-  const { setFetchError } = useError();
   const [isError, setIsError] = useState(false);
   const [errorId, setErrorId] = useState("");
+  const { toggleError, provideData } = useContext(ErrorContext);
 
   // state
   const [editItemId, setEditItemId] = useState<number>();
@@ -36,12 +36,18 @@ const EditShoppingItem = ({ token, listId, items }: EditShoppingItemProps) => {
   const editMutation = useMutation({
     mutationFn: (itemId: number) => editShoppingItem(listId, itemId, itemName, itemCat, token),
     onSuccess: () => queryClient.invalidateQueries(["list", listId]),
-    onError: (error: AxiosError) => setFetchError(error),
+    onError: (error: AxiosError) => {
+      toggleError(true);
+      provideData(error);
+    },
   });
   const removeMutation = useMutation({
     mutationFn: (itemId: number) => removeShoppingItem(listId, itemId, token),
     onSuccess: () => queryClient.invalidateQueries(["list", listId]),
-    onError: (error: AxiosError) => setFetchError(error),
+    onError: (error: AxiosError) => {
+      toggleError(true);
+      provideData(error);
+    },
   });
 
   // handler functions

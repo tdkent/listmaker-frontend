@@ -1,8 +1,13 @@
+import { useContext } from "react";
+
+import ErrorContext from "../context/ErrorContext";
+
 interface Props {
   styles: string;
 }
 
 const Pencil = ({ styles }: Props) => {
+  const { active } = useContext(ErrorContext);
   return (
     <svg
       xmlns="http://www.w3.org/2000/svg"
@@ -10,8 +15,7 @@ const Pencil = ({ styles }: Props) => {
       viewBox="0 0 24 24"
       strokeWidth={1.5}
       stroke="currentColor"
-      // className="w-5 h-5 stroke-gray-600 mr-1 mt-1">
-      className={styles}>
+      className={`${styles} ${active ? "stroke-gray-300" : "stroke-gray-600"}`}>
       <path
         strokeLinecap="round"
         strokeLinejoin="round"

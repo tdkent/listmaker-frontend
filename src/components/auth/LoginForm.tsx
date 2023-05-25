@@ -4,7 +4,7 @@ import { useMutation } from "@tanstack/react-query";
 import { useNavigate } from "react-router-dom";
 
 import AuthContext from "../../context/AuthContext";
-import useError from "../../hooks/useError";
+import ErrorContext from "../../context/ErrorContext";
 import { FormIdsEnum, InputIdsEnum, FormErrorsEnum } from "../../models/forms";
 import { ReducerActionInt } from "../../models/reducers";
 import { CustomStylesEnum } from "../../models/styles";
@@ -16,7 +16,7 @@ import Button from "../forms/Button";
 
 const LoginForm = () => {
   // errors
-  const { setFetchError } = useError();
+  const { active, toggleError, provideData } = useContext(ErrorContext);
   const [isError, setIsError] = useState(false);
   const [errorId, setErrorId] = useState("");
 
@@ -48,7 +48,10 @@ const LoginForm = () => {
   const navigate = useNavigate();
   const mutation = useMutation({
     mutationFn: () => login(state),
-    onError: (error: AxiosError) => setFetchError(error),
+    onError: (error: AxiosError) => {
+      toggleError(true);
+      provideData(error);
+    },
     onSuccess: (data) => {
       auth.login(data.token, data.userId);
       navigate("/lists");
@@ -83,7 +86,7 @@ const LoginForm = () => {
         />
         <Input
           label="Password"
-          type="text"
+          type="password"
           id={InputIdsEnum.loginPass}
           handleChange={handleChange}
           required={true}
@@ -94,6 +97,7 @@ const LoginForm = () => {
         <Button
           type="submit"
           text="Log in"
+          disabled={active}
           styles={`${CustomStylesEnum.authButton} ${CustomStylesEnum.btnPrimary}`}
         />
       </Form>

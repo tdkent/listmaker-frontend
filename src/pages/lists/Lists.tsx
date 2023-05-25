@@ -4,11 +4,11 @@ import { useQuery } from "@tanstack/react-query";
 import { AxiosError } from "axios";
 
 import AuthContext from "../../context/AuthContext";
+import ErrorContext from "../../context/ErrorContext";
 import checkLocalStorage from "../../utils/check-local-storage";
 import { fetchAllLists } from "../../api/fetch-lists";
-import useError from "../../hooks/useError";
 import QueryError from "../../components/errors/queryError";
-import Pencil from "../../icons/Pencil";
+import CircleEllipsis from "../../icons/CircleEllipsis";
 import LoadingSpinner from "../../components/ui/LoadingSpinner";
 
 const Lists = () => {
@@ -21,15 +21,19 @@ const Lists = () => {
     else navigate("/login");
   }, [auth.isLoggedIn, navigate]);
 
+  // errors
+  const { toggleError, provideData } = useContext(ErrorContext);
   // query
-  const { setFetchError } = useError();
   const userId = auth.userId as number;
   const token = auth.token as string;
   const { isLoading, isError, data, error } = useQuery({
     queryKey: ["lists", userId],
     queryFn: () => fetchAllLists(token),
     enabled: !!token,
-    onError: (error: AxiosError) => setFetchError(error),
+    onError: (error: AxiosError) => {
+      toggleError(true);
+      provideData(error);
+    },
   });
 
   if (isLoading) {
@@ -57,19 +61,17 @@ const Lists = () => {
       <div className="my-6 border-b">
         {data.map((list) => {
           return (
-            <div
-              key={list.listId}
-              className="flex flex-row justify-between items-center border-t py-4">
-              <div className="flex flex-col">
-                <span className="font-semibold">{list.listName}</span>
-                <span className="text-xs">{list.listType}</span>
+            <Link to={`/lists/${list.listSlug}&id=${list.listId}`} key={list.listId}>
+              <div className="flex flex-row justify-between items-center border-t py-4">
+                <div className="flex flex-col">
+                  <span className="font-semibold">{list.listName}</span>
+                  <span className="text-xs">{list.listType}</span>
+                </div>
+                <div className="">
+                  <CircleEllipsis />
+                </div>
               </div>
-              <div className="">
-                <Link to={`/lists/${list.listSlug}&id=${list.listId}`}>
-                  <Pencil styles="w-5 h-5 stroke-gray-600 mr-1 mt-1" />
-                </Link>
-              </div>
-            </div>
+            </Link>
           );
         })}
       </div>

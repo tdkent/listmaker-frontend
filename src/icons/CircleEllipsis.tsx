@@ -1,4 +1,9 @@
+import { useContext } from "react";
+
+import ErrorContext from "../context/ErrorContext";
+
 const CircleEllipsis = () => {
+  const { active } = useContext(ErrorContext);
   return (
     <svg
       xmlns="http://www.w3.org/2000/svg"
@@ -6,7 +11,9 @@ const CircleEllipsis = () => {
       viewBox="0 0 24 24"
       strokeWidth={1.5}
       stroke="currentColor"
-      className="w-5 h-5 stroke-gray-600 mr-1 mt-1">
+      className={`w-5 h-5 stroke-gray-600 mr-1 mt-1 ${
+        active ? "stroke-gray-300" : "stroke-gray-600"
+      }`}>
       <path
         strokeLinecap="round"
         strokeLinejoin="round"

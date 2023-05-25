@@ -1,8 +1,8 @@
-import { useState } from "react";
+import { useState, useContext } from "react";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { AxiosError } from "axios";
 
-import useError from "../../hooks/useError";
+import ErrorContext from "../../context/ErrorContext";
 import Form from "../forms/Form";
 import Input from "../forms/Input";
 import Button from "../forms/Button";
@@ -37,14 +37,15 @@ const EditSubtasksDisplay = ({
 }: Props) => {
   // constants
   const queryClient = useQueryClient();
-  const { setFetchError } = useError();
+
+  // errors
+  const { active, toggleError, provideData } = useContext(ErrorContext);
+  const [isError, setIsError] = useState(false);
+  const [errorId, setErrorId] = useState("");
 
   // state
   const [editTask, setEditTask] = useState<string>("");
   const [taskId, setTaskId] = useState<number>();
-  // const [isEditing, setIsEditing] = useState<boolean>(false);
-  const [isError, setIsError] = useState(false);
-  const [errorId, setErrorId] = useState("");
 
   // mutations
   const editMutation = useMutation({
@@ -53,7 +54,10 @@ const EditSubtasksDisplay = ({
       setTaskList(data);
       queryClient.invalidateQueries(["list", listId]);
     },
-    onError: (error: AxiosError) => setFetchError(error),
+    onError: (error: AxiosError) => {
+      toggleError(true);
+      provideData(error);
+    },
   });
   const deleteMutation = useMutation({
     mutationFn: (taskId: number) => deleteSubtask(taskId, itemId, token),
@@ -61,7 +65,10 @@ const EditSubtasksDisplay = ({
       setTaskList(data || []);
       queryClient.invalidateQueries(["list", listId]);
     },
-    onError: (error: AxiosError) => setFetchError(error),
+    onError: (error: AxiosError) => {
+      toggleError(true);
+      provideData(error);
+    },
   });
 
   // handlers
@@ -128,6 +135,7 @@ const EditSubtasksDisplay = ({
                       <Button
                         type="button"
                         text={<Pencil styles="w-5 h-5 stroke-gray-600 mr-1 mt-1" />}
+                        disabled={active}
                         handleClick={() => {
                           setIsError(false);
                           setIsEditing(true);
@@ -138,6 +146,7 @@ const EditSubtasksDisplay = ({
                       <Button
                         type="button"
                         text={<Trash />}
+                        disabled={active}
                         handleClick={() => deleteMutation.mutate(task.taskId)}
                       />
                     </div>

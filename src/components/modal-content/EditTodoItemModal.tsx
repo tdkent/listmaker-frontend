@@ -97,8 +97,12 @@ const EditTodoItemModal = ({
             value={date}
             required={true}
             handleChange={(e: React.FormEvent<HTMLInputElement>) => {
+              setIsError(false);
               setDate(e.currentTarget.value);
             }}
+            isError={isError}
+            errorId={errorId}
+            errorString={FormErrorsEnum.dateBlank}
           />
           <Input
             label="Time"

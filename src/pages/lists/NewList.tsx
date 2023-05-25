@@ -4,7 +4,7 @@ import { useMutation } from "@tanstack/react-query";
 import { AxiosError } from "axios";
 
 import AuthContext from "../../context/AuthContext";
-import useError from "../../hooks/useError";
+import ErrorContext from "../../context/ErrorContext";
 import checkLocalStorage from "../../utils/check-local-storage";
 import { checkNameLength } from "../../utils/form-validation";
 import Form from "../../components/forms/Form";
@@ -28,7 +28,7 @@ const NewList = () => {
   }, [auth.isLoggedIn, navigate]);
 
   // errors
-  const { setFetchError } = useError();
+  const { active, toggleError, provideData } = useContext(ErrorContext);
   const [isError, setIsError] = useState(false);
   const [errorId, setErrorId] = useState("");
 
@@ -62,7 +62,10 @@ const NewList = () => {
       const { listId, listSlug } = data;
       navigate(`/lists/${listSlug}&id=${listId}`);
     },
-    onError: (error: AxiosError) => setFetchError(error),
+    onError: (error: AxiosError) => {
+      toggleError(true);
+      provideData(error);
+    },
   });
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
@@ -105,6 +108,7 @@ const NewList = () => {
           <Button
             type="submit"
             text="Submit"
+            disabled={active}
             styles={`${CustomStylesEnum.authButton} ${CustomStylesEnum.btnPrimary}`}
           />
         </Form>

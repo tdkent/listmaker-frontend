@@ -1,8 +1,7 @@
-import { useState } from "react";
+import { useState, useContext } from "react";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { AxiosError } from "axios";
 
-import useError from "../../../hooks/useError";
 import { newTodoItem } from "../../../api/mutate-todo-items";
 import Form from "../../forms/Form";
 import Input from "../../forms/Input";
@@ -10,6 +9,7 @@ import Button from "../../forms/Button";
 import { CustomStylesEnum } from "../../../models/styles";
 import { FormIdsEnum, InputIdsEnum, FormErrorsEnum } from "../../../models/forms";
 import { checkNameBlank } from "../../../utils/form-validation";
+import ErrorContext from "../../../context/ErrorContext";
 
 interface NewTodoItemProps {
   token: string;
@@ -18,7 +18,7 @@ interface NewTodoItemProps {
 
 const NewTodoItem = ({ token, listId }: NewTodoItemProps) => {
   // errors
-  const { setFetchError } = useError();
+  const { active, toggleError, provideData } = useContext(ErrorContext);
   const [isError, setIsError] = useState(false);
   const [errorId, setErrorId] = useState("");
 
@@ -31,7 +31,10 @@ const NewTodoItem = ({ token, listId }: NewTodoItemProps) => {
       setItemName("");
       queryClient.invalidateQueries(["list", listId]);
     },
-    onError: (error: AxiosError) => setFetchError(error),
+    onError: (error: AxiosError) => {
+      toggleError(true);
+      provideData(error);
+    },
   });
   const handleChange = (e: React.FormEvent<HTMLInputElement>) => {
     setItemName(e.currentTarget.value);
@@ -62,6 +65,7 @@ const NewTodoItem = ({ token, listId }: NewTodoItemProps) => {
         <Button
           type="submit"
           text="Add Item"
+          disabled={active}
           styles={`${CustomStylesEnum.authButton} ${CustomStylesEnum.btnPrimary}`}
         />
       </Form>

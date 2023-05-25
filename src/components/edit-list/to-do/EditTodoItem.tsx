@@ -3,7 +3,7 @@ import { useContext, useState } from "react";
 import { AxiosError } from "axios";
 import { useLoadScript } from "@react-google-maps/api";
 
-import useError from "../../../hooks/useError";
+import ErrorContext from "../../../context/ErrorContext";
 import ModalContext, { ModalContentIdEnum } from "../../../context/ModalContext";
 import Modal from "../../modal/Modal";
 import { editTodoItem, removeTodoItem } from "../../../api/mutate-todo-items";
@@ -27,7 +27,7 @@ const libraries: ["places"] = ["places"];
 const EditTodoItem = ({ token, listId, listType, items }: EditTodoItemProps) => {
   // error handling
   const modal = useContext(ModalContext);
-  const { setFetchError } = useError();
+  const { toggleError, provideData } = useContext(ErrorContext);
   const [isError, setIsError] = useState(false);
   const [errorId, setErrorId] = useState("");
 
@@ -62,12 +62,18 @@ const EditTodoItem = ({ token, listId, listType, items }: EditTodoItemProps) => 
         token
       ),
     onSuccess: () => queryClient.invalidateQueries(["list", listId]),
-    onError: (error: AxiosError) => setFetchError(error),
+    onError: (error: AxiosError) => {
+      toggleError(true);
+      provideData(error);
+    },
   });
   const removeMutation = useMutation({
     mutationFn: (itemId: number) => removeTodoItem(listId, itemId, token),
     onSuccess: () => queryClient.invalidateQueries(["list", listId]),
-    onError: (error: AxiosError) => setFetchError(error),
+    onError: (error: AxiosError) => {
+      toggleError(true);
+      provideData(error);
+    },
   });
 
   // handler functions
@@ -76,6 +82,10 @@ const EditTodoItem = ({ token, listId, listType, items }: EditTodoItemProps) => 
     if (!checkNameBlank(name)) {
       setIsError(true);
       return setErrorId(InputIdsEnum.editTodoName);
+    }
+    if (!checkNameBlank(date)) {
+      setIsError(true);
+      return setErrorId(InputIdsEnum.editTodoDate);
     }
     // mutate
     editMutation.mutate(id as number);

@@ -1,10 +1,9 @@
-import React, { useReducer, useState } from "react";
+import React, { useReducer, useState, useContext } from "react";
 import { useNavigate } from "react-router-dom";
-import { toast } from "react-toastify";
 import { useMutation } from "@tanstack/react-query";
 import { AxiosError } from "axios";
 
-import useError from "../../hooks/useError";
+import ErrorContext from "../../context/ErrorContext";
 import {
   checkIsEmail,
   checkNickname,
@@ -22,7 +21,7 @@ import Button from "../forms/Button";
 
 const RegisterForm = () => {
   // error handling
-  const { setFetchError } = useError();
+  const { active, toggleError, provideData } = useContext(ErrorContext);
   const [isError, setIsError] = useState(false);
   const [errorId, setErrorId] = useState("");
 
@@ -61,7 +60,10 @@ const RegisterForm = () => {
   const navigate = useNavigate();
   const mutation = useMutation({
     mutationFn: () => register(state),
-    onError: (error: AxiosError) => setFetchError(error),
+    onError: (error: AxiosError) => {
+      toggleError(true);
+      provideData(error);
+    },
     onSuccess: () => {
       successToast("New account created!");
       navigate("/login");
@@ -115,7 +117,7 @@ const RegisterForm = () => {
         />
         <Input
           label="Password"
-          type="password"
+          type="text"
           id={InputIdsEnum.regPass}
           handleChange={handleChange}
           required={true}
@@ -136,6 +138,7 @@ const RegisterForm = () => {
         <Button
           type="submit"
           text="Sign up"
+          disabled={active}
           styles={`${CustomStylesEnum.authButton} ${CustomStylesEnum.btnPrimary}`}
         />
       </Form>

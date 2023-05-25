@@ -1,7 +1,5 @@
 import { createContext } from "react";
 
-// ? Turn this into a hook instead?
-
 export enum ModalContentIdEnum {
   editList = "EDIT_LIST",
   deleteList = "DELETE_LIST",

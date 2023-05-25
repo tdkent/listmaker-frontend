@@ -3,7 +3,7 @@ import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { AxiosError } from "axios";
 import { useNavigate } from "react-router-dom";
 
-import useError from "../../hooks/useError";
+import ErrorContext from "../../context/ErrorContext";
 import ModalContext, { ModalContentIdEnum } from "../../context/ModalContext";
 import Modal from "../modal/Modal";
 import Button from "../forms/Button";
@@ -27,7 +27,7 @@ const EditList = ({ token, listId, listName }: EditListProps) => {
   const navigate = useNavigate();
 
   // errors
-  const { setFetchError } = useError();
+  const { active, toggleError, provideData } = useContext(ErrorContext);
   const [isError, setIsError] = useState(false);
   const [errorId, setErrorId] = useState("");
 
@@ -35,14 +35,20 @@ const EditList = ({ token, listId, listName }: EditListProps) => {
   const [newName, setNewName] = useState(listName);
   const editMutation = useMutation({
     mutationFn: () => editList(listId, newName, token),
-    onError: (error: AxiosError) => setFetchError(error),
+    onError: (error: AxiosError) => {
+      toggleError(true);
+      provideData(error);
+    },
     onSuccess: () => queryClient.invalidateQueries(["list", listId]),
   });
 
   const deleteMutation = useMutation({
     mutationFn: () => deleteList(listId, token),
     onSuccess: () => navigate("/lists"),
-    onError: (error: AxiosError) => setFetchError(error),
+    onError: (error: AxiosError) => {
+      toggleError(true);
+      provideData(error);
+    },
   });
 
   const handleChange = (e: React.FormEvent<HTMLInputElement>) => {
@@ -66,6 +72,7 @@ const EditList = ({ token, listId, listName }: EditListProps) => {
       return setErrorId(InputIdsEnum.editListName);
     }
     if (listName !== newName) editMutation.mutate();
+
     modal.provideId("");
     modal.toggleModal(false);
   };
@@ -109,10 +116,11 @@ const EditList = ({ token, listId, listName }: EditListProps) => {
         <div className="flex flex-row">
           <Button
             type="button"
-            text={<Pencil styles="w-5 h-5 stroke-gray-600 mr-1 mt-1" />}
+            text={<Pencil styles="w-5 h-5 mr-1 mt-1" />}
             handleClick={handleEditInit}
+            disabled={active}
           />
-          <Button type="button" text={<Trash />} handleClick={handleDeleteInit} />
+          <Button type="button" text={<Trash />} disabled={active} handleClick={handleDeleteInit} />
         </div>
       </div>
     </>

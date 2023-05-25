@@ -1,6 +1,9 @@
-import { useState } from "react";
+import { useState, useContext } from "react";
 import { Outlet } from "react-router-dom";
 
+import ErrorContext from "../context/ErrorContext";
+import ModalContext from "../context/ModalContext";
+import ShowApiError from "../components/errors/ShowApiError";
 import Logo from "./Logo";
 import NavBar from "./NavBar";
 import Footer from "./Footer";
@@ -8,6 +11,9 @@ import Button from "../components/forms/Button";
 import Hamburger from "../icons/Hamburger";
 
 const RootLayout = (): JSX.Element => {
+  // errors
+  const { active, data } = useContext(ErrorContext);
+  const modal = useContext(ModalContext);
   const [showNav, setShowNav] = useState(false);
   return (
     <>
@@ -26,6 +32,7 @@ const RootLayout = (): JSX.Element => {
           <NavBar showNav={showNav} setShowNav={setShowNav} />
         </header>
         <main className="mx-3 relative z-0">
+          {active && !modal.active && <ShowApiError errorData={data!} />}
           <Outlet />
         </main>
       </div>

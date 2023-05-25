@@ -1,8 +1,8 @@
-import { useState } from "react";
+import { useState, useContext } from "react";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { AxiosError } from "axios";
 
-import useError from "../../../hooks/useError";
+import ErrorContext from "../../../context/ErrorContext";
 import { newShoppingItem } from "../../../api/mutate-shopping-items";
 import Input from "../../forms/Input";
 import Button from "../../forms/Button";
@@ -18,7 +18,7 @@ interface NewShoppingItemProps {
 
 const NewShoppingItem = ({ token, listId }: NewShoppingItemProps) => {
   // errors
-  const { setFetchError } = useError();
+  const { active, toggleError, provideData } = useContext(ErrorContext);
   const [isError, setIsError] = useState(false);
   const [errorId, setErrorId] = useState("");
 
@@ -31,7 +31,10 @@ const NewShoppingItem = ({ token, listId }: NewShoppingItemProps) => {
       setItemName("");
       queryClient.invalidateQueries(["list", listId]);
     },
-    onError: (error: AxiosError) => setFetchError(error),
+    onError: (error: AxiosError) => {
+      toggleError(true);
+      provideData(error);
+    },
   });
   const handleChange = (e: React.FormEvent<HTMLInputElement>) => {
     setItemName(e.currentTarget.value);
@@ -64,6 +67,7 @@ const NewShoppingItem = ({ token, listId }: NewShoppingItemProps) => {
         <Button
           type="submit"
           text="Add Item"
+          disabled={active}
           styles={`${CustomStylesEnum.authButton} ${CustomStylesEnum.btnPrimary}`}
         />
       </Form>

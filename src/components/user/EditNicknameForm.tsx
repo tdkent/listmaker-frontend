@@ -3,7 +3,7 @@ import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { AxiosError } from "axios";
 
 import AuthContext from "../../context/AuthContext";
-import useError from "../../hooks/useError";
+import ErrorContext from "../../context/ErrorContext";
 import Form from "../forms/Form";
 import Input from "../forms/Input";
 import Button from "../forms/Button";
@@ -20,17 +20,21 @@ interface Props {
 
 const EditNicknameForm = ({ userNickname, setEditNickname }: Props) => {
   const auth = useContext(AuthContext);
-  const { setFetchError } = useError();
   const queryClient = useQueryClient();
 
-  const [newName, setNewName] = useState(userNickname);
+  // errors
+  const { active, toggleError, provideData } = useContext(ErrorContext);
   const [isError, setIsError] = useState(false);
   const [errorId, setErrorId] = useState("");
 
   // form submission
+  const [newName, setNewName] = useState(userNickname);
   const mutation = useMutation({
     mutationFn: () => editNickname(newName, auth.token as string),
-    onError: (error: AxiosError) => setFetchError(error),
+    onError: (error: AxiosError) => {
+      toggleError(true);
+      provideData(error);
+    },
     onSuccess: () => {
       queryClient.invalidateQueries(["user", auth.userId]);
       successToast("Nickname updated!");
@@ -76,6 +80,7 @@ const EditNicknameForm = ({ userNickname, setEditNickname }: Props) => {
         <Button
           type="submit"
           text="Save"
+          disabled={active}
           styles={`${CustomStylesEnum.authButton} ${CustomStylesEnum.btnPrimary}`}
         />
         <Button

@@ -5,6 +5,7 @@ export enum FormIdsEnum {
   editTask = "edit-subtask-form",
   newList = "new-list-form",
   editList = "edit-list-form",
+  deleteList = "delete-list-form",
   newShopItem = "new-shopping-item-form",
   editShopItem = "edit-shopping-item-form",
   newTodoItem = "new-todo-item-form",
@@ -50,4 +51,5 @@ export enum FormErrorsEnum {
   passConfirm = "Password confirmation does not match.",
   nameLength = "Please enter a name 1-24 characters long.",
   nameBlank = "Please enter a name.",
+  dateBlank = "Please enter a valid date.",
 }

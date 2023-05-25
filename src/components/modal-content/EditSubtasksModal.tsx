@@ -2,7 +2,7 @@ import { useState, useContext } from "react";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { AxiosError } from "axios";
 
-import useError from "../../hooks/useError";
+import ErrorContext from "../../context/ErrorContext";
 import ModalContext from "../../context/ModalContext";
 import Input from "../forms/Input";
 import Button from "../forms/Button";
@@ -25,15 +25,17 @@ interface EditSubtasksModalProps {
 const EditSubtasksModal = ({ token, listId, itemId, items, tasks }: EditSubtasksModalProps) => {
   // constants
   const queryClient = useQueryClient();
-  const { setFetchError } = useError();
   const modal = useContext(ModalContext);
+
+  // errors
+  const { active, toggleError, provideData } = useContext(ErrorContext);
+  const [isError, setIsError] = useState(false);
+  const [errorId, setErrorId] = useState("");
 
   // state
   const [newTask, setNewTask] = useState<string>("");
   const [taskList, setTaskList] = useState<SubtaskInt[]>(tasks);
   const [isEditing, setIsEditing] = useState<boolean>(false);
-  const [isError, setIsError] = useState(false);
-  const [errorId, setErrorId] = useState("");
 
   // mutation
   const newMutation = useMutation({
@@ -42,7 +44,10 @@ const EditSubtasksModal = ({ token, listId, itemId, items, tasks }: EditSubtasks
       setTaskList(data);
       queryClient.invalidateQueries(["list", listId]);
     },
-    onError: (error: AxiosError) => setFetchError(error),
+    onError: (error: AxiosError) => {
+      toggleError(true);
+      provideData(error);
+    },
   });
 
   // handlers
@@ -54,16 +59,18 @@ const EditSubtasksModal = ({ token, listId, itemId, items, tasks }: EditSubtasks
 
   const handleNewSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    if (!checkNameBlank(newTask)) {
-      setIsError(true);
-      return setErrorId(InputIdsEnum.todoTaskName);
-    }
+    // if (!checkNameBlank(newTask)) {
+    //   setIsError(true);
+    //   return setErrorId(InputIdsEnum.todoTaskName);
+    // }
     newMutation.mutate();
     setNewTask("");
   };
 
   const handleClose = () => {
     setIsError(false);
+    toggleError(false);
+    provideData(null);
     modal.provideId("");
     modal.toggleModal(false);
   };
@@ -77,7 +84,7 @@ const EditSubtasksModal = ({ token, listId, itemId, items, tasks }: EditSubtasks
         <h6>Subtasks</h6>
         <div className="grow shrink basis-0" />
       </div>
-      <div className="my-4 pb-4 border-b">
+      <div className="my-4 pb-4 border-b text-base">
         <Form id={FormIdsEnum.newTask} onSubmit={handleNewSubmit}>
           <Input
             label="Name"
@@ -93,6 +100,7 @@ const EditSubtasksModal = ({ token, listId, itemId, items, tasks }: EditSubtasks
           <Button
             type="submit"
             text="Add"
+            disabled={active}
             styles={`${CustomStylesEnum.authButton} ${CustomStylesEnum.btnPrimary}`}
           />
         </Form>

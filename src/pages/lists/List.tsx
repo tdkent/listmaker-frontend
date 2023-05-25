@@ -4,7 +4,7 @@ import { useQuery } from "@tanstack/react-query";
 import { AxiosError } from "axios";
 
 import AuthContext from "../../context/AuthContext";
-import useError from "../../hooks/useError";
+import ErrorContext from "../../context/ErrorContext";
 import checkLocalStorage from "../../utils/check-local-storage";
 import { fetchList } from "../../api/fetch-lists";
 import QueryError from "../../components/errors/queryError";
@@ -34,14 +34,16 @@ const List = () => {
   const token = auth.token as string;
 
   // errors
-  const { setFetchError } = useError();
-
+  const { toggleError, provideData } = useContext(ErrorContext);
   // query
   const { isLoading, isError, data, error } = useQuery({
     queryKey: ["list", id],
     queryFn: () => fetchList(id, token),
     enabled: !!token,
-    onError: (error: AxiosError) => setFetchError(error),
+    onError: (error: AxiosError) => {
+      toggleError(true);
+      provideData(error);
+    },
   });
 
   if (isLoading) {

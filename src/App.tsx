@@ -1,12 +1,26 @@
 import { RouterProvider } from "react-router-dom";
 import { useState, useEffect } from "react";
+import { AxiosError } from "axios";
 
 import AuthContext, { AuthContextInt } from "./context/AuthContext";
 import ModalContext, { ModalContextInt } from "./context/ModalContext";
+import ErrorContext, { ErrorContextInt } from "./context/ErrorContext";
 import router from "./router/router";
 import { StorageDataInt } from "./utils/check-local-storage";
 
 function App() {
+  // error context
+  const [errorActive, setErrorActive] = useState<boolean>(false);
+  const [errorData, setErrorData] = useState<AxiosError | null>(null);
+  const toggleError = (value: boolean) => setErrorActive(value);
+  const provideData = (value: AxiosError | null) => setErrorData(value);
+  const error: ErrorContextInt = {
+    active: errorActive,
+    data: errorData,
+    toggleError,
+    provideData,
+  };
+
   // modal context
   const [modalActive, setModalActive] = useState<boolean>(false);
   const [contentId, setContentId] = useState<ModalContextInt["contentId"]>("");
@@ -54,9 +68,11 @@ function App() {
 
   return (
     <ModalContext.Provider value={modal}>
-      <AuthContext.Provider value={user}>
-        <RouterProvider router={router} />
-      </AuthContext.Provider>
+      <ErrorContext.Provider value={error}>
+        <AuthContext.Provider value={user}>
+          <RouterProvider router={router} />
+        </AuthContext.Provider>
+      </ErrorContext.Provider>
     </ModalContext.Provider>
   );
 }

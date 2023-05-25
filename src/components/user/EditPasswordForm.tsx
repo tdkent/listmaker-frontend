@@ -3,7 +3,7 @@ import { useMutation } from "@tanstack/react-query";
 import { AxiosError } from "axios";
 
 import AuthContext from "../../context/AuthContext";
-import useError from "../../hooks/useError";
+import ErrorContext from "../../context/ErrorContext";
 import { ReducerActionInt } from "../../models/reducers";
 import { CustomStylesEnum } from "../../models/styles";
 import Form from "../forms/Form";
@@ -20,7 +20,9 @@ interface Props {
 
 const EditPasswordForm = ({ setEditPassword }: Props) => {
   const auth = useContext(AuthContext);
-  const { setFetchError } = useError();
+
+  // errors
+  const { toggleError, provideData } = useContext(ErrorContext);
 
   const [isError, setIsError] = useState(false);
   const [errorId, setErrorId] = useState("");
@@ -48,7 +50,10 @@ const EditPasswordForm = ({ setEditPassword }: Props) => {
 
   const mutation = useMutation({
     mutationFn: () => editPassword(state.newPassword, state.currentPassword, auth.token!),
-    onError: (error: AxiosError) => setFetchError(error),
+    onError: (error: AxiosError) => {
+      toggleError(true);
+      provideData(error);
+    },
     onSuccess: () => successToast("Password updated!"),
   });
 

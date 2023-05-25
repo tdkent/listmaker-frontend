@@ -1,13 +1,14 @@
 import { useContext } from "react";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { AxiosError } from "axios";
+
+import ErrorContext from "../../../context/ErrorContext";
 import DisplayTodoSubtask from "./DisplayTodoSubtask";
 import Button from "../../forms/Button";
 import Checkbox from "../../forms/Checkbox";
 import { TodoListItemInt, SubtaskInt, ToDoCats } from "../../../models/todo";
 import { checkTodoItem } from "../../../api/mutate-todo-items";
 import ModalContext, { ModalContentIdEnum } from "../../../context/ModalContext";
-import useError from "../../../hooks/useError";
 import Queue from "../../../icons/Queue";
 import Calendar from "../../../icons/Calendar";
 import Clock from "../../../icons/Clock";
@@ -46,15 +47,23 @@ const DisplayTodoItem = ({
   setSelectedItem,
 }: DisplayTodoItemProps) => {
   const modal = useContext(ModalContext);
-  const { setFetchError } = useError();
+
+  // errors
+  const { active, toggleError, provideData } = useContext(ErrorContext);
+
+  // mutation
   const queryClient = useQueryClient();
   const checkMutation = useMutation({
     mutationFn: ({ itemId }: { itemId: number; recurDate: string; recurVal: string }) =>
       checkTodoItem(listId, itemId, token),
     onSuccess: () => queryClient.invalidateQueries(["list", listId]),
-    onError: (error: AxiosError) => setFetchError(error),
+    onError: (error: AxiosError) => {
+      toggleError(true);
+      provideData(error);
+    },
   });
 
+  // luxon
   const dueDate = createRelativeDate(item.dateDue);
   const checkDate = checkDueDate(item.dateDue);
   const completedDate = createLocalDate(item.dateCompleted);
@@ -66,6 +75,7 @@ const DisplayTodoItem = ({
         <div className="flex flex-row items-center">
           <Checkbox
             checked={item.isChecked}
+            disabled={active}
             onChange={() =>
               checkMutation.mutate({
                 itemId: item.itemId,
@@ -112,6 +122,7 @@ const DisplayTodoItem = ({
           <Button
             type="button"
             text={<CircleEllipsis />}
+            disabled={active}
             handleClick={() => {
               setSelectedItem(item);
               modal.provideId(ModalContentIdEnum.displayTodoItem);
@@ -121,6 +132,7 @@ const DisplayTodoItem = ({
           <Button
             type="button"
             text={<Queue />}
+            disabled={active}
             handleClick={() => {
               setId(item.itemId);
               setTasks(item.itemTasks);
