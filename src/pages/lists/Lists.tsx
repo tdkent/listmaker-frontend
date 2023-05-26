@@ -7,9 +7,10 @@ import AuthContext from "../../context/AuthContext";
 import ErrorContext from "../../context/ErrorContext";
 import checkLocalStorage from "../../utils/check-local-storage";
 import { fetchAllLists } from "../../api/fetch-lists";
-import QueryError from "../../components/errors/queryError";
+import QueryError from "../../components/errors/QueryError";
 import CircleEllipsis from "../../icons/CircleEllipsis";
 import LoadingSpinner from "../../components/ui/LoadingSpinner";
+import Hyperlink from "../../components/forms/Hyperlink";
 
 const Lists = () => {
   // auth check
@@ -45,19 +46,24 @@ const Lists = () => {
     return <QueryError error={error} />;
   }
 
-  if (!data || !data.length) {
-    return (
-      <div>
-        <h2>My Lists</h2>
-        <p>You haven't created any lists yet!</p>
-        <Link to="/new">Create New List</Link>
-      </div>
-    );
+  // if (!data || !data.length) {
+  //   return (
+  //     <div>
+  //       <h2>My Lists</h2>
+  //       <p className="mt-6">You haven't created any lists yet!</p>
+  //       <div className="w-fit mt-6">
+  //         <Hyperlink to="/new">Create a new list</Hyperlink>
+  //       </div>
+  //     </div>
+  //   );
+  // }
+
+  if (!data.length) {
+    throw new Error("No list data");
   }
 
   const userNickname = JSON.parse(localStorage.getItem("userData")!).userNickname;
 
-  // main render
   return (
     <div>
       <h2>{userNickname ? userNickname + "'s" : "My"} Lists</h2>

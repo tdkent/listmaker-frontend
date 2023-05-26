@@ -4,7 +4,7 @@ import { useNavigate } from "react-router-dom";
 import AuthContext from "../../context/AuthContext";
 import checkLocalStorage from "../../utils/check-local-storage";
 import useUser from "../../hooks/useUser";
-import QueryError from "../../components/errors/queryError";
+import QueryError from "../../components/errors/QueryError";
 import DisplayEmail from "../../components/user/DisplayEmail";
 import DisplayNickname from "../../components/user/DisplayNickname";
 import EditNicknameForm from "../../components/user/EditNicknameForm";

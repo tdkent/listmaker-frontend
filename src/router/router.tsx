@@ -13,14 +13,16 @@ import List from "../pages/lists/List";
 import NewList from "../pages/lists/NewList";
 import NotFound from "../pages/errors/NotFound";
 import RootError from "../pages/errors/RootError";
+import RouterError from "../pages/errors/RouterError";
 
 const router = createBrowserRouter([
   {
     element: <RootLayout />,
+    errorElement: <RootError />,
     children: [
       {
         path: "/",
-        errorElement: <RootError />,
+        // errorElement: <RouterError />,
         children: [
           {
             index: true,

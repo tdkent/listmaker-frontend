@@ -7,7 +7,7 @@ import AuthContext from "../../context/AuthContext";
 import ErrorContext from "../../context/ErrorContext";
 import checkLocalStorage from "../../utils/check-local-storage";
 import { fetchList } from "../../api/fetch-lists";
-import QueryError from "../../components/errors/queryError";
+import QueryError from "../../components/errors/QueryError";
 import EditList from "../../components/edit-list/EditList";
 import NewShoppingItem from "../../components/edit-list/shopping/NewShoppingItem";
 import EditShoppingItem from "../../components/edit-list/shopping/EditShoppingItem";
