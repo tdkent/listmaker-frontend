@@ -15,5 +15,6 @@ export interface LoginBodyInt {
 export interface LoginResInt {
   userId: number;
   userEmail: string;
+  userNickname: string;
   token: string;
 }

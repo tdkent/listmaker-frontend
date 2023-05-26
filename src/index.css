@@ -36,7 +36,7 @@
     @apply text-xl;
   }
   h4 {
-    @apply text-lg font-medium;
+    @apply text-lg;
   }
   h6 {
     @apply text-lg font-medium;
@@ -46,4 +46,15 @@
 .map-container {
   width: 100%;
   height: 100%;
+}
+
+.tip-register-nickname-input:hover .text-register-nickname-input,
+.tip-register-password-input:hover .text-register-password-input,
+.tip-new-list-name-input:hover .text-new-list-name-input {
+  opacity: 100%;
+  visibility: visible;
+  transition-property: opacity;
+  transition-duration: 300ms;
+  transition-timing-function: ease;
+  transition-delay: 150ms;
 }

@@ -1,5 +1,6 @@
 import Info from "../../icons/Info";
 import { InputIdsEnum } from "../../models/forms";
+import Tooltip from "./Tooltip";
 
 interface InputProps {
   label: string;
@@ -36,7 +37,9 @@ const Input = ({
           {label}
           {required && " *"}
         </label>
-        {(id === InputIdsEnum.regPass || id === InputIdsEnum.regName) && <Info />}
+        {(id === InputIdsEnum.regPass ||
+          id === InputIdsEnum.regName ||
+          id === InputIdsEnum.newListName) && <Tooltip id={id} />}
       </div>
       <div>
         <input

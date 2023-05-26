@@ -23,6 +23,7 @@ const Lists = () => {
 
   // errors
   const { toggleError, provideData } = useContext(ErrorContext);
+
   // query
   const userId = auth.userId as number;
   const token = auth.token as string;
@@ -54,10 +55,12 @@ const Lists = () => {
     );
   }
 
+  const userNickname = JSON.parse(localStorage.getItem("userData")!).userNickname;
+
   // main render
   return (
     <div>
-      <h2>My Lists</h2>
+      <h2>{userNickname ? userNickname + "'s" : "My"} Lists</h2>
       <div className="my-6 border-b">
         {data.map((list) => {
           return (

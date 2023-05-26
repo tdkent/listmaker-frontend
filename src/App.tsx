@@ -37,21 +37,25 @@ function App() {
   const [isLoggedIn, setIsLoggedIn] = useState<boolean>(false);
   const [token, setToken] = useState<string | null>(null);
   const [userId, setUserId] = useState<number | null>(null);
-  const login = (token: string, userId: number) => {
+  const [userNickname, setUserNickname] = useState("");
+  const login = (token: string, userId: number, userNickname: string) => {
     setToken(token);
     setUserId(userId);
+    setUserNickname(userNickname);
     setIsLoggedIn(true);
-    localStorage.setItem("userData", JSON.stringify({ userId, token }));
+    localStorage.setItem("userData", JSON.stringify({ userId, userNickname, token }));
   };
   const logout = () => {
     setToken(null);
     setUserId(null);
+    setUserNickname("");
     setIsLoggedIn(false);
     localStorage.removeItem("userData");
   };
   const user: AuthContextInt = {
     isLoggedIn,
     userId,
+    userNickname,
     token,
     login,
     logout,
@@ -61,8 +65,9 @@ function App() {
   useEffect(() => {
     const storageData: StorageDataInt = JSON.parse(localStorage.getItem("userData") || "{}");
     const userId = Number(storageData.userId);
+    const userNickname = storageData.userNickname;
     if (storageData && storageData.userId && storageData.token) {
-      login(storageData.token, userId);
+      login(storageData.token, userId, userNickname);
     }
   }, []);
 

@@ -50,7 +50,7 @@ const Profile = () => {
 
   return (
     <div>
-      <h2>My Profile</h2>
+      <h2>{userData.userNickname ? userData.userNickname + "'s" : "My"} Profile</h2>
       <div className="my-6">
         <DisplayEmail userEmail={userData.userEmail} />
       </div>

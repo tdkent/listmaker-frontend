@@ -1,5 +1,6 @@
 export interface StorageDataInt {
   userId: string;
+  userNickname: string;
   token: string;
 }
 

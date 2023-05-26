@@ -4,7 +4,7 @@ export const checkIsEmail = (email: string): boolean => {
 };
 
 export const checkNickname = (nickname: string): boolean => {
-  if (nickname.length > 24) return false;
+  if (nickname.length > 18) return false;
   return true;
 };
 
@@ -19,7 +19,7 @@ export const checkConfirmPassword = (p1: string, p2: string): boolean => {
 };
 
 export const checkNameLength = (name: string): boolean => {
-  if (name.length > 1 && name.length <= 24) return true;
+  if (name.length > 1 && name.length <= 18) return true;
   return false;
 };
 

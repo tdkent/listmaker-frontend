@@ -12,6 +12,7 @@ import { CustomStylesEnum } from "../../models/styles";
 import { FormIdsEnum, InputIdsEnum, FormErrorsEnum } from "../../models/forms";
 import { checkNickname } from "../../utils/form-validation";
 import successToast from "../../utils/success-toast";
+import { StorageDataInt } from "../../utils/check-local-storage";
 
 interface Props {
   userNickname: string;
@@ -38,6 +39,8 @@ const EditNicknameForm = ({ userNickname, setEditNickname }: Props) => {
     onSuccess: () => {
       queryClient.invalidateQueries(["user", auth.userId]);
       successToast("Nickname updated!");
+      const userData: StorageDataInt = JSON.parse(localStorage.getItem("userData")!);
+      localStorage.setItem("userData", JSON.stringify({ ...userData, userNickname: newName }));
     },
   });
   const handleChange = (e: React.FormEvent<HTMLInputElement>) => {
@@ -62,7 +65,7 @@ const EditNicknameForm = ({ userNickname, setEditNickname }: Props) => {
     <div>
       <span className="text-lg font-medium mr-4">Change Nickname</span>
       <p className="my-4">
-        Nicknames can be 1-24 characters long. You may delete your nickname by leaving the field
+        Nicknames can be 1-18 characters long. You may delete your nickname by leaving the field
         blank.
       </p>
       <Form id={FormIdsEnum.editNickname} onSubmit={handleSubmit}>

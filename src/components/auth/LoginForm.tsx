@@ -53,7 +53,7 @@ const LoginForm = () => {
       provideData(error);
     },
     onSuccess: (data) => {
-      auth.login(data.token, data.userId);
+      auth.login(data.token, data.userId, data.userNickname);
       navigate("/lists");
     },
   });
