@@ -46,20 +46,16 @@ const Lists = () => {
     return <QueryError error={error} />;
   }
 
-  // if (!data || !data.length) {
-  //   return (
-  //     <div>
-  //       <h2>My Lists</h2>
-  //       <p className="mt-6">You haven't created any lists yet!</p>
-  //       <div className="w-fit mt-6">
-  //         <Hyperlink to="/new">Create a new list</Hyperlink>
-  //       </div>
-  //     </div>
-  //   );
-  // }
-
-  if (!data.length) {
-    throw new Error("No list data");
+  if (!data || !data.length) {
+    return (
+      <div>
+        <h2>My Lists</h2>
+        <p className="mt-6">You haven't created any lists yet!</p>
+        <div className="w-fit mt-6">
+          <Hyperlink to="/new">Create a new list</Hyperlink>
+        </div>
+      </div>
+    );
   }
 
   const userNickname = JSON.parse(localStorage.getItem("userData")!).userNickname;
