@@ -42,6 +42,7 @@ export enum InputIdsEnum {
   editPasswordNew = "new-password-input",
   editPasswordConfirm = "confirm-new-password-input",
   editPasswordCurrent = "current-password-input",
+  myListsSort = "sort-lists-select",
 }
 
 export enum FormErrorsEnum {

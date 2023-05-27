@@ -62,3 +62,14 @@ export interface SubtaskInt {
   taskName: string;
   isChecked: boolean;
 }
+
+// Sort
+
+export enum SortItemsEnum {
+  cat = "Category",
+  add = "Date Added",
+  dueNew = "Due Date (New)",
+  dueOld = "Due Date (Old)",
+  nameAz = "Name (A-Z)",
+  nameZa = "Name (Z-A)",
+}

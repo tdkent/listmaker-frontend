@@ -8,6 +8,7 @@ interface SelectProps {
   defaultValue: string;
   handleSelect: (e: React.FormEvent<HTMLSelectElement>) => void;
   options: string[] | number[];
+  flex?: boolean;
 }
 
 const Select = ({
@@ -18,16 +19,17 @@ const Select = ({
   options,
   handleSelect,
   required,
+  flex,
 }: SelectProps) => {
   return (
-    <div>
-      <div className="mb-1 font-medium">
+    <div className={`${flex && "flex flex-row justify-between items-center w-2/3"}`}>
+      <div className={`mb-1 font-medium ${flex && "grow-0 mr-4"}`}>
         <label htmlFor={name}>
           {label}
           {required && " *"}
         </label>
       </div>
-      <div>
+      <div className={`${flex && "grow"}`}>
         <select
           name={name}
           id={id}

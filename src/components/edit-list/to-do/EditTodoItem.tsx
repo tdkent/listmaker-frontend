@@ -14,6 +14,9 @@ import EditSubtasksModal from "../../modal-content/EditSubtasksModal";
 import DisplayTodoItem from "./DisplayTodoItem";
 import { checkNameBlank } from "../../../utils/form-validation";
 import { InputIdsEnum } from "../../../models/forms";
+import Select from "../../forms/Select";
+import { SortItemsEnum } from "../../../models/todo";
+import { itemSortOptions, ListSortOptsInt } from "../../../utils/sort-options";
 
 interface EditTodoItemProps {
   token: string;
@@ -109,6 +112,24 @@ const EditTodoItem = ({ token, listId, listType, items }: EditTodoItemProps) => 
     libraries,
   });
 
+  // sort options
+  const currSortOptions: ListSortOptsInt[] = JSON.parse(
+    localStorage.getItem("todoSortPref") || "[]"
+  );
+  const sortOption = currSortOptions.find((obj) => obj.listId === listId)?.sort || null;
+  const [sort, setSort] = useState(sortOption || "Date Added");
+  const handleSelect = (e: React.FormEvent<HTMLSelectElement>) => {
+    setSort(e.currentTarget.value);
+    localStorage.setItem(
+      "todoSortPref",
+      JSON.stringify([
+        ...currSortOptions.filter((obj) => obj.listId !== listId),
+        { listId, sort: e.currentTarget.value },
+      ])
+    );
+  };
+  const sortedList = itemSortOptions([...items], sort);
+
   // completed items
   const completedItems = items.filter((item) => item.isChecked);
 
@@ -179,9 +200,22 @@ const EditTodoItem = ({ token, listId, listType, items }: EditTodoItemProps) => 
         />
       )}
       <section>
+        {items.length > 1 && (
+          <div className="mt-4">
+            <Select
+              id={InputIdsEnum.myListsSort}
+              label="Sort By:"
+              required={false}
+              defaultValue={sort}
+              options={Object.values(SortItemsEnum)}
+              handleSelect={handleSelect}
+              flex={true}
+            />
+          </div>
+        )}
         <div>
           <ul>
-            {items.map(
+            {sortedList.map(
               (item) =>
                 !item.isChecked && (
                   <li key={item.itemId} className="border-b">

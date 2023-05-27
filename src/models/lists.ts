@@ -34,6 +34,12 @@ export interface FetchAllListsInt {
   listType: AllListTypesEnum.shop | AllListTypesEnum.todo;
 }
 
+export enum SortListsEnum {
+  c = "Created",
+  n = "Name",
+  t = "Type",
+}
+
 // Fetch Single List
 
 // Note: items will include other item types objects (all packaged in an array)

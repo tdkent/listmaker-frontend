@@ -1,4 +1,4 @@
-import { useContext, useEffect } from "react";
+import { useContext, useEffect, useState } from "react";
 import { useNavigate, Link } from "react-router-dom";
 import { useQuery } from "@tanstack/react-query";
 import { AxiosError } from "axios";
@@ -11,6 +11,10 @@ import QueryError from "../../components/errors/QueryError";
 import CircleEllipsis from "../../icons/CircleEllipsis";
 import LoadingSpinner from "../../components/ui/LoadingSpinner";
 import Hyperlink from "../../components/forms/Hyperlink";
+import Select from "../../components/forms/Select";
+import { InputIdsEnum } from "../../models/forms";
+import { listSortOptions } from "../../utils/sort-options";
+import { SortListsEnum } from "../../models/lists";
 
 const Lists = () => {
   // auth check
@@ -24,6 +28,11 @@ const Lists = () => {
 
   // errors
   const { toggleError, provideData } = useContext(ErrorContext);
+
+  // state
+  const [sort, setSort] = useState(localStorage.getItem("listSortPref") || "Created");
+  console.log("sort: ", sort);
+  console.log(localStorage.getItem("listSortPref"));
 
   // query
   const userId = auth.userId as number;
@@ -58,13 +67,31 @@ const Lists = () => {
     );
   }
 
+  // display options
   const userNickname = JSON.parse(localStorage.getItem("userData")!).userNickname;
+  const sortedList = listSortOptions([...data], sort);
+
+  const handleSelect = (e: React.FormEvent<HTMLSelectElement>) => {
+    setSort(e.currentTarget.value);
+    localStorage.setItem("listSortPref", e.currentTarget.value);
+  };
 
   return (
     <div>
       <h2>{userNickname ? userNickname + "'s" : "My"} Lists</h2>
+      <div className="mt-4">
+        <Select
+          id={InputIdsEnum.myListsSort}
+          label="Sort By:"
+          required={false}
+          defaultValue={sort}
+          options={Object.values(SortListsEnum)}
+          handleSelect={handleSelect}
+          flex={true}
+        />
+      </div>
       <div className="my-6 border-b">
-        {data.map((list) => {
+        {sortedList.map((list) => {
           return (
             <Link to={`/lists/${list.listSlug}&id=${list.listId}`} key={list.listId}>
               <div className="flex flex-row justify-between items-center border-t py-4">
