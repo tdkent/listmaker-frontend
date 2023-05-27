@@ -5,6 +5,7 @@ import AuthContext from "../../context/AuthContext";
 import checkLocalStorage from "../../utils/check-local-storage";
 import useUser from "../../hooks/useUser";
 import QueryError from "../../components/errors/QueryError";
+import NullDataError from "../../components/errors/NullDataError";
 import DisplayEmail from "../../components/user/DisplayEmail";
 import DisplayNickname from "../../components/user/DisplayNickname";
 import EditNicknameForm from "../../components/user/EditNicknameForm";
@@ -38,12 +39,7 @@ const Profile = () => {
 
   //! TODO: initiate logout
   if (!data || !data.user) {
-    return (
-      <div>
-        <h2>Could not find your account info</h2>
-        <p>Your account may have lost or deleted.</p>
-      </div>
-    );
+    return <NullDataError />;
   }
 
   const userData = data.user;

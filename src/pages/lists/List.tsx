@@ -8,6 +8,7 @@ import ErrorContext from "../../context/ErrorContext";
 import checkLocalStorage from "../../utils/check-local-storage";
 import { fetchList } from "../../api/fetch-lists";
 import QueryError from "../../components/errors/QueryError";
+import NullDataError from "../../components/errors/NullDataError";
 import EditList from "../../components/edit-list/EditList";
 import NewShoppingItem from "../../components/edit-list/shopping/NewShoppingItem";
 import EditShoppingItem from "../../components/edit-list/shopping/EditShoppingItem";
@@ -54,9 +55,8 @@ const List = () => {
     return <QueryError error={error} />;
   }
 
-  //? TODO: how to handle this scenario?
   if (!data) {
-    return <div>Could not find list data.</div>;
+    return <NullDataError />;
   }
 
   const { listId, listName, listType } = data;
