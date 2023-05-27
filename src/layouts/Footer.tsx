@@ -6,7 +6,7 @@ import AuthContext from "../context/AuthContext";
 const Footer = () => {
   const auth = useContext(AuthContext);
   return (
-    <footer id="footer" className="mt-6 py-6 bg-azure text-white text-sm">
+    <footer id="footer" className="mt-6 py-6 bg-blue-600 text-white text-sm">
       <nav id="footer-navigation-bar" className="flex flex-col items-center">
         <span className="mb-3 hover:underline">
           <Link to="/">Home</Link>

@@ -6,7 +6,7 @@ const Hamburger = () => {
       viewBox="0 0 24 24"
       strokeWidth={1.2}
       stroke="currentColor"
-      className="w-6 h-6 mx-2">
+      className="w-6 h-6 mx-2 stroke-gray-600 hover:stroke-gray-900">
       <path
         strokeLinecap="round"
         strokeLinejoin="round"

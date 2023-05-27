@@ -19,7 +19,7 @@ const successToast = (msg: string) =>
     transition: slide,
     delay: 500,
     style: {
-      backgroundColor: "#00b040",
+      backgroundColor: "#16a34a",
       paddingTop: "1.5rem",
       paddingBottom: "1.5rem",
       fontSize: "18px",

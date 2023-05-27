@@ -3,7 +3,7 @@ import { useContext } from "react";
 import ErrorContext from "../context/ErrorContext";
 
 interface Props {
-  styles: string;
+  styles?: string;
 }
 
 const Pencil = ({ styles }: Props) => {
@@ -15,7 +15,9 @@ const Pencil = ({ styles }: Props) => {
       viewBox="0 0 24 24"
       strokeWidth={1.5}
       stroke="currentColor"
-      className={`${styles} ${active ? "stroke-gray-300" : "stroke-gray-600"}`}>
+      className={`w-5 h-5 mr-1 mt-1 ${
+        active ? "stroke-gray-300 hover:stroke-gray-300" : "stroke-gray-600 hover:stroke-gray-900"
+      } ${styles}`}>
       <path
         strokeLinecap="round"
         strokeLinejoin="round"

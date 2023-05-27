@@ -114,12 +114,7 @@ const EditList = ({ token, listId, listName }: EditListProps) => {
       <div className="flex flex-row justify-between items-center">
         <h4>{listName}</h4>
         <div className="flex flex-row">
-          <Button
-            type="button"
-            text={<Pencil styles="w-5 h-5 mr-1 mt-1" />}
-            handleClick={handleEditInit}
-            disabled={active}
-          />
+          <Button type="button" text={<Pencil />} handleClick={handleEditInit} disabled={active} />
           <Button type="button" text={<Trash />} disabled={active} handleClick={handleDeleteInit} />
         </div>
       </div>

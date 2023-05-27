@@ -94,7 +94,7 @@ const Lists = () => {
         {sortedList.map((list) => {
           return (
             <Link to={`/lists/${list.listSlug}&id=${list.listId}`} key={list.listId}>
-              <div className="flex flex-row justify-between items-center border-t py-4">
+              <div className="flex flex-row justify-between items-center border-t py-4 hover:bg-gray-50">
                 <div className="flex flex-col">
                   <span className="font-semibold">{list.listName}</span>
                   <span className="text-xs">{list.listType}</span>

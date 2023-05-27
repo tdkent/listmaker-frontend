@@ -123,7 +123,7 @@ const EditSubtasksDisplay = ({
                           type="button"
                           text={<Close styles="w-5 h-5 m-auto" />}
                           handleClick={handleEditCancel}
-                          styles={`${CustomStylesEnum.btnWarning} ml-2 w-16 py-2.5 rounded-lg text-white`}
+                          styles={`ml-2 w-16 py-2.5 text-white bg-gray-500 hover:bg-gray-600 rounded-md`}
                         />
                       </div>
                     </Form>
@@ -134,7 +134,7 @@ const EditSubtasksDisplay = ({
                     <div className="flex flex-row items-center">
                       <Button
                         type="button"
-                        text={<Pencil styles="w-5 h-5 stroke-gray-600 mr-1 mt-1" />}
+                        text={<Pencil />}
                         disabled={active}
                         handleClick={() => {
                           setIsError(false);

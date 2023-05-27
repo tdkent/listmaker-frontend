@@ -35,7 +35,7 @@ const Select = ({
           id={id}
           defaultValue={defaultValue}
           onChange={handleSelect}
-          className="form-select w-full mb-3 p-2.5 rounded-md bg-gray-50 border border-gray-400">
+          className="form-select w-full mb-3 p-2.5 rounded-md bg-gray-50 border border-gray-600 hover:border-blue-500">
           {options.map((option) => {
             return (
               <option key={option} value={option}>

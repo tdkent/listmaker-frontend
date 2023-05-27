@@ -23,7 +23,7 @@ const NavBar = ({ showNav, setShowNav }: NavBarProps) => {
       } z-50 bg-white w-full h-screen p-4`}>
       <div className="flex">
         <Button
-          text={<Close styles="w-7 h-7 stroke-gray-600" />}
+          text={<Close styles="w-7 h-7 stroke-gray-600 hover:stroke-gray-900" />}
           type="button"
           handleClick={() => setShowNav(false)}
         />
@@ -91,7 +91,7 @@ const NavBar = ({ showNav, setShowNav }: NavBarProps) => {
                   onClick={() => {
                     setShowNav(false);
                   }}>
-                  <span className="lg:rounded-md lg:px-4 lg:py-2 lg:text-white lg:transition lg:ease-in lg:duration-500 lg:bg-azure lg:hover:bg-azure-medium">
+                  <span className="lg:rounded-md lg:px-4 lg:py-2 lg:text-white lg:bg-blue-500 lg:hover:bg-blue-600">
                     Sign Up
                   </span>
                 </NavLink>

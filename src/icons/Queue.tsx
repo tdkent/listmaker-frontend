@@ -12,7 +12,7 @@ const Queue = () => {
       strokeWidth={1.5}
       stroke="currentColor"
       className={`w-5 h-5 stroke-gray-600 mr-1 ml-3 mt-1 ${
-        active ? "stroke-gray-300" : "stroke-gray-600"
+        active ? "stroke-gray-300 hover:stroke-gray-300" : "stroke-gray-600 hover:stroke-gray-900"
       }`}>
       <path
         strokeLinecap="round"

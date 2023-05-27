@@ -11,7 +11,9 @@ const Trash = () => {
       viewBox="0 0 24 24"
       strokeWidth={1.5}
       stroke="currentColor"
-      className={`w-5 h-5 ml-3 mr-1 mt-1 ${active ? "stroke-gray-300" : "stroke-gray-600"} `}>
+      className={`w-5 h-5 ml-3 mr-1 mt-1 ${
+        active ? "stroke-gray-300 hover:stroke-gray-300" : "stroke-gray-600 hover:stroke-gray-900"
+      } `}>
       <path
         strokeLinecap="round"
         strokeLinejoin="round"

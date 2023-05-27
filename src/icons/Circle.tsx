@@ -1,7 +1,7 @@
 const Circle = () => {
   return (
     <svg
-      className="animate-spin h-10 w-10 text-azure"
+      className="animate-spin h-10 w-10 text-blue-500"
       xmlns="http://www.w3.org/2000/svg"
       fill="none"
       viewBox="0 0 24 24">

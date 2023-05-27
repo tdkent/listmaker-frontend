@@ -59,10 +59,10 @@ const EditSubtasksModal = ({ token, listId, itemId, items, tasks }: EditSubtasks
 
   const handleNewSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    // if (!checkNameBlank(newTask)) {
-    //   setIsError(true);
-    //   return setErrorId(InputIdsEnum.todoTaskName);
-    // }
+    if (!checkNameBlank(newTask)) {
+      setIsError(true);
+      return setErrorId(InputIdsEnum.todoTaskName);
+    }
     newMutation.mutate();
     setNewTask("");
   };
@@ -79,7 +79,7 @@ const EditSubtasksModal = ({ token, listId, itemId, items, tasks }: EditSubtasks
     <div className="mt-2 mb-6 text-sm">
       <div className="flex items-center justify-between text-center px-3 pb-2 border-b">
         <div className="text-left grow shrink basis-0">
-          <Button type="button" text="Close" handleClick={handleClose} />
+          <Button type="button" text="Close" handleClick={handleClose} divStyles="text-left" />
         </div>
         <h6>Subtasks</h6>
         <div className="grow shrink basis-0" />

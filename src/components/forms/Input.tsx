@@ -49,16 +49,14 @@ const Input = ({
           value={value}
           disabled={disabled}
           onChange={handleChange}
-          className={`bg-gray-50 focus:bg-gray-50 border ${
-            !isError && ` focus:border-2 hover:border-azure`
-          } ${
-            isError && errorId === id ? "border-tomato" : "border-gray-400"
+          className={`bg-gray-50 focus:gray-50 border ${!isError && `hover:border-blue-500`} ${
+            isError && errorId === id ? "border-red-500" : "border-gray-600"
           } rounded w-full p-2.5`}
         />
       </div>
       {isError && errorId === id && (
         <div className="inline-block absolute left-0.5 top-[calc(100%-1.1rem)]">
-          <span className="text-sm text-tomato">{errorString}</span>
+          <span className="text-sm text-red-500">{errorString}</span>
         </div>
       )}
     </div>

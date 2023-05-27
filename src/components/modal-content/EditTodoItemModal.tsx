@@ -125,7 +125,7 @@ const EditTodoItemModal = ({
           />
         </Form>
       </div>
-      <div>
+      <div className="">
         <Button
           type="button"
           text="Save"
@@ -142,7 +142,7 @@ const EditTodoItemModal = ({
           type="button"
           text="Cancel"
           handleClick={handleCancel}
-          styles="w-full my-6 font-semibold"
+          styles={CustomStylesEnum.btnCancel}
         />
       </div>
     </div>

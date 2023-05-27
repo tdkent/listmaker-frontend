@@ -3,19 +3,20 @@ interface ButtonProps {
   text: string | JSX.Element;
   handleClick?: () => void;
   styles?: string;
+  divStyles?: string;
   disabled?: boolean;
 }
 
-const Button = ({ type, text, handleClick, styles, disabled }: ButtonProps) => {
+const Button = ({ type, text, handleClick, styles, divStyles, disabled }: ButtonProps) => {
   return (
-    <div>
+    <div className={`${divStyles || "text-center"}`}>
       <button
         type={type}
         onClick={handleClick}
         className={`${styles}   ${
           typeof text === "object"
             ? "disabled:bg-white"
-            : "disabled:bg-slate-300 disabled:hover:bg-slate-300 "
+            : "disabled:bg-gray-300 disabled:hover:bg-gray-300 "
         }`}
         disabled={disabled}>
         {text}

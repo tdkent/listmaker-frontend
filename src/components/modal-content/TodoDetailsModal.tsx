@@ -45,7 +45,12 @@ const TodoDetailsModal = ({
     <div className="text-sm">
       <div className="flex flex-row justify-between items-center text-center mt-1 px-3">
         <div>
-          <Button type="button" text="Close" handleClick={handleCancel} />
+          <Button
+            type="button"
+            text="Close"
+            handleClick={handleCancel}
+            styles="text-gray-600 hover:text-gray-900"
+          />
         </div>
         <div>
           <h6>Item Details</h6>
@@ -67,12 +72,12 @@ const TodoDetailsModal = ({
               modal.provideId(ModalContentIdEnum.editTodoItem);
               modal.toggleModal(true);
             }}
-            styles="rounded px-3 py-1 bg-azure text-white"
+            styles="rounded px-3 py-1 bg-blue-500 hover:bg-blue-600 text-white"
           />
         </div>
       </div>
       <div className="mt-3 text-center">
-        <p>{item.itemName}</p>
+        <p className="text-base">{item.itemName}</p>
         <p>{item.itemCategory}</p>
       </div>
       <div className="mt-4 pt-3 pb-1 px-2 border-t">
