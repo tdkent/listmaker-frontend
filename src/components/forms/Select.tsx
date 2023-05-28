@@ -3,7 +3,6 @@ import React from "react";
 interface SelectProps {
   label: string;
   required: boolean;
-  name?: string;
   id: string;
   defaultValue: string;
   handleSelect: (e: React.FormEvent<HTMLSelectElement>) => void;
@@ -13,7 +12,6 @@ interface SelectProps {
 
 const Select = ({
   label,
-  name,
   id,
   defaultValue,
   options,
@@ -24,14 +22,13 @@ const Select = ({
   return (
     <div className={`${flex && "flex flex-row justify-between items-center w-2/3"}`}>
       <div className={`mb-1 font-medium ${flex && "grow-0 mr-4"}`}>
-        <label htmlFor={name}>
+        <label htmlFor={id}>
           {label}
           {required && " *"}
         </label>
       </div>
       <div className={`${flex && "grow"}`}>
         <select
-          name={name}
           id={id}
           defaultValue={defaultValue}
           onChange={handleSelect}

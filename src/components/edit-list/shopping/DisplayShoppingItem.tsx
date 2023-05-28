@@ -43,6 +43,7 @@ const DisplayShoppingItem = ({
       <li className="flex items-center justify-between py-1">
         <div>
           <Checkbox
+            id={`item-checkbox-${item.itemId}`}
             checked={item.isChecked}
             disabled={active}
             onChange={() => checkMutation.mutate(item.itemId)}

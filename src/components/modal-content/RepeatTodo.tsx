@@ -25,7 +25,7 @@ const RepeatTodo = ({
     <div className="my-2">
       <div className="flex items-center">
         <Checkbox id={InputIdsEnum.todoRepeat} checked={isRecurring} onChange={handleChange} />
-        <label htmlFor="repeat-item-checkbox">Repeat {isRecurring && "item every:"}</label>
+        <label htmlFor={InputIdsEnum.todoRepeat}>Repeat {isRecurring && "item every:"}</label>
       </div>
       <div hidden={!isRecurring} className="mt-4">
         <Select

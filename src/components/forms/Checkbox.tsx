@@ -5,7 +5,7 @@ import ErrorContext from "../../context/ErrorContext";
 interface CheckboxProps {
   checked: boolean;
   onChange: () => void;
-  id?: string;
+  id: string;
   disabled?: boolean;
 }
 
@@ -14,7 +14,7 @@ const Checkbox = ({ checked, onChange, id, disabled }: CheckboxProps) => {
   return (
     <input
       type="checkbox"
-      id={id || "item-checkbox"}
+      id={id}
       checked={checked}
       onChange={onChange}
       disabled={disabled}

@@ -242,7 +242,7 @@ const EditTodoItem = ({ token, listId, listType, items }: EditTodoItemProps) => 
         </div>
         {completedItems.length ? (
           <div className="mt-4">
-            <h4 className="mt-6 mb-2">Completed Items</h4>
+            <h5 className="mt-6 mb-2">Completed Items</h5>
             <ul>
               {completedItems.map((item) => (
                 <li key={item.itemId} className="text-gray-600 border-b">

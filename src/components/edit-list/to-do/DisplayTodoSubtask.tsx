@@ -37,6 +37,7 @@ const DisplayTodoSubtask = ({ tasks, listId, token }: DisplaySubtaskProps) => {
               className={`text-[13px] px-4 py-2 ${task.isChecked && "line-through text-gray-600"}`}>
               <li>
                 <Checkbox
+                  id={`subtask-checkbox-${task.taskId}`}
                   disabled={active}
                   checked={task.isChecked}
                   onChange={() => mutation.mutate({ taskId: task.taskId, itemId: task.itemId })}

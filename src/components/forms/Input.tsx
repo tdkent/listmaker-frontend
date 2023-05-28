@@ -4,7 +4,6 @@ import Tooltip from "./Tooltip";
 
 interface InputProps {
   label: string;
-  name?: string;
   type: "email" | "text" | "password" | "number" | "date" | "time";
   required: boolean;
   id: string;
@@ -19,7 +18,6 @@ interface InputProps {
 
 const Input = ({
   label,
-  name,
   type,
   required,
   id,
@@ -33,7 +31,7 @@ const Input = ({
   return (
     <div className="relative mb-1.5 pb-4">
       <div className="flex justify-between items-center mb-1 pl-0.5 font-medium">
-        <label htmlFor={name}>
+        <label htmlFor={id}>
           {label}
           {required && " *"}
         </label>
@@ -43,7 +41,6 @@ const Input = ({
       </div>
       <div>
         <input
-          name={name}
           type={type}
           id={id}
           value={value}
