@@ -76,9 +76,9 @@ const TodoDetailsModal = ({
           />
         </div>
       </div>
-      <div className="mt-3 text-center">
-        <p className="text-base">{item.itemName}</p>
-        <p>{item.itemCategory}</p>
+      <div className="mt-3 px-2">
+        <p className="text-base text-justify overflow-hidden">{item.itemName}</p>
+        <p className="text-center mt-1">{item.itemCategory}</p>
       </div>
       <div className="mt-4 pt-3 pb-1 px-2 border-t">
         <Calendar styles="w-5 h-5 mx-auto text-gray-600 mb-2" />

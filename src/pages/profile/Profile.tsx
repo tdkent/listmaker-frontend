@@ -46,7 +46,9 @@ const Profile = () => {
 
   return (
     <div>
-      <h2>{userData.userNickname ? userData.userNickname + "'s" : "My"} Profile</h2>
+      <h2 className="text-[19px] overflow-hidden whitespace-nowrap">
+        {userData.userNickname ? userData.userNickname + "'s" : "My"} Profile
+      </h2>
       <div className="my-6">
         <DisplayEmail userEmail={userData.userEmail} />
       </div>

@@ -16,7 +16,7 @@ const Login = () => {
   }, [auth.isLoggedIn, navigate]);
 
   return (
-    <section>
+    <section className="lg:mt-8 lg:w-3/5 lg:mx-auto">
       <h2>Log in to ListMaker</h2>
       <LoginForm />
       <p className="pl-1">

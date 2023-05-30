@@ -130,7 +130,9 @@ const EditSubtasksDisplay = ({
                   </div>
                 ) : (
                   <div className="flex flex-row items-center justify-between mb-2.5">
-                    <li className="text-[15px]">{task.taskName}</li>
+                    <li className="text-[15px] overflow-hidden mr-2 text-justify">
+                      {task.taskName}
+                    </li>
                     <div className="flex flex-row items-center">
                       <Button
                         type="button"

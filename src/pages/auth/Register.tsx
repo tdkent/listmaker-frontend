@@ -1,9 +1,8 @@
 import { useContext, useEffect } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 import AuthContext from "../../context/AuthContext";
 import RegisterForm from "../../components/auth/RegisterForm";
-import Hyperlink from "../../components/forms/Hyperlink";
 
 const Register = () => {
   // auth check
@@ -16,13 +15,10 @@ const Register = () => {
   }, [auth.isLoggedIn, navigate]);
 
   return (
-    <div>
+    <section className="lg:mt-8 lg:w-3/5 lg:mx-auto">
       <h2>Create a free account</h2>
       <RegisterForm />
-      <p className="mb-6 pl-1">
-        Already have an account? <Hyperlink to="/login">Log in</Hyperlink>
-      </p>
-    </div>
+    </section>
   );
 };
 

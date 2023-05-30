@@ -48,7 +48,7 @@ const Input = ({
           onChange={handleChange}
           className={`bg-gray-50 focus:gray-50 border ${!isError && `hover:border-blue-500`} ${
             isError && errorId === id ? "border-red-500" : "border-gray-600"
-          } rounded w-full p-2.5`}
+          } rounded w-full p-2.5 lg:py-4`}
         />
       </div>
       {isError && errorId === id && (

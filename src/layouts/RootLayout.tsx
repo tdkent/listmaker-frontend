@@ -15,7 +15,7 @@ const RootLayout = (): JSX.Element => {
     <>
       <div id="container" className={`min-h-[calc(100vh-192px)]`}>
         <Header />
-        <main className="mx-3 relative z-0">
+        <main className="mx-3 relative z-0 lg:w-[1024px] lg:mx-auto lg:px-6">
           {active && !modal.active && <ShowApiError errorData={data!} />}
           <Outlet />
         </main>

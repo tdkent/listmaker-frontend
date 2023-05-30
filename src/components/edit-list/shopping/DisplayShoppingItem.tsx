@@ -41,7 +41,7 @@ const DisplayShoppingItem = ({
   return (
     <>
       <li className="flex items-center justify-between py-1">
-        <div>
+        <div className="flex flex-row items-center mr-2 lg:mr-6 text-justify overflow-hidden">
           <Checkbox
             id={`item-checkbox-${item.itemId}`}
             checked={item.isChecked}

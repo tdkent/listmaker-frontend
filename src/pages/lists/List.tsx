@@ -63,32 +63,34 @@ const List = () => {
 
   // main render
   return (
-    <div>
+    <section className="mt-8 lg:w-4/5 lg:mx-auto">
       <EditList token={token} listId={listId} listName={listName} />
-      {/* Shopping */}
-      {listType === AllListTypesEnum.shop && (
-        <>
-          <NewShoppingItem token={token} listId={listId} />
-          <EditShoppingItem
-            token={token}
-            listId={listId}
-            items={data.items as ShoppingListItemInt[]}
-          />
-        </>
-      )}
-      {/* To-Do */}
-      {listType === AllListTypesEnum.todo && (
-        <>
-          <NewTodoItem token={token} listId={listId} />
-          <EditTodoItem
-            token={token}
-            listId={listId}
-            listType={listType}
-            items={data.items as TodoListItemInt[]}
-          />
-        </>
-      )}
-    </div>
+      <div className="lg:w-3/4 lg:mx-auto">
+        {/* Shopping */}
+        {listType === AllListTypesEnum.shop && (
+          <>
+            <NewShoppingItem token={token} listId={listId} />
+            <EditShoppingItem
+              token={token}
+              listId={listId}
+              items={data.items as ShoppingListItemInt[]}
+            />
+          </>
+        )}
+        {/* To-Do */}
+        {listType === AllListTypesEnum.todo && (
+          <>
+            <NewTodoItem token={token} listId={listId} />
+            <EditTodoItem
+              token={token}
+              listId={listId}
+              listType={listType}
+              items={data.items as TodoListItemInt[]}
+            />
+          </>
+        )}
+      </div>
+    </section>
   );
 };
 

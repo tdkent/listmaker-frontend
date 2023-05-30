@@ -1,4 +1,4 @@
-import { useState, useContext, useRef, useEffect } from "react";
+import { useState, useContext } from "react";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { AxiosError } from "axios";
 import { useNavigate } from "react-router-dom";
@@ -90,18 +90,6 @@ const EditList = ({ token, listId, listName }: EditListProps) => {
     modal.toggleModal(false);
   };
 
-  // div width
-  const containerRef = useRef<HTMLDivElement | null>(null);
-  const headerRef = useRef<HTMLDivElement | null>(null);
-
-  useEffect(() => {
-    const containerWidth = containerRef.current ? containerRef.current.clientWidth : 0;
-    const headerWidth = headerRef.current ? headerRef.current.scrollWidth : 0;
-    const el = document.getElementById("list-name-header");
-    if (containerWidth - headerWidth > 0) el!.style.fontSize = "13.5px";
-    else el!.style.fontSize = "20px";
-  }, []);
-
   return (
     <>
       {modal.active && modal.contentId === ModalContentIdEnum.editList && (
@@ -123,10 +111,8 @@ const EditList = ({ token, listId, listName }: EditListProps) => {
           modalContent={<DeleteListModal handleDelete={handleDelete} handleCancel={handleCancel} />}
         />
       )}
-      <div ref={containerRef} className="flex flex-row justify-between items-center">
-        <div id="list-name-header" ref={headerRef}>
-          <h4>{listName}</h4>
-        </div>
+      <div className="flex flex-row justify-between items-center overflow-hidden">
+        <h4 className="text-base font-medium truncate lg:text-3xl">{listName}</h4>
         <div className="flex flex-row w-[60px]">
           <Button type="button" text={<Pencil />} handleClick={handleEditInit} disabled={active} />
           <Button type="button" text={<Trash />} disabled={active} handleClick={handleDeleteInit} />

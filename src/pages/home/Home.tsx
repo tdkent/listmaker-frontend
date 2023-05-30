@@ -2,23 +2,23 @@ import { useContext } from "react";
 
 import AuthContext from "../../context/AuthContext";
 import RegisterForm from "../../components/auth/RegisterForm";
-import Hyperlink from "../../components/forms/Hyperlink";
 import ListsOverview from "../../components/page-sections/ListsOverview";
 
 const Home = () => {
   const auth = useContext(AuthContext);
   return (
-    <div>
-      <h2>Organize your life with powerful listmaking tools</h2>
-      {!auth.isLoggedIn && (
-        <section className="border-b">
-          <h3 className="mt-4 pr-3">Get started with a free account:</h3>
-          <RegisterForm />
-          <p className="mb-6 pl-1">
-            Already have an account? <Hyperlink to="/login">Log in</Hyperlink>
-          </p>
-        </section>
-      )}
+    <div className="lg:mt-8">
+      <div className={`${!auth.isLoggedIn && "border-b"}`}>
+        <div className="lg:w-3/5 lg:mx-auto">
+          <h2 className="">Organize your life with powerful listmaking tools</h2>
+          {!auth.isLoggedIn && (
+            <section className="">
+              <h3 className="mt-4 pr-3">Get started with a free account:</h3>
+              <RegisterForm />
+            </section>
+          )}
+        </div>
+      </div>
       <ListsOverview />
     </div>
   );

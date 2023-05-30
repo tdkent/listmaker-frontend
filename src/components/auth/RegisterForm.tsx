@@ -18,6 +18,7 @@ import { register } from "../../api/auth";
 import Form from "../forms/Form";
 import Input from "../forms/Input";
 import Button from "../forms/Button";
+import Hyperlink from "../forms/Hyperlink";
 
 const RegisterForm = () => {
   // error handling
@@ -93,7 +94,7 @@ const RegisterForm = () => {
   };
 
   return (
-    <div className="my-6">
+    <div className="my-6 lg:my-8">
       <Form id={FormIdsEnum.reg} onSubmit={handleSubmit}>
         <Input
           label="Email"
@@ -142,6 +143,11 @@ const RegisterForm = () => {
           styles={`${CustomStylesEnum.authButton} ${CustomStylesEnum.btnPrimary}`}
         />
       </Form>
+      <div>
+        <p className="my-8 pl-1">
+          Already have an account? <Hyperlink to="/login">Log in</Hyperlink>
+        </p>
+      </div>
     </div>
   );
 };

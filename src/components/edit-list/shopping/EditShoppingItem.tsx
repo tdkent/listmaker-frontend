@@ -87,6 +87,10 @@ const EditShoppingItem = ({ token, listId, items }: EditShoppingItemProps) => {
     .filter((val, idx, arr) => arr.indexOf(val) === idx)
     .sort((a, b) => a.toLowerCase().localeCompare(b.toLowerCase()));
 
+  const sortedItems = [...items].sort((a, b) =>
+    a.itemName.toLowerCase().localeCompare(b.itemName.toLowerCase())
+  );
+
   return (
     <>
       {modal.active && modal.contentId === ModalContentIdEnum.editShoppingItem && (
@@ -107,7 +111,7 @@ const EditShoppingItem = ({ token, listId, items }: EditShoppingItemProps) => {
           }
         />
       )}
-      <div>
+      <div className="lg:mt-10">
         {categories.map(
           (cat) =>
             cat !== CheckedItemEnum.check && (
@@ -116,7 +120,7 @@ const EditShoppingItem = ({ token, listId, items }: EditShoppingItemProps) => {
                   <span className="font-medium">{cat}</span>
                 </div>
                 <ul>
-                  {items.map(
+                  {sortedItems.map(
                     (item) =>
                       item.dispCategory === cat &&
                       !item.isChecked && (
@@ -142,7 +146,7 @@ const EditShoppingItem = ({ token, listId, items }: EditShoppingItemProps) => {
               <span className="font-medium">Checked Items</span>
             </div>
             <ul>
-              {items.map(
+              {sortedItems.map(
                 (item) =>
                   item.isChecked && (
                     <div key={item.itemId}>

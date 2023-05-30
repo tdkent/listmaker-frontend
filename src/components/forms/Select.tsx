@@ -20,7 +20,7 @@ const Select = ({
   flex,
 }: SelectProps) => {
   return (
-    <div className={`${flex && "flex flex-row justify-between items-center w-2/3"}`}>
+    <div className={`${flex && "flex flex-row justify-between items-center w-2/3 lg:w-full"}`}>
       <div className={`mb-1 font-medium ${flex && "grow-0 mr-4"}`}>
         <label htmlFor={id}>
           {label}
@@ -32,7 +32,7 @@ const Select = ({
           id={id}
           defaultValue={defaultValue}
           onChange={handleSelect}
-          className="form-select w-full mb-3 p-2.5 rounded-md bg-gray-50 border border-gray-600 hover:border-blue-500">
+          className="form-select w-full mb-3 p-2.5 lg:py-4 rounded-md bg-gray-50 border border-gray-600 hover:border-blue-500">
           {options.map((option) => {
             return (
               <option key={option} value={option}>

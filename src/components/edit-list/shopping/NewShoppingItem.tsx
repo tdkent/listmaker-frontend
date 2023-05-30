@@ -51,26 +51,28 @@ const NewShoppingItem = ({ token, listId }: NewShoppingItemProps) => {
     mutation.mutate();
   };
   return (
-    <div className="my-6">
-      <Form id={FormIdsEnum.newShopItem} onSubmit={submitHandler}>
-        <Input
-          label="Name"
-          type="text"
-          id={InputIdsEnum.newShopName}
-          value={itemName}
-          required={true}
-          handleChange={handleChange}
-          isError={isError}
-          errorId={errorId}
-          errorString={FormErrorsEnum.nameBlank}
-        />
-        <Button
-          type="submit"
-          text="Add Item"
-          disabled={active}
-          styles={`${CustomStylesEnum.authButton} ${CustomStylesEnum.btnPrimary}`}
-        />
-      </Form>
+    <div className="my-6 lg:my-8">
+      <div className="lg:mx-auto">
+        <Form id={FormIdsEnum.newShopItem} onSubmit={submitHandler}>
+          <Input
+            label="Name"
+            type="text"
+            id={InputIdsEnum.newShopName}
+            value={itemName}
+            required={true}
+            handleChange={handleChange}
+            isError={isError}
+            errorId={errorId}
+            errorString={FormErrorsEnum.nameBlank}
+          />
+          <Button
+            type="submit"
+            text="Add Item"
+            disabled={active}
+            styles={`${CustomStylesEnum.authButton} ${CustomStylesEnum.btnPrimary} mt-2`}
+          />
+        </Form>
+      </div>
     </div>
   );
 };

@@ -6,7 +6,7 @@
 
 @layer components {
   .auth-form-button {
-    @apply w-full rounded-md mt-4 px-4 py-2 text-white font-medium hover:font-semibold;
+    @apply w-full rounded-md mt-6 px-4 py-2 text-white font-medium;
   }
   .button-bg-primary {
     @apply bg-blue-500 hover:bg-blue-600;
@@ -15,7 +15,7 @@
     @apply bg-red-500 hover:bg-red-600;
   }
   .button-cancel {
-    @apply w-fit text-center my-6 font-medium hover:font-semibold text-gray-600 hover:text-gray-900;
+    @apply w-fit text-center my-6 font-medium text-gray-600 hover:text-gray-900;
   }
 }
 
@@ -27,13 +27,13 @@
     @apply text-gray-900;
   }
   h1 {
-    @apply font-display text-blue-600 leading-8 text-5xl;
+    @apply font-display text-blue-600 leading-8 text-5xl lg:text-6xl;
   }
   h2 {
-    @apply text-2xl leading-8 font-semibold;
+    @apply text-2xl lg:text-3xl leading-8 font-semibold;
   }
   h3 {
-    @apply text-xl;
+    @apply text-xl lg:text-2xl;
   }
   h5 {
     @apply text-lg;

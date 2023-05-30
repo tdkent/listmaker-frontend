@@ -47,7 +47,7 @@ export enum InputIdsEnum {
 
 export enum FormErrorsEnum {
   email = "Please enter a valid email address.",
-  nickname = "Nickname exceeds max length (24).",
+  nickname = "Nickname exceeds max length (16).",
   passLength = "Please enter a longer password (min 8)",
   passConfirm = "Password confirmation does not match.",
   nameLength = "Please enter a name 1-24 characters long.",

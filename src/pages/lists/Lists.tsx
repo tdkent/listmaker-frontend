@@ -77,9 +77,12 @@ const Lists = () => {
   };
 
   return (
-    <div>
-      <h2>{userNickname ? userNickname + "'s" : "My"} Lists</h2>
-      <div className="mt-4">
+    <section className="lg:mt-8 lg:w-3/5 lg:mx-auto">
+      <h2 className="whitespace-nowrap overflow-hidden text-[19px] lg:text-3xl">
+        <span className="">{userNickname ? userNickname + "'s" : "My"}</span>
+        <span> Lists</span>
+      </h2>
+      <div className="mt-4 lg:mt-8 lg:mx-auto lg:w-[40%]">
         <Select
           id={InputIdsEnum.myListsSort}
           label="Sort By:"
@@ -90,14 +93,14 @@ const Lists = () => {
           flex={true}
         />
       </div>
-      <div className="my-6 border-b">
+      <div className="my-6 lg:my-8 border-b">
         {sortedList.map((list) => {
           return (
             <Link to={`/lists/${list.listSlug}&id=${list.listId}`} key={list.listId}>
-              <div className="flex flex-row justify-between items-center border-t py-4 hover:bg-gray-50">
-                <div className="flex flex-col">
-                  <span className="font-semibold">{list.listName}</span>
-                  <span className="text-xs">{list.listType}</span>
+              <div className="flex flex-row justify-between items-center border-t py-4 hover:bg-gray-50 lg:py-6 lg:text-lg">
+                <div className="flex flex-col overflow-hidden">
+                  <span className="font-semibold truncate">{list.listName}</span>
+                  <span className="text-xs lg:text-sm">{list.listType}</span>
                 </div>
                 <div className="">
                   <CircleEllipsis />
@@ -107,7 +110,7 @@ const Lists = () => {
           );
         })}
       </div>
-    </div>
+    </section>
   );
 };
 

@@ -83,7 +83,7 @@ const NewList = () => {
   };
 
   return (
-    <div>
+    <section className="lg:mt-8 lg:w-3/5 lg:mx-auto">
       <h2>Create New List</h2>
       <div className="my-6">
         <Form id={FormIdsEnum.newList} onSubmit={handleSubmit}>
@@ -113,7 +113,7 @@ const NewList = () => {
           />
         </Form>
       </div>
-    </div>
+    </section>
   );
 };
 
