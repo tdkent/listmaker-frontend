@@ -65,7 +65,7 @@ const EditNicknameForm = ({ userNickname, setEditNickname }: Props) => {
     <div>
       <span className="text-lg font-medium mr-4">Change Nickname</span>
       <p className="my-4">
-        Nicknames can be 1-18 characters long. You may delete your nickname by leaving the field
+        Nicknames can be 1-16 characters long. You may delete your nickname by leaving the field
         blank.
       </p>
       <Form id={FormIdsEnum.editNickname} onSubmit={handleSubmit}>
@@ -84,13 +84,13 @@ const EditNicknameForm = ({ userNickname, setEditNickname }: Props) => {
           type="submit"
           text="Save"
           disabled={active}
-          styles={`${CustomStylesEnum.authButton} ${CustomStylesEnum.btnPrimary}`}
+          styles={`${CustomStylesEnum.authButton} ${CustomStylesEnum.btnPrimary} mt-2`}
         />
         <Button
           type="button"
           text="Cancel"
           handleClick={handleCancel}
-          styles={`${CustomStylesEnum.btnCancel} mb-2`}
+          styles={`${CustomStylesEnum.btnCancel} lg:mb-0`}
         />
       </Form>
     </div>

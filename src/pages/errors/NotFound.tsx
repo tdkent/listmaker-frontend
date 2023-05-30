@@ -16,7 +16,7 @@ const NotFound = () => {
   }, [auth.isLoggedIn, navigate]);
 
   return (
-    <div>
+    <section className="lg:w-3/5 lg:mx-auto lg:mt-8">
       <div className="flex flex-row items-center mt-6">
         <CircleExclamation styles="h-6 w-6 mr-2" /> <h2>404</h2>
       </div>
@@ -26,7 +26,7 @@ const NotFound = () => {
       <div className="mt-6">
         <Hyperlink to="/">Go to home page</Hyperlink>
       </div>
-    </div>
+    </section>
   );
 };
 

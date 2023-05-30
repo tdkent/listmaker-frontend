@@ -118,7 +118,7 @@ const RegisterForm = () => {
         />
         <Input
           label="Password"
-          type="text"
+          type="password"
           id={InputIdsEnum.regPass}
           handleChange={handleChange}
           required={true}

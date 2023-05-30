@@ -12,8 +12,8 @@ const RootError = () => {
     <>
       <div id="container" className={`min-h-[calc(100vh-192px)]`}>
         <Header />
-        <main className="mx-3 relative z-0">
-          <div>
+        <main className="mx-3 relative z-0 lg:w-[1024px] lg:mx-auto lg:px-6">
+          <section className="lg:mx-auto lg:w-3/5 lg:mt-8">
             <div className="flex flex-row items-center mt-6">
               <CircleExclamation styles="h-6 w-6 mr-2" /> <h2>An error occurred</h2>
             </div>
@@ -24,7 +24,7 @@ const RootError = () => {
             <div className="mt-6">
               <Hyperlink to="/">Go to home page</Hyperlink>
             </div>
-          </div>
+          </section>
         </main>
       </div>
       <Footer />

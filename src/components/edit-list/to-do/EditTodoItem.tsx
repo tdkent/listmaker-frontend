@@ -199,9 +199,9 @@ const EditTodoItem = ({ token, listId, listType, items }: EditTodoItemProps) => 
           }
         />
       )}
-      <section>
+      <div className="lg:mt-10">
         {items.length > 1 && (
-          <div className="mt-4">
+          <div className="max-lg:mt-4 lg:w-[45%] lg:mx-auto">
             <Select
               id={InputIdsEnum.myListsSort}
               label="Sort By:"
@@ -267,7 +267,7 @@ const EditTodoItem = ({ token, listId, listType, items }: EditTodoItemProps) => 
             </ul>
           </div>
         ) : null}
-      </section>
+      </div>
     </>
   );
 };

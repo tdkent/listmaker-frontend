@@ -12,7 +12,7 @@ const DisplayNickname = ({ userNickname, setEditNickname }: Props) => {
   const { active } = useContext(ErrorContext);
   return (
     <div>
-      <span className="text-lg font-medium mr-4">Nickname</span>
+      <span className="text-lg font-medium mr-4 lg:mr-12">Nickname</span>
       {active ? (
         <span className="text-gray-300">Change</span>
       ) : (

@@ -9,7 +9,7 @@ interface QueryErrorProps {
 
 const QueryError = ({ error }: QueryErrorProps) => {
   return (
-    <div>
+    <section className="lg:mx-auto lg:w-3/5 lg:mt-8">
       <div className="flex flex-row items-center mt-6">
         <CircleExclamation styles="h-6 w-6 mr-2" /> <h2>An error occurred</h2>
       </div>
@@ -32,7 +32,7 @@ const QueryError = ({ error }: QueryErrorProps) => {
       <div className="mt-6">
         <Hyperlink to="/">Go to home page</Hyperlink>
       </div>
-    </div>
+    </section>
   );
 };
 

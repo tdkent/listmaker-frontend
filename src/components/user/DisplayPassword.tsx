@@ -11,7 +11,7 @@ const DisplayPassword = ({ setEditPassword }: Props) => {
   const { active } = useContext(ErrorContext);
   return (
     <div>
-      <span className="text-lg font-medium mr-4">Password</span>
+      <span className="text-lg font-medium mr-4 lg:mr-12">Password</span>
       {active ? (
         <span className="text-gray-300">Change</span>
       ) : (

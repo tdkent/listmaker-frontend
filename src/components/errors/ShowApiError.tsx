@@ -27,7 +27,7 @@ const ShowApiError = ({ errorData }: Props) => {
     return (
       <div
         id="api-error"
-        className="flex flex-row justify-between items-center mb-4 px-2 pr-1.5 py-2.5 border rounded-md text-sm text-white font-semibold bg-red-600 hover:cursor-pointer"
+        className="flex flex-row justify-between items-center mb-4 px-2 pr-1.5 py-2.5 border rounded-md text-sm text-white font-semibold bg-red-600 hover:cursor-pointer lg:w-3/5 lg:mx-auto lg:p-4 lg:text-base lg:mt-8"
         onClick={handleClick}>
         <div className="flex flex-row items-center">
           <CircleExclamation styles="w-5 h-5 mr-2" />

@@ -125,7 +125,7 @@ const EditPasswordForm = ({ setEditPassword }: Props) => {
           <Button
             type="submit"
             text="Save"
-            styles={`${CustomStylesEnum.authButton} ${CustomStylesEnum.btnPrimary}`}
+            styles={`${CustomStylesEnum.authButton} ${CustomStylesEnum.btnPrimary} mt-2`}
           />
           <Button
             type="button"

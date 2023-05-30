@@ -66,7 +66,7 @@ const NewTodoItem = ({ token, listId }: NewTodoItemProps) => {
           type="submit"
           text="Add Item"
           disabled={active}
-          styles={`${CustomStylesEnum.authButton} ${CustomStylesEnum.btnPrimary}`}
+          styles={`${CustomStylesEnum.authButton} ${CustomStylesEnum.btnPrimary} mt-2`}
         />
       </Form>
     </div>

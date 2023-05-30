@@ -37,7 +37,6 @@ const Profile = () => {
     return <QueryError error={error} />;
   }
 
-  //! TODO: initiate logout
   if (!data || !data.user) {
     return <NullDataError />;
   }
@@ -45,14 +44,14 @@ const Profile = () => {
   const userData = data.user;
 
   return (
-    <div>
-      <h2 className="text-[19px] overflow-hidden whitespace-nowrap">
+    <section className="lg:mt-8 lg:w-3/5 lg:mx-auto">
+      <h2 className="text-[19px] overflow-hidden whitespace-nowrap lg:text-3xl">
         {userData.userNickname ? userData.userNickname + "'s" : "My"} Profile
       </h2>
-      <div className="my-6">
+      <div className="my-6 lg:my-10">
         <DisplayEmail userEmail={userData.userEmail} />
       </div>
-      <div className="my-4">
+      <div className="my-6 lg:my-10">
         {editNickname ? (
           <EditNicknameForm
             userNickname={userData.userNickname}
@@ -62,14 +61,14 @@ const Profile = () => {
           <DisplayNickname userNickname={userData.userNickname} setEditNickname={setEditNickname} />
         )}
       </div>
-      <div className="my-4 py-4">
+      <div className="my-6 lg:my-10">
         {editPassword ? (
           <EditPasswordForm setEditPassword={setEditPassword} />
         ) : (
           <DisplayPassword setEditPassword={setEditPassword} />
         )}
       </div>
-    </div>
+    </section>
   );
 };
 
