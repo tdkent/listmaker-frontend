@@ -71,7 +71,7 @@ const DisplayTodoItem = ({
 
   return (
     <>
-      <div className="flex flex-row justify-between items-center py-3 hover:bg-gray-50">
+      <div className="flex flex-row justify-between items-center py-3 lg:px-2 hover:bg-gray-50">
         <div className="flex flex-row items-center mr-2 lg:mr-6 text-justify overflow-hidden">
           <Checkbox
             id={`item-checkbox-${item.itemId}`}

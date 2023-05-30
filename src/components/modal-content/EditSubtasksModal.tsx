@@ -77,43 +77,45 @@ const EditSubtasksModal = ({ token, listId, itemId, items, tasks }: EditSubtasks
 
   return (
     <div className="mt-2 mb-6 text-sm">
-      <div className="flex items-center justify-between text-center px-3 pb-2 border-b">
+      <div className="flex items-center justify-between text-center px-3 pb-2">
         <div className="text-left grow shrink basis-0">
           <Button type="button" text="Close" handleClick={handleClose} divStyles="text-left" />
         </div>
         <h6>Subtasks</h6>
         <div className="grow shrink basis-0" />
       </div>
-      <div className="my-4 pb-4 border-b text-base">
-        <Form id={FormIdsEnum.newTask} onSubmit={handleNewSubmit}>
-          <Input
-            label="Name"
-            type="text"
-            id={InputIdsEnum.todoTaskName}
-            value={newTask}
-            handleChange={handleNewChange}
-            required={true}
-            isError={isError}
-            errorId={errorId}
-            errorString={FormErrorsEnum.nameBlank}
-          />
-          <Button
-            type="submit"
-            text="Add"
-            disabled={active}
-            styles={`${CustomStylesEnum.authButton} ${CustomStylesEnum.btnPrimary}`}
-          />
-        </Form>
+      <div className="lg:mx-auto lg:w-3/4">
+        <div className="my-4 pb-4 text-base">
+          <Form id={FormIdsEnum.newTask} onSubmit={handleNewSubmit}>
+            <Input
+              label="Name"
+              type="text"
+              id={InputIdsEnum.todoTaskName}
+              value={newTask}
+              handleChange={handleNewChange}
+              required={true}
+              isError={isError}
+              errorId={errorId}
+              errorString={FormErrorsEnum.nameBlank}
+            />
+            <Button
+              type="submit"
+              text="Add"
+              disabled={active}
+              styles={`${CustomStylesEnum.authButton} ${CustomStylesEnum.btnPrimary} mt-2`}
+            />
+          </Form>
+        </div>
+        <EditSubtasksDisplay
+          token={token}
+          taskList={taskList}
+          setTaskList={setTaskList}
+          itemId={itemId}
+          listId={listId}
+          isEditing={isEditing}
+          setIsEditing={setIsEditing}
+        />
       </div>
-      <EditSubtasksDisplay
-        token={token}
-        taskList={taskList}
-        setTaskList={setTaskList}
-        itemId={itemId}
-        listId={listId}
-        isEditing={isEditing}
-        setIsEditing={setIsEditing}
-      />
     </div>
   );
 };

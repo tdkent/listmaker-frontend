@@ -1,6 +1,7 @@
 import { RouterProvider } from "react-router-dom";
 import { useState, useEffect } from "react";
 import { AxiosError } from "axios";
+import { disableBodyScroll, enableBodyScroll } from "body-scroll-lock";
 
 import AuthContext, { AuthContextInt } from "./context/AuthContext";
 import ModalContext, { ModalContextInt } from "./context/ModalContext";
@@ -24,7 +25,11 @@ function App() {
   // modal context
   const [modalActive, setModalActive] = useState<boolean>(false);
   const [contentId, setContentId] = useState<ModalContextInt["contentId"]>("");
-  const toggleModal = (value: boolean) => setModalActive(value);
+  const toggleModal = (value: boolean) => {
+    setModalActive(value);
+    const el = document.getElementById("root")!;
+    !!value ? disableBodyScroll(el) : enableBodyScroll(el);
+  };
   const provideId = (value: ModalContextInt["contentId"]) => setContentId(value);
   const modal: ModalContextInt = {
     active: modalActive,

@@ -100,7 +100,7 @@ const EditSubtasksDisplay = ({
             return (
               <div key={task.taskId}>
                 {isEditing && task.taskId === taskId ? (
-                  <div className="mb-2.5 border rounded-md px-1.5 py-2">
+                  <div className="mb-2.5 border rounded-md px-1.5 py-2 lg:p-4">
                     <Form id={FormIdsEnum.editTask} onSubmit={handleEditSubmit}>
                       <Input
                         label="Name"
@@ -114,23 +114,27 @@ const EditSubtasksDisplay = ({
                         errorString={FormErrorsEnum.nameBlank}
                       />
                       <div className="flex flex-row justify-end">
-                        <Button
-                          type="submit"
-                          text={<Check styles="w-5 h-5 m-auto" />}
-                          styles={`${CustomStylesEnum.btnPrimary} w-16 py-2.5 rounded-lg text-white`}
-                        />
-                        <Button
-                          type="button"
-                          text={<Close styles="w-5 h-5 m-auto" />}
-                          handleClick={handleEditCancel}
-                          styles={`ml-2 w-16 py-2.5 text-white bg-gray-500 hover:bg-gray-600 rounded-md`}
-                        />
+                        <div className="w-1/2 mr-0.5">
+                          <Button
+                            type="submit"
+                            text={<Check styles="w-5 h-5 m-auto" />}
+                            styles={`${CustomStylesEnum.btnPrimary} w-full py-2.5 rounded-md text-white`}
+                          />
+                        </div>
+                        <div className="w-1/2 ml-0.5">
+                          <Button
+                            type="button"
+                            text={<Close styles="w-5 h-5 m-auto" />}
+                            handleClick={handleEditCancel}
+                            styles={`lg:ml-0 w-full py-2.5 text-white bg-gray-500 hover:bg-gray-600 rounded-md`}
+                          />
+                        </div>
                       </div>
                     </Form>
                   </div>
                 ) : (
                   <div className="flex flex-row items-center justify-between mb-2.5">
-                    <li className="text-[15px] overflow-hidden mr-2 text-justify">
+                    <li className="text-[15px] overflow-hidden mr-2 lg:mr-4 text-justify">
                       {task.taskName}
                     </li>
                     <div className="flex flex-row items-center">

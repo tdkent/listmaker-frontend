@@ -26,31 +26,33 @@ const EditListModal = ({
       <div className="text-center">
         <h6>Edit List</h6>
       </div>
-      <Form id={FormIdsEnum.editList}>
-        <Input
-          label="Name"
-          type="text"
-          id={InputIdsEnum.editListName}
-          value={newName}
-          required={true}
-          handleChange={handleChange}
-          isError={isError}
-          errorId={errorId}
-          errorString={FormErrorsEnum.nameLength}
-        />
-        <Button
-          type="button"
-          text="Save"
-          handleClick={handleSubmit}
-          styles={`${CustomStylesEnum.authButton} ${CustomStylesEnum.btnPrimary}`}
-        />
-        <Button
-          type="button"
-          text="Cancel"
-          handleClick={handleCancel}
-          styles={CustomStylesEnum.btnCancel}
-        />
-      </Form>
+      <div className="lg:w-3/4 lg:mx-auto">
+        <Form id={FormIdsEnum.editList}>
+          <Input
+            label="Name"
+            type="text"
+            id={InputIdsEnum.editListName}
+            value={newName}
+            required={true}
+            handleChange={handleChange}
+            isError={isError}
+            errorId={errorId}
+            errorString={FormErrorsEnum.nameLength}
+          />
+          <Button
+            type="button"
+            text="Save"
+            handleClick={handleSubmit}
+            styles={`${CustomStylesEnum.authButton} ${CustomStylesEnum.btnPrimary} mt-2`}
+          />
+          <Button
+            type="button"
+            text="Cancel"
+            handleClick={handleCancel}
+            styles={CustomStylesEnum.btnCancel}
+          />
+        </Form>
+      </div>
     </div>
   );
 };

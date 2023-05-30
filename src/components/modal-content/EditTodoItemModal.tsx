@@ -60,11 +60,11 @@ const EditTodoItemModal = ({
   errorId,
 }: EditTodoItemModalProps) => {
   return (
-    <div className="mt-2 mb-6">
+    <div className="max-lg:mb-8 mt-2">
       <div className="text-center">
         <h6>Edit Item</h6>
       </div>
-      <div>
+      <div className="lg:mx-auto lg:w-3/4">
         <Form id={FormIdsEnum.editTodoItem}>
           <Input
             label="Name"
@@ -124,26 +124,26 @@ const EditTodoItemModal = ({
             setRecurInterval={setRecurInterval}
           />
         </Form>
-      </div>
-      <div className="">
-        <Button
-          type="button"
-          text="Save"
-          handleClick={handleSave}
-          styles={`${CustomStylesEnum.authButton} ${CustomStylesEnum.btnPrimary}`}
-        />
-        <Button
-          type="button"
-          text="Delete"
-          handleClick={handleDelete}
-          styles={`${CustomStylesEnum.authButton} ${CustomStylesEnum.btnWarning}`}
-        />
-        <Button
-          type="button"
-          text="Cancel"
-          handleClick={handleCancel}
-          styles={CustomStylesEnum.btnCancel}
-        />
+        <div>
+          <Button
+            type="button"
+            text="Save"
+            handleClick={handleSave}
+            styles={`${CustomStylesEnum.authButton} ${CustomStylesEnum.btnPrimary}`}
+          />
+          <Button
+            type="button"
+            text="Delete"
+            handleClick={handleDelete}
+            styles={`${CustomStylesEnum.authButton} ${CustomStylesEnum.btnWarning}`}
+          />
+          <Button
+            type="button"
+            text="Cancel"
+            handleClick={handleCancel}
+            styles={CustomStylesEnum.btnCancel}
+          />
+        </div>
       </div>
     </div>
   );

@@ -42,7 +42,7 @@ const TodoDetailsModal = ({
   const modal = useContext(ModalContext);
   const center = useMemo(() => item.itemCoords, [item.itemCoords]);
   return (
-    <div className="text-sm">
+    <div className="text-sm mt-2 lg:px-4 lg:mb-8">
       <div className="flex flex-row justify-between items-center text-center mt-1 px-3">
         <div>
           <Button

@@ -8,17 +8,17 @@ interface ModalProps {
 
 const DeleteListModal = ({ handleDelete, handleCancel }: ModalProps) => {
   return (
-    <div>
+    <div className="mt-2">
       <div className="text-center">
         <h6>Delete List</h6>
         <p className="text-center my-4">Are you sure you want to delete this list?</p>
       </div>
-      <div>
+      <div className="lg:mx-auto lg:w-3/4">
         <Button
           type="button"
           text="Delete"
           handleClick={handleDelete}
-          styles={`${CustomStylesEnum.authButton} ${CustomStylesEnum.btnWarning}`}
+          styles={`${CustomStylesEnum.authButton} ${CustomStylesEnum.btnWarning} mt-2`}
         />
         <Button
           type="button"

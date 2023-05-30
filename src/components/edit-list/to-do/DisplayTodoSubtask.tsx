@@ -36,7 +36,7 @@ const DisplayTodoSubtask = ({ tasks, listId, token }: DisplaySubtaskProps) => {
               key={task.taskId}
               className={`text-[13px] py-2 ${task.isChecked && "line-through text-gray-600"}`}>
               <li>
-                <div className="flex flex-row items-center mx-6 lg:ml-6 lg:mr-16">
+                <div className="flex flex-row items-center mx-6 lg:ml-6 lg:mr-20">
                   <Checkbox
                     id={`subtask-checkbox-${task.taskId}`}
                     disabled={active}
