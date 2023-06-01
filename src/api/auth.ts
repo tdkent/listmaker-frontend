@@ -5,17 +5,12 @@ import { RegisterBodyInt, LoginBodyInt, LoginResInt } from "../models/auth";
 
 export const register = async (body: RegisterBodyInt) => {
   const { userEmail, userNickname, userPassword } = body;
-  const headers = { "Access-Control-Allow-Origin": "*" };
   return await axios
-    .post(
-      `${API_URL}/auth/register`,
-      {
-        userEmail,
-        userNickname,
-        userPassword,
-      },
-      { headers }
-    )
+    .post(`${API_URL}/auth/register`, {
+      userEmail,
+      userNickname,
+      userPassword,
+    })
     .catch((error) => Promise.reject(error));
 };
 
