@@ -2,8 +2,6 @@ import axios from "axios";
 
 import { API_URL } from "../constants/global";
 
-// TODO: update fetch calls to require valid tokens in headers
-
 export const editList = async (listId: number, listName: string, token: string) => {
   const headers = { Authorization: `Bearer ${token}` };
   return axios
@@ -17,13 +15,6 @@ export const deleteList = async (listId: number, token: string) => {
     .delete(`${API_URL}/list/delete/${listId}`, { headers })
     .catch((error) => Promise.reject(error));
 };
-
-// export const newItem = async (id: number, name: string, token: string) => {
-//   const headers = { Authorization: `Bearer ${token}` };
-//   return axios
-//     .post(`${API_URL}/item/new/${id}`, { name }, { headers })
-//     .catch((error) => Promise.reject(error));
-// };
 
 export const editItem = async (
   listId: number,

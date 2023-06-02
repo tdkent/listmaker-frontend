@@ -11,7 +11,6 @@ export const fetchAllLists = async (token: string): Promise<FetchAllListsInt[]> 
     .catch((error) => Promise.reject(error));
 };
 
-// TODO: update this fetch call
 export async function fetchList(listId: number, token: string): Promise<FetchSingleListInt> {
   const headers = { Authorization: `Bearer ${token}` };
   return await axios

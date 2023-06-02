@@ -1,5 +1,5 @@
 // Router fallback error page
-// TODO: Update Root Error page
+
 export interface RootErrorInt {
   status?: number;
   statusText?: string;
