@@ -27,8 +27,8 @@ function App() {
   const [contentId, setContentId] = useState<ModalContextInt["contentId"]>("");
   const toggleModal = (value: boolean) => {
     setModalActive(value);
-    const el = document.getElementById("root")!;
-    !!value ? disableBodyScroll(el) : enableBodyScroll(el);
+    // const el = document.getElementById("root")!;
+    // !!value ? disableBodyScroll(el) : enableBodyScroll(el);
   };
   const provideId = (value: ModalContextInt["contentId"]) => setContentId(value);
   const modal: ModalContextInt = {
