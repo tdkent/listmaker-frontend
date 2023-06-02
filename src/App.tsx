@@ -1,7 +1,7 @@
 import { RouterProvider } from "react-router-dom";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useMemo } from "react";
 import { AxiosError } from "axios";
-import { disableBodyScroll, enableBodyScroll } from "body-scroll-lock";
+import { disableBodyScroll, enableBodyScroll, clearAllBodyScrollLocks } from "body-scroll-lock";
 
 import AuthContext, { AuthContextInt } from "./context/AuthContext";
 import ModalContext, { ModalContextInt } from "./context/ModalContext";
@@ -25,9 +25,18 @@ function App() {
   // modal context
   const [modalActive, setModalActive] = useState<boolean>(false);
   const [contentId, setContentId] = useState<ModalContextInt["contentId"]>("");
+  // const targetElement = useMemo(() => document.getElementById("modal-content") as HTMLElement, []);
   const toggleModal = (value: boolean) => {
     setModalActive(value);
     // const el = document.getElementById("root")!;
+    const targetElement = document.getElementById("modal") as HTMLElement;
+    console.log("targetElement: ", targetElement);
+    console.log(value);
+    if (value) disableBodyScroll(targetElement);
+    else {
+      enableBodyScroll(targetElement);
+      clearAllBodyScrollLocks();
+    }
     // !!value ? disableBodyScroll(el) : enableBodyScroll(el);
   };
   const provideId = (value: ModalContextInt["contentId"]) => setContentId(value);
