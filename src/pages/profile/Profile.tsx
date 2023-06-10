@@ -12,6 +12,8 @@ import EditNicknameForm from "../../components/user/EditNicknameForm";
 import DisplayPassword from "../../components/user/DisplayPassword";
 import EditPasswordForm from "../../components/user/EditPasswordForm";
 import LoadingSpinner from "../../components/ui/LoadingSpinner";
+import DisplayDarkMode from "../../components/user/DisplayDarkMode";
+import EditDarkMode from "../../components/user/EditDarkMode";
 
 const Profile = () => {
   // auth check
@@ -25,6 +27,7 @@ const Profile = () => {
 
   const [editNickname, setEditNickname] = useState(false);
   const [editPassword, setEditPassword] = useState(false);
+  const [editDarkMode, setEditDarkMode] = useState(false);
 
   // query
   const { isLoading, isError, data, error } = useUser(auth.userId!, auth.token!);
@@ -66,6 +69,13 @@ const Profile = () => {
           <EditPasswordForm setEditPassword={setEditPassword} />
         ) : (
           <DisplayPassword setEditPassword={setEditPassword} />
+        )}
+      </div>
+      <div className="my-6 lg:my-10">
+        {editDarkMode ? (
+          <EditDarkMode setEditDarkMode={setEditDarkMode} />
+        ) : (
+          <DisplayDarkMode setEditDarkMode={setEditDarkMode} />
         )}
       </div>
     </section>

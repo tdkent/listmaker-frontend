@@ -30,7 +30,6 @@ export const editTodoItem = async (
   token: string
 ) => {
   const headers = { Authorization: `Bearer ${token}` };
-  console.log(itemLocation);
   return axios
     .patch(
       `${API_URL}/todo/edit`,
