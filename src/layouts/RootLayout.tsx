@@ -13,7 +13,9 @@ const RootLayout = (): JSX.Element => {
   const modal = useContext(ModalContext);
   return (
     <>
-      <div id="container" className={`min-h-[calc(100vh-192px)] dark:bg-black`}>
+      <div
+        id="container"
+        className={`min-h-[calc(100vh-192px)] py-4 dark:bg-gray-900 dark:text-gray-200`}>
         <Header />
         <main className="mx-3 relative z-0 lg:w-[1024px] lg:mx-auto lg:px-6">
           {active && !modal.active && <ShowApiError errorData={data!} />}

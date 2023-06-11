@@ -18,8 +18,10 @@ const Checkbox = ({ checked, onChange, id, disabled }: CheckboxProps) => {
       checked={checked}
       onChange={onChange}
       disabled={disabled}
-      className={`form-checkbox bg-gray-50 border text-blue-500 rounded mr-2 ${
-        active ? "border-gray-300 hover:border-gray-300" : "border-gray-600 hover:border-blue-500"
+      className={`form-checkbox bg-gray-50 border text-blue-500 dark:text-green-600 rounded mr-2 ${
+        active
+          ? "border-gray-300 hover:border-gray-300"
+          : "border-gray-600 hover:border-blue-500 dark:hover:border-green-600"
       }`}
     />
   );

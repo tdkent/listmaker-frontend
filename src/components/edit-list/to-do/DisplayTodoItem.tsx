@@ -71,7 +71,7 @@ const DisplayTodoItem = ({
 
   return (
     <>
-      <div className="flex flex-row justify-between items-center py-3 lg:px-2 hover:bg-gray-50">
+      <div className="flex flex-row justify-between items-center py-3 lg:px-2 hover:bg-gray-50 dark:hover:bg-gray-800">
         <div className="flex flex-row items-center mr-2 lg:mr-6 text-justify overflow-hidden">
           <Checkbox
             id={`item-checkbox-${item.itemId}`}
@@ -86,14 +86,17 @@ const DisplayTodoItem = ({
             }
           />
           <div className={"ml-1"}>
-            <span className={`${item.isChecked && "line-through"}`}>{item.itemName}</span>
+            <span
+              className={`${item.isChecked && "line-through text-gray-600 dark:text-gray-500"}`}>
+              {item.itemName}
+            </span>
             <div className="flex flex-row text-xs mt-0.5">
               <span className="mr-2.5">
                 {item.itemCategory === ToDoCats.appoint ? "Appt" : item.itemCategory}
               </span>
               <span
                 className={`flex flex-row items-center mr-2 ${
-                  !completedDate && checkDate && "text-red-700"
+                  !completedDate && checkDate && "text-red-700 dark:text-red-500"
                 }`}>
                 {completedDate ? (
                   <>

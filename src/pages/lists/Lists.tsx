@@ -91,11 +91,11 @@ const Lists = () => {
           flex={true}
         />
       </div>
-      <div className="my-6 lg:my-8 border-b">
+      <div className="my-6 lg:my-8 border-b dark:border-gray-600">
         {sortedList.map((list) => {
           return (
             <Link to={`/lists/${list.listSlug}&id=${list.listId}`} key={list.listId}>
-              <div className="flex flex-row justify-between items-center border-t py-4 hover:bg-gray-50 lg:py-6 lg:px-2 lg:text-lg">
+              <div className="flex flex-row justify-between items-center border-t dark:border-gray-600 py-4 hover:bg-gray-50 dark:hover:bg-gray-800 lg:py-6 lg:px-2 lg:text-lg">
                 <div className="flex flex-col overflow-hidden">
                   <span className="font-semibold truncate">{list.listName}</span>
                   <span className="text-xs lg:text-sm">{list.listType}</span>

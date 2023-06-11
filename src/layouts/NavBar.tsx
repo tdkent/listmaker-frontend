@@ -31,7 +31,7 @@ const NavBar = ({ showNav, setShowNav }: NavBarProps) => {
       </div>
       <nav className="max-lg:p-2 max-lg:my-4">
         <ul className="text-lg lg:flex lg:flex-row items-center lg:font-light">
-          <li className="max-lg:py-4 max-lg:border-b lg:mr-6 lg:hover:text-blue-600">
+          <li className="max-lg:py-4 max-lg:border-b lg:mr-6 lg:hover:text-blue-600 dark:hover:text-sky-500">
             <NavLink
               to="/"
               onClick={() => {
@@ -42,7 +42,7 @@ const NavBar = ({ showNav, setShowNav }: NavBarProps) => {
           </li>
           {auth.isLoggedIn && (
             <>
-              <li className="max-lg:py-4 max-lg:border-b lg:mr-6 lg:hover:text-blue-600">
+              <li className="max-lg:py-4 max-lg:border-b lg:mr-6 lg:hover:text-blue-600 dark:hover:text-sky-500">
                 <NavLink
                   to="/new"
                   onClick={() => {
@@ -51,7 +51,7 @@ const NavBar = ({ showNav, setShowNav }: NavBarProps) => {
                   New List
                 </NavLink>
               </li>
-              <li className="max-lg:py-4 max-lg:border-b lg:mr-6 lg:hover:text-blue-600">
+              <li className="max-lg:py-4 max-lg:border-b lg:mr-6 lg:hover:text-blue-600 dark:hover:text-sky-500">
                 <NavLink
                   to="lists"
                   onClick={() => {
@@ -60,7 +60,7 @@ const NavBar = ({ showNav, setShowNav }: NavBarProps) => {
                   My Lists
                 </NavLink>
               </li>
-              <li className="max-lg:py-4 max-lg:border-b lg:mr-6 lg:hover:text-blue-600">
+              <li className="max-lg:py-4 max-lg:border-b lg:mr-6 lg:hover:text-blue-600 dark:hover:text-sky-500">
                 <NavLink
                   to="profile"
                   onClick={() => {
@@ -69,14 +69,14 @@ const NavBar = ({ showNav, setShowNav }: NavBarProps) => {
                   Profile
                 </NavLink>
               </li>
-              <li className="max-lg:py-4 lg:mr-2 lg:hover:text-blue-600">
+              <li className="max-lg:py-4 lg:mr-2 lg:hover:text-blue-600 dark:hover:text-sky-500">
                 <button onClick={handleLogOut}>Log Out</button>
               </li>
             </>
           )}
           {!auth.isLoggedIn && (
             <>
-              <li className="max-lg:py-4 max-lg:border-b lg:mr-6 lg:hover:text-blue-600">
+              <li className="max-lg:py-4 max-lg:border-b lg:mr-6 lg:hover:text-blue-600 dark:hover:text-sky-500">
                 <NavLink
                   to="login"
                   onClick={() => {
@@ -91,7 +91,7 @@ const NavBar = ({ showNav, setShowNav }: NavBarProps) => {
                   onClick={() => {
                     setShowNav(false);
                   }}>
-                  <span className="lg:rounded-md lg:px-4 lg:py-2 lg:text-white lg:bg-blue-500 lg:hover:bg-blue-600">
+                  <span className="lg:rounded-md lg:px-4 lg:py-2 lg:text-white lg:bg-blue-500 lg:hover:bg-blue-600 dark:lg:bg-green-600 dark:lg:hover:bg-green-500">
                     Sign Up
                   </span>
                 </NavLink>

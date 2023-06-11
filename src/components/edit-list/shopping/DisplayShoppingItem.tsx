@@ -48,7 +48,7 @@ const DisplayShoppingItem = ({
             disabled={active}
             onChange={() => checkMutation.mutate(item.itemId)}
           />
-          <span className={`${item.isChecked && "line-through text-gray-600"}`}>
+          <span className={`${item.isChecked && "line-through text-gray-600 dark:text-gray-500"}`}>
             {item.itemName}
           </span>
         </div>

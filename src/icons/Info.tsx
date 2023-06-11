@@ -6,7 +6,7 @@ const Info = () => {
       viewBox="0 0 24 24"
       strokeWidth={1.5}
       stroke="currentColor"
-      className="relative w-5 h-5 stroke-gray-600 hover:stroke-gray-900 hover:cursor-pointer mx-1">
+      className="relative w-5 h-5 stroke-gray-600 dark:stroke-gray-200 hover:stroke-gray-900 dark:hover:stroke-gray-400 hover:cursor-pointer mx-1">
       <path
         strokeLinecap="round"
         strokeLinejoin="round"

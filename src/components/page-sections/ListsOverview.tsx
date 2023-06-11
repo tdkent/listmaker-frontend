@@ -28,7 +28,7 @@ const ListsOverview = () => {
           <p className="font-medium">...with more list types coming!</p>
         </div>
       </div>
-      <div className={`mt-6 lg:mt-10 ${!auth.isLoggedIn && "border-t"}`}>
+      <div className={`mt-6 lg:mt-10`}>
         <div className="lg:w-3/5 lg:mx-auto">
           <h4 className="mt-4 text-xl lg:text-2xl font-normal">Ready to get started?</h4>
           <div className="mt-4">
