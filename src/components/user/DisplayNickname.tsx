@@ -22,7 +22,7 @@ const DisplayNickname = ({ userNickname, setEditNickname }: Props) => {
           </Hyperlink>
         </span>
       )}
-      {userNickname ? <p>{userNickname}</p> : <p className="italic">None</p>}
+      {userNickname ? <p className="py-2">{userNickname}</p> : <p className="italic py-2">None</p>}
     </div>
   );
 };

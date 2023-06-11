@@ -2,6 +2,9 @@ import { useContext } from "react";
 
 import ErrorContext from "../../context/ErrorContext";
 import Hyperlink from "../forms/Hyperlink";
+import Sun from "../../icons/Sun";
+import Moon from "../../icons/Moon";
+import Cog from "../../icons/Cog";
 
 interface Props {
   setEditDarkMode: (value: React.SetStateAction<boolean>) => void;
@@ -11,7 +14,7 @@ const DisplayDarkMode = ({ setEditDarkMode }: Props) => {
   const { active } = useContext(ErrorContext);
   return (
     <div>
-      <span className="text-lg font-medium mr-4 lg:mr-12">Dark Mode</span>
+      <span className="text-lg font-medium mr-4 lg:mr-12">Color Preference</span>
       {active ? (
         <span>Change</span>
       ) : (
@@ -22,7 +25,22 @@ const DisplayDarkMode = ({ setEditDarkMode }: Props) => {
         </span>
       )}
       <div>
-        <p>Light</p>
+        {!localStorage.colorScheme ? (
+          <div className="flex flex-row items-center py-3">
+            <Cog styles="w-7 h-7" />
+            <span className="ml-4">System Settings</span>
+          </div>
+        ) : localStorage.colorScheme === "light" ? (
+          <div className="flex flex-row items-center py-3">
+            <Sun styles="w-7 h-7" />
+            <span className="ml-4">Light Mode</span>
+          </div>
+        ) : (
+          <div className="flex flex-row items-center py-3">
+            <Moon styles="w-7 h-7" />
+            <span className="ml-4">Dark Mode</span>
+          </div>
+        )}
       </div>
     </div>
   );

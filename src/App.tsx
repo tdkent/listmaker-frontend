@@ -81,6 +81,17 @@ function App() {
     }
   }, []);
 
+  // dark mode
+  useEffect(() => {
+    if (
+      localStorage.colorScheme === "dark" ||
+      (window.matchMedia("(prefers-color-scheme: dark").matches &&
+        localStorage.colorScheme !== "light")
+    )
+      document.body.classList.add("dark");
+    else document.body.classList.remove("dark");
+  }, []);
+
   return (
     <ModalContext.Provider value={modal}>
       <ErrorContext.Provider value={error}>

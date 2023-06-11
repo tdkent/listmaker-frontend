@@ -21,7 +21,7 @@ const DisplayPassword = ({ setEditPassword }: Props) => {
           </Hyperlink>
         </span>
       )}
-      <p>••••••</p>
+      <p className="py-2">••••••</p>
     </div>
   );
 };
