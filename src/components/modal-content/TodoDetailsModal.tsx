@@ -49,7 +49,7 @@ const TodoDetailsModal = ({
             type="button"
             text="Close"
             handleClick={handleCancel}
-            styles="text-gray-600 hover:text-gray-900"
+            styles="text-gray-600 hover:text-gray-900 dark:text-gray-300 dark:hover:text-gray-400"
           />
         </div>
         <div>
@@ -72,7 +72,7 @@ const TodoDetailsModal = ({
               modal.provideId(ModalContentIdEnum.editTodoItem);
               modal.toggleModal(true);
             }}
-            styles="rounded px-3 py-1 bg-blue-500 hover:bg-blue-600 text-white"
+            styles="rounded px-3 py-1 bg-blue-500 hover:bg-blue-600 text-white dark:bg-green-600 dark:hover:bg-green-700"
           />
         </div>
       </div>
@@ -80,8 +80,8 @@ const TodoDetailsModal = ({
         <p className="text-base text-justify overflow-hidden">{item.itemName}</p>
         <p className="text-center mt-1">{item.itemCategory}</p>
       </div>
-      <div className="mt-4 pt-3 pb-1 px-2 border-t">
-        <Calendar styles="w-5 h-5 mx-auto text-gray-600 mb-2" />
+      <div className="mt-4 pt-3 pb-1 px-2 border-t dark:border-gray-600">
+        <Calendar styles="w-5 h-5 mx-auto text-gray-600 dark:text-gray-300 mb-2" />
         {item.dateCompleted ? (
           <p>Completed: {createLocalDate(item.dateCompleted)}</p>
         ) : (
@@ -93,8 +93,8 @@ const TodoDetailsModal = ({
           </>
         )}
       </div>
-      <div className="mt-4 pt-3 pb-1 px-2 border-t">
-        <Pin styles="w-5 h-5 mx-auto text-gray-600 mb-2" />
+      <div className="mt-4 pt-3 pb-1 px-2 border-t dark:border-gray-600">
+        <Pin styles="w-5 h-5 mx-auto text-gray-600 dark:text-gray-300 mb-2" />
         {item.itemLocation ? (
           <>
             <p>{item.itemLocation}</p>
@@ -103,7 +103,7 @@ const TodoDetailsModal = ({
                 {isLoaded ? (
                   <TodoMap center={center} />
                 ) : (
-                  <div className="flex flex-row items-center mt-4 h-52 border border-white">
+                  <div className="flex flex-row items-center mt-4 h-52 border border-white dark:border-gray-600">
                     <p className="text-gray-400 font-thin">Loading map...</p>
                   </div>
                 )}
@@ -114,8 +114,8 @@ const TodoDetailsModal = ({
           <p>This item does not have a location</p>
         )}
       </div>
-      <div className="mt-4 pt-3 pb-1 px-2 border-t">
-        <Repeat styles="w-5 h-5 mx-auto text-gray-600 mb-2" />
+      <div className="mt-4 pt-3 pb-1 px-2 border-t dark:border-gray-600">
+        <Repeat styles="w-5 h-5 mx-auto text-gray-600 dark:text-gray-300 mb-2" />
         <p>
           {item.isRecurring
             ? `This item is set to repeat on ${createLocalDate(item.dateRecurring)}`

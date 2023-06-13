@@ -18,7 +18,7 @@ const Pencil = ({ styles }: Props) => {
       className={`w-5 h-5 mr-1 mt-1 ${
         active
           ? "stroke-gray-300 hover:stroke-gray-300 dark:stroke-gray-600 dark:hover-stroke-gray-600"
-          : "stroke-gray-600 hover:stroke-gray-900 dark:stroke-gray-200 dark:hover:stroke-gray-400"
+          : "stroke-gray-600 hover:stroke-gray-900 dark:stroke-gray-300 dark:hover:stroke-gray-400"
       } ${styles}`}>
       <path
         strokeLinecap="round"

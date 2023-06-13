@@ -44,7 +44,7 @@ const TodoLocation = ({ isLoaded, loc, setLoc }: TodoLocationProps) => {
                     setLoc(place.description);
                     clearSuggestions();
                   }}
-                  className="flex flex-row items-center text-sm my-1.5 pl-2 hover:bg-blue-500 hover:text-white hover:cursor-pointer">
+                  className="flex flex-row items-center text-sm my-1.5 pl-2 hover:bg-blue-500 hover:text-white hover:cursor-pointer dark:hover:bg-gray-800 dark:hover:text-gray-300">
                   <ChevonRight />
                   {place.description}
                 </li>

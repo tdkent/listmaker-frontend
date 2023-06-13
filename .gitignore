@@ -25,6 +25,7 @@ yarn-error.log*
 practice-files
 
 .env
+.env.production
 
 #docs
 todos.txt

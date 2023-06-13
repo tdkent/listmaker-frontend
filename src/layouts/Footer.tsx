@@ -8,7 +8,7 @@ const Footer = () => {
   return (
     <footer
       id="footer"
-      className="min-h-[192px] py-6 bg-blue-600 text-white text-sm dark:bg-sky-900 dark:text-gray-200">
+      className="min-h-[192px] py-6 bg-blue-600 text-white text-sm dark:bg-sky-900 dark:text-gray-300">
       <nav id="footer-navigation-bar" className="flex flex-col items-center">
         <span className="mb-3 hover:underline">
           <Link to="/">Home</Link>

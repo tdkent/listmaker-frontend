@@ -88,8 +88,9 @@ function App() {
       (window.matchMedia("(prefers-color-scheme: dark").matches &&
         localStorage.colorScheme !== "light")
     )
-      document.body.classList.add("dark");
-    else document.body.classList.remove("dark");
+      // document.body.classList.add("dark");
+      document.documentElement.classList.add("dark");
+    else document.documentElement.classList.remove("dark");
   }, []);
 
   return (

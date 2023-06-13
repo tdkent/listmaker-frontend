@@ -15,8 +15,8 @@ const Button = ({ type, text, handleClick, styles, divStyles, disabled }: Button
         onClick={handleClick}
         className={`${styles}   ${
           typeof text === "object"
-            ? "disabled:bg-white"
-            : "disabled:bg-gray-300 disabled:hover:bg-gray-300 "
+            ? "disabled:bg-transparent"
+            : "disabled:bg-gray-300 disabled:hover:bg-gray-300 disabled:dark:bg-gray-600"
         }`}
         disabled={disabled}>
         {text}
