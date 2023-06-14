@@ -90,7 +90,8 @@ const DisplayTodoItem = ({
               className={`${item.isChecked && "line-through text-gray-600 dark:text-gray-500"}`}>
               {item.itemName}
             </span>
-            <div className="flex flex-row text-xs mt-0.5">
+            <div
+              className={`flex flex-row text-xs mt-0.5 ${item.isChecked && "dark:text-gray-500"}`}>
               <span className="mr-2.5">
                 {item.itemCategory === ToDoCats.appoint ? "Appt" : item.itemCategory}
               </span>

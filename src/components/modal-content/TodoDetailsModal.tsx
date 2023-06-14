@@ -49,7 +49,7 @@ const TodoDetailsModal = ({
             type="button"
             text="Close"
             handleClick={handleCancel}
-            styles="text-gray-600 hover:text-gray-900 dark:text-gray-300 dark:hover:text-gray-400"
+            styles="text-gray-600 hover:text-gray-900 dark:text-gray-400 dark:hover:text-gray-300"
           />
         </div>
         <div>
@@ -81,7 +81,7 @@ const TodoDetailsModal = ({
         <p className="text-center mt-1">{item.itemCategory}</p>
       </div>
       <div className="mt-4 pt-3 pb-1 px-2 border-t dark:border-gray-600">
-        <Calendar styles="w-5 h-5 mx-auto text-gray-600 dark:text-gray-300 mb-2" />
+        <Calendar styles="w-5 h-5 mx-auto text-gray-600 dark:text-gray-400 mb-2" />
         {item.dateCompleted ? (
           <p>Completed: {createLocalDate(item.dateCompleted)}</p>
         ) : (
@@ -94,7 +94,7 @@ const TodoDetailsModal = ({
         )}
       </div>
       <div className="mt-4 pt-3 pb-1 px-2 border-t dark:border-gray-600">
-        <Pin styles="w-5 h-5 mx-auto text-gray-600 dark:text-gray-300 mb-2" />
+        <Pin styles="w-5 h-5 mx-auto text-gray-600 dark:text-gray-400 mb-2" />
         {item.itemLocation ? (
           <>
             <p>{item.itemLocation}</p>
@@ -115,7 +115,7 @@ const TodoDetailsModal = ({
         )}
       </div>
       <div className="mt-4 pt-3 pb-1 px-2 border-t dark:border-gray-600">
-        <Repeat styles="w-5 h-5 mx-auto text-gray-600 dark:text-gray-300 mb-2" />
+        <Repeat styles="w-5 h-5 mx-auto text-gray-600 dark:text-gray-400 mb-2" />
         <p>
           {item.isRecurring
             ? `This item is set to repeat on ${createLocalDate(item.dateRecurring)}`

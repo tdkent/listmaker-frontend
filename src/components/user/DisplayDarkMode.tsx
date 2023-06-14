@@ -27,7 +27,7 @@ const DisplayDarkMode = ({ setEditDarkMode }: Props) => {
       <div>
         {!localStorage.colorScheme ? (
           <div className="flex flex-row items-center py-3">
-            <Cog styles="w-7 h-7" />
+            <Cog styles="w-7 h-7 dark:text-gray-400" />
             <span className="ml-4">System Settings</span>
           </div>
         ) : localStorage.colorScheme === "light" ? (
@@ -37,7 +37,7 @@ const DisplayDarkMode = ({ setEditDarkMode }: Props) => {
           </div>
         ) : (
           <div className="flex flex-row items-center py-3">
-            <Moon styles="w-7 h-7" />
+            <Moon styles="w-7 h-7 dark:text-gray-400" />
             <span className="ml-4">Dark Mode</span>
           </div>
         )}

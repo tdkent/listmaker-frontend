@@ -46,7 +46,7 @@ const Input = ({
           value={value}
           disabled={disabled}
           onChange={handleChange}
-          className={`bg-gray-50 dark:bg-gray-200 focus:gray-50 dark:text-gray-900 border ${
+          className={`bg-gray-50 dark:bg-gray-200 dark:text-gray-900 border ${
             !isError && `hover:border-blue-500 dark:hover:border-green-600`
           } ${
             isError && errorId === id ? "border-red-500" : "border-gray-600"

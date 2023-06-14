@@ -8,7 +8,7 @@ const Home = () => {
   const auth = useContext(AuthContext);
   return (
     <div className="lg:mt-8">
-      <div className={`${!auth.isLoggedIn && "border-b dark:border-gray-600"}`}>
+      <div>
         <div className="lg:w-3/5 lg:mx-auto">
           <h2 className="dark:text-sky-500">Organize your life with powerful listmaking tools</h2>
           {!auth.isLoggedIn && (

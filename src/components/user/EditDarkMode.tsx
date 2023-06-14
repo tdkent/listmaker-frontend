@@ -35,25 +35,15 @@ const EditDarkMode = ({ setEditDarkMode }: Props) => {
         </Hyperlink>
       </span>
       <div className="w-full lg:w-1/2 mt-4">
-        {/* <ColorSchemeButton></ColorSchemeButton> */}
-        <button type="button" onClick={handleLightClick} className="w-full">
-          <div className="flex flex-row items-center px-2 py-3 hover:bg-gray-100 dark:hover:bg-gray-800 text-gray-600 hover:text-gray-900 dark:text-gray-300">
-            <Sun styles="w-7 h-7" />
-            <span className="ml-4">Use Light Mode</span>
-          </div>
-        </button>
-        <button type="button" onClick={handleDarkClick} className="w-full">
-          <div className="flex flex-row items-center px-2 py-3 hover:bg-gray-100 text-gray-600 hover:text-gray-900 dark:text-gray-300 dark:hover:bg-gray-800">
-            <Moon styles="w-7 h-7" />
-            <span className="ml-4">Use Dark Mode</span>
-          </div>
-        </button>
-        <button type="button" onClick={handleSystemClick} className="w-full">
-          <div className="flex flex-row items-center px-2 py-3 hover:bg-gray-100 text-gray-600 hover:text-gray-900 dark:text-gray-300 dark:hover:bg-gray-800">
-            <Cog styles="w-7 h-7" />
-            <span className="ml-4">Use System Setting</span>
-          </div>
-        </button>
+        <ColorSchemeButton handleClick={handleLightClick} text="Use Light Mode">
+          <Sun styles="w-7 h-7 dark:text-gray-400" />
+        </ColorSchemeButton>
+        <ColorSchemeButton handleClick={handleDarkClick} text="Use Dark Mode">
+          <Moon styles="w-7 h-7 dark:text-gray-400" />
+        </ColorSchemeButton>
+        <ColorSchemeButton handleClick={handleSystemClick} text="Use System Setting">
+          <Cog styles="w-7 h-7 dark:text-gray-400" />
+        </ColorSchemeButton>
       </div>
     </div>
   );

@@ -8,35 +8,39 @@ const Footer = () => {
   return (
     <footer
       id="footer"
-      className="min-h-[192px] py-6 bg-blue-600 text-white text-sm dark:bg-sky-900 dark:text-gray-300">
-      <nav id="footer-navigation-bar" className="flex flex-col items-center">
-        <span className="mb-3 hover:underline">
-          <Link to="/">Home</Link>
-        </span>
-        {auth.isLoggedIn ? (
-          <>
-            <span className="mb-3 hover:underline">
-              <Link to="/new">New List</Link>
-            </span>
-            <span className="mb-3 hover:underline">
-              <Link to="/lists">My Lists</Link>
-            </span>
-            <span className="mb-3 hover:underline">
-              <Link to="/profile">My Profile</Link>
-            </span>
-          </>
-        ) : (
-          <>
-            <span className="mb-3 hover:underline">
-              <Link to="/login">Login</Link>
-            </span>
-            <span className="mb-3 hover:underline">
-              <Link to="/register">Sign Up</Link>
-            </span>
-          </>
-        )}
-      </nav>
-      <p className="mt-4 text-center text-xs">ListMaker © 2023 Tim Kent</p>
+      className="min-h-[120px] bg-blue-600 text-white text-sm font-light dark:bg-gray-900 dark:text-gray-300 mt-8">
+      <div className="flex flex-col lg:flex-row justify-center items-center max-lg:w-full w-full lg:w-[1024px] mx-auto  py-6 lg:py-12 border-t border-transparent dark:border-gray-600">
+        <div className="max-lg:mb-6 lg:mx-4 ">&copy; 2023 Tim Kent</div>
+        <div>
+          <ul className="flex flex-col lg:flex-row items-center">
+            <li className="hover:underline max-lg:mb-6 lg:mx-6">
+              <Link to="/">Home</Link>
+            </li>
+            {auth.isLoggedIn ? (
+              <>
+                <li className="hover:underline max-lg:mb-6 lg:mx-6">
+                  <Link to="/new">New List</Link>
+                </li>
+                <li className="hover:underline max-lg:mb-6 lg:mx-6">
+                  <Link to="/lists">My Lists</Link>
+                </li>
+                <li className="hover:underline max-lg:mb-6 lg:mx-6">
+                  <Link to="/profile">My Profile</Link>
+                </li>
+              </>
+            ) : (
+              <>
+                <li className="hover:underline max-lg:mb-6 lg:mx-6">
+                  <Link to="/login">Log In</Link>
+                </li>
+                <li className="hover:underline max-lg:mb-6 lg:mx-6">
+                  <Link to="/register">Sign Up</Link>
+                </li>
+              </>
+            )}
+          </ul>
+        </div>
+      </div>
     </footer>
   );
 };

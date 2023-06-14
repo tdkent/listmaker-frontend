@@ -85,12 +85,12 @@ function App() {
   useEffect(() => {
     if (
       localStorage.colorScheme === "dark" ||
-      (window.matchMedia("(prefers-color-scheme: dark").matches &&
-        localStorage.colorScheme !== "light")
-    )
-      // document.body.classList.add("dark");
+      (window.matchMedia("(prefers-color-scheme: dark").matches && !localStorage.colorScheme)
+    ) {
       document.documentElement.classList.add("dark");
-    else document.documentElement.classList.remove("dark");
+    } else {
+      document.documentElement.classList.remove("dark");
+    }
   }, []);
 
   return (
