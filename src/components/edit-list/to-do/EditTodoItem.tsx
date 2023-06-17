@@ -218,7 +218,9 @@ const EditTodoItem = ({ token, listId, listType, items }: EditTodoItemProps) => 
             {sortedList.map(
               (item) =>
                 !item.isChecked && (
-                  <li key={item.itemId} className="border-b last:border-none dark:border-gray-600">
+                  <li
+                    key={item.itemId}
+                    className="border-b last:border-none dark:border-gray-600 hover:bg-gray-50 dark:hover:bg-gray-800">
                     <DisplayTodoItem
                       token={token}
                       listId={listId}
@@ -247,7 +249,7 @@ const EditTodoItem = ({ token, listId, listType, items }: EditTodoItemProps) => 
               {completedItems.map((item) => (
                 <li
                   key={item.itemId}
-                  className="text-gray-600 border-b last:border-none dark:border-gray-600">
+                  className="text-gray-600 border-b last:border-none dark:border-gray-600 hover:bg-gray-50 dark:hover:bg-gray-800">
                   <DisplayTodoItem
                     token={token}
                     listId={listId}

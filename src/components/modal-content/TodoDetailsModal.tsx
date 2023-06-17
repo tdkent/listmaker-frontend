@@ -2,13 +2,14 @@ import { useMemo, useContext } from "react";
 
 import ModalContext from "../../context/ModalContext";
 import { ModalContentIdEnum } from "../../context/ModalContext";
-import { TodoListItemInt, SubtaskInt } from "../../models/todo";
+import { TodoListItemInt } from "../../models/todo";
 import { createRelativeDate, createLocalDate, createTimeDue } from "../../utils/luxon-dates";
 import TodoMap from "../edit-list/to-do/TodoMap";
 import Button from "../forms/Button";
 import Calendar from "../../icons/Calendar";
 import Pin from "../../icons/Pin";
 import Repeat from "../../icons/Repeat";
+import Document from "../../icons/Document";
 
 interface TodoDetailsProps {
   item: TodoListItemInt;
@@ -76,9 +77,12 @@ const TodoDetailsModal = ({
           />
         </div>
       </div>
-      <div className="mt-3 px-2">
-        <p className="text-base text-justify overflow-hidden">{item.itemName}</p>
-        <p className="text-center mt-1">{item.itemCategory}</p>
+      <div className="mt-4 px-2 pt-3 pb-1 border-t dark:border-gray-600">
+        <Document styles="w-5 h-5 mx-auto text-gray-600 dark:text-gray-400 mb-2" />
+        <p className="flex flex-row overflow-hidden">
+          Name: <span className="font-semibold ml-1">{item.itemName}</span>
+        </p>
+        <p className="mt-1">Category: {item.itemCategory}</p>
       </div>
       <div className="mt-4 pt-3 pb-1 px-2 border-t dark:border-gray-600">
         <Calendar styles="w-5 h-5 mx-auto text-gray-600 dark:text-gray-400 mb-2" />

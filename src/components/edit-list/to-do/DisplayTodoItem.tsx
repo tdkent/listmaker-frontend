@@ -13,12 +13,11 @@ import Queue from "../../../icons/Queue";
 import Calendar from "../../../icons/Calendar";
 import Clock from "../../../icons/Clock";
 import CircleEllipsis from "../../../icons/CircleEllipsis";
-import Check from "../../../icons/Check";
 import {
   createRelativeDate,
-  checkDueDate,
   createLocalDate,
   createTimeDue,
+  checkDue,
 } from "../../../utils/luxon-dates";
 
 interface DisplayTodoItemProps {
@@ -65,14 +64,14 @@ const DisplayTodoItem = ({
 
   // luxon
   const dueDate = createRelativeDate(item.dateDue);
-  const checkDate = checkDueDate(item.dateDue);
+  const isPastDue = checkDue(item.dateDue, item.timeDue);
   const completedDate = createLocalDate(item.dateCompleted);
   const timeDue = createTimeDue(item.timeDue);
 
   return (
     <>
-      <div className="flex flex-row justify-between items-center py-3 lg:px-2 hover:bg-gray-50 dark:hover:bg-gray-800">
-        <div className="flex flex-row items-center mr-2 lg:mr-6 text-justify overflow-hidden">
+      <div className="flex flex-row justify-between items-center py-3 lg:px-2">
+        <div className="flex flex-row items-center mr-1 lg:mr-6 text-justify overflow-hidden px-2">
           <Checkbox
             id={`item-checkbox-${item.itemId}`}
             checked={item.isChecked}
@@ -90,37 +89,29 @@ const DisplayTodoItem = ({
               className={`${item.isChecked && "line-through text-gray-600 dark:text-gray-500"}`}>
               {item.itemName}
             </span>
-            <div
-              className={`flex flex-row text-xs mt-0.5 ${item.isChecked && "dark:text-gray-500"}`}>
-              <span className="mr-2.5">
-                {item.itemCategory === ToDoCats.appoint ? "Appt" : item.itemCategory}
-              </span>
-              <span
-                className={`flex flex-row items-center mr-2 ${
-                  !completedDate && checkDate && "text-red-700 dark:text-red-500"
-                }`}>
-                {completedDate ? (
-                  <>
-                    <Check styles="w-4 h-4 mr-1" />
-                    {completedDate}
-                  </>
-                ) : (
-                  <>
-                    <Calendar styles="w-3 h-3 mr-0.5" />
-                    {dueDate}
-                  </>
-                )}
-              </span>
-              {item.timeDue && (
-                <span
-                  className={`flex flex-row items-center ${
-                    !completedDate && !checkDate && "text-red-700"
-                  }`}>
-                  <Clock />
-                  {timeDue}
+            {!item.isChecked && (
+              <div className="flex flex-row text-xs mt-0.5">
+                <span className="mr-2.5">
+                  {item.itemCategory === ToDoCats.appoint ? "Appt" : item.itemCategory}
                 </span>
-              )}
-            </div>
+                <span
+                  className={`flex flex-row items-center mr-2 ${
+                    isPastDue && "text-red-700 dark:text-red-500"
+                  }`}>
+                  <Calendar styles="w-4 h-4 mr-0.5" />
+                  {dueDate}
+                </span>
+                {item.timeDue && !completedDate && (
+                  <span
+                    className={`flex flex-row items-center ${
+                      !completedDate && isPastDue && "text-red-700 dark:text-red-500"
+                    }`}>
+                    <Clock />
+                    {timeDue}
+                  </span>
+                )}
+              </div>
+            )}
           </div>
         </div>
         <div className="flex flex-row">
