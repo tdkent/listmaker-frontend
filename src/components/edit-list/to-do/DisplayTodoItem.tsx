@@ -139,7 +139,7 @@ const DisplayTodoItem = ({
         </div>
       </div>
       {item.itemTasks.length ? (
-        <div className="mb-3">
+        <div className="pb-2">
           <DisplayTodoSubtask tasks={item.itemTasks} listId={listId} token={token} />
         </div>
       ) : null}

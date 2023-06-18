@@ -111,7 +111,7 @@ const EditTodoItemModal = ({
             value={time || ""}
             required={false}
             handleChange={(e: React.FormEvent<HTMLInputElement>) => {
-              setTime(e.currentTarget.value + ":00");
+              setTime(e.currentTarget.value ? e.currentTarget.value + ":00" : null);
             }}
           />
           <TodoLocation isLoaded={isLoaded} loc={loc} setLoc={setLoc} />

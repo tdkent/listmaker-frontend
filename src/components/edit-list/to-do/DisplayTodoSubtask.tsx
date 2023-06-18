@@ -34,18 +34,18 @@ const DisplayTodoSubtask = ({ tasks, listId, token }: DisplaySubtaskProps) => {
           return (
             <div
               key={task.taskId}
-              className={`text-[13px] py-2 ${
+              className={`pl-10 pr-16 py-2 text-sm ${
                 task.isChecked && "line-through text-gray-600 dark:text-gray-500"
               }`}>
               <li>
-                <div className="flex flex-row items-center mx-6 lg:ml-6 lg:mr-20">
+                <div className="flex flex-row items-center">
                   <Checkbox
                     id={`subtask-checkbox-${task.taskId}`}
                     disabled={active}
                     checked={task.isChecked}
                     onChange={() => mutation.mutate({ taskId: task.taskId, itemId: task.itemId })}
                   />
-                  <span className="text-justify overflow-hidden">{task.taskName}</span>
+                  <span className="text-justify overflow-hidden ml-1">{task.taskName}</span>
                 </div>
               </li>
             </div>
