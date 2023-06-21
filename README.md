@@ -1,6 +1,6 @@
 # ListMaker
 
-## About ListMaker
+## About
 
 Welcome to the front-end codebase of ListMaker, a list-making application begun in February and
 launched in June of 2023. ListMaker is in ongoing development, with improvements and new features
@@ -43,16 +43,27 @@ types: **Shopping** and **To-Do**.
   updated in the Edit To-Do window.
 - Due Time: New to-dos are not assigned a due time by default, but this may be updated in the Edit
   To-Do window.
-- Location:
-- Recurrence:
-- Subtasks:
+- Location: New to-dos are not assigned a location by default, but this may be updated in the Edit
+  To-Do window. The Location form input is integrated with the Use Places Autocomplete node package,
+  an extension of Google Places API. Once the user begins entering a new address or location a
+  selectable list of five addresses will auto-populate in the space beneath the input field.
+  - The new location is assigned coordinates via Google Geocoding API from the backend and used with
+    Google Maps JavaScript API to create a map in the To-do Details modal.
+- Recurrence: To-do items are not assigned a recurrence interval by default. Recurrence is activated
+  via a checkbox input. The default recurrence value is 1 day, which can be edited to be 1-10 days,
+  weeks, months, or years.
+- Subtasks: Editable subtasks can be assigned to to-do items via the Subtasks form.
+- Unlike Shopping items, multiple to-do items with the same name (case insensitive) can be created
+  within the same list. By default the following fields from the most recent version of a to-do
+  (even if that to-do has been deleted) are assigned to a to-do of the same name:
+  - Category, Due Time, Location, Recurrence
 
 ## Upcoming
 
 - Email authentication
 - New list type
 
-## Technologies
+## Stack
 
 ### Languages:
 
