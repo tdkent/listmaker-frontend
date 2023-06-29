@@ -17,6 +17,9 @@
   .button-cancel {
     @apply w-fit text-center my-6 font-medium text-gray-600 hover:text-gray-900 dark:text-gray-300 dark:hover:text-gray-400;
   }
+  .is-fixed {
+    @apply fixed overflow-auto h-full w-full;
+  }
 }
 
 @layer base {

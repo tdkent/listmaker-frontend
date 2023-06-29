@@ -1,7 +1,6 @@
 import { RouterProvider } from "react-router-dom";
 import { useState, useEffect } from "react";
 import { AxiosError } from "axios";
-// import { disableBodyScroll, enableBodyScroll, clearAllBodyScrollLocks } from "body-scroll-lock";
 
 import AuthContext, { AuthContextInt } from "./context/AuthContext";
 import ModalContext, { ModalContextInt } from "./context/ModalContext";
@@ -25,15 +24,12 @@ function App() {
   // modal context
   const [modalActive, setModalActive] = useState<boolean>(false);
   const [contentId, setContentId] = useState<ModalContextInt["contentId"]>("");
+  const [scrollTop, setScrollTop] = useState(0);
+  const wrapper = document.getElementById("wrapper")!;
   const toggleModal = (value: boolean) => {
     setModalActive(value);
-    // future ref: body-lock-scroll
-    // const targetElement = document.getElementById("modal") as HTMLElement;
-    // if (value) disableBodyScroll(targetElement);
-    // else {
-    //   enableBodyScroll(targetElement);
-    //   clearAllBodyScrollLocks();
-    // }
+    !modalActive && setScrollTop(window.scrollY);
+    value ? wrapper.classList.add("is-fixed") : wrapper.classList.remove("is-fixed");
   };
   const provideId = (value: ModalContextInt["contentId"]) => setContentId(value);
   const modal: ModalContextInt = {
@@ -92,6 +88,10 @@ function App() {
       document.documentElement.classList.remove("dark");
     }
   }, []);
+
+  useEffect(() => {
+    wrapper && modalActive ? wrapper.scroll(0, scrollTop) : window.scrollTo(0, scrollTop);
+  });
 
   return (
     <ModalContext.Provider value={modal}>

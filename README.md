@@ -2,7 +2,7 @@
 
 ## About
 
-Welcome to the front-end codebase of ListMaker, a list-making application begun in February and
+Welcome to the frontend codebase of ListMaker, a list-making application begun in February and
 launched in June of 2023. ListMaker is in ongoing development, with improvements and new features
 planned. Read on for details!
 
@@ -82,7 +82,6 @@ types: **Shopping** and **To-Do**.
 - `Luxon`
 - `React Toastify`
 - `Animate.css`
-- `Body-Scroll-Lock`
 - `Google Maps JavaScript API Loader`
 - `React Google Maps API`
 - `Use Places Autocomplete`

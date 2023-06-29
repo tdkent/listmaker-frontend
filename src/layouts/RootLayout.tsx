@@ -14,7 +14,7 @@ const RootLayout = (): JSX.Element => {
   const { active, data } = useContext(ErrorContext);
   const modal = useContext(ModalContext);
   return (
-    <>
+    <div id="wrapper">
       <div
         id="container"
         className={`${
@@ -29,7 +29,7 @@ const RootLayout = (): JSX.Element => {
         </main>
       </div>
       <Footer />
-    </>
+    </div>
   );
 };
 
