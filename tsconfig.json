@@ -16,13 +16,5 @@
     "noEmit": true,
     "jsx": "react-jsx"
   },
-  "include": [
-    "src",
-    "practice-files/router_practice.tsx",
-    "practice-files/NotFound.tsx",
-    "practice-files/CareersLayout.tsx",
-    "practice-files/careers",
-    "practice-files/help",
-    "practice-files/About.tsx"
-  ]
+  "include": ["src"]
 }
