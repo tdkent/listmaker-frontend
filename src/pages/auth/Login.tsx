@@ -1,5 +1,5 @@
 import { useEffect, useContext } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 import AuthContext from "../../context/AuthContext";
 import LoginForm from "../../components/auth/LoginForm";
@@ -20,7 +20,8 @@ const Login = () => {
       <h2>Log in to ListMaker</h2>
       <LoginForm />
       <p className="pl-1">
-        Don't have an account? <Hyperlink to="/register">Sign up for free</Hyperlink>
+        Don't have an account?{" "}
+        <Hyperlink to="/register">Sign up for free</Hyperlink>
       </p>
     </section>
   );

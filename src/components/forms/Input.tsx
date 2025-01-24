@@ -1,4 +1,3 @@
-import Info from "../../icons/Info";
 import { InputIdsEnum } from "../../models/forms";
 import Tooltip from "./Tooltip";
 

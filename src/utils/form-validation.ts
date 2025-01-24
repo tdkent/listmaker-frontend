@@ -1,5 +1,6 @@
 export const checkIsEmail = (email: string): boolean => {
-  if (email.match(/^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/g)) return true;
+  if (email.match(/^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/i))
+    return true;
   return false;
 };
 
