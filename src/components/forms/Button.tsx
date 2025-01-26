@@ -5,9 +5,18 @@ interface ButtonProps {
   styles?: string;
   divStyles?: string;
   disabled?: boolean;
+  arialabel?: string;
 }
 
-const Button = ({ type, text, handleClick, styles, divStyles, disabled }: ButtonProps) => {
+const Button = ({
+  type,
+  text,
+  handleClick,
+  styles,
+  divStyles,
+  disabled,
+  arialabel,
+}: ButtonProps) => {
   return (
     <div className={`${divStyles || "text-center"}`}>
       <button
@@ -18,7 +27,9 @@ const Button = ({ type, text, handleClick, styles, divStyles, disabled }: Button
             ? "disabled:bg-transparent"
             : "disabled:bg-gray-300 disabled:hover:bg-gray-300 disabled:dark:bg-gray-600"
         }`}
-        disabled={disabled}>
+        disabled={disabled}
+        aria-label={arialabel}
+      >
         {text}
       </button>
     </div>

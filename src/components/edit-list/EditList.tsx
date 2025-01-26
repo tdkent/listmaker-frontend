@@ -108,14 +108,33 @@ const EditList = ({ token, listId, listName }: EditListProps) => {
       )}
       {modal.active && modal.contentId === ModalContentIdEnum.deleteList && (
         <Modal
-          modalContent={<DeleteListModal handleDelete={handleDelete} handleCancel={handleCancel} />}
+          modalContent={
+            <DeleteListModal
+              handleDelete={handleDelete}
+              handleCancel={handleCancel}
+            />
+          }
         />
       )}
       <div className="flex flex-row justify-between items-center overflow-hidden">
-        <h4 className="text-base font-medium truncate lg:text-3xl">{listName}</h4>
+        <h4 className="text-base font-medium truncate lg:text-3xl">
+          {listName}
+        </h4>
         <div className="flex flex-row w-[60px]">
-          <Button type="button" text={<Pencil />} handleClick={handleEditInit} disabled={active} />
-          <Button type="button" text={<Trash />} disabled={active} handleClick={handleDeleteInit} />
+          <Button
+            type="button"
+            text={<Pencil />}
+            handleClick={handleEditInit}
+            disabled={active}
+            arialabel="Edit"
+          />
+          <Button
+            type="button"
+            text={<Trash />}
+            disabled={active}
+            handleClick={handleDeleteInit}
+            arialabel="Delete"
+          />
         </div>
       </div>
     </>

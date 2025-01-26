@@ -8,7 +8,9 @@ import Checkbox from "../../forms/Checkbox";
 import Pencil from "../../../icons/Pencil";
 import { ShoppingListItemInt } from "../../../models/shopping";
 import { checkShoppingItem } from "../../../api/mutate-shopping-items";
-import ModalContext, { ModalContentIdEnum } from "../../../context/ModalContext";
+import ModalContext, {
+  ModalContentIdEnum,
+} from "../../../context/ModalContext";
 
 interface DisplayShoppingItemProps {
   token: string;
@@ -48,13 +50,18 @@ const DisplayShoppingItem = ({
             disabled={active}
             onChange={() => checkMutation.mutate(item.itemId)}
           />
-          <span className={`${item.isChecked && "line-through text-gray-600 dark:text-gray-500"}`}>
+          <span
+            className={`${
+              item.isChecked && "line-through text-gray-600 dark:text-gray-500"
+            }`}
+          >
             {item.itemName}
           </span>
         </div>
         <div>
           <Button
             type="button"
+            arialabel="Edit"
             disabled={active}
             text={<Pencil />}
             handleClick={() => {

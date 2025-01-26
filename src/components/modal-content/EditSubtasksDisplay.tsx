@@ -49,7 +49,8 @@ const EditSubtasksDisplay = ({
 
   // mutations
   const editMutation = useMutation({
-    mutationFn: (taskId: number) => editSubtask(taskId, itemId, editTask, token),
+    mutationFn: (taskId: number) =>
+      editSubtask(taskId, itemId, editTask, token),
     onSuccess: (data) => {
       setTaskList(data);
       queryClient.invalidateQueries(["list", listId]);
@@ -117,6 +118,7 @@ const EditSubtasksDisplay = ({
                         <div className="w-1/2 mr-0.5">
                           <Button
                             type="submit"
+                            arialabel="Submit"
                             text={<Check styles="w-5 h-5 m-auto" />}
                             styles={`${CustomStylesEnum.btnPrimary} w-full py-2.5 rounded-md text-white`}
                           />
@@ -124,6 +126,7 @@ const EditSubtasksDisplay = ({
                         <div className="w-1/2 ml-0.5">
                           <Button
                             type="button"
+                            arialabel="Cancel"
                             text={<Close styles="w-5 h-5 m-auto" />}
                             handleClick={handleEditCancel}
                             styles={`lg:ml-0 w-full py-2.5 text-white bg-gray-500 hover:bg-gray-600 rounded-md`}

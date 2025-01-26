@@ -8,7 +8,9 @@ import Button from "../../forms/Button";
 import Checkbox from "../../forms/Checkbox";
 import { TodoListItemInt, SubtaskInt, ToDoCats } from "../../../models/todo";
 import { checkTodoItem } from "../../../api/mutate-todo-items";
-import ModalContext, { ModalContentIdEnum } from "../../../context/ModalContext";
+import ModalContext, {
+  ModalContentIdEnum,
+} from "../../../context/ModalContext";
 import Queue from "../../../icons/Queue";
 import Calendar from "../../../icons/Calendar";
 import Clock from "../../../icons/Clock";
@@ -34,7 +36,9 @@ interface DisplayTodoItemProps {
   setIsRecurring: (value: React.SetStateAction<boolean>) => void;
   setRecurInteger: (value: React.SetStateAction<string>) => void;
   setRecurInterval: (value: React.SetStateAction<string>) => void;
-  setSelectedItem: (value: React.SetStateAction<TodoListItemInt | null>) => void;
+  setSelectedItem: (
+    value: React.SetStateAction<TodoListItemInt | null>
+  ) => void;
 }
 
 const DisplayTodoItem = ({
@@ -53,8 +57,13 @@ const DisplayTodoItem = ({
   // mutation
   const queryClient = useQueryClient();
   const checkMutation = useMutation({
-    mutationFn: ({ itemId }: { itemId: number; recurDate: string; recurVal: string }) =>
-      checkTodoItem(listId, itemId, token),
+    mutationFn: ({
+      itemId,
+    }: {
+      itemId: number;
+      recurDate: string;
+      recurVal: string;
+    }) => checkTodoItem(listId, itemId, token),
     onSuccess: () => queryClient.invalidateQueries(["list", listId]),
     onError: (error: AxiosError) => {
       toggleError(true);
@@ -86,26 +95,36 @@ const DisplayTodoItem = ({
           />
           <div className={"ml-1"}>
             <span
-              className={`${item.isChecked && "line-through text-gray-600 dark:text-gray-500"}`}>
+              className={`${
+                item.isChecked &&
+                "line-through text-gray-600 dark:text-gray-500"
+              }`}
+            >
               {item.itemName}
             </span>
             {!item.isChecked && (
               <div className="flex flex-row text-xs mt-0.5">
                 <span className="mr-2.5">
-                  {item.itemCategory === ToDoCats.appoint ? "Appt" : item.itemCategory}
+                  {item.itemCategory === ToDoCats.appoint
+                    ? "Appt"
+                    : item.itemCategory}
                 </span>
                 <span
                   className={`flex flex-row items-center mr-2 ${
                     isPastDue && "text-red-700 dark:text-red-500"
-                  }`}>
+                  }`}
+                >
                   <Calendar styles="w-4 h-4 mr-0.5" />
                   {dueDate}
                 </span>
                 {item.timeDue && !completedDate && (
                   <span
                     className={`flex flex-row items-center ${
-                      !completedDate && isPastDue && "text-red-700 dark:text-red-500"
-                    }`}>
+                      !completedDate &&
+                      isPastDue &&
+                      "text-red-700 dark:text-red-500"
+                    }`}
+                  >
                     <Clock />
                     {timeDue}
                   </span>
@@ -117,6 +136,7 @@ const DisplayTodoItem = ({
         <div className="flex flex-row">
           <Button
             type="button"
+            arialabel="Item Details"
             text={<CircleEllipsis />}
             disabled={active}
             handleClick={() => {
@@ -127,6 +147,7 @@ const DisplayTodoItem = ({
           />
           <Button
             type="button"
+            arialabel="Item Subtasks"
             text={<Queue />}
             disabled={active}
             handleClick={() => {
@@ -140,7 +161,11 @@ const DisplayTodoItem = ({
       </div>
       {item.itemTasks.length ? (
         <div className="pb-2">
-          <DisplayTodoSubtask tasks={item.itemTasks} listId={listId} token={token} />
+          <DisplayTodoSubtask
+            tasks={item.itemTasks}
+            listId={listId}
+            token={token}
+          />
         </div>
       ) : null}
     </>
