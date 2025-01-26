@@ -32,6 +32,7 @@ const NavBar = ({ showNav, setShowNav }: NavBarProps) => {
           type="button"
           handleClick={() => setShowNav(false)}
           divStyles="lg:hidden"
+          arialabel="Close Mobile Nav"
         />
       </div>
       <nav className="max-lg:p-2 max-lg:my-4">
