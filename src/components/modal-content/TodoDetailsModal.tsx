@@ -81,7 +81,7 @@ const TodoDetailsModal = ({
               modal.provideId(ModalContentIdEnum.editTodoItem);
               modal.toggleModal(true);
             }}
-            styles="rounded px-3 py-1 bg-blue-500 hover:bg-blue-600 text-white dark:bg-green-700 dark:hover:bg-green-800"
+            styles="rounded px-3 py-1 bg-blue-600 hover:bg-blue-700 text-white dark:bg-green-700 dark:hover:bg-green-800"
           />
         </div>
       </div>

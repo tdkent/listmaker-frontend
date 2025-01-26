@@ -36,7 +36,7 @@ const Select = ({
           id={id}
           defaultValue={defaultValue}
           onChange={handleSelect}
-          className="form-select w-full mb-3 p-2.5 lg:py-4 rounded-md bg-gray-50 dark:bg-gray-200 border border-gray-600 hover:border-blue-500 dark:hover:border-green-700 dark:text-gray-900"
+          className="form-select w-full mb-3 p-2.5 lg:py-4 rounded-md bg-gray-50 dark:bg-gray-200 border border-gray-600 hover:border-blue-600 dark:hover:border-green-700 dark:text-gray-900"
         >
           {options.map((option) => {
             return (
