@@ -3,7 +3,11 @@ import { useMemo, useContext } from "react";
 import ModalContext from "../../context/ModalContext";
 import { ModalContentIdEnum } from "../../context/ModalContext";
 import { TodoListItemInt } from "../../models/todo";
-import { createRelativeDate, createLocalDate, createTimeDue } from "../../utils/luxon-dates";
+import {
+  createRelativeDate,
+  createLocalDate,
+  createTimeDue,
+} from "../../utils/luxon-dates";
 import TodoMap from "../edit-list/to-do/TodoMap";
 import Button from "../forms/Button";
 import Calendar from "../../icons/Calendar";
@@ -68,12 +72,16 @@ const TodoDetailsModal = ({
               setDate(item.dateDue);
               setTime(item.timeDue || null);
               setIsRecurring(item.isRecurring);
-              setRecurInteger(!item.recurVal ? "" : item.recurVal.split(" ")[0]);
-              setRecurInterval(!item.recurVal ? "" : item.recurVal.split(" ")[1]);
+              setRecurInteger(
+                !item.recurVal ? "" : item.recurVal.split(" ")[0]
+              );
+              setRecurInterval(
+                !item.recurVal ? "" : item.recurVal.split(" ")[1]
+              );
               modal.provideId(ModalContentIdEnum.editTodoItem);
               modal.toggleModal(true);
             }}
-            styles="rounded px-3 py-1 bg-blue-500 hover:bg-blue-600 text-white dark:bg-green-600 dark:hover:bg-green-700"
+            styles="rounded px-3 py-1 bg-blue-600 hover:bg-blue-700 text-white dark:bg-green-700 dark:hover:bg-green-800"
           />
         </div>
       </div>
@@ -90,9 +98,9 @@ const TodoDetailsModal = ({
           <p>Completed: {createLocalDate(item.dateCompleted)}</p>
         ) : (
           <>
-            <p>{`Due Date: ${createLocalDate(item.dateDue)} (${createRelativeDate(
+            <p>{`Due Date: ${createLocalDate(
               item.dateDue
-            )})`}</p>
+            )} (${createRelativeDate(item.dateDue)})`}</p>
             <p className="mt-2">Due Time: {createTimeDue(item.timeDue)}</p>
           </>
         )}
@@ -122,7 +130,9 @@ const TodoDetailsModal = ({
         <Repeat styles="w-5 h-5 mx-auto text-gray-600 dark:text-gray-400 mb-2" />
         <p>
           {item.isRecurring
-            ? `This item is set to repeat on ${createLocalDate(item.dateRecurring)}`
+            ? `This item is set to repeat on ${createLocalDate(
+                item.dateRecurring
+              )}`
             : "This item does not repeat"}
         </p>
       </div>

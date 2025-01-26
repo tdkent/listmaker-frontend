@@ -8,7 +8,8 @@ const Footer = () => {
   return (
     <footer
       id="footer"
-      className="min-h-[120px] bg-blue-600 text-white text-sm font-light dark:bg-gray-900 dark:text-gray-300 mt-8">
+      className="min-h-[120px] bg-blue-700 text-white text-sm font-light dark:bg-gray-900 dark:text-gray-300 mt-8"
+    >
       <div className="flex flex-col lg:flex-row justify-center items-center max-lg:w-full w-full lg:w-[1024px] mx-auto  py-6 lg:py-12 border-t border-transparent dark:border-gray-600">
         <div className="max-lg:mb-6 lg:mx-4 ">&copy; 2023 Tim Kent</div>
         <div>
