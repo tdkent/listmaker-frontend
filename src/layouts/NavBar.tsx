@@ -19,8 +19,11 @@ const NavBar = ({ showNav, setShowNav }: NavBarProps) => {
   return (
     <div
       className={`max-lg:transition-all max-lg:fixed max-lg:top-0 ${
-        showNav ? "max-lg:left-0 max-lg:duration-1000" : "max-lg:left-full max-lg:duration-0"
-      } max-lg:z-50 max-lg:bg-white max-lg:w-full max-lg:h-screen max-lg:p-4 max-lg:dark:bg-gray-900`}>
+        showNav
+          ? "max-lg:left-0 max-lg:duration-1000"
+          : "max-lg:left-full max-lg:duration-0"
+      } max-lg:z-50 max-lg:bg-white max-lg:w-full max-lg:h-screen max-lg:p-4 max-lg:dark:bg-gray-900`}
+    >
       <div className="flex">
         <Button
           text={
@@ -38,7 +41,8 @@ const NavBar = ({ showNav, setShowNav }: NavBarProps) => {
               to="/"
               onClick={() => {
                 setShowNav(false);
-              }}>
+              }}
+            >
               Home
             </NavLink>
           </li>
@@ -49,7 +53,8 @@ const NavBar = ({ showNav, setShowNav }: NavBarProps) => {
                   to="/new"
                   onClick={() => {
                     setShowNav(false);
-                  }}>
+                  }}
+                >
                   New List
                 </NavLink>
               </li>
@@ -58,7 +63,8 @@ const NavBar = ({ showNav, setShowNav }: NavBarProps) => {
                   to="lists"
                   onClick={() => {
                     setShowNav(false);
-                  }}>
+                  }}
+                >
                   My Lists
                 </NavLink>
               </li>
@@ -67,7 +73,8 @@ const NavBar = ({ showNav, setShowNav }: NavBarProps) => {
                   to="profile"
                   onClick={() => {
                     setShowNav(false);
-                  }}>
+                  }}
+                >
                   Profile
                 </NavLink>
               </li>
@@ -83,7 +90,8 @@ const NavBar = ({ showNav, setShowNav }: NavBarProps) => {
                   to="login"
                   onClick={() => {
                     setShowNav(false);
-                  }}>
+                  }}
+                >
                   Log In
                 </NavLink>
               </li>
@@ -92,8 +100,9 @@ const NavBar = ({ showNav, setShowNav }: NavBarProps) => {
                   to="register"
                   onClick={() => {
                     setShowNav(false);
-                  }}>
-                  <span className="lg:rounded-md lg:px-4 lg:py-2 lg:text-white lg:bg-blue-500 lg:hover:bg-blue-600 dark:lg:bg-green-600 dark:lg:hover:bg-green-500">
+                  }}
+                >
+                  <span className="lg:rounded-md lg:px-4 lg:py-2 lg:text-white lg:bg-blue-500 lg:hover:bg-blue-600 dark:lg:bg-green-700 dark:lg:hover:bg-green-800">
                     Sign Up
                   </span>
                 </NavLink>

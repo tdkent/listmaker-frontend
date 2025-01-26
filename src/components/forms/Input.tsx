@@ -46,7 +46,7 @@ const Input = ({
           disabled={disabled}
           onChange={handleChange}
           className={`bg-gray-50 dark:bg-gray-200 dark:text-gray-900 border ${
-            !isError && `hover:border-blue-500 dark:hover:border-green-600`
+            !isError && `hover:border-blue-500 dark:hover:border-green-700`
           } ${
             isError && errorId === id ? "border-red-500" : "border-gray-600"
           } rounded w-full p-2.5 lg:py-4`}
