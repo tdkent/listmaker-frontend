@@ -60,9 +60,13 @@ Users may assign their to-dos to one of four categories:
 
 The default Due Date of a new _to-do_ is the same day that it was created. This may be updated in the **Edit To-Do** menu.
 
+<img src="https://github.com/user-attachments/assets/f74b7d70-4c8b-43a7-bd3a-f3c0a8d67311" alt="Due Date" style="width: 50%" />
+
 #### Due Time
 
 New _to-dos_ are not assigned a due time by default, but this may be updated in the **Edit To-Do** menu.
+
+<img src="https://github.com/user-attachments/assets/618ca21e-a148-4cbd-b9be-5850c3e8bd79" alt="Due Time" style="width: 50%" />
 
 #### Location
 
@@ -70,18 +74,23 @@ New _to-dos_ are not assigned a location by default, but this may be updated in 
 
 The Location form input is integrated with Google Places API. Once the user begins entering a new address or location a selectable list of addresses will auto-populate in the space beneath the input field.
 
+<img src="https://github.com/user-attachments/assets/8af05d46-addf-4b76-8ff6-77982753a18a" alt="Location" style="width: 50%" />
+
 The new location is assigned coordinates via Google Geocoding API from the backend and used with Google Maps JavaScript API to create a map in the To-do Details modal.
 
 #### Repeat
 
 _To-dos_ are not assigned a repeat interval by default. Users may set a _to-do_ to repeat by checking the `Repeat` checkbox in the **Edit To-Do** menu.
 
-The default repeat interval is 1 day. Users may set a custom interval of 1-10 days,
-weeks, months, or years.
+The default repeat interval is 1 day. Users may set a custom interval of 1-10 days, weeks, months, or years.
+
+<img src="https://github.com/user-attachments/assets/e7d9464f-8381-499e-be34-5c7169c83d43" alt="Repeat Interval" style="width: 50%" />
 
 #### Subtasks
 
 The Subtasks feature allows users to break _to-dos_ into smaller items of work. Subtasks are created, edited, and deleted in the Subtasks menu.
+
+<img src="https://github.com/user-attachments/assets/e26e1661-e2f8-4202-a0f0-f1093d22c426" alt="Subtasks" style="width: 50%" />
 
 > [!NOTE]  
 > By default the following fields from the most recent version of a _to-do_ are assigned to any _to-do_ with the same name (case insensitive):
@@ -102,6 +111,8 @@ A user's profile consists of the following items:
 
 Users may also change the color mode of the website to light mode, dark mode, or to use their system settings.
 
+<img src="https://github.com/user-attachments/assets/a34a1c20-c026-4d96-bb26-b51cff3a7588" alt="Color Preference" style="width: 50%" />
+
 ---
 
 ## Built with
@@ -119,6 +130,8 @@ Users may also change the color mode of the website to light mode, dark mode, or
 ---
 
 ## Views
+
+![listmaker-mobile-views](https://github.com/user-attachments/assets/8cca16d5-425f-49f2-a66a-47563601632d)
 
 ---
 
